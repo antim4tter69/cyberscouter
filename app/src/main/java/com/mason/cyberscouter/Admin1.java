@@ -1,5 +1,6 @@
 package com.mason.cyberscouter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class Admin1 extends AppCompatActivity {
+    private Button button8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,17 @@ public class Admin1 extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    }
 
+        button8 = findViewById(R.id.button8);
+        ((View) button8).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity();
+            }
+        });
+    }
+public void openMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+}
 }

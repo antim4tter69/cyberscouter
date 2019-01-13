@@ -1,14 +1,28 @@
 <resources>
     <string name="app_name">Cyber Scouter</string>
 
-    <string name="button" >Admin</string>
+    <string name="button">Admin</string>
     <string name="button2">Scouting</string>
-    <string name="button3">Update Photos</string>
-    <string name="button4">Synchronize Data</string>
+    <string name="button3">Sync data</string>
+    <string name="button4">Sync pictures</string>
+
+    <string name="scouting1">Level 1 scouting</string>
+    <string name="scouting2">Level 2 scouting</string>
+    <string name="scouting3">Level 3 scouting</string>
+    <string name="scouting4">Pit scouting</string>
+    <string name="scouting5">Review</string>
+    <string name="scouting6">Robot comments</string>
+
+    <string name="admin1">Test mode</string>
+    <string name="admin2">Rotate field</string>
+    <string name="admin3">Test mode</string>
+    <string name="admin4">Test mode</string>
 
     <string name="Proj_Name">The CyberScouter</string>
 
     <string name="Event">Enter Event Name Here</string>
 
     <string name="Tab">Tablet #_</string>
+    <string name="title_activity_admin">Admin</string>
+    <string name="title_activity_admin1">Admin1</string>
 </resources>

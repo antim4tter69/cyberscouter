@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Cyber Scouter</string>
 
-    <string name="button" >Admin</string>
+    <string name="button">Admin</string>
     <string name="button2">Scouting</string>
     <string name="button3">Update Photos</string>
     <string name="button4">Synchronize Data</string>
@@ -11,4 +11,12 @@
     <string name="Event">Enter Event Name Here</string>
 
     <string name="Tab">Tablet #_</string>
+    <string name="title_activity_submit_page">SubmitPage</string>
+    <string name="PreviousButton">Previous</string>
+    <string name="NeedsReviewButton">Needs Review</string>
+    <string name="CurrentMatch">Match Und</string>
+    <string name="CurrentTeam">Und #</string>
+    <string name="SubmitButton">Submit</string>
+    <string name="SubmitPageTitle">Submission</string>
+    <color name="CurrentTeamColor">#990099</color>
 </resources>

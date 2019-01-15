@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mason.cyberscouter">
+    package="com.frcteam195.cyberscouter">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.frcteam195.cyberscouter.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Admin1"
+            android:name="com.frcteam195.cyberscouter.Admin1"
             android:label="@string/title_activity_admin1"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

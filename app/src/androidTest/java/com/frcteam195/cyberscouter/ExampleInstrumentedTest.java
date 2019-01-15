@@ -1,4 +1,4 @@
-package com.mason.cyberscouter;
+package com.frcteam195.cyberscouter;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

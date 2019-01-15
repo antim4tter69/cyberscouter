@@ -1,4 +1,4 @@
-package com.mason.cyberscouter;
+package com.frcteam195.cyberscouter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 
 public class Admin1 extends AppCompatActivity {
     private Button button8;
@@ -27,8 +28,9 @@ public class Admin1 extends AppCompatActivity {
             }
         });
 
-        button8 = findViewById(R.id.button8);
-        ((View) button8).setOnClickListener(new View.OnClickListener() {
+        button8 = (Button) findViewById(R.id.button8);
+        button8.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 openMainActivity();

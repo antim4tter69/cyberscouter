@@ -1,4 +1,4 @@
-package com.mason.cyberscouter;
+package com.frcteam195.cyberscouter;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

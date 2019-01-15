@@ -1,4 +1,4 @@
-package com.mason.cyberscouter;
+package com.frcteam195.cyberscouter;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.mason.cyberscouter", appContext.getPackageName());
+        assertEquals("com.frcteam195.cyberscouter", appContext.getPackageName());
     }
 }

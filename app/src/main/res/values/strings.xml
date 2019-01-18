@@ -23,4 +23,12 @@
     <string name="Tab">Tablet #_</string>
     <string name="title_activity_admin">Admin</string>
     <string name="title_activity_admin1">Admin1</string>
+    <string name="title_activity_submit_page">SubmitPage</string>
+    <string name="PreviousButton">Previous</string>
+    <string name="NeedsReviewButton">Needs Review</string>
+    <string name="CurrentMatch">Match Und</string>
+    <string name="CurrentTeam">Und #</string>
+    <string name="SubmitButton">Submit</string>
+    <string name="SubmitPageTitle">Submission</string>
+    <color name="CurrentTeamColor">#990099</color>
 </resources>

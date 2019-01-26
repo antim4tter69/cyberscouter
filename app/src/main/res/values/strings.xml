@@ -30,5 +30,9 @@
     <string name="CurrentTeam">Und #</string>
     <string name="SubmitButton">Submit</string>
     <string name="SubmitPageTitle">Submission</string>
+    <string name="NamePickerButton">Name Picker</string>
+    <string name="CancelButton">Cancel</string>
+    <string name="NextButton">Next</string>
+    <string name="DefaultButtonName">DefaultName</string>
     <color name="CurrentTeamColor">#990099</color>
 </resources>

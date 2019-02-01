@@ -22,9 +22,58 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        button = (Button) findViewById(R.id.button2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openScouting();
+
+            }
+        });
+
+        button = (Button) findViewById(R.id.button3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syncPictures();
+
+            }
+        });
+
+        button = (Button) findViewById(R.id.button4);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                syncData();
+
+            }
+        });
+
+        button = (Button) findViewById(R.id.SwitchButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setOffline();
+
+            }
+        });
+
     }
     public void openAdmin1(){
     Intent intent = new Intent(this, Admin1.class);
     startActivity(intent);
+    }
+
+    public void openScouting(){
+    }
+
+    public void syncPictures(){
+    }
+
+    public void syncData(){
+    }
+
+    public void setOffline(){
     }
 }

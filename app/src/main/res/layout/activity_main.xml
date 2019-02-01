@@ -167,4 +167,18 @@
         app:srcCompat="@drawable/g"
         tools:ignore="MissingConstraints" />
 
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="1264dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="418dp" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="210dp"
+        android:layout_height="36dp"
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="418dp" />
+
 </android.support.constraint.ConstraintLayout>

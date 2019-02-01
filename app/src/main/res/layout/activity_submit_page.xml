@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="644dp"
-        android:layout_height="199dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="180dp"
         android:text="@string/NeedsReviewButton"
         android:textSize="36sp"
@@ -31,8 +31,8 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="644dp"
-        android:layout_height="198dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/SubmitButton"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/button6"
@@ -46,36 +46,44 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="128dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
         android:text="@string/CurrentMatch"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="524dp"
-        android:layout_marginRight="524dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:text="@string/CurrentTeam"
         android:textColor="@color/CurrentTeamColor"
         android:textColorLink="@color/CurrentTeamColor"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        tools:layout_editor_absoluteY="128dp" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
+        android:layout_width="211dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="40dp"
         android:text="@string/SubmitPageTitle"
         android:textColor="@android:color/black"
         android:textSize="40sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="535dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

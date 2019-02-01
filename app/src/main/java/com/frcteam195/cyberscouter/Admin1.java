@@ -9,10 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 public class Admin1 extends AppCompatActivity {
-    private Button button8;
+    private Button button;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,17 +29,67 @@ public class Admin1 extends AppCompatActivity {
         spnr.setAdapter(adapter);
 
 
-        button8 = (Button) findViewById(R.id.button8);
-        button8.setOnClickListener(new View.OnClickListener() {
+        button = (Button) findViewById(R.id.button8);
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 openMainActivity();
             }
         });
+
+        button = (Button) findViewById(R.id.button5);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setTestMode();
+            }
+        });
+
+        button = (Button) findViewById(R.id.button6);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                updateCode();
+            }
+        });
+
+        button = (Button) findViewById(R.id.button7);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setUpSync();
+            }
+        });
+
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        imageButton = (ImageButton) findViewById(R.id.imageButton2);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+
     }
 public void openMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 }
+
+
+    public void setTestMode(){}
+    public void updateCode(){}
+    public void setUpSync(){}
 }

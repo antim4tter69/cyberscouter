@@ -91,8 +91,8 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="384dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginLeft="18dp"
         android:text="@string/Event"
@@ -155,6 +155,20 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/textView41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:layout_marginLeft="112dp"
+        android:text="What is your role"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.488"
+        tools:ignore="MissingConstraints" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="719dp"
@@ -172,13 +186,6 @@
         android:layout_width="1264dp"
         android:layout_height="wrap_content"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="418dp" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="210dp"
-        android:layout_height="36dp"
-        tools:layout_editor_absoluteX="104dp"
         tools:layout_editor_absoluteY="418dp" />
 
 </android.support.constraint.ConstraintLayout>

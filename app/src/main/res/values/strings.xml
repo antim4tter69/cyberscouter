@@ -26,8 +26,7 @@
     <string name="title_activity_submit_page">SubmitPage</string>
     <string name="PreviousButton">Previous</string>
     <string name="NeedsReviewButton">Needs Review</string>
-    <string name="CurrentMatch">Match Und</string>
-    <string name="CurrentTeam">Und #</string>
+
     <string name="SubmitButton">Submit</string>
     <string name="SubmitPageTitle">Submission</string>
     <string name="NamePickerButton">Name Picker</string>
@@ -46,8 +45,11 @@
     <string name="YesButton">Y</string>
     <string name="NoButton">N</string>
     <string name="MoveBonusText">Move Bonus</string>
+    <string name="GroundStartingPositionButton">Ground</string>
     <string name="LevelOneStartingPositionButton">Lvl 1</string>
     <string name="LevelTwoStartingPositionButton">Lvl 2</string>
+    <string name="LevelThreeStartingPositionButton">Lvl 3</string>
+
     <string name="StartingPositionText">Starting Position</string>
     <string name="PreloadText">Preload</string>
     <string name="PreloadCargoButton">Cargo</string>
@@ -66,5 +68,33 @@
     <string name="CargoText">Cargo</string>
     <string name="FarPanelText">Far Panel</string>
     <string name="PanelText">Panel</string>
+    <string name="RedOneText">Red One</string>
+    <string name="RedTwoText">Red Two</string>
+    <string name="RedThreeText">Red Three</string>
+    <string name="BlueOneText">Blue One</string>
+    <string name="BlueTwoText">Blue Two</string>
+    <string name="BlueThreeText">Blue Three</string>
+
+    <string name="BlueAllianceText">Blue Alliance</string>
+    <string name="RedAllianceText">Red Alliance</string>
+
+    <string name="CurrentMatch">Match Und</string>
+    <string name="CurrentTeam">Und #</string>
+    <string name="StartMatch">Start</string>
+    <string name="NamePickerPage">Name Picker</string>
+    <string name="ReturnToMainMenu">Return To Main Menu</string>
+    <string name="ScoutingPage">Level One Scouting</string>
+
+    <string name="EndPageText">End Game</string>
     <string name="ZeroText">0</string>
+    <string name="NoAttemptButton">No Attempt</string>
+    <string name="WasHelpedButton">Was Helped</string>
+    <string name="ClimbText">Climb</string>
+    <string name="RobotProblemsText">Robot Problems</string>
+    <string name="LostCommText">Lost Comm</string>
+    <string name="BrokeDownText">Broke Down</string>
+    <string name="TippedOverText">Tipped Over</string>
+    <string name="GroundPanelPickupText">Ground Panel Pick Up</string>
+
+
 </resources>

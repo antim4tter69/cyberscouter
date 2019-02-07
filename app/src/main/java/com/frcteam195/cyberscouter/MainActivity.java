@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openScouting(){
+        Intent intent = new Intent(this, ScoutingPage.class);
+        startActivity(intent);
     }
 
     public void syncPictures(){

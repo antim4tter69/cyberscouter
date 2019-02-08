@@ -22,6 +22,34 @@
             android:label="@string/title_activity_admin1"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NamePickerPageActivity"></activity>
+
+        <activity
+            android:name=".ScoutingPage"
+            android:label="@string/ScoutingPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+        android:name=".AutoPage"
+        android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".EndPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".TelePage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".SummaryQuestionsPage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
+
+
+
+
+
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_ROLE = "role";
         public static final String COLUMN_NAME_EVENT = "event";
         public static final String COLUMN_NAME_TABLET_NUM = "tablet_num";
+        public static final String COLUMN_NAME_OFFLINE = "offline";
     }
 
 }

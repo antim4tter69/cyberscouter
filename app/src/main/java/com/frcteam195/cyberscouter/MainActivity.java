@@ -142,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 ToggleButton tb = findViewById(R.id.SwitchButton);
                 tb.setChecked(true);
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 1);
+                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
 
 // Insert the new row, returning the primary key value of the new row
                 long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);

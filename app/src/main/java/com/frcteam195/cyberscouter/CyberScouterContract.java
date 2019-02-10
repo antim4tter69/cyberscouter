@@ -18,4 +18,14 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_FIELD_REDLEFT = "field_red_left";
     }
 
+    public static class Events implements BaseColumns {
+        public static final String TABLE_NAME = "Events";
+        public static final String COLUMN_NAME_EVENTID = "EventId";
+        public static final String COLUMN_NAME_EVENTNAME = "EventName";
+        public static final String COLUMN_NAME_EVENTLOCATION = "EventLocation";
+        public static final String COLUMN_NAME_STARTDATE = "StartDate";
+        public static final String COLUMN_NAME_ENDDATE = "EndDate";
+        public static final String COLUMN_NAME_CURRENTEVENT = "CurrentEvent";
+    }
+
 }

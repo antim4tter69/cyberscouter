@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,14 +13,32 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+import static java.lang.Thread.sleep;
+
 public class MainActivity extends AppCompatActivity {
     private Button button;
+    static private Connection conn = null;
+    static private String g_event = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        try {
+            if (conn == null) {
+
+                (new DBConnectionTask()).execute(null, null, null);
+
+            }
+            while (g_event == null)
+                sleep(10);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
 
         setContentView(R.layout.activity_main);
 
@@ -108,17 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 tv = findViewById(R.id.textView4);
                 tv.setText(cfg.getEvent());
 
-                tv = findViewById(R.id.textView6);
-                /* if there is a table number (can't be zero) */
-                if(cfg.getTablet_num() > 0)
-                    tv.setText("Tablet #" + cfg.getTablet_num());
-                else {
-                    /* otherwise, disable the scouting button -- must have a table number */
-                    tv.setText("Tablet #_");
-                    button = (Button) findViewById(R.id.button2);
-                    button.setEnabled(false);
-                }
-
                 /* Make the offline toggle button reflect the last setting */
                 ToggleButton tb = findViewById(R.id.SwitchButton);
                 tb.setChecked(cfg.isOffline());
@@ -132,12 +140,13 @@ public class MainActivity extends AppCompatActivity {
                 tv = findViewById(R.id.textView41);
                 tv.setText(tmp);
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
-                tmp = "Unknown Event";
+                if(null != g_event)
+                    tmp = g_event;
+                else
+                    tmp = "Unknown Event";
                 tv = findViewById(R.id.textView4);
                 tv.setText(tmp);
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, tmp);
-                tv = findViewById(R.id.textView6);
-                tv.setText("Tablet #_");
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, 0);
                 ToggleButton tb = findViewById(R.id.SwitchButton);
                 tb.setChecked(true);
@@ -190,5 +199,54 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
             throw(e);
         }
+    }
+
+    private class DBConnectionTask extends AsyncTask<Void, Void, Void> {
+        final private static String serverAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
+        final private static String dbName = "CyberScouter";
+        final private static String username = "admin";
+        final private static String password = "Einstein195";
+
+        @Override
+        protected Void doInBackground(Void... arg) {
+
+            try {
+                Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
+                        + serverAddress + "/" + dbName, username, password);
+
+                CyberScouterEvent cse = new CyberScouterEvent();
+                CyberScouterEvent cse2 = cse.getCurrentEvent(conn);
+
+                if(null != cse2) {
+                    g_event = cse2.getEventName();
+                    setEvent(g_event);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    private void setEvent(String val) {
+        try {
+            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+            SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, val);
+            int count = db.update(
+                    CyberScouterContract.ConfigEntry.TABLE_NAME,
+                    values,
+                    null,
+                    null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw (e);
+        }
+
     }
 }

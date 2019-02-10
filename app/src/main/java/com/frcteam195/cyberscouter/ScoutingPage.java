@@ -54,7 +54,6 @@ public class ScoutingPage extends AppCompatActivity {
         startActivity(intent);
     }
     public void returnToMainMenu(){
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        this.finish();
     }
 }

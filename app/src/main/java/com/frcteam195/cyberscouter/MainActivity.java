@@ -1,29 +1,26 @@
 package com.frcteam195.cyberscouter;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.security.AccessController.getContext;
+import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
         setContentView(R.layout.activity_main);
 
         button = (Button) findViewById(R.id.button);
@@ -62,21 +59,109 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.SwitchButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        final ToggleButton tb = findViewById(R.id.SwitchButton);
+        tb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setOffline();
+                setOffline(tb);
 
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        processConfig(db);
+    }
+
+    @Override
+    protected void onDestroy() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        mDbHelper.close();
+        super.onDestroy();
+    }
+
+    private void processConfig(SQLiteDatabase db) {
+        try {
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+            TextView tv = null;
+            if( null != cfg) {
+                /* Enable the scouting button */
+                button = (Button) findViewById(R.id.button2);
+                button.setEnabled(true);
+
+                /* Read the config values from SQLite */
+                tv = findViewById(R.id.textView41);
+                String tmp = cfg.getRole();
+                if(tmp.startsWith("Blu"))
+                    tv.setTextColor(Color.BLUE);
+                else if(tmp.startsWith("Red"))
+                    tv.setTextColor(Color.RED);
+                else
+                    tv.setTextColor(Color.BLACK);
+                tv.setText(cfg.getRole());
+
+                tv = findViewById(R.id.textView4);
+                tv.setText(cfg.getEvent());
+
+                tv = findViewById(R.id.textView6);
+                /* if there is a table number (can't be zero) */
+                if(cfg.getTablet_num() > 0)
+                    tv.setText("Tablet #" + cfg.getTablet_num());
+                else {
+                    /* otherwise, disable the scouting button -- must have a table number */
+                    tv.setText("Tablet #_");
+                    button = (Button) findViewById(R.id.button2);
+                    button.setEnabled(false);
+                }
+
+                /* Make the offline toggle button reflect the last setting */
+                ToggleButton tb = findViewById(R.id.SwitchButton);
+                tb.setChecked(cfg.isOffline());
+
+            } else {
+                String tmp = null;
+                button = (Button) findViewById(R.id.button2);
+                button.setEnabled(false);
+                ContentValues values = new ContentValues();
+                tmp = "Unknown Role";
+                tv = findViewById(R.id.textView41);
+                tv.setText(tmp);
+                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
+                tmp = "Unknown Event";
+                tv = findViewById(R.id.textView4);
+                tv.setText(tmp);
+                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, tmp);
+                tv = findViewById(R.id.textView6);
+                tv.setText("Tablet #_");
+                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, 0);
+                ToggleButton tb = findViewById(R.id.SwitchButton);
+                tb.setChecked(true);
+                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 1);
+                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
+
+// Insert the new row, returning the primary key value of the new row
+                long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw(e);
+        }
+    }
+
     public void openAdmin1(){
     Intent intent = new Intent(this, Admin1.class);
     startActivity(intent);
     }
 
     public void openScouting(){
+        Intent intent = new Intent(this, ScoutingPage.class);
+        startActivity(intent);
     }
 
     public void syncPictures(){
@@ -85,142 +170,25 @@ public class MainActivity extends AppCompatActivity {
     public void syncData(){
     }
 
-    public void setOffline(){
-    }
+    public void setOffline(ToggleButton tb) {
+        try {
+            int chkd = 0;
+            if (tb.isChecked())
+                chkd = 1;
 
-    public final class FeedReaderContract {
-        // To prevent someone from accidentally instantiating the contract class,
-        // make the constructor private.
-        private FeedReaderContract() {}
-
-        /* Inner class that defines the table contents */
-        public class FeedEntry implements BaseColumns {
-            public static final String TABLE_NAME = "configuration";
-            public static final String COLUMN_NAME_ROLE = "role";
-            public static final String COLUMN_NAME_EVENT = "event";
-            public static final String COLUMN_NAME_TABLET = "tablet number";
-            public static final String COLUMN_NAME_LAYOUT = "field layout";
-            public static final String COLUMN_NAME_CONNECT = "online/offline";
-
-            private final String SQL_CREATE_ENTRIES =
-                    "CREATE TABLE " + FeedEntry.TABLE_NAME + " (" +
-                            FeedEntry._ID + " INTEGER PRIMARY KEY," +
-                            FeedEntry.COLUMN_NAME_ROLE + " ROLE," +
-                            FeedEntry.COLUMN_NAME_TABLET + " TABLET NUMBER," +
-                            FeedEntry.COLUMN_NAME_LAYOUT + "FIELD LAYOUT," +
-                            FeedEntry.COLUMN_NAME_CONNECT + "ONLINE/OFFLINE," +
-                            FeedEntry.COLUMN_NAME_EVENT + " EVENT)";
-
-            private static final String SQL_DELETE_ENTRIES =
-                    "DROP TABLE IF EXISTS " + FeedEntry.TABLE_NAME;
-
-
-        }
-
-        public class FeedReaderDbHelper extends SQLiteOpenHelper {
-            // If you change the database schema, you must increment the database version.
-            public static final int DATABASE_VERSION = 1;
-            public static final String DATABASE_NAME = "FeedReader.db";
-
-            public FeedReaderDbHelper(Context context) {
-                super(context, DATABASE_NAME, null, DATABASE_VERSION);
-            }
-            public void onCreate(SQLiteDatabase db) {
-                db.execSQL(SQL_CREATE_ENTRIES);
-            }
-            public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-                // This database is only a cache for online data, so its upgrade policy is
-                // to simply to discard the data and start over
-                db.execSQL(SQL_DELETE_ENTRIES);
-                onCreate(db);
-            }
-            public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-                onUpgrade(db, oldVersion, newVersion);
-            }
-            // Insert the new row, returning the primary key value of the new row
-            long newRowId = db.insert(FeedEntry.TABLE_NAME, null, values);
-
-            FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(getContext());
-
-            // Gets the data repository in write mode
+            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-            // Create a new map of values, where column names are the keys
             ContentValues values = new ContentValues();
-values.put(FeedEntry.COLUMN_NAME_ROLE, role);
-values.put(FeedEntry.COLUMN_NAME_EVENT, event);
-values.put(FeedEntry.COLUMN_NAME_TABLET, tablet);
-values.put(FeedEntry.COLUMN_NAME_LAYOUT, layout);
-Values.put(FeedEntry.COLUMN_NAME_CONNECT, connect);
-
-            SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-            // Define a projection that specifies which columns from the database
-// you will actually use after this query.
-            String[] projection = {
-                    BaseColumns._ID,
-                    FeedEntry.COLUMN_NAME_ROLE,
-                    FeedEntry.COLUMN_NAME_EVENT,
-                    FeedEntry.COLUMN_NAME_TABLET,
-                    FeedEntry.COLUMN_NAME_LAYOUT,
-                    FeedEntry.COLUMN_NAME_CONNECT,
-            };
-
-            // Filter results WHERE "title" = 'My Title'
-            String selection = FeedEntry.COLUMN_NAME_ROLE + " = ?";
-            String[] selectionArgs = { "ROLE" };
-
-            // How you want the results sorted in the resulting Cursor
-            String sortOrder =
-                    FeedEntry.COLUMN_NAME_EVENT + " DESC";
-
-            Cursor cursor = db.query(
-                    FeedEntry.TABLE_NAME,   // The table to query
-                    projection,             // The array of columns to return (pass null to get all)
-                    selection,              // The columns for the WHERE clause
-                    selectionArgs,          // The values for the WHERE clause
-                    null,                   // don't group the rows
-                    null,                   // don't filter by row groups
-                    sortOrder               // The sort order
-            );
-            List itemIds = new ArrayList<>();
-while(cursor.moveToNext()) {
-                long itemId = cursor.getLong(
-                        cursor.getColumnIndexOrThrow(FeedEntry._ID));
-                itemIds.add(itemId);
-            }
-cursor.close();
-
-            // Define 'where' part of query.
-            String selection = FeedEntry.COLUMN_NAME_ROLE + " LIKE ?";
-            // Specify arguments in placeholder order.
-            String[] selectionArgs = { "Role" };
-            // Issue SQL statement.
-            int deletedRows = db.delete(FeedEntry.TABLE_NAME, selection, selectionArgs);
-
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-            // New value for one column
-            String title = "MyNewTitle";
-            ContentValues values = new ContentValues();
-values.put(FeedEntry.COLUMN_NAME_ROLE, role);
-
-            // Which row to update, based on the title
-            String selection = FeedEntry.COLUMN_NAME_ROLE + " LIKE ?";
-            String[] selectionArgs = { "MyOldTitle" };
-
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, chkd);
             int count = db.update(
-                    FeedReaderDbHelper.FeedEntry.TABLE_NAME,
+                    CyberScouterContract.ConfigEntry.TABLE_NAME,
                     values,
-                    selection,
-                    selectionArgs);
-
+                    null,
+                    null);
+        } catch(Exception e) {
+            e.printStackTrace();
+            throw(e);
         }
-
-    }
-    @Override
-    protected void onDestroy() {
-        mDbHelper.close();
-        super.onDestroy();
     }
 }

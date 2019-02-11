@@ -1,6 +1,8 @@
 package com.frcteam195.cyberscouter;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,8 +10,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -23,22 +27,11 @@ public class MainActivity extends AppCompatActivity {
     static private Connection conn = null;
     static private String g_event = null;
 
+    static final private String g_adminPassword = "HailRobotOverlords";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        try {
-            if (conn == null) {
-
-                (new DBConnectionTask()).execute(null, null, null);
-
-            }
-            while (g_event == null)
-                sleep(10);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
 
         setContentView(R.layout.activity_main);
 
@@ -105,10 +98,25 @@ public class MainActivity extends AppCompatActivity {
 
     private void processConfig(SQLiteDatabase db) {
         try {
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+            CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+            /* if there's no existing configuration, we're going to assume the tablet
+            is "online", meaning that it can talk to the SQL Server database.  If there is a
+            configuration record, we'll use the offline setting from that to determine whether we
+            should query the SQL Server database for the current event.
+             */
+            if ((null == cfg) || (null != cfg) || (!cfg.isOffline())) {
+                if (conn == null) {
+
+                    (new DBConnectionTask()).execute(null, null, null);
+
+                }
+                while (g_event == null)
+                    sleep(10);
+            }
 
             TextView tv = null;
-            if( null != cfg) {
+            if (null != cfg) {
                 /* Enable the scouting button */
                 button = (Button) findViewById(R.id.button2);
                 button.setEnabled(true);
@@ -116,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 /* Read the config values from SQLite */
                 tv = findViewById(R.id.textView41);
                 String tmp = cfg.getRole();
-                if(tmp.startsWith("Blu"))
+                if (tmp.startsWith("Blu"))
                     tv.setTextColor(Color.BLUE);
-                else if(tmp.startsWith("Red"))
+                else if (tmp.startsWith("Red"))
                     tv.setTextColor(Color.RED);
                 else
                     tv.setTextColor(Color.BLACK);
@@ -130,17 +138,14 @@ public class MainActivity extends AppCompatActivity {
                 /* Make the offline toggle button reflect the last setting */
                 ToggleButton tb = findViewById(R.id.SwitchButton);
                 tb.setChecked(cfg.isOffline());
-
             } else {
                 String tmp = null;
-                button = (Button) findViewById(R.id.button2);
-                button.setEnabled(false);
                 ContentValues values = new ContentValues();
                 tmp = "Unknown Role";
                 tv = findViewById(R.id.textView41);
                 tv.setText(tmp);
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
-                if(null != g_event)
+                if (null != g_event)
                     tmp = g_event;
                 else
                     tmp = "Unknown Event";
@@ -159,24 +164,59 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw(e);
         }
     }
 
-    public void openAdmin1(){
-    Intent intent = new Intent(this, Admin1.class);
-    startActivity(intent);
+    public void openAdmin1() {
+        LayoutInflater li = LayoutInflater.from(this);
+        View pwdView = li.inflate(R.layout.dialog_password, null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(pwdView);
+
+        final EditText userInput = (EditText) pwdView
+                .findViewById(R.id.editTextDialogUserInput);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // get user input and set it to result
+                                // edit text
+                                if(g_adminPassword.matches(userInput.getText().toString())) {
+                                    Intent intent = new Intent(getApplicationContext(), Admin1.class);
+                                    startActivity(intent);
+                                }
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 
-    public void openScouting(){
+    public void openScouting() {
         Intent intent = new Intent(this, ScoutingPage.class);
         startActivity(intent);
     }
 
-    public void syncPictures(){
+    public void syncPictures() {
     }
 
-    public void syncData(){
+    public void syncData() {
     }
 
     public void setOffline(ToggleButton tb) {
@@ -195,9 +235,9 @@ public class MainActivity extends AppCompatActivity {
                     values,
                     null,
                     null);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            throw(e);
+            throw (e);
         }
     }
 
@@ -218,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                 CyberScouterEvent cse = new CyberScouterEvent();
                 CyberScouterEvent cse2 = cse.getCurrentEvent(conn);
 
-                if(null != cse2) {
+                if (null != cse2) {
                     g_event = cse2.getEventName();
                     setEvent(g_event);
                 }

@@ -13,6 +13,7 @@ public class CyberScouterConfig {
     private int tablet_num;
     private boolean offline;
     private boolean field_red_left;
+    private String username;
 
     public CyberScouterConfig(){}
 
@@ -34,6 +35,8 @@ public class CyberScouterConfig {
 
     public boolean isFieldRedLeft() {return field_red_left;}
 
+    public String getUsername() {return username;}
+
     static public CyberScouterConfig getConfig(SQLiteDatabase db) {
         CyberScouterConfig ret = null;
         Cursor cursor = null;
@@ -44,7 +47,8 @@ public class CyberScouterConfig {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE,
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT,
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME
             };
 
             String sortOrder =
@@ -71,6 +75,7 @@ public class CyberScouterConfig {
                 ret.tablet_num = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM));
                 ret.offline = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE))==1);
                 ret.field_red_left = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT))==1);
+                ret.username = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME));
 
                 /* If there's more than one config row -- we only want one */
                 if(1 < cursor.getCount()) {

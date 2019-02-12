@@ -24,7 +24,6 @@ import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
-    static private Connection conn = null;
     static private String g_event = null;
 
     static final private String g_adminPassword = "HailRobotOverlords";
@@ -105,22 +104,14 @@ public class MainActivity extends AppCompatActivity {
             configuration record, we'll use the offline setting from that to determine whether we
             should query the SQL Server database for the current event.
              */
-            if ((null == cfg) || (null != cfg) || (!cfg.isOffline())) {
-                if (conn == null) {
-
-                    (new DBConnectionTask()).execute(null, null, null);
-
-                }
+            if ((null == cfg) || (null != cfg && !cfg.isOffline())) {
+                (new getEventTask()).execute(null, null, null);
                 while (g_event == null)
                     sleep(10);
             }
 
             TextView tv = null;
             if (null != cfg) {
-                /* Enable the scouting button */
-                button = (Button) findViewById(R.id.button2);
-                button.setEnabled(true);
-
                 /* Read the config values from SQLite */
                 tv = findViewById(R.id.textView41);
                 String tmp = cfg.getRole();
@@ -132,12 +123,17 @@ public class MainActivity extends AppCompatActivity {
                     tv.setTextColor(Color.BLACK);
                 tv.setText(cfg.getRole());
 
+                tmp = cfg.getEvent();
+                if(g_event != tmp) {
+                    tmp = g_event;
+                    setEvent(tmp);
+                }
                 tv = findViewById(R.id.textView4);
-                tv.setText(cfg.getEvent());
+                tv.setText(tmp);
 
                 /* Make the offline toggle button reflect the last setting */
                 ToggleButton tb = findViewById(R.id.SwitchButton);
-                tb.setChecked(cfg.isOffline());
+                tb.setChecked(!cfg.isOffline());
             } else {
                 String tmp = null;
                 ContentValues values = new ContentValues();
@@ -155,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, 0);
                 ToggleButton tb = findViewById(R.id.SwitchButton);
                 tb.setChecked(true);
-                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 1);
+                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 0);
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
 
 // Insert the new row, returning the primary key value of the new row
@@ -221,9 +217,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setOffline(ToggleButton tb) {
         try {
-            int chkd = 0;
+            int chkd = 1;
             if (tb.isChecked())
-                chkd = 1;
+                chkd = 0;
 
             CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -241,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class DBConnectionTask extends AsyncTask<Void, Void, Void> {
+    private class getEventTask extends AsyncTask<Void, Void, Void> {
         final private static String serverAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
         final private static String dbName = "CyberScouter";
         final private static String username = "admin";
@@ -252,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
+                Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
                         + serverAddress + "/" + dbName, username, password);
 
                 CyberScouterEvent cse = new CyberScouterEvent();
@@ -262,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
                     g_event = cse2.getEventName();
                     setEvent(g_event);
                 }
+
+                conn.close();
 
             } catch (Exception e) {
                 e.printStackTrace();

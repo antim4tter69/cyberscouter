@@ -16,7 +16,8 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT + " TEXT," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM + " INTEGER," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE + " INTEGER," +
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT + " INTEGER)";
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT + " INTEGER," +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + CyberScouterContract.ConfigEntry.TABLE_NAME;

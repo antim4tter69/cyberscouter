@@ -151,14 +151,17 @@ public class AutoPage extends AppCompatActivity {
 
 
     }
+
+
     public void StartMatch(){
 
             Intent intent = new Intent(this, TelePage.class);
             startActivity(intent);
     }
+
+
     public void ReturnToScoutingPage(){
-        Intent intent = new Intent(this, ScoutingPage.class);
-        startActivity(intent);
+        this.finish();
     }
 
     public void groundFar(){}
@@ -174,7 +177,5 @@ public class AutoPage extends AppCompatActivity {
     public void preloadCargo(){}
     public void preloadPanel(){}
     public void preloadNone(){}
-
-
 
 }

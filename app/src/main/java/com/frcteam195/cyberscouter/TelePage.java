@@ -233,9 +233,7 @@ public class TelePage extends AppCompatActivity {
     }
 
     public void returnToAutoPage(){
-        Intent intent = new Intent(this, AutoPage.class);
-        startActivity(intent);
-
+        this.finish();
     }
 
     public void EndGamePage(){

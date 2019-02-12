@@ -96,5 +96,6 @@
     <string name="TippedOverText">Tipped Over</string>
     <string name="GroundPanelPickupText">Ground Panel Pick Up</string>
 
+    <string name="NamePickerTitle">Select Your Name</string>
 
 </resources>

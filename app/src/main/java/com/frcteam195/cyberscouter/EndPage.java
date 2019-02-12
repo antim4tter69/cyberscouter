@@ -33,9 +33,7 @@ public class EndPage extends AppCompatActivity {
         });
     }
     public void returnToTelePage(){
-        Intent intent = new Intent(this, TelePage.class);
-        startActivity(intent);
-
+        this.finish();
     }
 
     public void summaryQuestionsPage(){

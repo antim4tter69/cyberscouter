@@ -238,10 +238,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class getEventTask extends AsyncTask<Void, Void, Void> {
-        final private static String serverAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
-        final private static String dbName = "CyberScouter";
-        final private static String username = "admin";
-        final private static String password = "Einstein195";
 
         @Override
         protected Void doInBackground(Void... arg) {
@@ -249,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
-                        + serverAddress + "/" + dbName, username, password);
+                        + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
 
                 CyberScouterEvent cse = new CyberScouterEvent();
                 CyberScouterEvent cse2 = cse.getCurrentEvent(conn);

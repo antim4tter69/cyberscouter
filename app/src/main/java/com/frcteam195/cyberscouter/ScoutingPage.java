@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.sql.Connection;
@@ -19,7 +21,10 @@ import static java.lang.Thread.sleep;
 
 public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
     private Button button;
+    private ImageButton imageButton;
+
     private CyberScouterMatches[] g_matches  = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,27 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
             }
         });
+
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setFieldRedLeft(1);
+                setFieldImage(R.drawable.red_left);
+            }
+        });
+
+        imageButton = (ImageButton) findViewById(R.id.imageButton2);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                setFieldRedLeft(0);
+                setFieldImage(R.drawable.red_right);
+            }
+        });
+
     }
 
     @Override
@@ -82,6 +108,11 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+        if (cfg.isFieldRedLeft())
+            setFieldImage(R.drawable.red_left);
+        else
+            setFieldImage(R.drawable.red_right);
     }
 
     @Override
@@ -137,10 +168,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
     private class getMatchsTask extends AsyncTask<Void, Void, Void> {
-        final private static String serverAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
-        final private static String dbName = "CyberScouter";
-        final private static String username = "admin";
-        final private static String password = "Einstein195";
 
         @Override
         protected Void doInBackground(Void... arg) {
@@ -148,7 +175,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             try {
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
-                        + serverAddress + "/" + dbName, username, password);
+                        + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
 
                 CyberScouterMatches csm = new CyberScouterMatches();
                 g_matches = csm.getMatches(conn, 7);
@@ -163,5 +190,28 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         }
     }
 
+    private void setFieldRedLeft(int val) {
+        try {
+            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+            SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, val);
+            int count = db.update(
+                    CyberScouterContract.ConfigEntry.TABLE_NAME,
+                    values,
+                    null,
+                    null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw (e);
+        }
+
+    }
+
+    private void setFieldImage(int img) {
+        ImageView imageView = findViewById(R.id.imageView2);
+        imageView.setImageResource(img);
+    }
 
 }

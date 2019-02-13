@@ -29,4 +29,30 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_CURRENTEVENT = "CurrentEvent";
     }
 
+    public static class Matches implements BaseColumns {
+        public static final String TABLE_NAME = "Matches";
+        public static final String COLUMN_NAME_MATCHID = "MatchID";
+        public static final String COLUMN_NAME_EVENTID = "EventID";
+        public static final String COLUMN_NAME_LEVELIIISCOUTERID = "LevelIIIScouterID";
+        public static final String COLUMN_NAME_MATCHNO = "MatchNo";
+        public static final String COLUMN_NAME_MATCHNOTAG = "MatchNoTag";
+        public static final String COLUMN_NAME_REDTEAM1 = "RedTeam1";
+        public static final String COLUMN_NAME_REDTEAM2 = "RedTeam2";
+        public static final String COLUMN_NAME_REDTEAM3 = "RedTeam3";
+        public static final String COLUMN_NAME_REDTEAM1TAG = "RedTeam1Tag";
+        public static final String COLUMN_NAME_REDTEAM2TAG = "RedTeam2Tag";
+        public static final String COLUMN_NAME_REDTEAM3TAG = "RedTeam3Tag";
+        public static final String COLUMN_NAME_BLUETEAM1 = "BlueTeam1";
+        public static final String COLUMN_NAME_BLUETEAM2 = "BlueTeam2";
+        public static final String COLUMN_NAME_BLUETEAM3 = "BlueTeam3";
+        public static final String COLUMN_NAME_BLUETEAM1TAG = "BlueTeam1Tag";
+        public static final String COLUMN_NAME_BLUETEAM2TAG = "BlueTeam2Tag";
+        public static final String COLUMN_NAME_BLUETEAM3TAG = "BlueTeam3Tag";
+        public static final String COLUMN_NAME_MATCHVIDEO = "MatchVideo";
+        public static final String COLUMN_NAME_COMMENTS = "Comments";
+        public static final String COLUMN_NAME_ELIMINATIONMATCH = "EliminationMatch";
+        public static final String COLUMN_NAME_STARTOFTELEOP = "StartOfTeleop";
+        public static final String COLUMN_NAME_MATCHENDED = "MatchEnded";
+    }
+
 }

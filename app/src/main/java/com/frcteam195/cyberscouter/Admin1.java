@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,7 +21,7 @@ import android.widget.ToggleButton;
 
 public class Admin1 extends AppCompatActivity {
     private Button button;
-    private ImageButton imageButton;
+    private AutoCompleteTextView actv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,25 +86,23 @@ public class Admin1 extends AppCompatActivity {
             }
         });
 
-        imageButton = (ImageButton) findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+        actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, DbInfo.initalEndpointArray);
+        actv.setThreshold(1);
+        actv.setAdapter(adapter);
 
-            @Override
-            public void onClick(View v) {
-                setFieldRedLeft(1);
-                setFieldImage(R.drawable.red_left);
-            }
-        });
+        actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView2);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, DbInfo.initalDatabaseArray);
+        actv.setThreshold(1);
+        actv.setAdapter(adapter);
 
-        imageButton = (ImageButton) findViewById(R.id.imageButton2);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                setFieldRedLeft(0);
-                setFieldImage(R.drawable.red_right);
-            }
-        });
+        actv = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView3);
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, DbInfo.initalUsernameArray);
+        actv.setThreshold(1);
+        actv.setAdapter(adapter);
     }
 
     @Override
@@ -122,10 +121,6 @@ public class Admin1 extends AppCompatActivity {
                 spnr.setSelection(spinnerPosition);
         }
 
-        if (cfg.isFieldRedLeft())
-            setFieldImage(R.drawable.red_left);
-        else
-            setFieldImage(R.drawable.red_right);
     }
 
     public void openMainActivity() {
@@ -161,27 +156,4 @@ public class Admin1 extends AppCompatActivity {
 
     }
 
-    private void setFieldRedLeft(int val) {
-        try {
-            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, val);
-            int count = db.update(
-                    CyberScouterContract.ConfigEntry.TABLE_NAME,
-                    values,
-                    null,
-                    null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw (e);
-        }
-
-    }
-
-    private void setFieldImage(int img) {
-        ImageView imageView = findViewById(R.id.imageView2);
-        imageView.setImageResource(img);
-    }
 }

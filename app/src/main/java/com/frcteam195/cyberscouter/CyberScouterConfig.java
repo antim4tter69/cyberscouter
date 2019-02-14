@@ -1,15 +1,14 @@
 package com.frcteam195.cyberscouter;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 public class CyberScouterConfig {
     private String role;
+    private String role_col;
     private String event;
+    private int event_id;
     private int tablet_num;
     private boolean offline;
     private boolean field_red_left;
@@ -21,8 +20,16 @@ public class CyberScouterConfig {
         return role;
     }
 
+    public String getRole_col() {
+        return role_col;
+    }
+
     public String getEvent() {
         return event;
+    }
+
+    public int getEvent_id() {
+        return event_id;
     }
 
     public int getTablet_num() {
@@ -44,7 +51,9 @@ public class CyberScouterConfig {
             String[] projection = {
                     CyberScouterContract.ConfigEntry._ID,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE,
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE_COL,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT,
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT,
@@ -52,7 +61,7 @@ public class CyberScouterConfig {
             };
 
             String sortOrder =
-                    CyberScouterContract.ConfigEntry._ID + " DESC";
+                    CyberScouterContract.ConfigEntry._ID + " ASC";
 
             cursor = db.query(
                     CyberScouterContract.ConfigEntry.TABLE_NAME,   // The table to query
@@ -71,7 +80,9 @@ public class CyberScouterConfig {
                 ret = new CyberScouterConfig();
                 /* Read the config values from SQLite */
                 ret.role = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE));
+                ret.role_col = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE_COL));
                 ret.event = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT));
+                ret.event_id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID));
                 ret.tablet_num = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM));
                 ret.offline = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE))==1);
                 ret.field_red_left = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT))==1);

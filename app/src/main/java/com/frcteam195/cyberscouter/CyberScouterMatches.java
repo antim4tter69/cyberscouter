@@ -1,5 +1,9 @@
 package com.frcteam195.cyberscouter;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.widget.TextView;
+
 import net.sourceforge.jtds.jdbc.DateTime;
 
 import java.sql.Connection;
@@ -78,6 +82,92 @@ public class CyberScouterMatches {
             return csmv.toArray(csmv2);
         } else {
             return null;
+        }
+    }
+
+    public CyberScouterMatches getCurrentMatch(SQLiteDatabase db) {
+
+        CyberScouterMatches csm = null;
+        Cursor cursor = null;
+        try {
+            String[] projection = {
+                    CyberScouterContract.Matches.COLUMN_NAME_MATCHID,
+                    CyberScouterContract.Matches.COLUMN_NAME_EVENTID,
+                    CyberScouterContract.Matches.COLUMN_NAME_LEVELIIISCOUTERID,
+                    CyberScouterContract.Matches.COLUMN_NAME_MATCHNO,
+                    CyberScouterContract.Matches.COLUMN_NAME_MATCHNOTAG,
+                    CyberScouterContract.Matches.COLUMN_NAME_REDTEAM1,
+                    CyberScouterContract.Matches.COLUMN_NAME_REDTEAM2,
+                    CyberScouterContract.Matches.COLUMN_NAME_REDTEAM3,
+                    CyberScouterContract.Matches.COLUMN_NAME_REDTEAM1TAG,
+                    CyberScouterContract.Matches.COLUMN_NAME_REDTEAM2TAG,
+                    CyberScouterContract.Matches.COLUMN_NAME_REDTEAM3TAG,
+                    CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM1,
+                    CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM2,
+                    CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM3,
+                    CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM1TAG,
+                    CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM2TAG,
+                    CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM3TAG,
+                    CyberScouterContract.Matches.COLUMN_NAME_MATCHVIDEO,
+                    CyberScouterContract.Matches.COLUMN_NAME_COMMENTS,
+                    CyberScouterContract.Matches.COLUMN_NAME_ELIMINATIONMATCH,
+                    CyberScouterContract.Matches.COLUMN_NAME_STARTOFTELEOP,
+                    CyberScouterContract.Matches.COLUMN_NAME_MATCHENDED
+            };
+
+            String sortOrder =
+                    CyberScouterContract.Matches.COLUMN_NAME_MATCHNO + " ASC";
+
+            String selection = CyberScouterContract.Matches.COLUMN_NAME_MATCHENDED + " = ?";
+            String[] selectionArgs = { "0" };
+
+
+            cursor = db.query(
+                    CyberScouterContract.Matches.TABLE_NAME,   // The table to query
+                    projection,             // The array of columns to return (pass null to get all)
+                    selection,              // The columns for the WHERE clause
+                    selectionArgs,          // The values for the WHERE clause
+                    null,                   // don't group the rows
+                    null,                   // don't filter by row groups
+                    sortOrder               // The sort order
+            );
+
+            if( 0 < cursor.getCount() && cursor.moveToFirst()) {
+                csm = new CyberScouterMatches();
+                /* Read the match information from SQLite */
+                csm.matchId = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_MATCHID));
+                csm.eventId = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_EVENTID));
+                csm.levelIiiScouterId = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_LEVELIIISCOUTERID));
+                csm.matchNo = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_MATCHNO));
+                csm.matchNo_Tag = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_MATCHNOTAG));
+                csm.redTeam1 = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_REDTEAM1));
+                csm.redTeam2 = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_REDTEAM2));
+                csm.redTeam3 = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_REDTEAM3));
+                csm.redTeam1Tag = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_REDTEAM1TAG));
+                csm.redTeam2Tag = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_REDTEAM2TAG));
+                csm.redTeam3Tag = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_REDTEAM3TAG));
+                csm.blueTeam1 = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM1));
+                csm.blueTeam2 = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM2));
+                csm.blueTeam3 = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM3));
+                csm.blueTeam1Tag = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM1TAG));
+                csm.blueTeam2Tag = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM2TAG));
+                csm.blueTeam3Tag = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_BLUETEAM3TAG));
+                csm.matchVideo = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_MATCHVIDEO));
+                csm.comments = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_COMMENTS));
+                csm.eliminationMatch = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_ELIMINATIONMATCH)) == 1);
+//                csm.startOfTeleop = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_STARTOFTELEOP));
+                csm.matchEnded = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Matches.COLUMN_NAME_MATCHENDED)) == 1);
+
+            }
+
+            return csm;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw(e);
+        } finally {
+            if(null != cursor && !cursor.isClosed())
+                cursor.close();
         }
     }
 

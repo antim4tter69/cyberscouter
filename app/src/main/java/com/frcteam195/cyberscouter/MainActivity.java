@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -24,7 +23,7 @@ import static java.lang.Thread.sleep;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
-    static private String g_event = null;
+    static private CyberScouterEvent g_event = null;
 
     static final private String g_adminPassword = "HailRobotOverlords";
 
@@ -123,13 +122,11 @@ public class MainActivity extends AppCompatActivity {
                     tv.setTextColor(Color.BLACK);
                 tv.setText(cfg.getRole());
 
-                tmp = cfg.getEvent();
-                if(g_event != tmp) {
-                    tmp = g_event;
-                    setEvent(tmp);
+                if(g_event.getEventID() != cfg.getEvent_id()) {
+                    setEvent(g_event);
                 }
                 tv = findViewById(R.id.textView4);
-                tv.setText(tmp);
+                tv.setText(g_event.getEventName());
 
                 /* Make the offline toggle button reflect the last setting */
                 ToggleButton tb = findViewById(R.id.SwitchButton);
@@ -142,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 tv.setText(tmp);
                 values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
                 if (null != g_event)
-                    tmp = g_event;
+                    tmp = g_event.getEventName();
                 else
                     tmp = "Unknown Event";
                 tv = findViewById(R.id.textView4);
@@ -238,10 +235,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class getEventTask extends AsyncTask<Void, Void, Void> {
-        final private static String serverAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
-        final private static String dbName = "CyberScouter";
-        final private static String username = "admin";
-        final private static String password = "Einstein195";
 
         @Override
         protected Void doInBackground(Void... arg) {
@@ -249,14 +242,14 @@ public class MainActivity extends AppCompatActivity {
             try {
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
-                        + serverAddress + "/" + dbName, username, password);
+                        + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
 
                 CyberScouterEvent cse = new CyberScouterEvent();
                 CyberScouterEvent cse2 = cse.getCurrentEvent(conn);
 
                 if (null != cse2) {
-                    g_event = cse2.getEventName();
-                    setEvent(g_event);
+                    g_event = cse2;
+                    setEvent(cse2);
                 }
 
                 conn.close();
@@ -269,13 +262,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setEvent(String val) {
+    private void setEvent(CyberScouterEvent cse) {
         try {
             CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, val);
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, cse.getEventName());
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID, cse.getEventID());
             int count = db.update(
                     CyberScouterContract.ConfigEntry.TABLE_NAME,
                     values,

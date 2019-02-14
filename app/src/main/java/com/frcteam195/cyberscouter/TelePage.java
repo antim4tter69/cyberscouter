@@ -1,10 +1,12 @@
 package com.frcteam195.cyberscouter;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity {
     private Button button;
@@ -229,6 +231,28 @@ public class TelePage extends AppCompatActivity {
                 cargoshipPanelPlus();
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+        CyberScouterMatches csm = new CyberScouterMatches();
+        CyberScouterMatches csm2 = csm.getCurrentMatch(db);
+
+        if (null != csm2) {
+            TextView tv = (TextView) findViewById(R.id.textView7);
+            tv.setText("Match " + csm2.getMatchNo());
+            tv = (TextView) findViewById(R.id.textView9);
+            tv.setText("Team " + TeamMap.getNumberForTeam(csm2, cfg.getRole()));
+        }
+
 
     }
 

@@ -12,7 +12,9 @@ public class CyberScouterContract {
     public static class ConfigEntry implements BaseColumns {
         public static final String TABLE_NAME = "config";
         public static final String COLUMN_NAME_ROLE = "role";
+        public static final String COLUMN_NAME_ROLE_COL = "role_col";
         public static final String COLUMN_NAME_EVENT = "event";
+        public static final String COLUMN_NAME_EVENT_ID = "event_id";
         public static final String COLUMN_NAME_TABLET_NUM = "tablet_num";
         public static final String COLUMN_NAME_OFFLINE = "offline";
         public static final String COLUMN_NAME_FIELD_REDLEFT = "field_red_left";

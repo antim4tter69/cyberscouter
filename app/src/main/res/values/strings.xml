@@ -98,4 +98,8 @@
 
     <string name="NamePickerTitle">Select Your Name</string>
 
+    <string name="tagTeam">Team %s</string>
+    <string name="tagEvent">Event %s</string>
+    <string name="tagMatch">Match %d</string>
+
 </resources>

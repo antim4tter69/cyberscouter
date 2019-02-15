@@ -243,14 +243,16 @@ public class TelePage extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        CyberScouterMatches csm = new CyberScouterMatches();
-        CyberScouterMatches csm2 = csm.getCurrentMatch(db);
+        if(null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csm = new CyberScouterMatchScouting();
+            CyberScouterMatchScouting csm2 = csm.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
 
-        if (null != csm2) {
-            TextView tv = (TextView) findViewById(R.id.textView7);
-            tv.setText("Match " + csm2.getMatchNo());
-            tv = (TextView) findViewById(R.id.textView9);
-            tv.setText("Team " + TeamMap.getNumberForTeam(csm2, cfg.getRole()));
+            if (null != csm2) {
+                TextView tv = (TextView) findViewById(R.id.textView7);
+                tv.setText(getString(R.string.tagMatch, csm2.getTeamMatchNo()));
+                tv = (TextView) findViewById(R.id.textView9);
+                tv.setText(getString(R.string.tagTeam, csm2.getTeam()));
+            }
         }
 
 

@@ -2,23 +2,23 @@ package com.frcteam195.cyberscouter;
 
 public class TeamMap {
 
-    public static String getNumberForTeam(CyberScouterMatches csm, String teamName) {
-        String ret = "unknown";
+    public static int getNumberForTeam(String teamName) {
+        int ret = -1;
 
-        if(teamName.equals("Blue 1"))
-            ret = csm.getBlueTeam1();
-        else if(teamName.equals("Blue 2"))
-            ret = csm.getBlueTeam2();
-        else if(teamName.equals("Blue 3"))
-            ret = csm.getBlueTeam3();
-        else if(teamName.equals("Red 1"))
-            ret = csm.getRedTeam1();
+        if(teamName.equals("Red 1"))
+            ret = 1;
         else if(teamName.equals("Red 2"))
-            ret = csm.getRedTeam2();
+            ret = 2;
         else if(teamName.equals("Red 3"))
-            ret = csm.getRedTeam3();
+            ret = 3;
+        else if(teamName.equals("Blue 1"))
+            ret = 4;
+        else if(teamName.equals("Blue 2"))
+            ret = 5;
+        else if(teamName.equals("Blue 3"))
+            ret = 6;
         else
-            ret = "unknown";
+            ret = -1;
 
         return ret;
     }

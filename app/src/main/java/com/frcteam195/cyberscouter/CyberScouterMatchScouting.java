@@ -1,5 +1,7 @@
 package com.frcteam195.cyberscouter;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -342,6 +344,80 @@ public class CyberScouterMatchScouting {
         }
     }
 
+    public static void setMatch(Context ctx, CyberScouterMatchScouting csm) {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, csm.getMatchScoutingID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, csm.getEventID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, csm.getMatchID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, csm.getComputerID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, csm.getScouterID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, csm.getReviewerID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, csm.getTeam());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, csm.getTeamMatchNo());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, csm.getAllianceStationID());
+//                values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_STARTOFTELEOP, csm.getStartOfTeleop());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED, csm.getMatchEnded());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_QUESTIONSANSWERED, csm.getQuestionsAnswered());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, csm.getScoutingStatus());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW, csm.getAreasToReview());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE, csm.getComplete());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, csm.getAutoStartPos());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, csm.getAutoPreload());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, csm.getAutoDidNotShow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, csm.getAutoMoveBonus());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSCARGO, csm.getAutoCSCargo());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSHATCH, csm.getAutoCSHatch());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOLOW, csm.getAutoRSCargoLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOMED, csm.getAutoRSCargoMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOHIGH, csm.getAutoRSCargoHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARLOW, csm.getAutoRSHatchFarLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARMED, csm.getAutoRSHatchFarMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARHIGH, csm.getAutoRSHatchFarHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARLOW, csm.getAutoRSHatchNearLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARMED, csm.getAutoRSHatchNearMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARHIGH, csm.getAutoRSHatchNearHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSCARGO, csm.getTeleCSCargo());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSHATCH, csm.getTeleCSHatch());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOLOW, csm.getTeleRSCargoLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOMED, csm.getTeleRSCargoMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOHIGH, csm.getTeleRSCargoHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARLOW, csm.getTeleRSHatchFarLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARMED, csm.getTeleRSHatchFarMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARHIGH, csm.getTeleRSHatchFarHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARLOW, csm.getTeleRSHatchNearLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARMED, csm.getTeleRSHatchNearMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARHIGH, csm.getTeleRSHatchNearHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE, csm.getClimbScore());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST, csm.getClimbAssist());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, csm.getSummHatchGrdPickup());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, csm.getSummLostComm());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE, csm.getSummBroke());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER, csm.getSummTipOver());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, csm.getSummSubsystemBroke());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01, csm.getAnswer01());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02, csm.getAnswer02());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03, csm.getAnswer03());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER04, csm.getAnswer04());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER05, csm.getAnswer05());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER06, csm.getAnswer06());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER07, csm.getAnswer07());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER08, csm.getAnswer08());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER09, csm.getAnswer09());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER10, csm.getAnswer10());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
+
+        long newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
+    }
+
+    public static void deleteMatches(Context ctx) {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, null, null);
+    }
     int getMatchScoutingID() {
         return matchScoutingID;
     }

@@ -2,6 +2,7 @@ package com.frcteam195.cyberscouter;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     static private CyberScouterEvent g_event = null;
     private int g_current_event_id;
-    private CyberScouterMatchScouting[] g_matches  = null;
+    private CyberScouterMatchScouting[] g_matches = null;
 
     static final private String g_adminPassword = "HailRobotOverlords";
 
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void processConfig(SQLiteDatabase db) {
         try {
+            /* Read the config values from SQLite */
             CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
             /* if there's no existing configuration, we're going to assume the tablet
@@ -105,59 +108,79 @@ public class MainActivity extends AppCompatActivity {
             configuration record, we'll use the offline setting from that to determine whether we
             should query the SQL Server database for the current event.
              */
-            if ((null == cfg) || (null != cfg && !cfg.isOffline())) {
-                (new getEventTask()).execute(null, null, null);
-                while (g_event == null)
+            if ((null == cfg) || (!cfg.isOffline())) {
+                (new getEventTask(this)).execute(null, null, null);
+                int i = 0;
+                while (g_event == null && i < DbInfo.SQL_TIMEOUT) {
                     sleep(10);
+                    i += 10;
+                }
             }
 
-            TextView tv = null;
-            if (null != cfg) {
-                /* Read the config values from SQLite */
-                tv = findViewById(R.id.textView41);
-                String tmp = cfg.getRole();
-                if (tmp.startsWith("Blu"))
-                    tv.setTextColor(Color.BLUE);
-                else if (tmp.startsWith("Red"))
-                    tv.setTextColor(Color.RED);
-                else
-                    tv.setTextColor(Color.BLACK);
-                tv.setText(cfg.getRole());
-
-                if(g_event.getEventID() != cfg.getEvent_id()) {
-                    setEvent(g_event);
-                }
-                tv = findViewById(R.id.textView4);
-                tv.setText(g_event.getEventName());
-
-                /* Make the offline toggle button reflect the last setting */
-                ToggleButton tb = findViewById(R.id.SwitchButton);
-                tb.setChecked(!cfg.isOffline());
+            // If there's no event record in the local config
+            // and we can't get an event record from the remote
+            // SQL Server database
+            if (null == g_event && (null == cfg || null == cfg.getEvent())) {
+                button = findViewById(R.id.button);
+                button.setEnabled(false);
+                button = findViewById(R.id.button2);
+                button.setEnabled(false);
+                button = findViewById(R.id.button3);
+                button.setEnabled(false);
+                button = findViewById(R.id.button4);
+                button.setEnabled(false);
+                MessageBox.showMessageBox(this, "Event Not Found Alert","processConfig", "No current event found!  Cannot continue.");
             } else {
-                String tmp = null;
-                ContentValues values = new ContentValues();
-                tmp = "Unknown Role";
-                tv = findViewById(R.id.textView41);
-                tv.setText(tmp);
-                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
-                if (null != g_event)
-                    tmp = g_event.getEventName();
-                else
-                    tmp = "Unknown Event";
-                tv = findViewById(R.id.textView4);
-                tv.setText(tmp);
-                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, tmp);
-                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, 0);
-                ToggleButton tb = findViewById(R.id.SwitchButton);
-                tb.setChecked(true);
-                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 0);
-                values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
+                TextView tv = null;
+                if (null != cfg) {
+                    tv = findViewById(R.id.textView41);
+                    String tmp = cfg.getRole();
+                    if (tmp.startsWith("Blu"))
+                        tv.setTextColor(Color.BLUE);
+                    else if (tmp.startsWith("Red"))
+                        tv.setTextColor(Color.RED);
+                    else
+                        tv.setTextColor(Color.BLACK);
+                    tv.setText(cfg.getRole());
+
+                    tv = findViewById(R.id.textView4);
+                    if (null != g_event && (g_event.getEventID() != cfg.getEvent_id())) {
+                        setEvent(g_event);
+                        tv.setText(g_event.getEventName());
+                    } else {
+                        tv.setText(cfg.getEvent());
+                    }
+
+                    /* Make the offline toggle button reflect the last setting */
+                    ToggleButton tb = findViewById(R.id.SwitchButton);
+                    tb.setChecked(!cfg.isOffline());
+                } else {
+                    String tmp = null;
+                    ContentValues values = new ContentValues();
+                    tmp = "Unknown Role";
+                    tv = findViewById(R.id.textView41);
+                    tv.setText(tmp);
+                    values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
+                    if (null != g_event)
+                        tmp = g_event.getEventName();
+                    else
+                        tmp = "Unknown Event";
+                    tv = findViewById(R.id.textView4);
+                    tv.setText(tmp);
+                    values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, tmp);
+                    values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, 0);
+                    ToggleButton tb = findViewById(R.id.SwitchButton);
+                    tb.setChecked(true);
+                    values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 0);
+                    values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
 
 // Insert the new row, returning the primary key value of the new row
-                long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
+                    long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
+                }
             }
 
         } catch (Exception e) {
+            MessageBox.showMessageBox(this, "Exception Caught", "processConfig", "An exception occurred: \n" + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -180,10 +203,10 @@ public class MainActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton("OK",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                            public void onClick(DialogInterface dialog, int id) {
                                 // get user input and set it to result
                                 // edit text
-                                if(g_adminPassword.matches(userInput.getText().toString())) {
+                                if (g_adminPassword.matches(userInput.getText().toString())) {
                                     Intent intent = new Intent(getApplicationContext(), Admin1.class);
                                     startActivity(intent);
                                 }
@@ -191,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                         })
                 .setNegativeButton("Cancel",
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
+                            public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         });
@@ -217,17 +240,8 @@ public class MainActivity extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if(null != cfg && cfg.isOffline()) {
-            AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-            alertDialog.setTitle("Offline Alert");
-            alertDialog.setMessage("You are currently offline.  If you want to sync, please get online!");
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
+        if (null != cfg && cfg.isOffline()) {
+            MessageBox.showMessageBox(this, "Offline Alert", "syncData", "You are currently offline. If you want to sync, please get online!");
         } else {
             try {
 
@@ -237,19 +251,17 @@ public class MainActivity extends AppCompatActivity {
                     int i = 0;
                     while (null == g_matches) {
                         sleep(10);
-                        if(++i > 30)
+                        if (++i > 30)
                             break;
                     }
-                    if(g_matches != null) {
-                        deleteMatches();
+                    if (g_matches != null) {
+                        CyberScouterMatchScouting.deleteMatches(this);
                         for (i = 0; i < g_matches.length; ++i) {
-
-                            setMatch(g_matches[i]);
-
+                            CyberScouterMatchScouting.setMatch(this, g_matches[i]);
                         }
                     }
                 }
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -279,6 +291,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class getEventTask extends AsyncTask<Void, Void, Void> {
+        private WeakReference<Context> activityContext;
+        private String exceptionText = null;
+
+        public getEventTask(Context ctx) {
+            super();
+            activityContext = new WeakReference<>(ctx);
+        }
 
         @Override
         protected Void doInBackground(Void... arg) {
@@ -299,10 +318,19 @@ public class MainActivity extends AppCompatActivity {
                 conn.close();
 
             } catch (Exception e) {
+                exceptionText = e.getMessage();
                 e.printStackTrace();
             }
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            if(null != exceptionText) {
+                MessageBox.showMessageBox(activityContext.get(), "Fetch Event Failed Alert", "getEventTask", "Fetch of Current Event failed!\n" +
+                        "You may want to consider working offline.\n" + exceptionText);
+            }
         }
     }
 
@@ -349,79 +377,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    private void setMatch(CyberScouterMatchScouting csm) {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, csm.getMatchScoutingID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, csm.getEventID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, csm.getMatchID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, csm.getComputerID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, csm.getScouterID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, csm.getReviewerID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, csm.getTeam());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, csm.getTeamMatchNo());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, csm.getAllianceStationID());
-//                values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_STARTOFTELEOP, csm.getStartOfTeleop());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED, csm.getMatchEnded());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_QUESTIONSANSWERED, csm.getQuestionsAnswered());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, csm.getScoutingStatus());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW, csm.getAreasToReview());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE, csm.getComplete());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, csm.getAutoStartPos());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, csm.getAutoPreload());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, csm.getAutoDidNotShow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, csm.getAutoMoveBonus());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSCARGO, csm.getAutoCSCargo());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSHATCH, csm.getAutoCSHatch());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOLOW, csm.getAutoRSCargoLow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOMED, csm.getAutoRSCargoMed());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOHIGH, csm.getAutoRSCargoHigh());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARLOW, csm.getAutoRSHatchFarLow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARMED, csm.getAutoRSHatchFarMed());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARHIGH, csm.getAutoRSHatchFarHigh());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARLOW, csm.getAutoRSHatchNearLow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARMED, csm.getAutoRSHatchNearMed());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARHIGH, csm.getAutoRSHatchNearHigh());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSCARGO, csm.getTeleCSCargo());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSHATCH, csm.getTeleCSHatch());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOLOW, csm.getTeleRSCargoLow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOMED, csm.getTeleRSCargoMed());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOHIGH, csm.getTeleRSCargoHigh());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARLOW, csm.getTeleRSHatchFarLow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARMED, csm.getTeleRSHatchFarMed());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARHIGH, csm.getTeleRSHatchFarHigh());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARLOW, csm.getTeleRSHatchNearLow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARMED, csm.getTeleRSHatchNearMed());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARHIGH, csm.getTeleRSHatchNearHigh());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE, csm.getClimbScore());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST, csm.getClimbAssist());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, csm.getSummHatchGrdPickup());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, csm.getSummLostComm());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE, csm.getSummBroke());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER, csm.getSummTipOver());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, csm.getSummSubsystemBroke());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01, csm.getAnswer01());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02, csm.getAnswer02());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03, csm.getAnswer03());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER04, csm.getAnswer04());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER05, csm.getAnswer05());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER06, csm.getAnswer06());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER07, csm.getAnswer07());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER08, csm.getAnswer08());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER09, csm.getAnswer09());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER10, csm.getAnswer10());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
-
-        long newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
-    }
-
-    private void deleteMatches() {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, null, null);
-    }
 }

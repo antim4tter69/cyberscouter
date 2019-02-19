@@ -1,7 +1,7 @@
 package com.frcteam195.cyberscouter;
 
 public class DbInfo {
-    public static String MSSQLServerAddress = "Xfrcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
+    public static String MSSQLServerAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
     public static String MSSQLDbName = "CyberScouter";
     public static String MSSQLUsername = "admin";
     public static String MSSQLPassword = "Einstein195";

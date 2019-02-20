@@ -121,8 +121,8 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
     @Override
-    public void onNameSelected(String val) {
-        setUsername(val);
+    public void onNameSelected(String val, int idx) {
+        setUsername(val, idx);
         button = (Button) findViewById(R.id.button6);
         button.setText(val);
     }
@@ -161,13 +161,14 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         this.finish();
     }
 
-    public void setUsername(String val) {
+    public void setUsername(String val, int idx) {
         try {
             CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, val);
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, idx);
             int count = db.update(
                     CyberScouterContract.ConfigEntry.TABLE_NAME,
                     values,

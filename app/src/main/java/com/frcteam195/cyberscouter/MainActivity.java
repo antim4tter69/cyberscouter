@@ -289,6 +289,26 @@ public class MainActivity extends AppCompatActivity {
                     scoutingTask.execute();
 
                 }
+
+                CyberScouterUsers.deleteUsers(db);
+                getUserNamesTask namesTask = new getUserNamesTask(new IOnEventListener<CyberScouterUsers[]>() {
+                    @Override
+                    public void onSuccess(CyberScouterUsers[] result) {
+                        CyberScouterUsers.setUsers(db, result);
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        if(null != e) {
+                            MessageBox.showMessageBox(MainActivity.this, "Fetch Event Failed Alert", "getEventTask", "Fetch of Current Event information failed!\n\n" +
+                                    "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
+                        }
+
+                    }
+                });
+
+                namesTask.execute();
+
             }
 
         } catch (Exception e_m) {
@@ -367,6 +387,49 @@ public class MainActivity extends AppCompatActivity {
                     mCallBack.onFailure(mException);
                 } else {
                     mCallBack.onSuccess(cse);
+                }
+            }
+        }
+    }
+
+    private class getUserNamesTask extends AsyncTask<Void, Void, CyberScouterUsers[]> {
+        private IOnEventListener<CyberScouterUsers[]> mCallBack;
+        private Exception mException;
+
+        getUserNamesTask(IOnEventListener<CyberScouterUsers[]> mListener) {
+            super();
+            mCallBack = mListener;
+        }
+
+        @Override
+        protected CyberScouterUsers[] doInBackground(Void... arg) {
+
+            try {
+                Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
+                        + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
+
+                CyberScouterUsers[] csua = CyberScouterUsers.getUsers(conn);
+
+                conn.close();
+
+                if(null != csua)
+                    return csua;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(CyberScouterUsers[] csua) {
+            if (null != mCallBack) {
+                if (null != mException || null == csua) {
+                    mCallBack.onFailure(mException);
+                } else {
+                    mCallBack.onSuccess(csua);
                 }
             }
         }

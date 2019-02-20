@@ -454,7 +454,7 @@ class CyberScouterMatchScouting {
         db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " <> ?", whereArgs);
     }
 
-    private static void updateMatch(SQLiteDatabase db, CyberScouterMatchScouting rmatch, CyberScouterMatchScouting lmatch) throws Exception {
+    private static void updateMatchTeamAndScoutingStatus(SQLiteDatabase db, CyberScouterMatchScouting rmatch, CyberScouterMatchScouting lmatch) throws Exception {
 
         ContentValues values = new ContentValues();
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, rmatch.team);
@@ -463,14 +463,38 @@ class CyberScouterMatchScouting {
         String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
         String[] selectionArgs = { String.format(Locale.getDefault(), "%d", lmatch.matchScoutingID) };
 
-        int count = db.update(
+        if(1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", lmatch.matchScoutingID));
+    }
+
+    static void updateMatchMetric(SQLiteDatabase db, String[] lColumns, Integer[] lValues, CyberScouterConfig cfg)throws Exception {
+        CyberScouterMatchScouting csms = getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        if(null == csms)
+            throw new Exception(String.format("No current unscouted match was found!  Attempt to update a match statistic failed!\n\nRole=%s", cfg.getRole()));
+        if(null == lColumns || null == lValues || lColumns.length != lValues.length)
+            throw new Exception(String.format("Bad request! Attempt to update a match statistic failed!\n\nRole=%s", cfg.getRole()));
+
+        ContentValues values = new ContentValues();
+        for(int i=0 ; i < lColumns.length ; ++i) {
+            values.put(lColumns[i], lValues[i]);
+        }
+
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", csms.matchScoutingID)
+        };
+
+        if(1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", csms.matchScoutingID));
+
+    }
+
+    private static int updateMatch(SQLiteDatabase db, ContentValues values, String selection, String[] selectionArgs) {
+        return db.update(
                 CyberScouterContract.MatchScouting.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);
-
-        if(1 > count)
-            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", lmatch.matchScoutingID));
     }
 
     // If there are new match scouting records, insert them into the local database.
@@ -482,7 +506,7 @@ class CyberScouterMatchScouting {
         for(CyberScouterMatchScouting rmatch : remoteMatches){
             CyberScouterMatchScouting lmatch = getLocalMatch(db, rmatch.eventID, rmatch.matchID, rmatch.allianceStationID);
             if(null != lmatch)
-                updateMatch(db, rmatch, lmatch);
+                updateMatchTeamAndScoutingStatus(db, rmatch, lmatch);
             else
                 setMatch(ctx, rmatch);
         }

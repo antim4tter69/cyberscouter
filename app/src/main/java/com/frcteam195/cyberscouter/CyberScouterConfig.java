@@ -13,6 +13,7 @@ public class CyberScouterConfig {
     private boolean offline;
     private boolean field_red_left;
     private String username;
+    private int user_id;
 
     public CyberScouterConfig(){}
 
@@ -44,6 +45,8 @@ public class CyberScouterConfig {
 
     public String getUsername() {return username;}
 
+    public int getUser_id() {return user_id;}
+
     static public CyberScouterConfig getConfig(SQLiteDatabase db) {
         CyberScouterConfig ret = null;
         Cursor cursor = null;
@@ -57,7 +60,8 @@ public class CyberScouterConfig {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT,
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME,
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID
             };
 
             String sortOrder =
@@ -73,9 +77,7 @@ public class CyberScouterConfig {
                     sortOrder               // The sort order
             );
 
-            TextView tv = null;
-            String tmp = null;
-            Integer i = 0;
+            Integer i;
             if( 0 < cursor.getCount() && cursor.moveToFirst()) {
                 ret = new CyberScouterConfig();
                 /* Read the config values from SQLite */
@@ -87,6 +89,7 @@ public class CyberScouterConfig {
                 ret.offline = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE))==1);
                 ret.field_red_left = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT))==1);
                 ret.username = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME));
+                ret.user_id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID));
 
                 /* If there's more than one config row -- we only want one */
                 if(1 < cursor.getCount()) {

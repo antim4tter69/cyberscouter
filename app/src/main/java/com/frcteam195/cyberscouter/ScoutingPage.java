@@ -94,15 +94,14 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         else
             setFieldImage(R.drawable.red_right);
 
-        CyberScouterMatchScouting csm = new CyberScouterMatchScouting();
-        CyberScouterMatchScouting csm2 = csm.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
 
-        if (null != csm2) {
+        if (null != csm) {
             TextView tv = (TextView) findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm2.getTeamMatchNo()));
+            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
             tv = (TextView) findViewById(R.id.textView9);
-            tv.setText(getString(R.string.tagTeam, csm2.getTeam()));
-            CyberScouterMatchScouting[] csma = csm.getCurrentMatchAllTeams(db, csm2.getTeamMatchNo());
+            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+            CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo());
             if(null != csma && 6 == csma.length) {
                 tv = (TextView) findViewById(R.id.textView20);
                 tv.setText(csma[0].getTeam());

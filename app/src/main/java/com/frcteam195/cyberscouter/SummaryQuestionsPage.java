@@ -91,14 +91,13 @@ public class SummaryQuestionsPage extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        CyberScouterMatchScouting csm = new CyberScouterMatchScouting();
-        CyberScouterMatchScouting csm2 = csm.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
 
-        if (null != csm2) {
+        if (null != csm) {
             TextView tv = (TextView) findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm2.getTeamMatchNo()));
+            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
             tv = (TextView) findViewById(R.id.textView9);
-            tv.setText(getString(R.string.tagTeam, csm2.getTeam()));
+            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
         }
     }
 

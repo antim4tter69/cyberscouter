@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.Locale;
 import java.util.Vector;
 
-public class CyberScouterMatchScouting {
+class CyberScouterMatchScouting {
 
     private int matchScoutingID;
     private int eventID;
@@ -75,8 +75,8 @@ public class CyberScouterMatchScouting {
     private int uploadStatus;
 
 
-    CyberScouterMatchScouting[] getMatches(Connection conn, int eventId) {
-        Vector<CyberScouterMatchScouting> csmv = new Vector<CyberScouterMatchScouting>();
+    static CyberScouterMatchScouting[] getMatches(Connection conn, int eventId) {
+        Vector<CyberScouterMatchScouting> csmv = new Vector<>();
 
         try {
             Statement stmt = conn.createStatement();
@@ -160,9 +160,13 @@ public class CyberScouterMatchScouting {
         }
     }
 
-    CyberScouterMatchScouting getCurrentMatch(SQLiteDatabase db, int l_allianceStationID) {
+    // Gets the next sequential unscouted match for the current scouter station
+    static CyberScouterMatchScouting getCurrentMatch(SQLiteDatabase db, int l_allianceStationID) {
         String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ?";
-        String[] selectionArgs = {String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED), String.format(Locale.getDefault(), "%d", l_allianceStationID)};
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED),
+                String.format(Locale.getDefault(), "%d", l_allianceStationID)
+        };
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " ASC";
 
@@ -173,18 +177,48 @@ public class CyberScouterMatchScouting {
             return null;
     }
 
-    CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo) {
-        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " + CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ?";
-        String[] selectionArgs = {String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED), String.format(Locale.getDefault(), "%d", l_teamMatchNo)};
+    // Gets the next sequential unscouted match for all scouter stations
+    static CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo) {
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_teamMatchNo)
+        };
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " ASC";
 
         return (getLocalMatches(db, selection, selectionArgs, sortOrder));
     }
 
-    private CyberScouterMatchScouting[] getLocalMatches(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
-        CyberScouterMatchScouting csm = null;
-        Vector<CyberScouterMatchScouting> csmv = new Vector<CyberScouterMatchScouting>();
+    // Returns only the matches that are unscouted
+    private static CyberScouterMatchScouting getLocalMatch(SQLiteDatabase db, int l_eventID, int l_matchID, int l_allianceStationID) throws Exception {
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND "
+                + CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " = ? AND "
+                + CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID + " = ? AND "
+                + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED),
+                String.format(Locale.getDefault(), "%d", l_eventID),
+                String.format(Locale.getDefault(), "%d", l_matchID),
+                String.format(Locale.getDefault(), "%d", l_allianceStationID)
+        };
+        String sortOrder =
+                null;
+
+        CyberScouterMatchScouting[] csmv = getLocalMatches(db, selection, selectionArgs, sortOrder);
+
+        if(null != csmv) {
+            if (1 < csmv.length) {
+                throw new Exception(String.format(Locale.getDefault(), "Too many match scouting rows found.  Wanted %d, found %d!\n\nEventID=%d, MatchID=%d, AllianceStationID=%d",
+                        1, csmv.length, l_eventID, l_matchID, l_allianceStationID));
+            } else
+                return (csmv[0]);
+        } else
+            return null;
+    }
+
+    private static CyberScouterMatchScouting[] getLocalMatches(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
+        CyberScouterMatchScouting csm;
+        Vector<CyberScouterMatchScouting> csmv = new Vector<>();
 
         Cursor cursor = null;
         try {
@@ -330,8 +364,7 @@ public class CyberScouterMatchScouting {
 
             if (0 < csmv.size()) {
                 CyberScouterMatchScouting[] csma = new CyberScouterMatchScouting[csmv.size()];
-                CyberScouterMatchScouting[] csmaa = csmv.toArray(csma);
-                return csmaa;
+                return csmv.toArray(csma);
             } else
                 return null;
 
@@ -344,7 +377,7 @@ public class CyberScouterMatchScouting {
         }
     }
 
-    public static void setMatch(Context ctx, CyberScouterMatchScouting csm) {
+    private static void setMatch(Context ctx, CyberScouterMatchScouting csm) {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -412,12 +445,49 @@ public class CyberScouterMatchScouting {
         long newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
     }
 
-    public static void deleteMatches(Context ctx) {
+    static void deleteOldMatches(Context ctx, int l_eventID) {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, null, null);
+        String[] whereArgs = {String.format(Locale.getDefault(), "%d", l_eventID)};
+
+        db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " <> ?", whereArgs);
     }
+
+    private static void updateMatch(SQLiteDatabase db, CyberScouterMatchScouting rmatch, CyberScouterMatchScouting lmatch) throws Exception {
+
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, rmatch.team);
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, rmatch.scoutingStatus);
+
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = { String.format(Locale.getDefault(), "%d", lmatch.matchScoutingID) };
+
+        int count = db.update(
+                CyberScouterContract.MatchScouting.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+
+        if(1 > count)
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", lmatch.matchScoutingID));
+    }
+
+    // If there are new match scouting records, insert them into the local database.
+    // Otherwise, update the scouting status and the team for each match, to keep that info current
+    static void mergeMatches(Context ctx, CyberScouterMatchScouting[] remoteMatches) throws Exception {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        for(CyberScouterMatchScouting rmatch : remoteMatches){
+            CyberScouterMatchScouting lmatch = getLocalMatch(db, rmatch.eventID, rmatch.matchID, rmatch.allianceStationID);
+            if(null != lmatch)
+                updateMatch(db, rmatch, lmatch);
+            else
+                setMatch(ctx, rmatch);
+        }
+    }
+
     int getMatchScoutingID() {
         return matchScoutingID;
     }

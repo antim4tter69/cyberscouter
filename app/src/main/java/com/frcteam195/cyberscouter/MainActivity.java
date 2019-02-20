@@ -2,7 +2,6 @@ package com.frcteam195.cyberscouter;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,22 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
-import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import static java.lang.Thread.sleep;
-
 public class MainActivity extends AppCompatActivity {
     private Button button;
-    static private CyberScouterEvent g_event = null;
-    private int g_current_event_id;
-    private CyberScouterMatchScouting[] g_matches = null;
 
     static final private String g_adminPassword = "HailRobotOverlords";
 
@@ -39,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.button);
+        button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button2);
+        button = findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button3);
+        button = findViewById(R.id.button3);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button4);
+        button = findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,10 +106,15 @@ public class MainActivity extends AppCompatActivity {
                 getEventTask eventTask = new getEventTask(new IOnEventListener<CyberScouterEvent>() {
                     @Override
                     public void onSuccess(CyberScouterEvent result) {
+                        CyberScouterConfig cfg2 = cfg;
                         if (null != cfg) {
-                            setFieldsFromConfig(cfg);
+                            if (null != result && (result.getEventID() != cfg.getEvent_id())) {
+                                setEvent(result);
+                                cfg2 = CyberScouterConfig.getConfig(db);
+                            }
+                            setFieldsFromConfig(cfg2);
                         } else {
-                            setFieldsToDefaults(db);
+                            setFieldsToDefaults(db, result.getEventName());
                         }
 
                     }
@@ -157,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void setFieldsFromConfig(CyberScouterConfig cfg) {
-        TextView tv = null;
+        TextView tv;
         tv = findViewById(R.id.textView41);
         String tmp = cfg.getRole();
         if (tmp.startsWith("Blu"))
@@ -169,28 +165,23 @@ public class MainActivity extends AppCompatActivity {
         tv.setText(cfg.getRole());
 
         tv = findViewById(R.id.textView4);
-        if (null != g_event && (g_event.getEventID() != cfg.getEvent_id())) {
-            setEvent(g_event);
-            tv.setText(g_event.getEventName());
-        } else {
-            tv.setText(cfg.getEvent());
-        }
+        tv.setText(cfg.getEvent());
 
         /* Make the offline toggle button reflect the last setting */
         ToggleButton tb = findViewById(R.id.SwitchButton);
         tb.setChecked(!cfg.isOffline());
     }
 
-    void setFieldsToDefaults(SQLiteDatabase db) {
-        TextView tv = null;
-        String tmp = null;
+    void setFieldsToDefaults(SQLiteDatabase db, String eventName) {
+        TextView tv;
+        String tmp;
         ContentValues values = new ContentValues();
         tmp = "Unknown Role";
         tv = findViewById(R.id.textView41);
         tv.setText(tmp);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
-        if (null != g_event)
-            tmp = g_event.getEventName();
+        if (null != eventName)
+            tmp = eventName;
         else
             tmp = "Unknown Event";
         tv = findViewById(R.id.textView4);
@@ -216,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(pwdView);
 
-        final EditText userInput = (EditText) pwdView
+        final EditText userInput = pwdView
                 .findViewById(R.id.editTextDialogUserInput);
 
         // set dialog message
@@ -259,34 +250,44 @@ public class MainActivity extends AppCompatActivity {
 
     public void syncData() {
         try {
-
             CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
+            final SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-            CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+            final CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
             if (null != cfg && cfg.isOffline()) {
                 MessageBox.showMessageBox(this, "Offline Alert", "syncData", "You are currently offline. If you want to sync, please get online!");
             } else {
-                try {
+                if (null != cfg && !cfg.isOffline()) {
+                    getMatchScoutingTask scoutingTask = new getMatchScoutingTask(new IOnEventListener<CyberScouterMatchScouting[]>() {
+                        @Override
+                        public void onSuccess(CyberScouterMatchScouting[] result) {
+                            try {
+                                CyberScouterMatchScouting.deleteOldMatches(MainActivity.this, cfg.getEvent_id());
+                                CyberScouterMatchScouting.mergeMatches(MainActivity.this, result);
 
-                    if (null != cfg && !cfg.isOffline()) {
-                        g_current_event_id = cfg.getEvent_id();
-                        (new getMatchScoutingTask(this)).execute(null, null, null);
-                        int i = 0;
-                        while (null == g_matches && i < DbInfo.SQL_TIMEOUT) {
-                            sleep(10);
-                            i += 10;
-                        }
-                        if (g_matches != null) {
-                            CyberScouterMatchScouting.deleteMatches(this);
-                            for (i = 0; i < g_matches.length; ++i) {
-                                CyberScouterMatchScouting.setMatch(this, g_matches[i]);
+                                Toast t = Toast.makeText(MainActivity.this, "Data synced successfully!", Toast.LENGTH_SHORT);
+                                t.show();
+                            } catch(Exception ee) {
+                                MessageBox.showMessageBox(MainActivity.this, "Fetch Match Scouting Failed Alert", "syncData.getMatchScoutingTask.onSuccess",
+                                        "Attempt to update local match information failed!\n\n" +
+                                                "The error is:\n" + ee.getMessage());
                             }
                         }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
+
+                        @Override
+                        public void onFailure(Exception e) {
+                            if (null != e) {
+                                MessageBox.showMessageBox(MainActivity.this, "Fetch Match Scouting Failed Alert", "getMatchScoutingTask",
+                                        "Fetch of Match Scouting information failed!\n\n" +
+                                                "You may want to consider working offline.\n\n" +
+                                                "The error is:\n" + e.getMessage());
+                            }
+                        }
+                    }, cfg.getEvent_id());
+
+                    scoutingTask.execute();
+
                 }
             }
 
@@ -294,7 +295,6 @@ public class MainActivity extends AppCompatActivity {
             e_m.printStackTrace();
             MessageBox.showMessageBox(this, "Fetch Event Failed Alert", "syncData", "Sync with data source failed!\n\n" +
                     "You may want to consider working offline.\n\n" + "The error is:\n" + e_m.getMessage());
-        } finally {
         }
     }
 
@@ -320,11 +320,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class getEventTask extends AsyncTask<Void, Void, CyberScouterEvent> {
+    private static class getEventTask extends AsyncTask<Void, Void, CyberScouterEvent> {
         private IOnEventListener<CyberScouterEvent> mCallBack;
         private Exception mException;
 
-        public getEventTask(IOnEventListener<CyberScouterEvent> mListener) {
+        getEventTask(IOnEventListener<CyberScouterEvent> mListener) {
             super();
             mCallBack = mListener;
         }
@@ -341,10 +341,8 @@ public class MainActivity extends AppCompatActivity {
                 CyberScouterEvent cse = new CyberScouterEvent();
                 CyberScouterEvent cse2 = cse.getCurrentEvent(conn);
 
-                if (null != cse2) {
-                    setEvent(cse2);
+                if (null != cse2)
                     return (cse2);
-                }
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -394,31 +392,32 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class getMatchScoutingTask extends AsyncTask<Void, Void, Void> {
-        private WeakReference<Context> activityContext;
-        String exceptionText = null;
+    private static class getMatchScoutingTask extends AsyncTask<Void, Void, CyberScouterMatchScouting[]> {
+        private IOnEventListener<CyberScouterMatchScouting[]> mCallBack;
+        private Exception mException;
+        private CyberScouterMatchScouting[] l_matches;
+        private int currentEventId;
 
-        public getMatchScoutingTask(Context ctx) {
+        getMatchScoutingTask(IOnEventListener<CyberScouterMatchScouting[]> mListener, int l_currentEventId) {
             super();
-            activityContext = new WeakReference<>(ctx);
+            mCallBack = mListener;
+            currentEventId = l_currentEventId;
         }
 
         @Override
-        protected Void doInBackground(Void... arg) {
+        protected CyberScouterMatchScouting[] doInBackground(Void... arg) {
 
             try {
                 Class.forName("net.sourceforge.jtds.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
                         + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
 
-                CyberScouterMatchScouting csm = new CyberScouterMatchScouting();
-                publishProgress();
-                g_matches = csm.getMatches(conn, g_current_event_id);
+                l_matches = CyberScouterMatchScouting.getMatches(conn, currentEventId);
 
                 conn.close();
 
             } catch (Exception e) {
-                exceptionText = e.getMessage();
+                mException = e;
                 e.printStackTrace();
             }
 
@@ -426,10 +425,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void v) {
-            if (null != exceptionText) {
-                MessageBox.showMessageBox(activityContext.get(), "Fetch Match Scouting Failed Alert", "getMatchScoutingTask",
-                        "Fetch of Match Scouting information failed!\n\n" + "The error is:\n" + exceptionText);
+        protected void onPostExecute(CyberScouterMatchScouting[] cse) {
+            if (null != mCallBack) {
+                if (null != mException || null == l_matches) {
+                    mCallBack.onFailure(mException);
+                } else {
+                    mCallBack.onSuccess(l_matches);
+                }
             }
         }
 

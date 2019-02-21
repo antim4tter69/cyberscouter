@@ -5,6 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.TextView;
 
 public class CyberScouterConfig {
+    final static String UNKNOWN_ROLE = "Unknown Role";
+    final static String UNKNOWN_EVENT = "Unknown Event";
+    final static int UNKNOWN_USER_IDX = -1;
+
     private String role;
     private String role_col;
     private String event;

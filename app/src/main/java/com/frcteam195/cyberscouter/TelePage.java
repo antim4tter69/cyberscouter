@@ -16,7 +16,7 @@ public class TelePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
 
-        button = (Button) findViewById(R.id.button11);
+        button = (Button) findViewById(R.id.button_previous);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,7 +205,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button19);
+        button = (Button) findViewById(R.id.button_l2Left);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override

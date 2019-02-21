@@ -26,7 +26,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button9);
+        button = (Button) findViewById(R.id.button_skipMatch);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +35,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button10);
+        button = (Button) findViewById(R.id.button_startMatch);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +44,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button11);
+        button = (Button) findViewById(R.id.button_previous);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +53,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button12);
+        button = (Button) findViewById(R.id.button_l1Center);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +62,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             }
         });
 
-        button = (Button) findViewById(R.id.button13);
+        button = (Button) findViewById(R.id.button_l1Right);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

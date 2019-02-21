@@ -176,14 +176,14 @@ public class MainActivity extends AppCompatActivity {
         TextView tv;
         String tmp;
         ContentValues values = new ContentValues();
-        tmp = "Unknown Role";
+        tmp = CyberScouterConfig.UNKNOWN_ROLE;
         tv = findViewById(R.id.textView41);
         tv.setText(tmp);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
         if (null != eventName)
             tmp = eventName;
         else
-            tmp = "Unknown Event";
+            tmp = CyberScouterConfig.UNKNOWN_EVENT;
         tv = findViewById(R.id.textView4);
         tv.setText(tmp);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, tmp);
@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
         tb.setChecked(true);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 0);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, CyberScouterConfig.UNKNOWN_USER_IDX);
 
 // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
@@ -239,8 +240,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openScouting() {
-        Intent intent = new Intent(this, ScoutingPage.class);
-        startActivity(intent);
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+        if(null != cfg && -1 == TeamMap.getNumberForTeam(cfg.getRole())) {
+            MessageBox.showMessageBox(this, "Unspecified Role Alert", "openScouting", "No scouting role is specified (\"Red 1\", \"Blue 1\", \"Red 2\", etc). " +
+                    "You must go into the Admin page and specify a scouting role before you can continue.");
+        } else {
+            Intent intent = new Intent(this, ScoutingPage.class);
+            startActivity(intent);
+        }
     }
 
     public void syncPictures() {
@@ -264,9 +274,9 @@ public class MainActivity extends AppCompatActivity {
                         public void onSuccess(CyberScouterMatchScouting[] result) {
                             try {
                                 CyberScouterMatchScouting.deleteOldMatches(MainActivity.this, cfg.getEvent_id());
-                                CyberScouterMatchScouting.mergeMatches(MainActivity.this, result);
+                                String tmp = CyberScouterMatchScouting.mergeMatches(MainActivity.this, result);
 
-                                Toast t = Toast.makeText(MainActivity.this, "Data synced successfully!", Toast.LENGTH_SHORT);
+                                Toast t = Toast.makeText(MainActivity.this, "Data synced successfully! -- " + tmp, Toast.LENGTH_SHORT);
                                 t.show();
                             } catch(Exception ee) {
                                 MessageBox.showMessageBox(MainActivity.this, "Fetch Match Scouting Failed Alert", "syncData.getMatchScoutingTask.onSuccess",

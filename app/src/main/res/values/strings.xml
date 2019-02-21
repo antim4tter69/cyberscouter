@@ -45,7 +45,13 @@
     <string name="YesButton">Y</string>
     <string name="NoButton">N</string>
     <string name="MoveBonusText">Move Bonus</string>
-    <string name="GroundStartingPositionButton">Ground</string>
+    <string name="GroundStartingPositionLeftButton">Ground left</string>
+    <string name="GroundStartingPositionRightButton">Ground right</string>
+    <string name="LevelOneStartingPositionLeftButton">Lvl 1 left</string>
+    <string name="LevelTwoStartingPositionLeftButton">Lvl 2 left</string>
+    <string name="LevelOneStartingPositionRightButton">Lvl 1 right</string>
+    <string name="LevelTwoStartingPositionRightButton">Lvl 2 right</string>
+    <string name="LevelOneStartingPositionCenterButton">Lvl 1 cnter</string>
     <string name="LevelOneStartingPositionButton">Lvl 1</string>
     <string name="LevelTwoStartingPositionButton">Lvl 2</string>
     <string name="LevelThreeStartingPositionButton">Lvl 3</string>

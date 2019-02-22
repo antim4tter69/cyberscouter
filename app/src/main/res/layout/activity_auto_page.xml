@@ -31,25 +31,26 @@
     <Button
         android:id="@+id/button_l1Center"
         android:layout_width="93dp"
-        android:layout_height="95dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/LevelOneStartingPositionCenterButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_l1Left" />
+        app:layout_constraintStart_toEndOf="@+id/button_l1Left"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
         android:id="@+id/button_l1Left"
         android:layout_width="93dp"
-        android:layout_height="95dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginLeft="95dp"
         android:layout_marginTop="8dp"
         android:text="@string/LevelOneStartingPositionLeftButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_grndLeft" />
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
         android:id="@+id/button_grndLeft"
@@ -75,14 +76,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.414"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_l1Right" />
+        app:layout_constraintTop_toBottomOf="@+id/button_l1Left" />
 
     <Button
         android:id="@+id/button_moveBonusNo"
         android:layout_width="93dp"
         android:layout_height="95dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/NoButton"
         android:textSize="20sp"
@@ -90,16 +91,29 @@
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
     <Button
-        android:id="@+id/button_l2Left"
+        android:id="@+id/button19"
         android:layout_width="93dp"
-        android:layout_height="95dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginLeft="95dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="@string/LevelTwoStartingPositionLeftButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_l1Left"
-        app:layout_constraintTop_toBottomOf="@+id/button_grndLeft" />
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/button_l1Left" />
+
+    <Button
+        android:id="@+id/button_l3"
+        android:layout_width="93dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:enabled="false"
+        android:text="@string/LevelThreeStartingPositionButton"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/button19"
+        app:layout_constraintTop_toBottomOf="@+id/button_l1Center" />
 
     <Button
         android:id="@+id/button_moveBonusYes"
@@ -141,7 +155,7 @@
         android:id="@+id/button_none"
         android:layout_width="399dp"
         android:layout_height="64dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="@string/PreloadNoneButton"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -152,26 +166,26 @@
     <Button
         android:id="@+id/button_l1Right"
         android:layout_width="93dp"
-        android:layout_height="95dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/LevelOneStartingPositionRightButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_l1Center" />
+        app:layout_constraintStart_toEndOf="@+id/button_l1Center"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
         android:id="@+id/button_l2Right"
         android:layout_width="93dp"
-        android:layout_height="95dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:text="@string/LevelTwoStartingPositionRightButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_l1Right"
-        app:layout_constraintTop_toBottomOf="@+id/button_l1Center" />
+        app:layout_constraintStart_toEndOf="@+id/button_l3"
+        app:layout_constraintTop_toBottomOf="@+id/button_l1Right" />
 
     <Button
         android:id="@+id/button_skipMatch"
@@ -228,11 +242,12 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="542dp"
+        android:layout_marginLeft="542dp"
+        android:layout_marginTop="16dp"
         android:text="@string/title_activity_auto_page"
         android:textColor="@android:color/black"
         android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -240,13 +255,13 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginLeft="95dp"
+        android:layout_marginTop="147dp"
         android:text="@string/StartingPositionText"
         android:textColor="@android:color/black"
         android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.414"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
@@ -265,12 +280,12 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/PreloadText"
         android:textColor="@android:color/black"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.838"
+        app:layout_constraintHorizontal_bias="0.833"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_moveBonusYes" />
 

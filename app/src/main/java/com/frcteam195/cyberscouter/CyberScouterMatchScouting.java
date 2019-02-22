@@ -183,12 +183,15 @@ class CyberScouterMatchScouting {
         }
     }
 
-    // Gets the next sequential unscouted match for the current scouter station
+    // Gets the next sequential un-scouted match for the current scouter station
     static CyberScouterMatchScouting getCurrentMatch(SQLiteDatabase db, int l_allianceStationID) {
-        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ?";
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " +
+                CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ? AND " +
+                CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " = ?";
         String[] selectionArgs = {
                 String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED),
-                String.format(Locale.getDefault(), "%d", l_allianceStationID)
+                String.format(Locale.getDefault(), "%d", l_allianceStationID),
+                String.format(Locale.getDefault(), "%d", UploadStatus.NOT_UPLOADED)
         };
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " ASC";
@@ -507,6 +510,18 @@ class CyberScouterMatchScouting {
         if (1 > updateMatch(db, values, selection, selectionArgs))
             throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", csms.matchScoutingID));
 
+    }
+
+    static void skipMatch(SQLiteDatabase db, int l_matchScoutingID) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.SKIPPED);
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", l_matchScoutingID));
     }
 
     private static int updateMatch(SQLiteDatabase db, ContentValues values, String selection, String[] selectionArgs) {

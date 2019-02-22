@@ -74,7 +74,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_l2Left);
+        button = findViewById(R.id.button19);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -179,7 +179,7 @@ public class AutoPage extends AppCompatActivity {
             int[] buttons2 = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
             fakeRadioButtonDisplay(csm.getAutoPreload(), buttons2);
 
-            int[] buttons3 = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button_l2Left, R.id.button_l2Right};
+            int[] buttons3 = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
             fakeRadioButtonDisplay(csm.getAutoStartPos(), buttons3);
         }
     }
@@ -250,27 +250,45 @@ public class AutoPage extends AppCompatActivity {
     public void groundNear(){}
 
     public void levelOneLeft(){
-        int[] buttons = {R.id.button_skipMatch, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button_l2Left, R.id.button_l2Right};
+        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
         fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
     }
     public void levelOneCenter(){
-        int[] buttons = {R.id.button_skipMatch, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button_l2Left, R.id.button_l2Right};
+        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
         fakeRadioButtonPressed(2, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
     }
     public void levelOneRight(){
-        int[] buttons = {R.id.button_skipMatch, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button_l2Left, R.id.button_l2Right};
+        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
         fakeRadioButtonPressed(3, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
     }
     public void levelTwoLeft(){
-        int[] buttons = {R.id.button_skipMatch, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button_l2Left, R.id.button_l2Right};
+        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
         fakeRadioButtonPressed(4, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
     }
     public void levelTwoRight(){
-        int[] buttons = {R.id.button_skipMatch, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button_l2Left, R.id.button_l2Right};
+        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
         fakeRadioButtonPressed(5, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
     }
 
-    public void skipMatch(){}
+    public void skipMatch(){
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+
+        if (null != csm) {
+            try {
+                CyberScouterMatchScouting.skipMatch(db, csm.getMatchScoutingID());
+                this.onResume();
+            } catch(Exception e) {
+                MessageBox.showMessageBox(this, "Skip Match Failed Alert", "skipMatch",
+                        "Update of UploadStatus failed!\n\n" +
+                                "The error is:\n" + e.getMessage());
+            }
+        }
+    }
 
 
     public void moveBonusYes(){

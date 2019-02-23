@@ -10,8 +10,9 @@
         android:id="@+id/button72"
         android:layout_width="63dp"
         android:layout_height="63dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/NoButton"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/button73"
@@ -21,10 +22,11 @@
         android:id="@+id/button73"
         android:layout_width="63dp"
         android:layout_height="63dp"
+        android:layout_marginTop="8dp"
         android:text="@string/YesButton"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.211"
+        app:layout_constraintHorizontal_bias="0.262"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView39" />
 
@@ -35,7 +37,7 @@
         android:layout_marginTop="48dp"
         android:text="@string/GroundPanelPickupText"
         android:textColor="@android:color/black"
-        android:textSize="30sp"
+        android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.204"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,8 +47,8 @@
         android:id="@+id/button70"
         android:layout_width="63dp"
         android:layout_height="63dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/NoButton"
         android:textSize="20sp"
@@ -82,13 +84,13 @@
         android:id="@+id/button68"
         android:layout_width="63dp"
         android:layout_height="63dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/NoButton"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/button69"
-        app:layout_constraintTop_toBottomOf="@+id/button_moveBonusNo" />
+        app:layout_constraintTop_toBottomOf="@+id/button_lostCommNo" />
 
     <Button
         android:id="@+id/button69"
@@ -100,7 +102,7 @@
         android:text="@string/YesButton"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView36"
-        app:layout_constraintTop_toBottomOf="@+id/button_moveBonusYes" />
+        app:layout_constraintTop_toBottomOf="@+id/button_lostCommYes" />
 
     <TextView
         android:id="@+id/textView36"
@@ -122,6 +124,7 @@
         android:layout_marginBottom="24dp"
         android:text="@string/PreviousButton"
         android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.038"
@@ -131,12 +134,12 @@
         android:id="@+id/button_previous"
         android:layout_width="226dp"
         android:layout_height="95dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/PreviousButton"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -152,19 +155,19 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_moveBonusNo"
+        android:id="@+id/button_lostCommNo"
         android:layout_width="63dp"
         android:layout_height="63dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/NoButton"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/button_moveBonusYes"
+        app:layout_constraintStart_toEndOf="@+id/button_lostCommYes"
         app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
     <Button
-        android:id="@+id/button_moveBonusYes"
+        android:id="@+id/button_lostCommYes"
         android:layout_width="63dp"
         android:layout_height="63dp"
         android:layout_marginStart="8dp"
@@ -176,7 +179,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView40" />
 
     <Button
-        android:id="@+id/button_cargo"
+        android:id="@+id/button_climbLvl1"
         android:layout_width="113dp"
         android:layout_height="64dp"
         android:layout_marginTop="8dp"
@@ -188,7 +191,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <Button
-        android:id="@+id/button_panel"
+        android:id="@+id/button_climbLvl2"
         android:layout_width="112dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
@@ -196,11 +199,11 @@
         android:layout_marginTop="8dp"
         android:text="@string/LevelTwoStartingPositionButton"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/button_cargo"
+        app:layout_constraintStart_toEndOf="@+id/button_climbLvl1"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <Button
-        android:id="@+id/button65"
+        android:id="@+id/button_climbLvl3"
         android:layout_width="112dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
@@ -208,11 +211,11 @@
         android:layout_marginTop="8dp"
         android:text="@string/LevelThreeStartingPositionButton"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/button_panel"
+        app:layout_constraintStart_toEndOf="@+id/button_climbLvl2"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <Button
-        android:id="@+id/button_none"
+        android:id="@+id/button_noClimb"
         android:layout_width="360dp"
         android:layout_height="64dp"
         android:layout_marginTop="8dp"
@@ -221,19 +224,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.877"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_panel" />
+        app:layout_constraintTop_toBottomOf="@+id/button_climbLvl2" />
 
     <Button
-        android:id="@+id/button66"
-        android:layout_width="360dp"
-        android:layout_height="64dp"
+        android:id="@+id/button_wasHelped"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/WasHelpedButton"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintHorizontal_bias="0.957"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_none" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView7"
@@ -312,5 +315,44 @@
         app:layout_constraintHorizontal_bias="0.795"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="896dp"
+        android:layout_marginLeft="896dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginRight="159dp"
+        android:text="@string/ClimbAssistText"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_noClimb" />
+
+    <Button
+        android:id="@+id/button_helped"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/HelpedButton"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_wasHelped"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/button_noHelp"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/NoHelpButton"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_helped"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </android.support.constraint.ConstraintLayout>

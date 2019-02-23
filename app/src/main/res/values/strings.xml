@@ -95,7 +95,10 @@
     <string name="ZeroText">0</string>
     <string name="NoAttemptButton">No Attempt</string>
     <string name="WasHelpedButton">Was Helped</string>
+    <string name="HelpedButton">Helped</string>
+    <string name="NoHelpButton">No Help</string>
     <string name="ClimbText">Climb</string>
+    <string name="ClimbAssistText">Climb Assist</string>
     <string name="RobotProblemsText">Robot Problems</string>
     <string name="LostCommText">Lost Comm</string>
     <string name="BrokeDownText">Broke Down</string>

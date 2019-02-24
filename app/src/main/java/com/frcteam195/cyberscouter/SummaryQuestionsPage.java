@@ -15,6 +15,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
     private RadioButton rb;
     private RadioGroup rg;
     private final int[] radioButtonArray = {R.id.radioButton1, R.id.radioButton2, R.id.radioButton3, R.id.radioButton4, R.id.radioButton5};
+    private int lastCheckedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,42 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             public void onClick(View v) {
                 previousAnswer();
 
+            }
+        });
+
+        rb = findViewById(R.id.radioButton1);
+        rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbClicked(v);
+            }
+        });
+        rb = findViewById(R.id.radioButton2);
+        rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbClicked(v);
+            }
+        });
+        rb = findViewById(R.id.radioButton3);
+        rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbClicked(v);
+            }
+        });
+        rb = findViewById(R.id.radioButton4);
+        rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbClicked(v);
+            }
+        });
+        rb = findViewById(R.id.radioButton5);
+        rb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rbClicked(v);
             }
         });
 
@@ -127,6 +164,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                     int l_ans = CyberScouterMatchScouting.getAnswerFromIndex(cfg.getLast_question(), csm);
                     if (-1 != l_ans) {
                         rg.check(radioButtonArray[l_ans]);
+                        lastCheckedButton = radioButtonArray[l_ans];
                     }
                 }
             }
@@ -207,7 +245,6 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                     ans = -1;
             }
 
-            if(-1 != ans) {
                 String col = CyberScouterMatchScouting.getColumnFromIndex(cfg.getLast_question());
                 if (null != col) {
                     String[] cols = {col};
@@ -221,9 +258,21 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                                         "The error is:\n" + e.getMessage());
                     }
                 }
-            }
         }
 
+    }
+
+    private void rbClicked(View v) {
+        rg = findViewById(R.id.radioGroup1);
+        int currentCheckedButton = rg.getCheckedRadioButtonId();
+        if(lastCheckedButton == currentCheckedButton) {
+            rg.clearCheck();
+            updateAnswer();
+        } else {
+            rg.check(v.getId());
+            updateAnswer();
+        }
+        this.onResume();
     }
 
 }

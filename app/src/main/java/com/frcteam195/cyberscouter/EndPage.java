@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -13,7 +14,15 @@ public class EndPage extends AppCompatActivity {
     private Button button;
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-
+    private final int[] lostCommButtons = {R.id.button_lostCommNo, R.id.button_lostCommYes};
+    private final int[] brokeButtons = {R.id.button68, R.id.button69};
+    private final int[] tipoverButtons = {R.id.button70, R.id.button71};
+    private final int[] grndPickupButtons = {R.id.button72, R.id.button73};
+    private final int[] climbScoreButtons = {R.id.button_noClimb, R.id.button7, R.id.button7, R.id.button_climbLvl1, R.id.button7,
+            R.id.button7, R.id.button_climbLvl2, R.id.button7, R.id.button7, R.id.button7, R.id.button7,
+            R.id.button7, R.id.button_climbLvl3};
+    private final int[] climbAssistBbuttons = {R.id.button_noHelp, R.id.button_helped, R.id.button_wasHelped};
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,75 +192,17 @@ public class EndPage extends AppCompatActivity {
             tv = findViewById(R.id.textView9);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-            int[] buttons = {R.id.button_lostCommNo, R.id.button_lostCommYes};
-            fakeRadioButtonDisplay(csm.getSummLostComm(), buttons);
+            FakeRadioGroup.buttonDisplay(this, csm.getSummLostComm(), lostCommButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            int[] buttons2 = {R.id.button68, R.id.button69};
-            fakeRadioButtonDisplay(csm.getSummBroke(), buttons2);
+            FakeRadioGroup.buttonDisplay(this, csm.getSummBroke(), brokeButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            int[] buttons3 = {R.id.button70, R.id.button71};
-            fakeRadioButtonDisplay(csm.getSummTipOver(), buttons3);
+            FakeRadioGroup.buttonDisplay(this, csm.getSummTipOver(), tipoverButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            int[] buttons4 = {R.id.button72, R.id.button73};
-            fakeRadioButtonDisplay(csm.getSummTipOver(), buttons4);
+            FakeRadioGroup.buttonDisplay(this, csm.getSummHatchGrdPickup(), grndPickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            int[] buttons5 = {R.id.button_noClimb, R.id.button7, R.id.button7, R.id.button_climbLvl1, R.id.button7,
-                    R.id.button7, R.id.button_climbLvl2, R.id.button7, R.id.button7, R.id.button7, R.id.button7,
-                    R.id.button7, R.id.button_climbLvl3};
-            fakeRadioButtonDisplay(csm.getClimbScore(), buttons5);
+            FakeRadioGroup.buttonDisplay(this, csm.getClimbScore(), climbScoreButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            int[] buttons6 = {R.id.button_noHelp, R.id.button_helped, R.id.button_wasHelped};
-            fakeRadioButtonDisplay(csm.getClimbAssist(), buttons6);
-        }
-    }
-
-    void fakeRadioButtonDisplay(int val, int[] bs) {
-
-        for(int i = 0 ; i<bs.length ; ++i){
-            button = findViewById(bs[i]);
-            if(-1 != val && i == val) {
-                button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
-            } else {
-                button.setTextColor(defaultButtonTextColor);
-            }
-        }
-    }
-
-    void fakeRadioButtonPressed(int val, int[] bs, String col){
-        for(int i = 0 ; i<bs.length ; ++i){
-            button = findViewById(bs[i]);
-            if(-1 != val && i == val) {
-                if(SELECTED_BUTTON_TEXT_COLOR == button.getCurrentTextColor()) {
-                    button.setTextColor(defaultButtonTextColor);
-                    updateMetric(col, -1);
-                } else {
-                    button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
-                    updateMetric(col, val);
-                }
-            } else {
-                button.setTextColor(defaultButtonTextColor);
-            }
-        }
-    }
-
-    void updateMetric(String col, int val) {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-
-        if (null != csm) {
-            try {
-                String[] cols = {col};
-                Integer[] vals = {val};
-                CyberScouterMatchScouting.updateMatchMetric(db, cols, vals, cfg);
-            } catch(Exception e) {
-                MessageBox.showMessageBox(this, "Update Metric Failed Alert", "updateMoveBonus",
-                        "Update of " + col + " failed!\n\n" +
-                                "The error is:\n" + e.getMessage());
-            }
+            FakeRadioGroup.buttonDisplay(this, csm.getClimbAssist(), climbAssistBbuttons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         }
     }
 
@@ -266,77 +217,54 @@ public class EndPage extends AppCompatActivity {
     }
 
     public void lostCommNo() {
-        int[] buttons = {R.id.button_lostCommNo, R.id.button_lostCommYes};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM);
+        FakeRadioGroup.buttonPressed(this, 0, lostCommButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void lostCommYes() {
-        int[] buttons = {R.id.button_lostCommNo, R.id.button_lostCommYes};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM);
+        FakeRadioGroup.buttonPressed(this, 1, lostCommButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void brokeDownNo() {
-        int[] buttons = {R.id.button68, R.id.button69};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE);
+        FakeRadioGroup.buttonPressed(this, 0, brokeButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void brokeDownYes() {
-        int[] buttons = {R.id.button68, R.id.button69};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE);
+        FakeRadioGroup.buttonPressed(this, 1, brokeButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void tippedOverNo() {
-        int[] buttons = {R.id.button70, R.id.button71};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER);
+        FakeRadioGroup.buttonPressed(this, 0, tipoverButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void tippedOverYes() {
-        int[] buttons = {R.id.button70, R.id.button71};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER);
+        FakeRadioGroup.buttonPressed(this, 1, tipoverButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void hatchGroundPickupNo() {
-        int[] buttons = {R.id.button72, R.id.button73};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP);
+        FakeRadioGroup.buttonPressed(this, 0, grndPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void hatchGroundPickupYes() {
-        int[] buttons = {R.id.button72, R.id.button73};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP);
+        FakeRadioGroup.buttonPressed(this, 1, grndPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void noClimb() {
-        int[] buttons = {R.id.button_noClimb, R.id.button7, R.id.button7, R.id.button_climbLvl1, R.id.button7,
-                R.id.button7, R.id.button_climbLvl2, R.id.button7, R.id.button7, R.id.button7, R.id.button7,
-                R.id.button7, R.id.button_climbLvl3};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE);
+        FakeRadioGroup.buttonPressed(this,0, climbScoreButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void climbLvl1() {
-        int[] buttons = {R.id.button_noClimb, R.id.button7, R.id.button7, R.id.button_climbLvl1, R.id.button7,
-                R.id.button7, R.id.button_climbLvl2, R.id.button7, R.id.button7, R.id.button7, R.id.button7,
-                R.id.button7, R.id.button_climbLvl3};
-        fakeRadioButtonPressed(3, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE);
+        FakeRadioGroup.buttonPressed(this, 3, climbScoreButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void climbLvl2() {
-        int[] buttons = {R.id.button_noClimb, R.id.button7, R.id.button7, R.id.button_climbLvl1, R.id.button7,
-                R.id.button7, R.id.button_climbLvl2, R.id.button7, R.id.button7, R.id.button7, R.id.button7,
-                R.id.button7, R.id.button_climbLvl3};
-        fakeRadioButtonPressed(6, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE);
+        FakeRadioGroup.buttonPressed(this, 6, climbScoreButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void climbLvl3() {
-        int[] buttons = {R.id.button_noClimb, R.id.button7, R.id.button7, R.id.button_climbLvl1, R.id.button7,
-                R.id.button7, R.id.button_climbLvl2, R.id.button7, R.id.button7, R.id.button7, R.id.button7,
-                R.id.button7, R.id.button_climbLvl3};
-        fakeRadioButtonPressed(12, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE);
+        FakeRadioGroup.buttonPressed(this, 12, climbScoreButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void noHelp() {
-        int[] buttons = {R.id.button_noHelp, R.id.button_helped, R.id.button_wasHelped};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST);
+        FakeRadioGroup.buttonPressed(this, 0, climbAssistBbuttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void helped() {
-        int[] buttons = {R.id.button_noHelp, R.id.button_helped, R.id.button_wasHelped};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST);
+        FakeRadioGroup.buttonPressed(this, 1, climbAssistBbuttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void wasHelped() {
-        int[] buttons = {R.id.button_noHelp, R.id.button_helped, R.id.button_wasHelped};
-        fakeRadioButtonPressed(2, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST);
+        FakeRadioGroup.buttonPressed(this, 2, climbAssistBbuttons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
 }

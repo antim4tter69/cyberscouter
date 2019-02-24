@@ -13,6 +13,12 @@ public class AutoPage extends AppCompatActivity {
     private Button button;
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
+    private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
+    private final int[] preloadButtons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
+    private final int[] startingPosButtons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,67 +179,13 @@ public class AutoPage extends AppCompatActivity {
             tv = findViewById(R.id.textView9);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-            int[] buttons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-            fakeRadioButtonDisplay(csm.getAutoMoveBonus(), buttons);
+            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            int[] buttons2 = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
-            fakeRadioButtonDisplay(csm.getAutoPreload(), buttons2);
+            FakeRadioGroup.buttonDisplay(this, csm.getAutoPreload(), preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            int[] buttons3 = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
-            fakeRadioButtonDisplay(csm.getAutoStartPos(), buttons3);
+            FakeRadioGroup.buttonDisplay(this, csm.getAutoStartPos(), startingPosButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         }
     }
-
-    void fakeRadioButtonDisplay(int val, int[] bs) {
-
-        for(int i = 0 ; i<bs.length ; ++i){
-            button = findViewById(bs[i]);
-            if(-1 != val && i == val) {
-                button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
-            } else {
-                button.setTextColor(defaultButtonTextColor);
-            }
-        }
-    }
-
-    void fakeRadioButtonPressed(int val, int[] bs, String col){
-        for(int i = 0 ; i<bs.length ; ++i){
-            button = findViewById(bs[i]);
-            if(-1 != val && i == val) {
-                if(SELECTED_BUTTON_TEXT_COLOR == button.getCurrentTextColor()) {
-                    button.setTextColor(defaultButtonTextColor);
-                    updateMetric(col, -1);
-                } else {
-                    button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
-                    updateMetric(col, val);
-                }
-            } else {
-                button.setTextColor(defaultButtonTextColor);
-            }
-        }
-    }
-
-    void updateMetric(String col, int val) {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-
-        if (null != csm) {
-            try {
-                String[] cols = {col};
-                Integer[] vals = {val};
-                CyberScouterMatchScouting.updateMatchMetric(db, cols, vals, cfg);
-            } catch(Exception e) {
-                MessageBox.showMessageBox(this, "Update Metric Failed Alert", "updateMoveBonus",
-                        "Update of " + col + " failed!\n\n" +
-                                "The error is:\n" + e.getMessage());
-            }
-        }
-    }
-
 
     public void StartMatch(){
 
@@ -250,24 +202,19 @@ public class AutoPage extends AppCompatActivity {
     public void groundNear(){}
 
     public void levelOneLeft(){
-        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
+        FakeRadioGroup.buttonPressed(this,1, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelOneCenter(){
-        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
-        fakeRadioButtonPressed(2, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
+        FakeRadioGroup.buttonPressed(this,2, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelOneRight(){
-        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
-        fakeRadioButtonPressed(3, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
+        FakeRadioGroup.buttonPressed(this, 3, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelTwoLeft(){
-        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
-        fakeRadioButtonPressed(4, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
+        FakeRadioGroup.buttonPressed(this,4, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelTwoRight(){
-        int[] buttons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
-        fakeRadioButtonPressed(5, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS);
+        FakeRadioGroup.buttonPressed(this,5, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void skipMatch(){
@@ -292,26 +239,21 @@ public class AutoPage extends AppCompatActivity {
 
 
     public void moveBonusYes(){
-        int[] buttons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS);
+        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void moveBonusNo(){
-        int[] buttons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS);
+        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
 
     public void preloadCargo(){
-        int[] buttons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
-        fakeRadioButtonPressed(2, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD);
+        FakeRadioGroup.buttonPressed(this, 2, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void preloadPanel(){
-        int[] buttons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
-        fakeRadioButtonPressed(1, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD);
+        FakeRadioGroup.buttonPressed(this, 1, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void preloadNone() {
-        int[] buttons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
-        fakeRadioButtonPressed(0, buttons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD);
+        FakeRadioGroup.buttonPressed(this, 0, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
 }

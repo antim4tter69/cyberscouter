@@ -553,6 +553,60 @@ class CyberScouterMatchScouting {
         return(String.format(Locale.getDefault(), "%d matches inserted, %d matches updated", inserted, updated));
     }
 
+    public static String getColumnFromIndex(int i) {
+        switch(i) {
+            case 1:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01;
+            case 2:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02;
+            case 3:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03;
+            case 4:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER04;
+            case 5:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER05;
+            case 6:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER06;
+            case 7:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER07;
+            case 8:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER08;
+            case 9:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER09;
+            case 10:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER10;
+            default:
+                return null;
+        }
+    }
+
+    public static int getAnswerFromIndex(int quest, CyberScouterMatchScouting csms) {
+        switch(quest) {
+            case 1 :
+                return csms.getAnswer01();
+            case 2 :
+                return csms.getAnswer02();
+            case 3 :
+                return csms.getAnswer03();
+            case 4 :
+                return csms.getAnswer04();
+            case 5 :
+                return csms.getAnswer05();
+            case 6 :
+                return csms.getAnswer06();
+            case 7 :
+                return csms.getAnswer07();
+            case 8 :
+                return csms.getAnswer08();
+            case 9 :
+                return csms.getAnswer09();
+            case 10 :
+                return csms.getAnswer10();
+            default :
+                return -1;
+        }
+    }
+
     int getMatchScoutingID() {
         return matchScoutingID;
     }

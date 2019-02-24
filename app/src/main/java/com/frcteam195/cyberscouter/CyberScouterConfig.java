@@ -1,5 +1,6 @@
 package com.frcteam195.cyberscouter;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.TextView;
@@ -18,6 +19,7 @@ public class CyberScouterConfig {
     private boolean field_red_left;
     private String username;
     private int user_id;
+    private int last_question;
 
     public CyberScouterConfig(){}
 
@@ -51,6 +53,8 @@ public class CyberScouterConfig {
 
     public int getUser_id() {return user_id;}
 
+    public int getLast_question() { return last_question; }
+
     static public CyberScouterConfig getConfig(SQLiteDatabase db) {
         CyberScouterConfig ret = null;
         Cursor cursor = null;
@@ -65,7 +69,8 @@ public class CyberScouterConfig {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME,
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID,
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION
             };
 
             String sortOrder =
@@ -94,6 +99,7 @@ public class CyberScouterConfig {
                 ret.field_red_left = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT))==1);
                 ret.username = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME));
                 ret.user_id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID));
+                ret.last_question = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION));
 
                 /* If there's more than one config row -- we only want one */
                 if(1 < cursor.getCount()) {
@@ -115,6 +121,16 @@ public class CyberScouterConfig {
             if(null != cursor && !cursor.isClosed())
                 cursor.close();
         }
+    }
+
+    static void setLastQuestion(SQLiteDatabase db, int nextQuestion) {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION, nextQuestion);
+        int count = db.update(
+                CyberScouterContract.ConfigEntry.TABLE_NAME,
+                values,
+                null,
+                null);
     }
 
 }

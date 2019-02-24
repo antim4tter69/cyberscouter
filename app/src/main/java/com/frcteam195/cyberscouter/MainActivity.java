@@ -193,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 0);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, CyberScouterConfig.UNKNOWN_USER_IDX);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION, 1);
 
 // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
@@ -265,10 +266,11 @@ public class MainActivity extends AppCompatActivity {
 
             final CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-            if (null != cfg && cfg.isOffline()) {
-                MessageBox.showMessageBox(this, "Offline Alert", "syncData", "You are currently offline. If you want to sync, please get online!");
-            } else {
-                if (null != cfg && !cfg.isOffline()) {
+            if(null != cfg) {
+
+                if (cfg.isOffline()) {
+                    MessageBox.showMessageBox(this, "Offline Alert", "syncData", "You are currently offline. If you want to sync, please get online!");
+                } else {
                     getMatchScoutingTask scoutingTask = new getMatchScoutingTask(new IOnEventListener<CyberScouterMatchScouting[]>() {
                         @Override
                         public void onSuccess(CyberScouterMatchScouting[] result) {
@@ -278,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
 
                                 Toast t = Toast.makeText(MainActivity.this, "Data synced successfully! -- " + tmp, Toast.LENGTH_SHORT);
                                 t.show();
-                            } catch(Exception ee) {
+                            } catch (Exception ee) {
                                 MessageBox.showMessageBox(MainActivity.this, "Fetch Match Scouting Failed Alert", "syncData.getMatchScoutingTask.onSuccess",
                                         "Attempt to update local match information failed!\n\n" +
                                                 "The error is:\n" + ee.getMessage());
@@ -298,32 +300,48 @@ public class MainActivity extends AppCompatActivity {
 
                     scoutingTask.execute();
 
-                }
-
-                CyberScouterUsers.deleteUsers(db);
-                getUserNamesTask namesTask = new getUserNamesTask(new IOnEventListener<CyberScouterUsers[]>() {
-                    @Override
-                    public void onSuccess(CyberScouterUsers[] result) {
-                        CyberScouterUsers.setUsers(db, result);
-                    }
-
-                    @Override
-                    public void onFailure(Exception e) {
-                        if(null != e) {
-                            MessageBox.showMessageBox(MainActivity.this, "Fetch Event Failed Alert", "getEventTask", "Fetch of Current Event information failed!\n\n" +
-                                    "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
+                    CyberScouterUsers.deleteUsers(db);
+                    getUserNamesTask namesTask = new getUserNamesTask(new IOnEventListener<CyberScouterUsers[]>() {
+                        @Override
+                        public void onSuccess(CyberScouterUsers[] result) {
+                            CyberScouterUsers.setUsers(db, result);
                         }
 
-                    }
-                });
+                        @Override
+                        public void onFailure(Exception e) {
+                            if (null != e) {
+                                MessageBox.showMessageBox(MainActivity.this, "Fetch Event Failed Alert", "getUsersTask", "Fetch of User information failed!\n\n" +
+                                        "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
+                            }
 
-                namesTask.execute();
+                        }
+                    });
 
+                    namesTask.execute();
+
+                    CyberScouterQuestions.deleteQuestions(db);
+                    getQuestionsTask questionsTask = new getQuestionsTask(new IOnEventListener<CyberScouterQuestions[]>() {
+                        @Override
+                        public void onSuccess(CyberScouterQuestions[] result) {
+                            CyberScouterQuestions.setLocalQuestions(db, result);
+                        }
+
+                        @Override
+                        public void onFailure(Exception e) {
+                            if (null != e) {
+                                MessageBox.showMessageBox(MainActivity.this, "Fetch Questions Failed Alert", "getQuestionsTask", "Fetch of Question information failed!\n\n" +
+                                        "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
+                            }
+                        }
+                    }, cfg.getEvent_id());
+
+                    questionsTask.execute();
+                }
             }
 
         } catch (Exception e_m) {
             e_m.printStackTrace();
-            MessageBox.showMessageBox(this, "Fetch Event Failed Alert", "syncData", "Sync with data source failed!\n\n" +
+            MessageBox.showMessageBox(this, "Fetch Event Info Failed Alert", "syncData", "Sync with data source failed!\n\n" +
                     "You may want to consider working offline.\n\n" + "The error is:\n" + e_m.getMessage());
         }
     }
@@ -428,6 +446,7 @@ public class MainActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
+                mException = e;
             }
 
             return null;
@@ -440,6 +459,52 @@ public class MainActivity extends AppCompatActivity {
                     mCallBack.onFailure(mException);
                 } else {
                     mCallBack.onSuccess(csua);
+                }
+            }
+        }
+    }
+
+    private class getQuestionsTask extends AsyncTask<Void, Void, CyberScouterQuestions[]> {
+        private IOnEventListener<CyberScouterQuestions[]> mCallBack;
+        private Exception mException;
+        private int mCurrentEventId;
+
+        getQuestionsTask(IOnEventListener<CyberScouterQuestions[]> mListener, int l_currentEventID) {
+            super();
+            mCallBack = mListener;
+            mCurrentEventId = l_currentEventID;
+        }
+
+        @Override
+        protected CyberScouterQuestions[] doInBackground(Void... arg) {
+
+            try {
+                Class.forName("net.sourceforge.jtds.jdbc.Driver");
+                Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
+                        + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
+
+                CyberScouterQuestions[] csqa = CyberScouterQuestions.getQuestions(conn, mCurrentEventId);
+
+                conn.close();
+
+                if(null != csqa)
+                    return csqa;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                mException = e;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(CyberScouterQuestions[] csqa) {
+            if (null != mCallBack) {
+                if (null != mException || null == csqa) {
+                    mCallBack.onFailure(mException);
+                } else {
+                    mCallBack.onSuccess(csqa);
                 }
             }
         }

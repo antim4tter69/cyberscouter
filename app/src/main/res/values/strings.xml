@@ -34,11 +34,8 @@
     <string name="NextButton">Next</string>
     <string name="DefaultButtonName">DefaultName</string>
     <string name="SummaryQuestionTitle">Summary Questions</string>
-    <string name="AnswerButtonOne">Answer 1</string>
-    <string name="AnswerButtonTwo">Answer 2</string>
-    <string name="AnswerButtonThree">Answer 3</string>
-    <string name="AnswerButtonFour">Answer 4</string>
-    <string name="AnswerButtonFive">Answer 5</string>
+    <string name="PreviousAnswer"> Previous Answer </string>
+    <string name="NextAnswer"> Next Answer </string>
     <color name="CurrentTeamColor">#990099</color>
     <string name="title_activity_auto_page">Sandstorm</string>
     <string name="SkipMatchButton">Skip Match</string>

@@ -1,5 +1,7 @@
 package com.frcteam195.cyberscouter;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -10,7 +12,7 @@ import java.sql.Statement;
 import java.util.Locale;
 import java.util.Vector;
 
-public class CyberScouterMatchScouting {
+class CyberScouterMatchScouting {
 
     private int matchScoutingID;
     private int eventID;
@@ -73,15 +75,16 @@ public class CyberScouterMatchScouting {
     private int uploadStatus;
 
 
-    CyberScouterMatchScouting[] getMatches(Connection conn, int eventId) {
-        Vector<CyberScouterMatchScouting> csmv = new Vector<CyberScouterMatchScouting>();
+    static CyberScouterMatchScouting[] getMatches(Connection conn, int eventId) {
+        Vector<CyberScouterMatchScouting> csmv = new Vector<>();
 
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * from " + CyberScouterContract.MatchScouting.TABLE_NAME +
                     " WHERE " +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " = " + eventId +
-                    " ORDER BY " + CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " ASC");
+                    " ORDER BY " + CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID + " ASC, " +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " ASC");
             while (rs.next()) {
                 CyberScouterMatchScouting csm = new CyberScouterMatchScouting();
                 csm.matchScoutingID = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID));
@@ -100,9 +103,17 @@ public class CyberScouterMatchScouting {
                 csm.areasToReview = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW));
                 csm.complete = (rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE)) == 1);
                 csm.autoStartPos = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS));
+                if(rs.wasNull())
+                    csm.autoStartPos = -1;
                 csm.autoPreload = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD));
+                if(rs.wasNull())
+                    csm.autoPreload = -1;
                 csm.autoDidNotShow = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
+                if(rs.wasNull())
+                    csm.autoDidNotShow = -1;
                 csm.autoMoveBonus = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
+                if(rs.wasNull())
+                    csm.autoMoveBonus = -1;
                 csm.autoCSCargo = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSCARGO));
                 csm.autoCSHatch = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSHATCH));
                 csm.autoRSCargoLow = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOLOW));
@@ -126,12 +137,26 @@ public class CyberScouterMatchScouting {
                 csm.teleRSHatchNearMed = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARMED));
                 csm.teleRSHatchNearHigh = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARHIGH));
                 csm.climbScore = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE));
+                if(rs.wasNull())
+                    csm.climbScore = -1;
                 csm.climbAssist = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST));
+                if(rs.wasNull())
+                    csm.climbAssist = -1;
                 csm.summHatchGrdPickup = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP));
+                if(rs.wasNull())
+                    csm.summHatchGrdPickup = -1;
                 csm.summLostComm = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
+                if(rs.wasNull())
+                    csm.summLostComm= -1;
                 csm.summBroke = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE));
+                if(rs.wasNull())
+                    csm.summBroke = -1;
                 csm.summTipOver = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER));
+                if(rs.wasNull())
+                    csm.summTipOver = -1;
                 csm.summSubsystemBroke = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE));
+                if(rs.wasNull())
+                    csm.summSubsystemBroke = -1;
                 csm.answer01 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01));
                 csm.answer02 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02));
                 csm.answer03 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03));
@@ -158,9 +183,16 @@ public class CyberScouterMatchScouting {
         }
     }
 
-    CyberScouterMatchScouting getCurrentMatch(SQLiteDatabase db, int l_allianceStationID) {
-        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ?";
-        String[] selectionArgs = {String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED), String.format(Locale.getDefault(), "%d", l_allianceStationID)};
+    // Gets the next sequential un-scouted match for the current scouter station
+    static CyberScouterMatchScouting getCurrentMatch(SQLiteDatabase db, int l_allianceStationID) {
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " +
+                CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ? AND " +
+                CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED),
+                String.format(Locale.getDefault(), "%d", l_allianceStationID),
+                String.format(Locale.getDefault(), "%d", UploadStatus.NOT_UPLOADED)
+        };
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " ASC";
 
@@ -171,18 +203,45 @@ public class CyberScouterMatchScouting {
             return null;
     }
 
-    CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo) {
-        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " + CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ?";
-        String[] selectionArgs = {String.format(Locale.getDefault(), "%d", ScoutingStatus.UNSCOUTED), String.format(Locale.getDefault(), "%d", l_teamMatchNo)};
+    // Gets the next sequential unscouted match for all scouter stations
+    static CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo) {
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_teamMatchNo)
+        };
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " ASC";
 
         return (getLocalMatches(db, selection, selectionArgs, sortOrder));
     }
 
-    private CyberScouterMatchScouting[] getLocalMatches(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
-        CyberScouterMatchScouting csm = null;
-        Vector<CyberScouterMatchScouting> csmv = new Vector<CyberScouterMatchScouting>();
+    // Returns only the matches that are unscouted
+    private static CyberScouterMatchScouting getLocalMatch(SQLiteDatabase db, int l_eventID, int l_matchID, int l_allianceStationID) throws Exception {
+        String selection =
+                CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " = ? AND "
+                        + CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID + " = ? AND "
+                        + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_eventID),
+                String.format(Locale.getDefault(), "%d", l_matchID),
+                String.format(Locale.getDefault(), "%d", l_allianceStationID)
+        };
+
+        CyberScouterMatchScouting[] csmv = getLocalMatches(db, selection, selectionArgs, null);
+
+        if (null != csmv) {
+            if (1 < csmv.length) {
+                throw new Exception(String.format(Locale.getDefault(), "Too many match scouting rows found.  Wanted %d, found %d!\n\nEventID=%d, MatchID=%d, AllianceStationID=%d",
+                        1, csmv.length, l_eventID, l_matchID, l_allianceStationID));
+            } else
+                return (csmv[0]);
+        } else
+            return null;
+    }
+
+    private static CyberScouterMatchScouting[] getLocalMatches(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
+        CyberScouterMatchScouting csm;
+        Vector<CyberScouterMatchScouting> csmv = new Vector<>();
 
         Cursor cursor = null;
         try {
@@ -328,8 +387,7 @@ public class CyberScouterMatchScouting {
 
             if (0 < csmv.size()) {
                 CyberScouterMatchScouting[] csma = new CyberScouterMatchScouting[csmv.size()];
-                CyberScouterMatchScouting[] csmaa = csmv.toArray(csma);
-                return csmaa;
+                return csmv.toArray(csma);
             } else
                 return null;
 
@@ -339,6 +397,243 @@ public class CyberScouterMatchScouting {
         } finally {
             if (null != cursor && !cursor.isClosed())
                 cursor.close();
+        }
+    }
+
+    private static void setMatch(Context ctx, CyberScouterMatchScouting csm) {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, csm.getMatchScoutingID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, csm.getEventID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, csm.getMatchID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, csm.getComputerID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, csm.getScouterID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, csm.getReviewerID());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, csm.getTeam());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, csm.getTeamMatchNo());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, csm.getAllianceStationID());
+//                values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_STARTOFTELEOP, csm.getStartOfTeleop());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED, csm.getMatchEnded());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_QUESTIONSANSWERED, csm.getQuestionsAnswered());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, csm.getScoutingStatus());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW, csm.getAreasToReview());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE, csm.getComplete());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, csm.getAutoStartPos());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, csm.getAutoPreload());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, csm.getAutoDidNotShow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, csm.getAutoMoveBonus());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSCARGO, csm.getAutoCSCargo());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSHATCH, csm.getAutoCSHatch());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOLOW, csm.getAutoRSCargoLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOMED, csm.getAutoRSCargoMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOHIGH, csm.getAutoRSCargoHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARLOW, csm.getAutoRSHatchFarLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARMED, csm.getAutoRSHatchFarMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARHIGH, csm.getAutoRSHatchFarHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARLOW, csm.getAutoRSHatchNearLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARMED, csm.getAutoRSHatchNearMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARHIGH, csm.getAutoRSHatchNearHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSCARGO, csm.getTeleCSCargo());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSHATCH, csm.getTeleCSHatch());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOLOW, csm.getTeleRSCargoLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOMED, csm.getTeleRSCargoMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOHIGH, csm.getTeleRSCargoHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARLOW, csm.getTeleRSHatchFarLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARMED, csm.getTeleRSHatchFarMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARHIGH, csm.getTeleRSHatchFarHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARLOW, csm.getTeleRSHatchNearLow());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARMED, csm.getTeleRSHatchNearMed());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARHIGH, csm.getTeleRSHatchNearHigh());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE, csm.getClimbScore());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST, csm.getClimbAssist());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, csm.getSummHatchGrdPickup());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, csm.getSummLostComm());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE, csm.getSummBroke());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER, csm.getSummTipOver());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, csm.getSummSubsystemBroke());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01, csm.getAnswer01());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02, csm.getAnswer02());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03, csm.getAnswer03());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER04, csm.getAnswer04());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER05, csm.getAnswer05());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER06, csm.getAnswer06());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER07, csm.getAnswer07());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER08, csm.getAnswer08());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER09, csm.getAnswer09());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER10, csm.getAnswer10());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
+
+        long newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
+    }
+
+    static void deleteOldMatches(Context ctx, int l_eventID) {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        String[] whereArgs = {String.format(Locale.getDefault(), "%d", l_eventID)};
+
+        db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " <> ?", whereArgs);
+    }
+
+    private static void updateMatchTeamAndScoutingStatus(SQLiteDatabase db, CyberScouterMatchScouting rmatch, CyberScouterMatchScouting lmatch) throws Exception {
+
+        // if this is a match that we've finished scouting but hasn't been uploaded yet...
+        if(UploadStatus.READY_TO_UPLOAD == lmatch.getUploadStatus())
+            return;
+
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, rmatch.team);
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, rmatch.scoutingStatus);
+
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {String.format(Locale.getDefault(), "%d", lmatch.matchScoutingID)};
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", lmatch.matchScoutingID));
+    }
+
+    static void updateMatchMetric(SQLiteDatabase db, String[] lColumns, Integer[] lValues, CyberScouterConfig cfg) throws Exception {
+        CyberScouterMatchScouting csms = getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        if (null == csms)
+            throw new Exception(String.format("No current unscouted match was found!  Attempt to update a match statistic failed!\n\nRole=%s", cfg.getRole()));
+        if (null == lColumns || null == lValues || lColumns.length != lValues.length)
+            throw new Exception(String.format("Bad request! Attempt to update a match statistic failed!\n\nRole=%s", cfg.getRole()));
+
+        ContentValues values = new ContentValues();
+        for (int i = 0; i < lColumns.length; ++i) {
+            values.put(lColumns[i], lValues[i]);
+        }
+
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", csms.matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", csms.matchScoutingID));
+
+    }
+
+    static void skipMatch(SQLiteDatabase db, int l_matchScoutingID) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.SKIPPED);
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", l_matchScoutingID));
+    }
+
+    static void submitMatch(SQLiteDatabase db, int l_matchScoutingID) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.READY_TO_UPLOAD);
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, ScoutingStatus.FINISHED_SUCCESSFULLY);
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", l_matchScoutingID));
+    }
+
+    static void submitMatchForReview(SQLiteDatabase db, int l_matchScoutingID) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.READY_TO_UPLOAD);
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, ScoutingStatus.NEEDS_REVIEW);
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", l_matchScoutingID));
+    }
+
+    private static int updateMatch(SQLiteDatabase db, ContentValues values, String selection, String[] selectionArgs) {
+        return db.update(
+                CyberScouterContract.MatchScouting.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+    }
+
+    // If there are new match scouting records, insert them into the local database.
+    // Otherwise, update the scouting status and the team for each match, to keep that info current
+    static String mergeMatches(Context ctx, CyberScouterMatchScouting[] remoteMatches) throws Exception {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        int updated=0, inserted=0;
+
+        for (CyberScouterMatchScouting rmatch : remoteMatches) {
+            CyberScouterMatchScouting lmatch = getLocalMatch(db, rmatch.eventID, rmatch.matchID, rmatch.allianceStationID);
+            if (null != lmatch) {
+                updateMatchTeamAndScoutingStatus(db, rmatch, lmatch);
+                updated++;
+            } else {
+                setMatch(ctx, rmatch);
+                inserted++;
+            }
+        }
+
+        return(String.format(Locale.getDefault(), "%d matches inserted, %d matches updated", inserted, updated));
+    }
+
+    public static String getColumnFromIndex(int i) {
+        switch(i) {
+            case 1:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01;
+            case 2:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02;
+            case 3:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03;
+            case 4:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER04;
+            case 5:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER05;
+            case 6:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER06;
+            case 7:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER07;
+            case 8:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER08;
+            case 9:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER09;
+            case 10:
+                return CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER10;
+            default:
+                return null;
+        }
+    }
+
+    public static int getAnswerFromIndex(int quest, CyberScouterMatchScouting csms) {
+        switch(quest) {
+            case 1 :
+                return csms.getAnswer01();
+            case 2 :
+                return csms.getAnswer02();
+            case 3 :
+                return csms.getAnswer03();
+            case 4 :
+                return csms.getAnswer04();
+            case 5 :
+                return csms.getAnswer05();
+            case 6 :
+                return csms.getAnswer06();
+            case 7 :
+                return csms.getAnswer07();
+            case 8 :
+                return csms.getAnswer08();
+            case 9 :
+                return csms.getAnswer09();
+            case 10 :
+                return csms.getAnswer10();
+            default :
+                return -1;
         }
     }
 

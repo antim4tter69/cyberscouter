@@ -564,7 +564,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/button_previous"
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:layout_marginBottom="24dp"

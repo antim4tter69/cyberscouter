@@ -1,8 +1,5 @@
 package com.frcteam195.cyberscouter;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 public class CyberScouterContract {
@@ -19,6 +16,8 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_OFFLINE = "offline";
         public static final String COLUMN_NAME_FIELD_REDLEFT = "field_red_left";
         public static final String COLUMN_NAME_USERNAME = "username";
+        public static final String COLUMN_NAME_USERID = "user_id";
+        public static final String COLUMN_NAME_LASTQUESTION = "last_question";
     }
 
     public static class Events implements BaseColumns {
@@ -29,6 +28,15 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_STARTDATE = "StartDate";
         public static final String COLUMN_NAME_ENDDATE = "EndDate";
         public static final String COLUMN_NAME_CURRENTEVENT = "CurrentEvent";
+    }
+
+    public static class Users implements BaseColumns {
+        public static final String TABLE_NAME = "Users";
+        public static final String COLUMN_NAME_USERID = "UserId";
+        public static final String COLUMN_NAME_FIRSTNAME = "FirstName";
+        public static final String COLUMN_NAME_LASTNAME = "LastName";
+        public static final String COLUMN_NAME_CELLPHONE = "CellPhone";
+        public static final String COLUMN_NAME_EMAIL = "Email";
     }
 
     public static class MatchScouting implements BaseColumns {
@@ -94,4 +102,12 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_UPLOADSTATUS = "UploadStatus";
     }
 
+    public static class Questions implements BaseColumns {
+        public static final String TABLE_NAME = "Questions";
+        public static final String COLUMN_NAME_QUESTIONID = "QuestionId";
+        public static final String COLUMN_NAME_EVENTID = "EventID";
+        public static final String COLUMN_NAME_QUESTIONNUMBER = "QuestionNumber";
+        public static final String COLUMN_NAME_QUESTIONTEXT = "QuestionText";
+        public static final String COLUMN_NAME_ANSWERS = "Answers";
+    }
 }

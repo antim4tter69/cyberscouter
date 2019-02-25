@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 7;
     public static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
@@ -19,7 +19,10 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM + " INTEGER," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE + " INTEGER," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT + " INTEGER," +
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME + " TEXT)";
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME + " TEXT," +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID + " INTEGER," +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION + " INTEGER)"
+            ;
 
     private static final String SQL_DELETE_CONFIG_ENTRIES =
             "DROP TABLE IF EXISTS " + CyberScouterContract.ConfigEntry.TABLE_NAME;
@@ -89,6 +92,29 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_MATCHES =
             "DROP TABLE IF EXISTS " + CyberScouterContract.MatchScouting.TABLE_NAME;
 
+    private static final String SQL_CREATE_USER_ENTRIES =
+            "CREATE TABLE " + CyberScouterContract.Users.TABLE_NAME + " (" +
+                    CyberScouterContract.Users.COLUMN_NAME_USERID + " INTEGER PRIMARY KEY," +
+                    CyberScouterContract.Users.COLUMN_NAME_FIRSTNAME + " TEXT," +
+                    CyberScouterContract.Users.COLUMN_NAME_LASTNAME + " TEXT," +
+                    CyberScouterContract.Users.COLUMN_NAME_CELLPHONE + " TEXT," +
+                    CyberScouterContract.Users.COLUMN_NAME_EMAIL + " TEXT)"
+            ;
+
+    private static final String SQL_DELETE_USER_ENTRIES =
+            "DROP TABLE IF EXISTS " + CyberScouterContract.Users.TABLE_NAME;
+
+    private static final String SQL_CREATE_QUESTIONS =
+            "CREATE TABLE " + CyberScouterContract.Questions.TABLE_NAME + " (" +
+                CyberScouterContract.Questions.COLUMN_NAME_QUESTIONID + " INTEGER PRIMARY KEY," +
+                    CyberScouterContract.Questions.COLUMN_NAME_EVENTID + " INTEGER," +
+                    CyberScouterContract.Questions.COLUMN_NAME_QUESTIONNUMBER + " INTEGER," +
+                    CyberScouterContract.Questions.COLUMN_NAME_QUESTIONTEXT + " TEXT," +
+                    CyberScouterContract.Questions.COLUMN_NAME_ANSWERS + " TEXT)";
+            ;
+
+    private static final String SQL_DELETE_QUESTIONS =
+            "DROP TABLE IF EXISTS " + CyberScouterContract.Questions.TABLE_NAME;
 
     public CyberScouterDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -97,6 +123,8 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_CONFIG_ENTRIES);
         db.execSQL(SQL_CREATE_MATCHES);
+        db.execSQL(SQL_CREATE_USER_ENTRIES);
+        db.execSQL(SQL_CREATE_QUESTIONS);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -104,6 +132,8 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         // simply to discard the data and start over
         db.execSQL(SQL_DELETE_CONFIG_ENTRIES);
         db.execSQL(SQL_DELETE_MATCHES);
+        db.execSQL(SQL_DELETE_USER_ENTRIES);
+        db.execSQL(SQL_DELETE_QUESTIONS);
         onCreate(db);
     }
 

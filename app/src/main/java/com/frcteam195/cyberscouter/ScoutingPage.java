@@ -12,18 +12,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static java.lang.Thread.sleep;
-
 public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
     private Button button;
-    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ImageButton imageButton;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scouting_page);
 
-        button = (Button) findViewById(R.id.button5);
+        button = findViewById(R.id.button5);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,7 +31,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             }
         });
 
-        button = (Button) findViewById(R.id.button6);
+        button = findViewById(R.id.button6);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +39,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
             }
         });
-        button = (Button) findViewById(R.id.button7);
+        button = findViewById(R.id.button7);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,7 +48,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             }
         });
 
-        imageButton = (ImageButton) findViewById(R.id.imageButton);
+        imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -59,7 +58,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             }
         });
 
-        imageButton = (ImageButton) findViewById(R.id.imageButton2);
+        imageButton = findViewById(R.id.imageButton2);
         imageButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -75,7 +74,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
         if(null != cfg && null != cfg.getUsername()) {
-            button = (Button) findViewById(R.id.button6);
+            button = findViewById(R.id.button6);
             button.setText(cfg.getUsername());
         }
     }
@@ -94,27 +93,29 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         else
             setFieldImage(R.drawable.red_right);
 
-        CyberScouterMatchScouting csm = new CyberScouterMatchScouting();
-        CyberScouterMatchScouting csm2 = csm.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        CyberScouterMatchScouting csm = null;
 
-        if (null != csm2) {
-            TextView tv = (TextView) findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm2.getTeamMatchNo()));
-            tv = (TextView) findViewById(R.id.textView9);
-            tv.setText(getString(R.string.tagTeam, csm2.getTeam()));
-            CyberScouterMatchScouting[] csma = csm.getCurrentMatchAllTeams(db, csm2.getTeamMatchNo());
+        if(null != cfg )
+            csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+
+        if (null != csm) {
+            TextView tv = findViewById(R.id.textView7);
+            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
+            tv = findViewById(R.id.textView9);
+            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+            CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo());
             if(null != csma && 6 == csma.length) {
-                tv = (TextView) findViewById(R.id.textView20);
+                tv = findViewById(R.id.textView20);
                 tv.setText(csma[0].getTeam());
-                tv = (TextView) findViewById(R.id.textView21);
+                tv = findViewById(R.id.textView21);
                 tv.setText(csma[1].getTeam());
-                tv = (TextView) findViewById(R.id.textView22);
+                tv = findViewById(R.id.textView22);
                 tv.setText(csma[2].getTeam());
-                tv = (TextView) findViewById(R.id.textView35);
+                tv = findViewById(R.id.textView35);
                 tv.setText(csma[3].getTeam());
-                tv = (TextView) findViewById(R.id.textView27);
+                tv = findViewById(R.id.textView27);
                 tv.setText(csma[4].getTeam());
-                tv = (TextView) findViewById(R.id.textView26);
+                tv = findViewById(R.id.textView26);
                 tv.setText(csma[5].getTeam());
             }
         }
@@ -122,29 +123,38 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
     @Override
-    public void onNameSelected(String val) {
-        setUsername(val);
-        button = (Button) findViewById(R.id.button6);
+    public void onNameSelected(String val, int idx) {
+        setUsername(val, idx);
+        button = findViewById(R.id.button6);
         button.setText(val);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 
 
     public void openAuto(){
-        Intent intent = new Intent(this, AutoPage.class);
-        startActivity(intent);
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+        if(null == cfg) {
+            MessageBox.showMessageBox(this, "Configuration Not Found Alert", "openAuto", "This device is not configured properly to begin scouting.  Cannot continue.");
+        } else if(CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id()) {
+            MessageBox.showMessageBox(this, "User Not Set Alert", "openAuto", "You must pick your name off the name picker before you can start scouting!");
+        } else {
+            Intent intent = new Intent(this, AutoPage.class);
+            startActivity(intent);
+        }
 
     }
     public void openNamePickerPage(){
-//        Intent intent = new Intent(this, NamePickerPageActivity.class);
-//        startActivity(intent);
 
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -159,16 +169,21 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
     public void returnToMainMenu(){
-        this.finish();
+        Intent intent = new Intent(this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        finish();
     }
 
-    public void setUsername(String val) {
+    public void setUsername(String val, int idx) {
         try {
             CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, val);
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, idx);
             int count = db.update(
                     CyberScouterContract.ConfigEntry.TABLE_NAME,
                     values,

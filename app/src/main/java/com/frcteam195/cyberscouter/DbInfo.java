@@ -1,12 +1,12 @@
 package com.frcteam195.cyberscouter;
 
-public class DbInfo {
-    public static String MSSQLServerAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
-    public static String MSSQLDbName = "CyberScouter";
-    public static String MSSQLUsername = "admin";
-    public static String MSSQLPassword = "Einstein195";
+class DbInfo {
+    static String MSSQLServerAddress = "frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com";
+    static String MSSQLDbName = "CyberScouter";
+    static String MSSQLUsername = "admin";
+    static String MSSQLPassword = "Einstein195";
 
-    final public static String[] initalEndpointArray = {"frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com", "markmaciejewski"};
-    final public static String[] initalDatabaseArray = {"CyberScouter"};
-    final public static String[] initalUsernameArray = {"admin", "scouter"};
+    final static String[] initalEndpointArray = {"frcteam195test.cmdlvflptajw.us-east-1.rds.amazonaws.com", "markmaciejewski"};
+    final static String[] initalDatabaseArray = {"CyberScouter"};
+    final static String[] initalUsernameArray = {"admin", "scouter"};
 }

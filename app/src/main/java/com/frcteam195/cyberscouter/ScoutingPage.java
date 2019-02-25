@@ -131,8 +131,9 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MainActivity.class));
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 
@@ -168,7 +169,11 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
     public void returnToMainMenu(){
-        this.finish();
+        Intent intent = new Intent(this, MainActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+        finish();
     }
 
     public void setUsername(String val, int idx) {

@@ -479,6 +479,10 @@ class CyberScouterMatchScouting {
 
     private static void updateMatchTeamAndScoutingStatus(SQLiteDatabase db, CyberScouterMatchScouting rmatch, CyberScouterMatchScouting lmatch) throws Exception {
 
+        // if this is a match that we've finished scouting but hasn't been uploaded yet...
+        if(UploadStatus.READY_TO_UPLOAD == lmatch.getUploadStatus())
+            return;
+
         ContentValues values = new ContentValues();
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, rmatch.team);
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, rmatch.scoutingStatus);
@@ -515,6 +519,32 @@ class CyberScouterMatchScouting {
     static void skipMatch(SQLiteDatabase db, int l_matchScoutingID) throws Exception {
         ContentValues values = new ContentValues();
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.SKIPPED);
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", l_matchScoutingID));
+    }
+
+    static void submitMatch(SQLiteDatabase db, int l_matchScoutingID) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.READY_TO_UPLOAD);
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, ScoutingStatus.FINISHED_SUCCESSFULLY);
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", l_matchScoutingID));
+    }
+
+    static void submitMatchForReview(SQLiteDatabase db, int l_matchScoutingID) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.READY_TO_UPLOAD);
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, ScoutingStatus.NEEDS_REVIEW);
         String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
         String[] selectionArgs = {
                 String.format(Locale.getDefault(), "%d", l_matchScoutingID)

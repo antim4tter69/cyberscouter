@@ -1,6 +1,8 @@
 package com.frcteam195.cyberscouter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,11 +18,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import java.lang.ref.WeakReference;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class MainActivity extends AppCompatActivity {
     private Button button;
+
+    private uploadMatchScoutingResultsTask g_backgroundUpdater;
+    private static Integer g_backgroundProgress;
 
     static final private String g_adminPassword = "HailRobotOverlords";
 
@@ -96,6 +103,19 @@ public class MainActivity extends AppCompatActivity {
         try {
             /* Read the config values from SQLite */
             final CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+            if(null == cfg || !cfg.isOffline()) {
+                try {
+                    Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
+                    ComponentName cn = startService(backgroundIntent);
+                    if (null == cn) {
+                        MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!");
+                    }
+                } catch(Exception e){
+                    MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
+                            "The error is:\n" + e.getMessage());
+                }
+            }
 
             /* if there's no existing local configuration, we're going to assume the tablet
             is "online", meaning that it can talk to the SQL Server database.  If there is a
@@ -255,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void syncPictures() {
-        Toast t = Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT);
+        Toast t = Toast.makeText(this, "Number of updates = " + g_backgroundProgress, Toast.LENGTH_SHORT);
         t.show();
     }
 
@@ -575,4 +595,78 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void startBackgroundUpdaterTask() {
+        g_backgroundProgress = 0;
+        g_backgroundUpdater = new uploadMatchScoutingResultsTask(new IOnEventListener<Void>() {
+            @Override
+            public void onSuccess(Void v) {
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                if (null == e) {
+                } else {
+                    MessageBox.showMessageBox(MainActivity.this, "Launch Background Updater Failed Alert", "startBackgroundUpdaterTask", "Launch of background updater failed!\n\n" +
+                            "The error is:\n" + e.getMessage());
+                }
+            }
+        }, this);
+
+
+        g_backgroundUpdater.execute();
+    }
+
+    private static class uploadMatchScoutingResultsTask extends AsyncTask<Void, Integer, Void> {
+        private IOnEventListener<Void> mCallBack;
+        private Exception mException;
+        private WeakReference<Activity> ref_lacty;
+
+        uploadMatchScoutingResultsTask(IOnEventListener<Void> mListener, Activity acty) {
+            super();
+            mCallBack = mListener;
+            ref_lacty = new WeakReference<>(acty);
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg) {
+            int cnt = 0;
+
+            while(true) { // forever
+                try {
+                    cnt++;
+                    publishProgress(cnt);
+                    if (isCancelled())
+                        return null;
+                    // look for matches to upload
+                    if (isCancelled())
+                        return null;
+                    // upload matches
+                    if (isCancelled())
+                        return null;
+
+                    Thread.sleep(60000);
+                } catch (Exception e) {
+                    mException = e;
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            if (null != mCallBack) {
+                if (null != mException) {
+                    mCallBack.onFailure(mException);
+                } else {
+                    mCallBack.onSuccess(v);
+                }
+            }
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer...progress) {
+            g_backgroundProgress = progress[0];
+        }
+
+    }
 }

@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.widget.Toast;
 
 public class BackgroundUpdater extends Service {
@@ -45,7 +47,7 @@ public class BackgroundUpdater extends Service {
                 try {
                     cnt++;
                     Thread.sleep(20000);
-                    Toast.makeText(getApplicationContext(), "Count of loops is " + cnt, Toast.LENGTH_SHORT).show();
+                    popToast("Count of loops is " + cnt);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -53,5 +55,16 @@ public class BackgroundUpdater extends Service {
             return;
         }
 
+    }
+
+    private void popToast(final String msg) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

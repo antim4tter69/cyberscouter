@@ -3,6 +3,7 @@
     package="com.frcteam195.cyberscouter">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".BackgroundUpdater"
+            android:enabled="true"
+            android:exported="false"></service>
+
         <activity android:name=".SubmitPage" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -22,35 +28,23 @@
             android:name=".Admin1"
             android:label="@string/title_activity_admin1"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NamePickerPageActivity"></activity>
-
+        <activity android:name=".NamePickerPageActivity" />
         <activity
             android:name=".ScoutingPage"
             android:label="@string/ScoutingPage"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-        android:name=".AutoPage"
-        android:theme="@style/AppTheme.NoActionBar" />
-
+            android:name=".AutoPage"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EndPage"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".TelePage"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SummaryQuestionsPage"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
-
-
-
-
-
     </application>
 
 </manifest>

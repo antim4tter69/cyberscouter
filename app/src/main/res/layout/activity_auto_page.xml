@@ -95,25 +95,11 @@
         android:layout_width="93dp"
         android:layout_height="93dp"
         android:layout_marginStart="95dp"
-        android:layout_marginLeft="95dp"
         android:layout_marginTop="8dp"
         android:text="@string/LevelTwoStartingPositionLeftButton"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/button_l1Left" />
-
-    <Button
-        android:id="@+id/button_l3"
-        android:layout_width="93dp"
-        android:layout_height="93dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:enabled="false"
-        android:text="@string/LevelThreeStartingPositionButton"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/button19"
-        app:layout_constraintTop_toBottomOf="@+id/button_l1Center" />
 
     <Button
         android:id="@+id/button_moveBonusYes"
@@ -179,12 +165,11 @@
         android:id="@+id/button_l2Right"
         android:layout_width="93dp"
         android:layout_height="93dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="109dp"
         android:layout_marginTop="8dp"
         android:text="@string/LevelTwoStartingPositionRightButton"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/button_l3"
+        app:layout_constraintStart_toEndOf="@+id/button19"
         app:layout_constraintTop_toBottomOf="@+id/button_l1Right" />
 
     <Button

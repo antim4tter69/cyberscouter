@@ -107,5 +107,6 @@
     <string name="tagTeam">Team %s</string>
     <string name="tagEvent">Event %s</string>
     <string name="tagMatch">Match %d</string>
+    <string name="ResetButton">Reset</string>
 
 </resources>

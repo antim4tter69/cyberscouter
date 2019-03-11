@@ -103,7 +103,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
             tv = findViewById(R.id.textView9);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-            CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo());
+            CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo(), csm.getMatchID());
             if(null != csma && 6 == csma.length) {
                 tv = findViewById(R.id.textView20);
                 tv.setText(csma[0].getTeam());

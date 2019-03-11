@@ -224,10 +224,11 @@ class CyberScouterMatchScouting {
     }
 
     // Gets the next sequential unscouted match for all scouter stations
-    static CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo) {
-        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ?";
+    static CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo, int l_matchID) {
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ? AND " + CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID + " = ?";
         String[] selectionArgs = {
-                String.format(Locale.getDefault(), "%d", l_teamMatchNo)
+                String.format(Locale.getDefault(), "%d", l_teamMatchNo),
+                String.format(Locale.getDefault(), "%d", l_matchID)
         };
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " ASC";

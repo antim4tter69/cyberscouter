@@ -7,7 +7,7 @@
     tools:context=".TelePage">
 
     <Button
-        android:id="@+id/button83"
+        android:id="@+id/FPanelHSPlus_button"
         android:layout_width="68dp"
         android:layout_height="67dp"
         android:layout_marginTop="8dp"
@@ -29,11 +29,11 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button89"
+        app:layout_constraintEnd_toStartOf="@+id/CargoHSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
     <Button
-        android:id="@+id/button85"
+        android:id="@+id/FPanelHSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="12dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView46" />
 
     <Button
-        android:id="@+id/button86"
+        android:id="@+id/CargoHSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
     <Button
-        android:id="@+id/button87"
+        android:id="@+id/NPanelHSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -75,7 +75,7 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button83"
+        app:layout_constraintEnd_toStartOf="@+id/FPanelHSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView46" />
 
     <TextView
@@ -114,11 +114,11 @@
         android:text="@string/HighShotText"
         android:textColor="@android:color/black"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/button87"
+        app:layout_constraintEnd_toStartOf="@+id/NPanelHSMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
     <Button
-        android:id="@+id/button89"
+        android:id="@+id/CargoHSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -126,7 +126,7 @@
         android:layout_marginRight="2dp"
         android:text="@string/PlusButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button85"
+        app:layout_constraintEnd_toStartOf="@+id/FPanelHSMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView44" />
 
     <Button
@@ -140,11 +140,11 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button91"
+        app:layout_constraintEnd_toStartOf="@+id/NPanelHSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
     <Button
-        android:id="@+id/button91"
+        android:id="@+id/NPanelHSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -152,7 +152,7 @@
         android:layout_marginRight="2dp"
         android:text="@string/PlusButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button86"
+        app:layout_constraintEnd_toStartOf="@+id/CargoHSMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView43" />
 
     <TextView
@@ -169,7 +169,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
     <Button
-        android:id="@+id/button53"
+        android:id="@+id/FPanelLSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -189,11 +189,11 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button53"
+        app:layout_constraintEnd_toStartOf="@+id/FPanelLSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView29" />
 
     <Button
-        android:id="@+id/button55"
+        android:id="@+id/FPanelLSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -226,11 +226,11 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button42"
+        app:layout_constraintEnd_toStartOf="@+id/CargoLSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
-        android:id="@+id/button39"
+        android:id="@+id/NPanelLSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -238,11 +238,11 @@
         android:layout_marginRight="1dp"
         android:text="@string/PlusButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button41"
+        app:layout_constraintEnd_toStartOf="@+id/CargoLSMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <Button
-        android:id="@+id/button40"
+        android:id="@+id/NPanelLSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -252,7 +252,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <Button
-        android:id="@+id/button41"
+        android:id="@+id/CargoLSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -262,7 +262,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
-        android:id="@+id/button56"
+        android:id="@+id/FPanelMSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -282,11 +282,11 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button62"
+        app:layout_constraintEnd_toStartOf="@+id/CargoMSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <Button
-        android:id="@+id/button58"
+        android:id="@+id/FPanelMSMinus_button"
         android:layout_width="66dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -296,7 +296,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
     <Button
-        android:id="@+id/button59"
+        android:id="@+id/CargoMSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="12dp"
@@ -306,7 +306,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <Button
-        android:id="@+id/button60"
+        android:id="@+id/NPanelMSMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:text="@string/MinusButton"
@@ -323,7 +323,7 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button56"
+        app:layout_constraintEnd_toStartOf="@+id/FPanelMSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
     <TextView
@@ -362,17 +362,17 @@
         android:text="@string/MedShotText"
         android:textColor="@android:color/black"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/button60"
+        app:layout_constraintEnd_toStartOf="@+id/NPanelLSMinus_button"
         app:layout_constraintTop_toTopOf="@+id/button63" />
 
     <Button
-        android:id="@+id/button62"
+        android:id="@+id/CargoMSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="12dp"
         android:text="@string/PlusButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button58"
+        app:layout_constraintEnd_toStartOf="@+id/FPanelMSMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView32" />
 
     <Button
@@ -386,16 +386,16 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button64"
+        app:layout_constraintEnd_toStartOf="@+id/NPanelMSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView31" />
 
     <Button
-        android:id="@+id/button64"
+        android:id="@+id/NPanelMSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:text="@string/PlusButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button59"
+        app:layout_constraintEnd_toStartOf="@+id/CargoMSMinus_button"
         app:layout_constraintTop_toTopOf="@+id/button63" />
 
     <TextView
@@ -434,11 +434,11 @@
         android:text="@string/LowShotText"
         android:textColor="@android:color/black"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/button40"
+        app:layout_constraintEnd_toStartOf="@+id/NPanelLSMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <Button
-        android:id="@+id/button42"
+        android:id="@+id/CargoLSPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -446,7 +446,7 @@
         android:layout_marginRight="4dp"
         android:text="@string/PlusButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button55"
+        app:layout_constraintEnd_toStartOf="@+id/FPanelLSMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
@@ -460,7 +460,7 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button39"
+        app:layout_constraintEnd_toStartOf="@+id/NPanelLSPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <TextView
@@ -490,7 +490,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
     <Button
-        android:id="@+id/button29"
+        android:id="@+id/CargoMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -510,11 +510,11 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button31"
+        app:layout_constraintEnd_toStartOf="@+id/CargoPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <Button
-        android:id="@+id/button31"
+        android:id="@+id/CargoPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -552,18 +552,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <Button
-        android:id="@+id/button7"
-        android:layout_width="173dp"
-        android:layout_height="95dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/PreviousButton"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/button_previous"
         android:layout_width="173dp"
         android:layout_height="95dp"
@@ -576,7 +564,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button14"
+        android:id="@+id/button_next"
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:layout_marginBottom="16dp"
@@ -588,7 +576,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button19"
+        android:id="@+id/PanelPlus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -596,7 +584,7 @@
         android:layout_marginRight="8dp"
         android:text="@string/PlusButton"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button29"
+        app:layout_constraintEnd_toStartOf="@+id/CargoMinus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
@@ -610,11 +598,11 @@
         android:text="@string/ZeroText"
         android:textColorLink="@android:color/black"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/button19"
+        app:layout_constraintEnd_toStartOf="@+id/PanelPlus_button"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Button
-        android:id="@+id/button17"
+        android:id="@+id/PanelMinus_button"
         android:layout_width="68dp"
         android:layout_height="61dp"
         android:layout_marginTop="8dp"
@@ -676,5 +664,18 @@
         app:layout_constraintHorizontal_bias="0.053"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="173dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_next"
+        app:layout_constraintStart_toEndOf="@+id/button_previous"
+        tools:text="@string/ResetButton" />
 
 </android.support.constraint.ConstraintLayout>

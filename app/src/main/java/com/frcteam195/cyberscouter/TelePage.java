@@ -27,7 +27,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button14);
+        button = findViewById(R.id.button_next);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +36,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button85);
+        button = findViewById(R.id.FPanelHSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -45,7 +45,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button83);
+        button = findViewById(R.id.FPanelHSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -54,7 +54,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button58);
+        button = findViewById(R.id.FPanelMSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -63,7 +63,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button56);
+        button = findViewById(R.id.FPanelMSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -72,7 +72,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button55);
+        button = findViewById(R.id.FPanelLSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -81,7 +81,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button53);
+        button = findViewById(R.id.FPanelLSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -90,7 +90,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button86);
+        button = findViewById(R.id.CargoHSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -99,7 +99,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button89);
+        button = findViewById(R.id.CargoHSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -108,7 +108,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button59);
+        button = findViewById(R.id.CargoMSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -117,7 +117,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button62);
+        button = findViewById(R.id.CargoMSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -126,7 +126,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button41);
+        button = findViewById(R.id.CargoLSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -135,7 +135,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button42);
+        button = findViewById(R.id.CargoLSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -144,7 +144,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button87);
+        button = findViewById(R.id.NPanelHSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -153,7 +153,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button91);
+        button = findViewById(R.id.NPanelHSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -162,7 +162,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button60);
+        button = findViewById(R.id.NPanelMSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -171,7 +171,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button64);
+        button = findViewById(R.id.NPanelMSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -180,7 +180,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button40);
+        button = findViewById(R.id.NPanelLSMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -189,7 +189,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button39);
+        button = findViewById(R.id.NPanelLSPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -198,7 +198,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button17);
+        button = findViewById(R.id.PanelMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -207,7 +207,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button19);
+        button = findViewById(R.id.PanelPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -216,7 +216,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button29);
+        button = findViewById(R.id.CargoMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -225,7 +225,7 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button31);
+        button = findViewById(R.id.CargoPlus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override

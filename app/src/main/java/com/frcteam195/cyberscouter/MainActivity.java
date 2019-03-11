@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        button = findViewById(R.id.button);
+        button = findViewById(R.id.Adminbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button2);
+        button = findViewById(R.id.Scoutingbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button3);
+        button = findViewById(R.id.SyncPicturesbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button4);
+        button = findViewById(R.id.SyncDatabutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,13 +143,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(Exception e) {
                         if (null == e) {
                             if (null == cfg || null == cfg.getEvent()) {
-                                button = findViewById(R.id.button);
+                                button = findViewById(R.id.Adminbutton);
                                 button.setEnabled(false);
-                                button = findViewById(R.id.button2);
+                                button = findViewById(R.id.Scoutingbutton);
                                 button.setEnabled(false);
-                                button = findViewById(R.id.button3);
+                                button = findViewById(R.id.SyncPicturesbutton);
                                 button.setEnabled(false);
-                                button = findViewById(R.id.button4);
+                                button = findViewById(R.id.SyncDatabutton);
                                 button.setEnabled(false);
                                 MessageBox.showMessageBox(MainActivity.this, "Event Not Found Alert", "processConfig", "No current event found!  Cannot continue.");
                             }

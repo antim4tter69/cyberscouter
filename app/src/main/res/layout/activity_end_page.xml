@@ -355,4 +355,17 @@
         app:layout_constraintEnd_toStartOf="@+id/button_helped"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="173dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button67"
+        app:layout_constraintStart_toEndOf="@+id/button_previous"
+        tools:text="@string/ResetButton" />
+
 </android.support.constraint.ConstraintLayout>

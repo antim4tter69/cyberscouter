@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/Adminbutton"
         android:layout_width="299dp"
         android:layout_height="92dp"
         android:layout_marginTop="16dp"
@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/Scoutingbutton"
         android:layout_width="297dp"
         android:layout_height="88dp"
         android:layout_marginTop="16dp"
@@ -39,12 +39,12 @@
         android:layout_marginBottom="280dp"
         android:text="@string/button2"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintBottom_toTopOf="@+id/SyncPicturesbutton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/Adminbutton" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/SyncPicturesbutton"
         android:layout_width="301dp"
         android:layout_height="70dp"
         android:layout_marginEnd="16dp"
@@ -52,11 +52,11 @@
         android:layout_marginBottom="16dp"
         android:text="@string/button4"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/SyncDatabutton"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/SyncDatabutton"
         android:layout_width="301dp"
         android:layout_height="76dp"
         android:layout_marginEnd="16dp"

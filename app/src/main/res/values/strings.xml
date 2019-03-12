@@ -37,7 +37,7 @@
     <string name="PreviousAnswer"> Previous Answer </string>
     <string name="NextAnswer"> Next Answer </string>
     <color name="CurrentTeamColor">#990099</color>
-    <string name="title_activity_auto_page">Sandstorm</string>
+    <string name="title_activity_auto_page">Setup</string>
     <string name="SkipMatchButton">Skip Match</string>
     <string name="YesButton">Y</string>
     <string name="NoButton">N</string>

@@ -144,16 +144,18 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if(null == cfg) {
-            MessageBox.showMessageBox(this, "Configuration Not Found Alert", "openAuto", "This device is not configured properly to begin scouting.  Cannot continue.");
-        } else if(CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id()) {
-            MessageBox.showMessageBox(this, "User Not Set Alert", "openAuto", "You must pick your name off the name picker before you can start scouting!");
-        } else {
-            Intent intent = new Intent(this, AutoPage.class);
-            startActivity(intent);
+        if(null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
+                FragmentManager fm = getSupportFragmentManager();
+                NamePickerDialog npd = new NamePickerDialog();
+                npd.show(fm, "namepicker");
+            }
+            else {
+                Intent intent = new Intent(this, AutoPage.class);
+                startActivity(intent);
+
+            }
         }
 
-    }
     public void openNamePickerPage(){
 
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);

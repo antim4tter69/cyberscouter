@@ -2,7 +2,6 @@ package com.frcteam195.cyberscouter;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,19 +10,13 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
-public class TelePage extends AppCompatActivity {
+public class SandstormPage extends AppCompatActivity {
     private Button button;
-    private int defaultButtonTextColor;
-    private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private final int[] didnotshowButtons = {R.id.Yes_button, R.id.No_button};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
-
-        TextView tv = findViewById(R.id.textView8);
-        tv.setText(R.string.teleopTitle);
 
         button = findViewById(R.id.button_previous);
         button.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +31,7 @@ public class TelePage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EndGamePage();
+                TeleopPage();
 
             }
         });
@@ -241,25 +234,8 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.Yes_button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                didnotshowYes();
-            }
-        });
-
-        button = findViewById(R.id.No_button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                didnotshowNo();
-            }
-        });
-
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -277,8 +253,6 @@ public class TelePage extends AppCompatActivity {
                 tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
                 tv = findViewById(R.id.textView9);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-
-                FakeRadioGroup.buttonDisplay(this, csm.getAutoDidNotShow(), didnotshowButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
                 button = findViewById(R.id.button18);
                 button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleCSHatch()));
@@ -312,8 +286,8 @@ public class TelePage extends AppCompatActivity {
         this.finish();
     }
 
-    public void EndGamePage() {
-        Intent intent = new Intent(this, EndPage.class);
+    public void TeleopPage() {
+        Intent intent = new Intent(this, TelePage.class);
         startActivity(intent);
 
     }
@@ -581,13 +555,6 @@ public class TelePage extends AppCompatActivity {
             if (null != csms)
                 setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOHIGH, csms.getTeleRSCargoHigh() + 1);
         }
-    }
-    public void didnotshowYes() {
-
-    }
-
-    public void didnotshowNo() {
-
     }
 
     void setMetricValue(String col, int val) {

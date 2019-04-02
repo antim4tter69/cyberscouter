@@ -189,7 +189,7 @@ public class AutoPage extends AppCompatActivity {
 
     public void StartMatch(){
 
-            Intent intent = new Intent(this, TelePage.class);
+            Intent intent = new Intent(this, SandstormPage.class);
             startActivity(intent);
     }
 

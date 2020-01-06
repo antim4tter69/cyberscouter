@@ -3,6 +3,11 @@ package com.frcteam195.cyberscouter;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
@@ -10,12 +15,21 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.widget.Toast;
 
+import java.io.OutputStream;
 import java.nio.channels.ClosedByInterruptException;
 import java.util.Locale;
+import java.util.Set;
+import java.util.UUID;
 
 public class BackgroundUpdater extends Service {
     boolean keepRunning;
     Thread thread;
+    BluetoothDevice mmDevice;
+    BluetoothSocket mmSocket;
+    BluetoothAdapter _bluetoothAdapter;
+
+    private final String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
+    private final String _serviceName = "Team195Pi";
 
     public BackgroundUpdater() {
     }
@@ -30,10 +44,14 @@ public class BackgroundUpdater extends Service {
     public int onStartCommand(Intent intent, int flags, int startID) {
         keepRunning = true;
 
+        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+        _bluetoothAdapter = bluetoothManager.getAdapter();
+
         if(null == thread) {
             thread = new Thread(new updateRunner());
             thread.start();
         }
+
 
         return(START_NOT_STICKY);
     }
@@ -53,26 +71,27 @@ public class BackgroundUpdater extends Service {
             while(keepRunning) {
                 cnt++;
                 try {
-                    CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(getApplicationContext());
-                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                    CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-                    if(null != cfg) {
-                        if(-1 != TeamMap.getNumberForTeam(cfg.getRole())) {
-                            int l_allianceStationID = TeamMap.getNumberForTeam(cfg.getRole());
-                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db, cfg.getEvent_id(), l_allianceStationID);
-                            if(null != csmsa) {
-                                for (CyberScouterMatchScouting csms : csmsa) {
-                                    // Send record information to the SQL Server database
-                                    // Set the status of the match locally
-                                    CyberScouterMatchScouting.updateMatchUploadStatus(db, csms.getMatchScoutingID(), UploadStatus.UPLOADED);
-                                    popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", csms.getMatchScoutingID()));
-                                }
-                            } else {
-                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
-                            }
-                        }
-                    }
+//                    CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(getApplicationContext());
+//                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
+//                    CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+//
+//                    if(null != cfg) {
+//                        if(-1 != TeamMap.getNumberForTeam(cfg.getRole())) {
+//                            int l_allianceStationID = TeamMap.getNumberForTeam(cfg.getRole());
+//                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db, cfg.getEvent_id(), l_allianceStationID);
+//                            if(null != csmsa) {
+//                                for (CyberScouterMatchScouting csms : csmsa) {
+//                                    // Send record information to the SQL Server database
+//                                    // Set the status of the match locally
+//                                    CyberScouterMatchScouting.updateMatchUploadStatus(db, csms.getMatchScoutingID(), UploadStatus.UPLOADED);
+//                                    popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", csms.getMatchScoutingID()));
+//                                }
+//                            } else {
+//                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
+//                            }
+//                        }
+//                    }
+                    sendToRfcommServer();
 
                     Thread.sleep(20000);
                 } catch (InterruptedException ie) {
@@ -82,6 +101,45 @@ public class BackgroundUpdater extends Service {
                 }
             }
             return;
+        }
+
+        private void sendToRfcommServer(){
+            String deviceName = null;
+            String deviceHardwareAddress = null;
+            boolean found = false;
+
+            Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
+            if(pairedDevices.size() > 0){
+                for(BluetoothDevice device : pairedDevices) {
+                    deviceName = device.getName();
+                    deviceHardwareAddress = device.getAddress();
+                    if(deviceName.equals(_serviceName)) {
+                        found = true;
+                        mmDevice = device;
+                        break;
+                    }
+                }
+            }
+
+            if(!found) {
+                popToast(String.format("Scan failed to find device %s", _serviceName));
+                return;
+            }
+
+            byte etx = 0x03;
+            try {
+                String message = "This is the message";
+                mmSocket = mmDevice.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
+                mmSocket.connect();
+                OutputStream mmOutputStream = mmSocket.getOutputStream();
+                mmOutputStream.write(message.getBytes());
+                Thread.sleep(1);
+                mmOutputStream.write(etx);
+                Thread.sleep(100);
+//                mmOutputStream.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -96,4 +154,5 @@ public class BackgroundUpdater extends Service {
             }
         });
     }
+
 }

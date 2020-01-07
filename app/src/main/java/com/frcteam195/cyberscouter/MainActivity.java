@@ -2,8 +2,11 @@ package com.frcteam195.cyberscouter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.ComponentName;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,6 +27,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class MainActivity extends AppCompatActivity {
+    private final Integer REQUEST_ENABLE_BT = 1;
+    private final int PERMISSION_REQUEST_FINE_LOCATION = 319;
+    private BluetoothAdapter _bluetoothAdapter;
+
     private Button button;
 
     private uploadMatchScoutingResultsTask g_backgroundUpdater;
@@ -81,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+
+        _bluetoothAdapter = bluetoothManager.getAdapter();
+
+        // Ensures Bluetooth is available on the device and it is enabled. If not,
+        // displays a dialog requesting user permission to enable Bluetooth.
+        if (_bluetoothAdapter == null || !_bluetoothAdapter.isEnabled()) {
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        }
+
     }
 
     @Override
@@ -90,6 +109,15 @@ public class MainActivity extends AppCompatActivity {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         processConfig(db);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (REQUEST_ENABLE_BT == requestCode) {
+            Toast.makeText(getApplicationContext(), String.format("Result: %d", resultCode), Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

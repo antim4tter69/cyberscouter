@@ -108,5 +108,9 @@
     <string name="tagEvent">Event %s</string>
     <string name="tagMatch">Match %d</string>
     <string name="ResetButton">Reset</string>
+    <string name="DidNotShow">Did Not Show?</string>
+
+    <string name="sandstormTitle">Sandstorm</string>
+    <string name="teleopTitle">Teleop</string>
 
 </resources>

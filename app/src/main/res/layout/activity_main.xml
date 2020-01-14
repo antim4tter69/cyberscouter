@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -18,150 +18,88 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Adminbutton"
-        android:layout_width="299dp"
-        android:layout_height="92dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/button1"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/Scoutingbutton"
+        android:id="@+id/button_scouting"
         android:layout_width="297dp"
         android:layout_height="88dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="280dp"
-        android:text="@string/button2"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/SyncPicturesbutton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Adminbutton" />
-
-    <Button
-        android:id="@+id/SyncPicturesbutton"
-        android:layout_width="301dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/button4"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/SyncDatabutton"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/SyncDatabutton"
-        android:layout_width="301dp"
-        android:layout_height="76dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/button3"
+        android:layout_marginBottom="32dp"
+        android:text="@string/scoutingButtonText"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView_teamName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="Team 195"
+        android:text="@string/ourTeamName"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_appTitle" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_cityState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="200dp"
-        android:layout_marginLeft="200dp"
-        android:text="Southington, Connecticut"
+        android:text="@string/ourTeamCityState"
         android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/textView_teamName"
+        app:layout_constraintTop_toBottomOf="@+id/textView_appTitle" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_eventString"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:text="@string/Event"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
+        app:layout_constraintStart_toEndOf="@+id/textView_eventTag"
+        app:layout_constraintTop_toTopOf="@+id/textView_eventTag" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView_eventTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:text="Event:"
+        android:layout_marginTop="8dp"
+        android:text="@string/eventTagText"
         android:textSize="36sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <ToggleButton
-        android:id="@+id/SwitchButton"
-        android:layout_width="280dp"
-        android:layout_height="126dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:checked="false"
-        android:text="connections"
-        android:textOff="Offline"
-        android:textOn="Online"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView_roleTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="32dp"
-        android:text="Role:"
+        android:layout_marginTop="64dp"
+        android:text="@string/roleTagText"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintBottom_toTopOf="@+id/textView_eventTag"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_logo"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView41"
+        android:id="@+id/textView_roleString"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:text="What is your role"
         android:textSize="36sp"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="@+id/textView8"
+        app:layout_constraintStart_toEndOf="@+id/textView_roleTag"
+        app:layout_constraintTop_toTopOf="@+id/textView_roleTag"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageView_logo"
         android:layout_width="719dp"
         android:layout_height="195dp"
-        android:layout_marginStart="134dp"
-        android:layout_marginLeft="134dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/button_scouting"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/textView_cityState"
         app:srcCompat="@drawable/g"
         tools:ignore="MissingConstraints" />
 

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.sql.Connection;
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothAdapter _bluetoothAdapter;
 
     private Button button;
+    private TextView textView;
 
     private uploadMatchScoutingResultsTask g_backgroundUpdater;
     private static Integer g_backgroundProgress;
@@ -44,47 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        button = findViewById(R.id.Adminbutton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAdmin1();
-
-            }
-        });
-
-        button = findViewById(R.id.Scoutingbutton);
+        button = findViewById(R.id.button_scouting);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openScouting();
-
-            }
-        });
-
-        button = findViewById(R.id.SyncPicturesbutton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syncPictures();
-
-            }
-        });
-
-        button = findViewById(R.id.SyncDatabutton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                syncData();
-
-            }
-        });
-
-        final ToggleButton tb = findViewById(R.id.SwitchButton);
-        tb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setOffline(tb);
 
             }
         });
@@ -129,6 +97,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void processConfig(final SQLiteDatabase db) {
         try {
+            final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+            BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
+            BluetoothComm btcomm = new BluetoothComm();
+            String response = btcomm.getConfig(_bluetoothAdapter, Settings.Secure.getString(getContentResolver(), "bluetooth_name"));
+            JSONObject jo = new JSONObject(response);
+            String result = (String)jo.get("result");
+            if(result.equalsIgnoreCase("failed")){
+                MessageBox.showMessageBox(this, "Bluetooth Server Not Available", "processConfig", "The bluetooth server is not currently available - " + jo.get("msg"));
+                button = findViewById(R.id.button_scouting);
+                button.setEnabled(false);
+                return;
+            }
+            JSONObject payload = jo.getJSONObject("payload");
+            String event = payload.getString("event");
+            String role = payload.getString("role");
+            textView = findViewById(R.id.textView_eventString);
+            textView.setText(event);
+            textView = findViewById(R.id.textView_roleString);
+            textView.setText(role);
+            if(0 == 0) return;
+
             /* Read the config values from SQLite */
             final CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
@@ -171,13 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onFailure(Exception e) {
                         if (null == e) {
                             if (null == cfg || null == cfg.getEvent()) {
-                                button = findViewById(R.id.Adminbutton);
-                                button.setEnabled(false);
-                                button = findViewById(R.id.Scoutingbutton);
-                                button.setEnabled(false);
-                                button = findViewById(R.id.SyncPicturesbutton);
-                                button.setEnabled(false);
-                                button = findViewById(R.id.SyncDatabutton);
+                                button = findViewById(R.id.button_scouting);
                                 button.setEnabled(false);
                                 MessageBox.showMessageBox(MainActivity.this, "Event Not Found Alert", "processConfig", "No current event found!  Cannot continue.");
                             }
@@ -202,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
 
     void setFieldsFromConfig(CyberScouterConfig cfg) {
         TextView tv;
-        tv = findViewById(R.id.textView41);
+        tv = findViewById(R.id.textView_roleString);
         String tmp = cfg.getRole();
         if (tmp.startsWith("Blu"))
             tv.setTextColor(Color.BLUE);
@@ -212,12 +195,9 @@ public class MainActivity extends AppCompatActivity {
             tv.setTextColor(Color.BLACK);
         tv.setText(cfg.getRole());
 
-        tv = findViewById(R.id.textView4);
+        tv = findViewById(R.id.textView_eventString);
         tv.setText(cfg.getEvent());
 
-        /* Make the offline toggle button reflect the last setting */
-        ToggleButton tb = findViewById(R.id.SwitchButton);
-        tb.setChecked(!cfg.isOffline());
     }
 
     void setFieldsToDefaults(SQLiteDatabase db, String eventName) {
@@ -225,19 +205,17 @@ public class MainActivity extends AppCompatActivity {
         String tmp;
         ContentValues values = new ContentValues();
         tmp = CyberScouterConfig.UNKNOWN_ROLE;
-        tv = findViewById(R.id.textView41);
+        tv = findViewById(R.id.textView_roleString);
         tv.setText(tmp);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
         if (null != eventName)
             tmp = eventName;
         else
             tmp = CyberScouterConfig.UNKNOWN_EVENT;
-        tv = findViewById(R.id.textView4);
+        tv = findViewById(R.id.textView_eventString);
         tv.setText(tmp);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, tmp);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, 0);
-        ToggleButton tb = findViewById(R.id.SwitchButton);
-        tb.setChecked(true);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 0);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, CyberScouterConfig.UNKNOWN_USER_IDX);
@@ -245,47 +223,6 @@ public class MainActivity extends AppCompatActivity {
 
 // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
-    }
-
-    public void openAdmin1() {
-        LayoutInflater li = LayoutInflater.from(this);
-        View pwdView = li.inflate(R.layout.dialog_password, null);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                this);
-
-        // set prompts.xml to alertdialog builder
-        alertDialogBuilder.setView(pwdView);
-
-        final EditText userInput = pwdView
-                .findViewById(R.id.editTextDialogUserInput);
-
-        // set dialog message
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // get user input and set it to result
-                                // edit text
-                                if (g_adminPassword.matches(userInput.getText().toString())) {
-                                    Intent intent = new Intent(getApplicationContext(), Admin1.class);
-                                    startActivity(intent);
-                                }
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
     }
 
     public void openScouting() {
@@ -300,11 +237,6 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ScoutingPage.class);
             startActivity(intent);
         }
-    }
-
-    public void syncPictures() {
-        Toast t = Toast.makeText(this, "Number of updates = " + g_backgroundProgress, Toast.LENGTH_SHORT);
-        t.show();
     }
 
     public void syncData() {
@@ -391,28 +323,6 @@ public class MainActivity extends AppCompatActivity {
             e_m.printStackTrace();
             MessageBox.showMessageBox(this, "Fetch Event Info Failed Alert", "syncData", "Sync with data source failed!\n\n" +
                     "You may want to consider working offline.\n\n" + "The error is:\n" + e_m.getMessage());
-        }
-    }
-
-    public void setOffline(ToggleButton tb) {
-        try {
-            int chkd = 1;
-            if (tb.isChecked())
-                chkd = 0;
-
-            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-            ContentValues values = new ContentValues();
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, chkd);
-            int count = db.update(
-                    CyberScouterContract.ConfigEntry.TABLE_NAME,
-                    values,
-                    null,
-                    null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw (e);
         }
     }
 

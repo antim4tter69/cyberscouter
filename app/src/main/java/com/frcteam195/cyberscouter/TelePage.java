@@ -22,7 +22,7 @@ public class TelePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
 
-        TextView tv = findViewById(R.id.textView8);
+        TextView tv = findViewById(R.id.textView_roleTag);
         tv.setText(R.string.teleopTitle);
 
         button = findViewById(R.id.button_previous);

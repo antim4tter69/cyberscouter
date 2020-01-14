@@ -2,7 +2,7 @@
     <string name="app_name">Cyber Scouter</string>
 
     <string name="button1">Admin</string>
-    <string name="button2">Scouting</string>
+    <string name="scoutingButtonText">Scouting</string>
     <string name="button3">Sync data</string>
     <string name="button4">Sync pictures</string>
     <string name="button5">MAIN PAGE</string>
@@ -17,8 +17,6 @@
     <string name="check4">Review</string>
 
     <string name="Proj_Name">The CyberScouter</string>
-
-    <string name="Event">Enter Event Name Here</string>
 
     <string name="Tab">Tablet #_</string>
     <string name="title_activity_admin">Admin</string>
@@ -109,6 +107,11 @@
     <string name="tagMatch">Match %d</string>
     <string name="ResetButton">Reset</string>
     <string name="DidNotShow">Did Not Show?</string>
+
+    <string name="ourTeamName">Team 195</string>
+    <string name="ourTeamCityState">Southington, Connecticut</string>
+    <string name="roleTagText">Role:</string>
+    <string name="eventTagText">Event:</string>
 
     <string name="sandstormTitle">Sandstorm</string>
     <string name="teleopTitle">Teleop</string>

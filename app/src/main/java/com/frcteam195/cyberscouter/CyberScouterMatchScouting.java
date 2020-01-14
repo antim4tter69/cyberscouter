@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.json.JSONObject;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -74,6 +76,24 @@ class CyberScouterMatchScouting {
     private int answer10;
     private int uploadStatus;
 
+    public String toJSON() {
+        String json = "";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("matchScoutingId", getMatchScoutingID());
+            jsonObject.put("eventID", getEventID());
+            jsonObject.put("matchID", getMatchID());
+            jsonObject.put("computerID", getComplete());
+            jsonObject.put("scouterID", getScouterID());
+
+            json = jsonObject.toString();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
 
     static CyberScouterMatchScouting[] getMatches(Connection conn, int eventId) {
         Vector<CyberScouterMatchScouting> csmv = new Vector<>();
@@ -925,5 +945,25 @@ class CyberScouterMatchScouting {
 
     int getUploadStatus() {
         return uploadStatus;
+    }
+
+    public void setMatchScoutingID(int matchScoutingID) {
+        this.matchScoutingID = matchScoutingID;
+    }
+
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
+
+    public void setMatchID(int matchID) {
+        this.matchID = matchID;
+    }
+
+    public void setComputerID(int computerID) {
+        this.computerID = computerID;
+    }
+
+    public void setScouterID(int scouterID) {
+        this.scouterID = scouterID;
     }
 }

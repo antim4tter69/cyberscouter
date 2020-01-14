@@ -1,6 +1,5 @@
 package com.frcteam195.cyberscouter;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
@@ -13,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import java.io.OutputStream;
@@ -91,7 +91,16 @@ public class BackgroundUpdater extends Service {
 //                            }
 //                        }
 //                    }
-                    sendToRfcommServer();
+                    popToast(Settings.Secure.getString(getContentResolver(), "bluetooth_name"));
+                    CyberScouterMatchScouting csms = new CyberScouterMatchScouting();
+                    csms.setMatchScoutingID(11111);
+                    csms.setEventID(22222);
+                    csms.setMatchID(33333);
+                    csms.setComputerID(44444);
+                    csms.setScouterID(55555);
+                    String jsonCsms = csms.toJSON();
+
+                    sendToRfcommServer(jsonCsms);
 
                     Thread.sleep(20000);
                 } catch (InterruptedException ie) {
@@ -103,7 +112,7 @@ public class BackgroundUpdater extends Service {
             return;
         }
 
-        private void sendToRfcommServer(){
+        private void sendToRfcommServer(String msg){
             String deviceName = null;
             String deviceHardwareAddress = null;
             boolean found = false;
@@ -128,11 +137,10 @@ public class BackgroundUpdater extends Service {
 
             byte etx = 0x03;
             try {
-                String message = "This is the message";
                 mmSocket = mmDevice.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
                 mmSocket.connect();
                 OutputStream mmOutputStream = mmSocket.getOutputStream();
-                mmOutputStream.write(message.getBytes());
+                mmOutputStream.write(msg.getBytes());
                 Thread.sleep(1);
                 mmOutputStream.write(etx);
                 Thread.sleep(100);

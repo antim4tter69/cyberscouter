@@ -67,7 +67,11 @@ public class BluetoothComm {
             jsonObject.put("cmd", "get-config");
             jsonObject.put("payload", clientId);
 
-            returnJson = BluetoothComm.sendCommand(_bluetoothAdapter, jsonObject.toString());
+            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+                returnJson = FakeBluetoothServer.getResponse("get-config");
+            } else {
+                returnJson = BluetoothComm.sendCommand(_bluetoothAdapter, jsonObject.toString());
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }

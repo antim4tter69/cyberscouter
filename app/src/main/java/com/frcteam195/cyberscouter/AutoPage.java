@@ -16,11 +16,11 @@ public class AutoPage extends AppCompatActivity {
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
     private final int[] preloadButtons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
     private final int[] startingPosButtons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
+    private final int[] didnotshowButtons = {R.id.button_didnotshowYes, R.id.button_didnotshowNo};
 
 
 
-
-    @Override
+@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_page);
@@ -33,6 +33,8 @@ public class AutoPage extends AppCompatActivity {
                 StartMatch();
             }
         });
+
+        button = findViewById(R.id.button_didnotshowYes);
 
         button = findViewById(R.id.button_previous);
         button.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +162,27 @@ public class AutoPage extends AppCompatActivity {
                 preloadNone();
             }
         });
+
+        button = findViewById(R.id.button_didnotshowYes);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                didnotshowYes();
+            }
+        });
+
+        button = findViewById(R.id.button_didnotshowNo);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                didnotshowNo();
+            }
+        });
+
+        didnotshowNo();
+
     }
 
     @Override
@@ -189,7 +212,7 @@ public class AutoPage extends AppCompatActivity {
 
     public void StartMatch(){
 
-            Intent intent = new Intent(this, TelePage.class);
+            Intent intent = new Intent(this, SandstormPage.class);
             startActivity(intent);
     }
 
@@ -255,5 +278,12 @@ public class AutoPage extends AppCompatActivity {
     public void preloadNone() {
         FakeRadioGroup.buttonPressed(this, 0, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
-
+    public void didnotshowYes(){
+        FakeRadioGroup.buttonPressed(this, 0, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        Intent intent = new Intent(this, SubmitPage.class);
+        startActivity(intent);
+    }
+    public void didnotshowNo(){
+        FakeRadioGroup.buttonPressed(this, 1, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    }
 }

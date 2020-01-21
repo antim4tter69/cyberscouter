@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import org.json.JSONObject;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -74,6 +76,24 @@ class CyberScouterMatchScouting {
     private int answer10;
     private int uploadStatus;
 
+    public String toJSON() {
+        String json = "";
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("matchScoutingId", getMatchScoutingID());
+            jsonObject.put("eventID", getEventID());
+            jsonObject.put("matchID", getMatchID());
+            jsonObject.put("computerID", getComplete());
+            jsonObject.put("scouterID", getScouterID());
+
+            json = jsonObject.toString();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
 
     static CyberScouterMatchScouting[] getMatches(Connection conn, int eventId) {
         Vector<CyberScouterMatchScouting> csmv = new Vector<>();
@@ -110,7 +130,7 @@ class CyberScouterMatchScouting {
                     csm.autoPreload = -1;
                 csm.autoDidNotShow = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
                 if(rs.wasNull())
-                    csm.autoDidNotShow = -1;
+                    csm.autoDidNotShow = 0;
                 csm.autoMoveBonus = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
                 if(rs.wasNull())
                     csm.autoMoveBonus = -1;
@@ -158,15 +178,35 @@ class CyberScouterMatchScouting {
                 if(rs.wasNull())
                     csm.summSubsystemBroke = -1;
                 csm.answer01 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01));
+                if(rs.wasNull())
+                    csm.answer01 = -1;
                 csm.answer02 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02));
+                if(rs.wasNull())
+                    csm.answer02 = -1;
                 csm.answer03 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03));
+                if(rs.wasNull())
+                    csm.answer03 = -1;
                 csm.answer04 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER04));
+                if(rs.wasNull())
+                    csm.answer04 = -1;
                 csm.answer05 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER05));
+                if(rs.wasNull())
+                    csm.answer05 = -1;
                 csm.answer06 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER06));
+                if(rs.wasNull())
+                    csm.answer06 = -1;
                 csm.answer07 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER07));
+                if(rs.wasNull())
+                    csm.answer07 = -1;
                 csm.answer08 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER08));
+                if(rs.wasNull())
+                    csm.answer08 = -1;
                 csm.answer09 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER09));
+                if(rs.wasNull())
+                    csm.answer09 = -1;
                 csm.answer10 = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER10));
+                if(rs.wasNull())
+                    csm.answer10 = -1;
 
                 csmv.add(csm);
             }
@@ -204,10 +244,11 @@ class CyberScouterMatchScouting {
     }
 
     // Gets the next sequential unscouted match for all scouter stations
-    static CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo) {
-        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ?";
+    static CyberScouterMatchScouting[] getCurrentMatchAllTeams(SQLiteDatabase db, int l_teamMatchNo, int l_matchID) {
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " = ? AND " + CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID + " = ?";
         String[] selectionArgs = {
-                String.format(Locale.getDefault(), "%d", l_teamMatchNo)
+                String.format(Locale.getDefault(), "%d", l_teamMatchNo),
+                String.format(Locale.getDefault(), "%d", l_matchID)
         };
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " ASC";
@@ -237,6 +278,25 @@ class CyberScouterMatchScouting {
                 return (csmv[0]);
         } else
             return null;
+    }
+
+    static CyberScouterMatchScouting[] getMatchesReadyToUpload(SQLiteDatabase db, int l_eventID, int l_allianceStationID) {
+
+        String selection =
+                CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " = ? AND "
+                    + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ? AND "
+                    + CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " = ?";
+
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_eventID),
+                String.format(Locale.getDefault(), "%d", l_allianceStationID),
+                String.format(Locale.getDefault(), "%d", UploadStatus.READY_TO_UPLOAD)
+        };
+
+        String sortOrder =
+                CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " ASC";
+
+        return(getLocalMatches(db, selection, selectionArgs, sortOrder));
     }
 
     private static CyberScouterMatchScouting[] getLocalMatches(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
@@ -513,6 +573,20 @@ class CyberScouterMatchScouting {
 
         if (1 > updateMatch(db, values, selection, selectionArgs))
             throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", csms.matchScoutingID));
+
+    }
+
+    static void updateMatchUploadStatus(SQLiteDatabase db, int l_matchScoutingID, int newStatus) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, newStatus);
+
+        String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", l_matchScoutingID)
+        };
+
+        if (1 > updateMatch(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", l_matchScoutingID));
 
     }
 
@@ -871,5 +945,25 @@ class CyberScouterMatchScouting {
 
     int getUploadStatus() {
         return uploadStatus;
+    }
+
+    public void setMatchScoutingID(int matchScoutingID) {
+        this.matchScoutingID = matchScoutingID;
+    }
+
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
+    }
+
+    public void setMatchID(int matchID) {
+        this.matchID = matchID;
+    }
+
+    public void setComputerID(int computerID) {
+        this.computerID = computerID;
+    }
+
+    public void setScouterID(int scouterID) {
+        this.scouterID = scouterID;
     }
 }

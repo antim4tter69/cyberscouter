@@ -103,7 +103,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
             tv = findViewById(R.id.textView9);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-            CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo());
+            CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo(), csm.getMatchID());
             if(null != csma && 6 == csma.length) {
                 tv = findViewById(R.id.textView20);
                 tv.setText(csma[0].getTeam());
@@ -144,16 +144,18 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if(null == cfg) {
-            MessageBox.showMessageBox(this, "Configuration Not Found Alert", "openAuto", "This device is not configured properly to begin scouting.  Cannot continue.");
-        } else if(CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id()) {
-            MessageBox.showMessageBox(this, "User Not Set Alert", "openAuto", "You must pick your name off the name picker before you can start scouting!");
-        } else {
-            Intent intent = new Intent(this, AutoPage.class);
-            startActivity(intent);
+        if(null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
+                FragmentManager fm = getSupportFragmentManager();
+                NamePickerDialog npd = new NamePickerDialog();
+                npd.show(fm, "namepicker");
+            }
+            else {
+                Intent intent = new Intent(this, AutoPage.class);
+                startActivity(intent);
+
+            }
         }
 
-    }
     public void openNamePickerPage(){
 
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);

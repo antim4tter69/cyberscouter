@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <TextView
         android:id="@+id/textView9"
@@ -43,10 +43,10 @@
         android:textColorLink="@color/CurrentTeamColor"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView_roleTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -161,5 +161,19 @@
             android:layout_weight="1"
             android:textSize="18sp" />
     </RadioGroup>
+
+    <Button
+        android:id="@+id/Reset_button"
+        android:layout_width="173dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        android:text="@string/ResetButton"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_next"
+        app:layout_constraintHorizontal_bias="0.563"
+        app:layout_constraintStart_toEndOf="@+id/button_previous" />
 
 </android.support.constraint.ConstraintLayout>

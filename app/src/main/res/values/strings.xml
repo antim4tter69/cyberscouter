@@ -116,4 +116,6 @@
     <string name="sandstormTitle">Sandstorm</string>
     <string name="teleopTitle">Teleop</string>
 
+    <string name="logo_description">Team Logo</string>
+
 </resources>

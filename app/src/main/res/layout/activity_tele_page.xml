@@ -82,22 +82,4 @@
         app:layout_constraintEnd_toStartOf="@+id/button_next"
         app:layout_constraintStart_toEndOf="@+id/button_previous" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="drawable/2020_field" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="1108dp"
-        android:layout_height="478dp"
-        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag"
-        app:layout_constraintVertical_bias="0.498"
-        app:srcCompat="drawable/2020 field" />
-
 </android.support.constraint.ConstraintLayout>

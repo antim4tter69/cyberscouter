@@ -17,6 +17,10 @@ public class AutoPage extends AppCompatActivity {
     private final int[] preloadButtons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
     private final int[] startingPosButtons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
     private final int[] didnotshowButtons = {R.id.button_didnotshowYes, R.id.button_didnotshowNo};
+    private int FIELD_ORIENTATION_RIGHT=0;
+    private int FIELD_ORIENTATION_LEFT=1;
+    private int field_orientation=FIELD_ORIENTATION_RIGHT;
+
 
 
 
@@ -26,6 +30,8 @@ public class AutoPage extends AppCompatActivity {
         setContentView(R.layout.activity_auto_page);
 
         button = findViewById(R.id.button_startMatch);
+        Intent intent = getIntent();
+        field_orientation = intent.getIntExtra("field_orientation",0);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override

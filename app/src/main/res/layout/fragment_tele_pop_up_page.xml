@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:textAlignment="center"
+    tools:context=".TelePopUpPage">
+
+    <TextView
+        android:id="@+id/LowerBox"
+        android:layout_width="134dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="360dp"
+        android:text="Lower"
+        android:textAlignment="center"
+        android:textColor="#020000"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LowerMinusButton" />
+
+    <Button
+        android:id="@+id/LowerMinusButton"
+        android:layout_width="54dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="375dp"
+        android:layout_marginTop="576dp"
+        android:layout_marginEnd="24dp"
+        android:text="-"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/lowerScore"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/lowerScore"
+        android:layout_width="56dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="576dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="834dp" />
+
+    <Button
+        android:id="@+id/lowerPlusButton"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="576dp"
+        android:text="+"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/lowerScore"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/OuterBox"
+        android:layout_width="134dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="173dp"
+        android:text="Outer"
+        android:textAlignment="center"
+        android:textColor="#020000"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/outerScore" />
+
+    <Button
+        android:id="@+id/outerPlusButton"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="60dp"
+        android:text="+"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="1102dp" />
+
+    <EditText
+        android:id="@+id/outerScore"
+        android:layout_width="56dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/outerPlusButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/outerMinusButton"
+        android:layout_width="54dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="24dp"
+        android:text="-"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/outerScore"
+        app:layout_constraintStart_toEndOf="@+id/InnerPlusButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="384dp"
+        android:layout_height="820dp"
+        android:src="@drawable/powerport"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/InnerBox"
+        android:layout_width="134dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="20dp"
+        android:text="Inner"
+        android:textAlignment="center"
+        android:textColor="#020000"
+        android:textSize="36sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/InnerScore" />
+
+    <Button
+        android:id="@+id/InnerPlusButton"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="60dp"
+        android:text="+"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/InnerScore"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/InnerScore"
+        android:layout_width="56dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/InnerPlusButton"
+        app:layout_constraintStart_toEndOf="@+id/InnerMinusButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/InnerMinusButton"
+        android:layout_width="54dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="60dp"
+        android:text="-"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/Zone"
+        android:layout_width="137dp"
+        android:layout_height="81dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Zone"
+        android:textSize="45"
+        tools:layout_editor_absoluteX="719dp"
+        tools:layout_editor_absoluteY="337dp" />
+
+    <EditText
+        android:id="@+id/ZoneNumber"
+        android:layout_width="78dp"
+        android:layout_height="82dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="0"
+        android:textSize="45"
+        tools:layout_editor_absoluteX="854dp"
+        tools:layout_editor_absoluteY="336dp" />
+
+</android.support.constraint.ConstraintLayout>

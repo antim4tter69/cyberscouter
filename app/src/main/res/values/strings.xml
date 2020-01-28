@@ -46,7 +46,7 @@
     <string name="LevelTwoStartingPositionLeftButton">Lvl 2 left</string>
     <string name="LevelOneStartingPositionRightButton">Lvl 1 right</string>
     <string name="LevelTwoStartingPositionRightButton">Lvl 2 right</string>
-    <string name="LevelOneStartingPositionCenterButton">Lvl 1 cnter</string>
+    <string name="LevelOneStartingPositionCenterButton">Lvl 1 center</string>
     <string name="LevelOneStartingPositionButton">Lvl 1</string>
     <string name="LevelTwoStartingPositionButton">Lvl 2</string>
     <string name="LevelThreeStartingPositionButton">Lvl 3</string>
@@ -117,5 +117,10 @@
     <string name="teleopTitle">Teleop</string>
 
     <string name="logo_description">Team Logo</string>
-
+    <string name="PenaltyText">Penalties?</string>
+    <string name="InnerText">Inner</string>
+    <string name="OuterText">Outer</string>
+    <string name="LowerText">Lower</string>
+    <string name="AutoLabel">Auto</string>
+    <string name="PowerPortContent">PowerPort</string>
 </resources>

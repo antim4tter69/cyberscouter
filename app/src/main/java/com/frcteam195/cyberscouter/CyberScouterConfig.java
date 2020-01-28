@@ -1,9 +1,17 @@
 package com.frcteam195.cyberscouter;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothManager;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 public class CyberScouterConfig {
     final static String UNKNOWN_ROLE = "Unknown Role";
@@ -52,6 +60,29 @@ public class CyberScouterConfig {
 
     public int getUser_id() {return user_id;}
 
+    static public CyberScouterConfig getConfig(AppCompatActivity activity) throws Exception {
+        CyberScouterConfig ret = null;
+
+        final BluetoothManager bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
+        BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
+        BluetoothComm btcomm = new BluetoothComm();
+        String response = btcomm.getConfig(_bluetoothAdapter, Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name"));
+        JSONObject jo = new JSONObject(response);
+        String result = (String)jo.get("result");
+        if(result.equalsIgnoreCase("failed")){
+            return ret;
+        }
+        JSONObject payload = jo.getJSONObject("payload");
+        if(null != payload) {
+            ret = new CyberScouterConfig();
+            ret.event = payload.getString("event");
+            ret.role = payload.getString("role");
+            ret.event_id = payload.getInt("event_id");
+        }
+
+        return ret;
+    }
+
     static public CyberScouterConfig getConfig(SQLiteDatabase db) {
         CyberScouterConfig ret = null;
         Cursor cursor = null;
@@ -66,8 +97,7 @@ public class CyberScouterConfig {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME,
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID,
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID
             };
 
             String sortOrder =
@@ -119,14 +149,20 @@ public class CyberScouterConfig {
         }
     }
 
-    static void setLastQuestion(SQLiteDatabase db, int nextQuestion) {
+    public void setConfig(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
-        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION, nextQuestion);
-        int count = db.update(
-                CyberScouterContract.ConfigEntry.TABLE_NAME,
-                values,
-                null,
-                null);
-    }
 
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID, event_id);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, event);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, role);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE_COL, role_col);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, field_red_left);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, offline);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, tablet_num);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, user_id);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, username);
+
+        long newRowId = db.insert(CyberScouterContract.Users.TABLE_NAME, null, values);
+
+    }
 }

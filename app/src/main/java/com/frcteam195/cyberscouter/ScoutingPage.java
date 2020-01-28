@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ScoutingPage extends AppCompatActivity {
-    private Button button;
     private int FIELD_ORIENTATION_RIGHT=0;
     private int FIELD_ORIENTATION_LEFT=1;
     private int field_orientation=FIELD_ORIENTATION_RIGHT;
@@ -21,6 +20,7 @@ public class ScoutingPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ImageButton imageButton;
+        Button button;
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scouting_page);

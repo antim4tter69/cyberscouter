@@ -43,7 +43,7 @@ public class Admin1 extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button8);
+        button = findViewById(R.id.Button_MainPage);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -42,7 +42,7 @@
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/Button_TestMode"
         android:layout_width="201dp"
         android:layout_height="82dp"
         android:layout_marginTop="32dp"
@@ -50,24 +50,24 @@
         android:layout_marginRight="24dp"
         android:text="@string/admin1"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
+        app:layout_constraintBottom_toTopOf="@+id/Button_UpdateCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/Button_UpdateCode"
         android:layout_width="199dp"
         android:layout_height="98dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:text="@string/admin2"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/button7"
+        app:layout_constraintBottom_toTopOf="@+id/Button_SetUp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/Button_TestMode" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/Button_SetUp"
         android:layout_width="199dp"
         android:layout_height="95dp"
         android:layout_marginEnd="24dp"
@@ -76,10 +76,10 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/Button_UpdateCode" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/Button_MainPage"
         android:layout_width="427dp"
         android:layout_height="173dp"
         android:layout_marginEnd="24dp"
@@ -98,9 +98,9 @@
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/Button_MainPage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button7" />
+        app:layout_constraintTop_toBottomOf="@+id/Button_SetUp" />
 
     <TextView
         android:id="@+id/textView11"

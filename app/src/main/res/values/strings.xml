@@ -117,6 +117,7 @@
     <string name="teleopTitle">Teleop</string>
 
     <string name="logo_description">Team Logo</string>
+    <string name="title_activity_word_cloud">WordCloudActivity</string>
     <string name="PenaltyText">Penalties?</string>
     <string name="InnerText">Inner</string>
     <string name="OuterText">Outer</string>

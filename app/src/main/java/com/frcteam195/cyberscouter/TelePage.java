@@ -26,6 +26,7 @@ public class TelePage extends AppCompatActivity {
         setContentView(R.layout.activity_tele_page);
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+        intent.getIntExtra("field_orientation",field_orientation);
 
         TextView tv = findViewById(R.id.textView_roleTag);
         tv.setText(R.string.teleopTitle);
@@ -91,6 +92,7 @@ public class TelePage extends AppCompatActivity {
 
     public void EndGamePage() {
         Intent intent = new Intent(this, EndPage.class);
+
         startActivity(intent);
 
     }

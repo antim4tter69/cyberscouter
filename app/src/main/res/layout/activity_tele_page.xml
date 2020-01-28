@@ -82,4 +82,88 @@
         app:layout_constraintEnd_toStartOf="@+id/button_next"
         app:layout_constraintStart_toEndOf="@+id/button_previous" />
 
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="1031dp"
+        android:layout_height="503dp"
+        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/field_2020" />
+
+    <Button
+        android:id="@+id/zone_1"
+        android:layout_width="164dp"
+        android:layout_height="217dp"
+        android:layout_weight="1"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.328"
+        android:background="#FFFF00"
+        android:alpha=".5"/>
+
+    <Button
+        android:id="@+id/zone_5"
+        android:layout_width="373dp"
+        android:layout_height="234dp"
+        android:alpha=".5"
+        android:background="#00ff00"
+        android:text="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zone_1"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/zone_3"
+        android:layout_width="289dp"
+        android:layout_height="225dp"
+        android:layout_marginTop="148dp"
+        android:alpha=".5"
+        android:background="#8B4513"
+        android:text="3"
+        app:layout_constraintBottom_toTopOf="@+id/zone_5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.418"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_roleTag"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/zone_4"
+        android:layout_width="384dp"
+        android:layout_height="439dp"
+        android:text="4"
+        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/zone_5"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.578"
+        android:alpha=".5"
+        android:background="#AFEEEE"/>
+
+    <Button
+        android:id="@+id/zone_2"
+        android:layout_width="242dp"
+        android:layout_height="93dp"
+        android:alpha=".55"
+        android:background="#FFc0cb"
+        android:text="2"
+        app:layout_constraintBottom_toTopOf="@+id/zone_3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.0" />
+
+
 </android.support.constraint.ConstraintLayout>

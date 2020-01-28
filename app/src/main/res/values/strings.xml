@@ -117,5 +117,10 @@
     <string name="teleopTitle">Teleop</string>
 
     <string name="logo_description">Team Logo</string>
+    <string name="title_activity_pit_scouting">PitScoutingActivity</string>
+    <string name="tab_text_1">Physical Properties</string>
+    <string name="tab_text_2">Auto</string>
+    <string name="tab_text_3">Teleop</string>
+    <string name="tab_text_4">Endgame</string>
 
 </resources>

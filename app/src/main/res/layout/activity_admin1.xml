@@ -20,6 +20,10 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_admin1" />
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_admin1"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="center" />
 
 </android.support.design.widget.CoordinatorLayout>

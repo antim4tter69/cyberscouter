@@ -29,6 +29,9 @@ public class AutoPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_page);
 
+        Intent intent = getIntent();
+        int field_orientation = intent.getIntExtra("field_orientation",0);
+
         button = findViewById(R.id.button_startMatch);
         Intent intent = getIntent();
         field_orientation = intent.getIntExtra("field_orientation",0);

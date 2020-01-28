@@ -121,5 +121,6 @@
     <string name="InnerText">Inner</string>
     <string name="OuterText">Outer</string>
     <string name="LowerText">Lower</string>
-
+    <string name="AutoLabel">Auto</string>
+    <string name="PowerPortContent">PowerPort</string>
 </resources>

@@ -15,7 +15,7 @@ public class AutoPage extends AppCompatActivity {
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
     private final int[] preloadButtons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
-    private final int[] startingPosButtons = {R.id.button_grndLeft, R.id.button_l1Left, R.id.button_l1Center, R.id.button_l1Right, R.id.button19, R.id.button_l2Right};
+    private final int[] startingPosButtons = {R.id.button_l1Left, R.id.button_l2Right};
     private final int[] didnotshowButtons = {R.id.button_didnotshowYes, R.id.button_didnotshowNo};
     private int FIELD_ORIENTATION_RIGHT=0;
     private int FIELD_ORIENTATION_LEFT=1;
@@ -52,15 +52,6 @@ public class AutoPage extends AppCompatActivity {
         });
         defaultButtonTextColor = button.getCurrentTextColor();
 
-        button = findViewById(R.id.button_grndLeft);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                groundFar();
-            }
-        });
-
         button = findViewById(R.id.button_l1Left);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -70,57 +61,12 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_l1Center);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                levelOneCenter();
-            }
-        });
-
-        button = findViewById(R.id.button_l1Right);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                levelOneRight();
-            }
-        });
-
-        button = findViewById(R.id.button19);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                levelTwoLeft();
-            }
-        });
-
         button = findViewById(R.id.button_l2Right);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 levelTwoRight();
-            }
-        });
-
-        button = findViewById(R.id.button_grndRight);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                groundNear();
-            }
-        });
-
-        button = findViewById(R.id.button_skipMatch);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                skipMatch();
             }
         });
 

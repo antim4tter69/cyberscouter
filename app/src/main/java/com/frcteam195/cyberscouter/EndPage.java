@@ -82,22 +82,6 @@ public class EndPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button73);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hatchGroundPickupYes();
-
-            }
-        });
-        button = findViewById(R.id.button72);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hatchGroundPickupNo();
-
-            }
-        });
     }
 
     @Override
@@ -145,12 +129,5 @@ public class EndPage extends AppCompatActivity {
     }
     public void brokeDownYes() {
         FakeRadioGroup.buttonPressed(this, 1, brokeButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-
-    public void hatchGroundPickupNo() {
-        FakeRadioGroup.buttonPressed(this, 0, grndPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void hatchGroundPickupYes() {
-        FakeRadioGroup.buttonPressed(this, 1, grndPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 }

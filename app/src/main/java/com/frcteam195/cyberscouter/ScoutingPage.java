@@ -25,27 +25,26 @@ public class ScoutingPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scouting_page);
 
+        button = findViewById(R.id.Button_Start);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAuto();
-
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNamePickerPage();
-
-            }
-        });
-        button = findViewById(R.id.button7);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                openNamePickerPage();
+//
+//            }
+//        });
+        button = findViewById(R.id.Button_Return);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 returnToMainMenu();
-
             }
         });
 
@@ -130,22 +129,22 @@ public class ScoutingPage extends AppCompatActivity {
 
 
     public void openAuto(){
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        if(null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
-                FragmentManager fm = getSupportFragmentManager();
-                NamePickerDialog npd = new NamePickerDialog();
-                npd.show(fm, "namepicker");
-            }
-            else {
+//        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+//
+//        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+//
+//        if(null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
+//                FragmentManager fm = getSupportFragmentManager();
+//                NamePickerDialog npd = new NamePickerDialog();
+//                npd.show(fm, "namepicker");
+//            }
+//            else {
                 Intent intent = new Intent(this, AutoPage.class);
                 intent.putExtra("field_orientation",field_orientation);
                 startActivity(intent);
 
-            }
+//            }
         }
 
     public void openNamePickerPage(){

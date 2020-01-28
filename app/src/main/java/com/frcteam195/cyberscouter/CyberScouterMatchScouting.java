@@ -125,9 +125,6 @@ class CyberScouterMatchScouting {
                 csm.autoMoveBonus = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
                 if(rs.wasNull())
                     csm.autoMoveBonus = -1;
-                csm.summHatchGrdPickup = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP));
-                if(rs.wasNull())
-                    csm.summHatchGrdPickup = -1;
                 csm.summLostComm = rs.getInt(rs.findColumn(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
                 if(rs.wasNull())
                     csm.summLostComm= -1;
@@ -252,7 +249,6 @@ class CyberScouterMatchScouting {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE,
@@ -289,7 +285,6 @@ class CyberScouterMatchScouting {
                     csm.autoStartPos = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS));
                     csm.autoDidNotShow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
                     csm.autoMoveBonus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
-                    csm.summHatchGrdPickup = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP));
                     csm.summLostComm = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
                     csm.summBrokeDown = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN));
                     csm.summSubsystemBroke = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE));
@@ -335,7 +330,6 @@ class CyberScouterMatchScouting {
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, csm.getAutoStartPos());
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, csm.getAutoDidNotShow());
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, csm.getAutoMoveBonus());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP, csm.getSummHatchGrdPickup());
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, csm.getSummLostComm());
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, csm.getSummBrokeDown());
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, csm.getSummSubsystemBroke());

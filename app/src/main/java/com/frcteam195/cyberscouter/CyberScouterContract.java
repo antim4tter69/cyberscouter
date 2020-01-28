@@ -87,7 +87,6 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_CLIMBPOSITION = "ClimbPosition";
         public static final String COLUMN_NAME_CLIMBMOVEONBAR = "ClimbMoveOnBar";
         public static final String COLUMN_NAME_CLIMBLEVELSTATUS = "ClimbLevelStatus";
-        public static final String COLUMN_NAME_SUMMHATCHGRDPICKUP = "SummHatchGrdPickup";
         public static final String COLUMN_NAME_SUMMLOSTCOMM = "SummLostComm";
         public static final String COLUMN_NAME_SUMMBROKEDOWN = "SummBrokeDown";
         public static final String COLUMN_NAME_SUMMGROUNDPICKUP = "SummGroundPickup";

@@ -41,9 +41,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_DidNotShowYes);
-
-        button = findViewById(R.id.button_previous);
+        button = findViewById(R.id.buttonPrevious);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -52,24 +50,6 @@ public class AutoPage extends AppCompatActivity {
             }
         });
         defaultButtonTextColor = button.getCurrentTextColor();
-
-        button = findViewById(R.id.button_l1Left);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                levelOneLeft();
-            }
-        });
-
-        button = findViewById(R.id.button_l2Right);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                levelTwoRight();
-            }
-        });
 
         button = findViewById(R.id.button_moveBonusYes);
         button.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +100,8 @@ public class AutoPage extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+//        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        CyberScouterMatchScouting csm = null;
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView7);
@@ -128,9 +109,9 @@ public class AutoPage extends AppCompatActivity {
             tv = findViewById(R.id.textView9);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
-            FakeRadioGroup.buttonDisplay(this, csm.getAutoStartPos(), startingPosButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//            FakeRadioGroup.buttonDisplay(this, csm.getAutoStartPos(), startingPosButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         }
     }
 
@@ -149,19 +130,19 @@ public class AutoPage extends AppCompatActivity {
     public void groundNear(){}
 
     public void levelOneLeft(){
-        FakeRadioGroup.buttonPressed(this,1, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this,1, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelOneCenter(){
-        FakeRadioGroup.buttonPressed(this,2, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this,2, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelOneRight(){
-        FakeRadioGroup.buttonPressed(this, 3, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this, 3, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelTwoLeft(){
-        FakeRadioGroup.buttonPressed(this,4, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this,4, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelTwoRight(){
-        FakeRadioGroup.buttonPressed(this,5, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this,5, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void skipMatch(){
@@ -186,19 +167,19 @@ public class AutoPage extends AppCompatActivity {
 
 
     public void moveBonusYes(){
-        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void moveBonusNo(){
-        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
 
     public void didnotshowYes(){
-        FakeRadioGroup.buttonPressed(this, 0, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        Intent intent = new Intent(this, SubmitPage.class);
-        startActivity(intent);
+//        FakeRadioGroup.buttonPressed(this, 0, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        Intent intent = new Intent(this, SubmitPage.class);
+//        startActivity(intent);
     }
     public void didnotshowNo(){
-        FakeRadioGroup.buttonPressed(this, 1, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        FakeRadioGroup.buttonPressed(this, 1, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 }

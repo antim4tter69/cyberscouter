@@ -20,9 +20,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE + " INTEGER," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT + " INTEGER," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME + " TEXT," +
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID + " INTEGER," +
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION + " INTEGER)"
-            ;
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID + " INTEGER)";
 
     private static final String SQL_DELETE_CONFIG_ENTRIES =
             "DROP TABLE IF EXISTS " + CyberScouterContract.ConfigEntry.TABLE_NAME;
@@ -45,9 +43,42 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE2 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE3 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE4 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE5 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5 + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " INTEGER)";
 
     private static final String SQL_DELETE_MATCHES =

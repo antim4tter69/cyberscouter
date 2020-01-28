@@ -131,38 +131,8 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                 tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
                 tv = findViewById(R.id.textView9);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-
-                CyberScouterQuestions csq = CyberScouterQuestions.getLocalQuestion(db, cfg.getEvent_id(), cfg.getLast_question());
-                if (null != csq) {
-                    tv = findViewById(R.id.textView_question);
-                    tv.setText(csq.getQuestionText());
-                    button = findViewById(R.id.button_previousAnswer);
-                    if (1 == csq.getQuestionNumber())
-                        button.setEnabled(false);
-                    else
-                        button.setEnabled(true);
-
-                    button = findViewById(R.id.button_nextAnswer);
-                    int questionCount = CyberScouterQuestions.getQuestionCount(db);
-                    if (cfg.getLast_question() == questionCount)
-                        button.setEnabled(false);
-                    else
-                        button.setEnabled(true);
-
-                    String[] ans = csq.getAnswers();
-
-                    rg = findViewById(R.id.radioGroup1);
-                    rg.clearCheck();
-                    for (int i = 0; i < ans.length; ++i) {
-                        rb = findViewById(radioButtonArray[i]);
-                        if (null != rb) {
-                            rb.setText(ans[i]);
-                            rb.setVisibility(View.VISIBLE);
-                            rb.setEnabled(true);
-                        }
-                    }
-                }
             }
+
         }
 
     }
@@ -198,14 +168,6 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-        int nextQuestion = cfg.getLast_question() + val;
-        int questionCount = CyberScouterQuestions.getQuestionCount(db);
-        if (1 > nextQuestion)
-            nextQuestion = 1;
-        else if (questionCount < nextQuestion)
-            nextQuestion = questionCount;
-        CyberScouterConfig.setLastQuestion(db, nextQuestion);
     }
 
     private void updateAnswer() {

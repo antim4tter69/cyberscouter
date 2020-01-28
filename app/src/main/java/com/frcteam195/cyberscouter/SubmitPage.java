@@ -27,24 +27,6 @@ public class SubmitPage extends AppCompatActivity {
 
             }
         });
-
-        button = findViewById(R.id.button5);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitMatch();
-
-            }
-        });
-
-        button = findViewById(R.id.button6);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitMatchForReview();
-
-            }
-        });
     }
 
     @Override

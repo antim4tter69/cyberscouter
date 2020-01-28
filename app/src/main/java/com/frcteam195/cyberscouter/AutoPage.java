@@ -16,7 +16,7 @@ public class AutoPage extends AppCompatActivity {
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
     private final int[] preloadButtons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
     private final int[] startingPosButtons = {R.id.button_l1Left, R.id.button_l2Right};
-    private final int[] didnotshowButtons = {R.id.button_didnotshowYes, R.id.button_didnotshowNo};
+    private final int[] didnotshowButtons = {R.id.button_DidNotShowYes, R.id.button_DidNotShowNo};
     private int FIELD_ORIENTATION_RIGHT=0;
     private int FIELD_ORIENTATION_LEFT=1;
     private int field_orientation=FIELD_ORIENTATION_RIGHT;
@@ -33,8 +33,6 @@ public class AutoPage extends AppCompatActivity {
         int field_orientation = intent.getIntExtra("field_orientation",0);
 
         button = findViewById(R.id.button_startMatch);
-        Intent intent = getIntent();
-        field_orientation = intent.getIntExtra("field_orientation",0);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -43,7 +41,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_didnotshowYes);
+        button = findViewById(R.id.button_DidNotShowYes);
 
         button = findViewById(R.id.button_previous);
         button.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +89,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_didnotshowYes);
+        button = findViewById(R.id.button_DidNotShowYes);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -100,7 +98,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_didnotshowNo);
+        button = findViewById(R.id.button_DidNotShowNo);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override

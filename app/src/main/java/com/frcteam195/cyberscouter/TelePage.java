@@ -71,12 +71,6 @@ public class TelePage extends AppCompatActivity {
                 tv = findViewById(R.id.textView9);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-                button = findViewById(R.id.button18);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleCSHatch()));
-                button = findViewById(R.id.button30);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleCSCargo()));
-                button = findViewById(R.id.button43);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchNearLow()));
             }
         }
 
@@ -297,14 +291,6 @@ public class TelePage extends AppCompatActivity {
     public void cargoHighShotMinus() {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-        if (null != cfg && null != cfg.getRole()) {
-            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-        }
-        startActivity(intent);
-    }
-
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {

@@ -46,7 +46,7 @@
     <string name="LevelTwoStartingPositionLeftButton">Lvl 2 left</string>
     <string name="LevelOneStartingPositionRightButton">Lvl 1 right</string>
     <string name="LevelTwoStartingPositionRightButton">Lvl 2 right</string>
-    <string name="LevelOneStartingPositionCenterButton">Lvl 1 cnter</string>
+    <string name="LevelOneStartingPositionCenterButton">Lvl 1 center</string>
     <string name="LevelOneStartingPositionButton">Lvl 1</string>
     <string name="LevelTwoStartingPositionButton">Lvl 2</string>
     <string name="LevelThreeStartingPositionButton">Lvl 3</string>
@@ -117,5 +117,24 @@
     <string name="teleopTitle">Teleop</string>
 
     <string name="logo_description">Team Logo</string>
+    <string name="zone_text">Zone</string>
+    <string name="outer_text">Outer</string>
+    <string name="inner_text">Inner</string>
+    <string name="lower_text">Lower</string>
+    <string name="back_text">Back</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_pit_scouting">PitScoutingActivity</string>
+    <string name="tab_text_1">Physical Properties</string>
+    <string name="tab_text_2">Auto</string>
+    <string name="tab_text_3">Teleop</string>
+    <string name="tab_text_4">Endgame</string>
+    <string name="title_activity_word_cloud">WordCloudActivity</string>
+    <string name="PenaltyText">Penalties?</string>
+    <string name="InnerText">Inner</string>
+    <string name="OuterText">Outer</string>
+    <string name="LowerText">Lower</string>
+    <string name="AutoLabel">Auto</string>
+    <string name="PowerPortContent">PowerPort</string>
 </resources>

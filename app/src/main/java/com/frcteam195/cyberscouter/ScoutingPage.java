@@ -12,8 +12,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
+public class ScoutingPage extends AppCompatActivity {
     private Button button;
+    private int FIELD_ORIENTATION_RIGHT=0;
+    private int FIELD_ORIENTATION_LEFT=1;
+    private int field_orientation=FIELD_ORIENTATION_RIGHT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scouting_page);
 
-        button = findViewById(R.id.button5);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,7 +33,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             }
         });
 
-        button = findViewById(R.id.button6);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +55,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             @Override
             public void onClick(View v) {
                 setFieldRedLeft(1);
+                field_orientation = FIELD_ORIENTATION_LEFT;
                 setFieldImage(R.drawable.red_left);
             }
         });
@@ -64,6 +66,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             @Override
             public void onClick(View v) {
                 setFieldRedLeft(0);
+                field_orientation = FIELD_ORIENTATION_RIGHT;
                 setFieldImage(R.drawable.red_right);
             }
         });
@@ -72,11 +75,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        if(null != cfg && null != cfg.getUsername()) {
-            button = findViewById(R.id.button6);
-            button.setText(cfg.getUsername());
-        }
     }
 
     @Override
@@ -123,13 +121,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
     @Override
-    public void onNameSelected(String val, int idx) {
-        setUsername(val, idx);
-        button = findViewById(R.id.button6);
-        button.setText(val);
-    }
-
-    @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -151,6 +142,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             }
             else {
                 Intent intent = new Intent(this, AutoPage.class);
+                intent.putExtra("field_orientation",field_orientation);
                 startActivity(intent);
 
             }

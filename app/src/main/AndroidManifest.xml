@@ -12,10 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <service
             android:name=".BackgroundUpdater"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".SubmitPage" />
         <activity android:name=".MainActivity">
@@ -46,7 +47,6 @@
         <activity
             android:name=".SummaryQuestionsPage"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SandstormPage"
             android:theme="@style/AppTheme.NoActionBar" />

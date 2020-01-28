@@ -12,9 +12,9 @@
         android:id="@+id/LowerBox"
         android:layout_width="134dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="360dp"
-        android:text="Lower"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="355dp"
+        android:text="@string/lower_text"
         android:textAlignment="center"
         android:textColor="#020000"
         android:textSize="36sp"
@@ -25,10 +25,10 @@
         android:id="@+id/LowerMinusButton"
         android:layout_width="54dp"
         android:layout_height="53dp"
-        android:layout_marginStart="375dp"
+        android:layout_marginStart="369dp"
         android:layout_marginTop="576dp"
-        android:layout_marginEnd="24dp"
-        android:text="-"
+        android:layout_marginEnd="20dp"
+        android:text="@string/MinusButton"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/lowerScore"
         app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -39,24 +39,28 @@
         android:layout_width="56dp"
         android:layout_height="57dp"
         android:layout_marginTop="576dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="0"
+        android:text="@string/ZeroText"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/LowerBox"
+        app:layout_constraintEnd_toStartOf="@+id/lowerPlusButton"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="834dp" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/lowerPlusButton"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="576dp"
-        android:text="+"
+        android:layout_marginTop="580dp"
+        android:layout_marginEnd="325dp"
+        android:text="@string/PlusButton"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/lowerScore"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -65,7 +69,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="173dp"
-        android:text="Outer"
+        android:text="@string/outer_text"
         android:textAlignment="center"
         android:textColor="#020000"
         android:textSize="36sp"
@@ -77,10 +81,11 @@
         android:layout_width="52dp"
         android:layout_height="52dp"
         android:layout_marginTop="60dp"
-        android:text="+"
+        android:layout_marginEnd="126dp"
+        android:text="@string/PlusButton"
         android:textSize="24sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="1102dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/outerScore"
@@ -88,12 +93,13 @@
         android:layout_height="57dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="0"
+        android:text="@string/ZeroText"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/outerPlusButton"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,7 +110,7 @@
         android:layout_marginStart="200dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="24dp"
-        android:text="-"
+        android:text="@string/MinusButton"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/outerScore"
         app:layout_constraintStart_toEndOf="@+id/InnerPlusButton"
@@ -117,8 +123,7 @@
         android:src="@drawable/powerport"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/InnerBox"
@@ -126,7 +131,7 @@
         android:layout_height="48dp"
         android:layout_marginStart="175dp"
         android:layout_marginTop="20dp"
-        android:text="Inner"
+        android:text="@string/inner_text"
         android:textAlignment="center"
         android:textColor="#020000"
         android:textSize="36sp"
@@ -139,7 +144,7 @@
         android:layout_height="52dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="60dp"
-        android:text="+"
+        android:text="@string/PlusButton"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/InnerScore"
         app:layout_constraintTop_toTopOf="parent" />
@@ -153,10 +158,10 @@
         android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="0"
+        android:text="@string/ZeroText"
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/InnerPlusButton"
         app:layout_constraintStart_toEndOf="@+id/InnerMinusButton"
         app:layout_constraintTop_toTopOf="parent" />
@@ -167,7 +172,7 @@
         android:layout_height="53dp"
         android:layout_marginStart="125dp"
         android:layout_marginTop="60dp"
-        android:text="-"
+        android:text="@string/MinusButton"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -176,22 +181,44 @@
         android:id="@+id/Zone"
         android:layout_width="137dp"
         android:layout_height="81dp"
+        android:layout_marginStart="335dp"
+        android:layout_marginTop="337dp"
+        android:layout_marginBottom="337dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Zone"
-        android:textSize="45"
-        tools:layout_editor_absoluteX="719dp"
-        tools:layout_editor_absoluteY="337dp" />
+        android:text="@string/zone_text"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ZoneNumber"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/ZoneNumber"
         android:layout_width="78dp"
         android:layout_height="82dp"
+        android:layout_marginTop="337dp"
+        android:layout_marginEnd="348dp"
+        android:layout_marginBottom="337dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="0"
-        android:textSize="45"
-        tools:layout_editor_absoluteX="854dp"
-        tools:layout_editor_absoluteY="336dp" />
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Zone"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/BackButton"
+        android:layout_width="127dp"
+        android:layout_height="67dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="#008F2929"
+        android:text="@string/back_text"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

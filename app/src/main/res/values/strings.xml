@@ -118,4 +118,13 @@
 
     <string name="logo_description">Team Logo</string>
 
+    <string name="zone_text">Zone</string>
+    <string name="outer_text">Outer</string>
+    <string name="inner_text">Inner</string>
+    <string name="lower_text">Lower</string>
+    <string name="back_text">Back</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

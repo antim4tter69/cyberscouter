@@ -136,33 +136,6 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_cargo);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                preloadCargo();
-            }
-        });
-
-        button = findViewById(R.id.button_panel);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                preloadPanel();
-            }
-        });
-
-        button = findViewById(R.id.button_none);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                preloadNone();
-            }
-        });
-
         button = findViewById(R.id.button_didnotshowYes);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -203,8 +176,6 @@ public class AutoPage extends AppCompatActivity {
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
             FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-
-            FakeRadioGroup.buttonDisplay(this, csm.getAutoPreload(), preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
             FakeRadioGroup.buttonDisplay(this, csm.getAutoStartPos(), startingPosButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         }
@@ -269,15 +240,6 @@ public class AutoPage extends AppCompatActivity {
     }
 
 
-    public void preloadCargo(){
-        FakeRadioGroup.buttonPressed(this, 2, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void preloadPanel(){
-        FakeRadioGroup.buttonPressed(this, 1, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void preloadNone() {
-        FakeRadioGroup.buttonPressed(this, 0, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
     public void didnotshowYes(){
         FakeRadioGroup.buttonPressed(this, 0, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         Intent intent = new Intent(this, SubmitPage.class);

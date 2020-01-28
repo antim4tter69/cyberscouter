@@ -260,31 +260,6 @@ public class TelePage extends AppCompatActivity {
                 tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
                 tv = findViewById(R.id.textView9);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-
-
-
-                button = findViewById(R.id.button18);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleCSHatch()));
-                button = findViewById(R.id.button30);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleCSCargo()));
-                button = findViewById(R.id.button43);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchNearLow()));
-                button = findViewById(R.id.button63);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchNearMed()));
-                button = findViewById(R.id.button90);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchNearHigh()));
-                button = findViewById(R.id.button38);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSCargoLow()));
-                button = findViewById(R.id.button57);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSCargoMed()));
-                button = findViewById(R.id.button84);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSCargoHigh()));
-                button = findViewById(R.id.button54);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchFarLow()));
-                button = findViewById(R.id.button61);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchFarMed()));
-                button = findViewById(R.id.button88);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchFarHigh()));
             }
         }
 
@@ -308,8 +283,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSCARGO, csms.getTeleCSCargo() - 1);
         }
     }
 
@@ -320,8 +293,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSCARGO, csms.getTeleCSCargo() + 1);
         }
     }
 
@@ -332,8 +303,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSHATCH, csms.getTeleCSHatch() - 1);
         }
     }
 
@@ -344,8 +313,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSHATCH, csms.getTeleCSHatch() + 1);
         }
     }
 
@@ -356,8 +323,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARHIGH, csms.getTeleRSHatchFarHigh() - 1);
         }
     }
 
@@ -368,8 +333,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARHIGH, csms.getTeleRSHatchFarHigh() + 1);
         }
     }
 
@@ -380,8 +343,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARMED, csms.getTeleRSHatchFarMed() - 1);
         }
     }
 
@@ -392,8 +353,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARMED, csms.getTeleRSHatchFarMed() + 1);
         }
 
     }
@@ -405,8 +364,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARLOW, csms.getTeleRSHatchFarLow() - 1);
         }
     }
 
@@ -417,8 +374,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARLOW, csms.getTeleRSHatchFarLow() + 1);
         }
     }
 
@@ -429,8 +384,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARHIGH, csms.getTeleRSHatchNearHigh() - 1);
         }
     }
 
@@ -441,8 +394,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARHIGH, csms.getTeleRSHatchNearHigh() + 1);
         }
     }
 
@@ -453,8 +404,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARMED, csms.getTeleRSHatchNearMed() - 1);
         }
     }
 
@@ -465,8 +414,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARMED, csms.getTeleRSHatchNearMed() + 1);
         }
     }
 
@@ -477,8 +424,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARLOW, csms.getTeleRSHatchNearLow() - 1);
         }
     }
 
@@ -489,8 +434,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARLOW, csms.getTeleRSHatchNearLow() + 1);
         }
     }
 
@@ -501,8 +444,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOLOW, csms.getTeleRSCargoLow() - 1);
         }
     }
 
@@ -513,8 +454,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOLOW, csms.getTeleRSCargoLow() + 1);
         }
     }
 
@@ -525,8 +464,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOMED, csms.getTeleRSCargoMed() - 1);
         }
     }
 
@@ -537,8 +474,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOMED, csms.getTeleRSCargoMed() + 1);
         }
     }
 
@@ -549,8 +484,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOHIGH, csms.getTeleRSCargoHigh() - 1);
         }
     }
 
@@ -561,8 +494,6 @@ public class TelePage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
         if (null != cfg && null != cfg.getRole()) {
             CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-            if (null != csms)
-                setMetricValue(CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOHIGH, csms.getTeleRSCargoHigh() + 1);
         }
     }
     

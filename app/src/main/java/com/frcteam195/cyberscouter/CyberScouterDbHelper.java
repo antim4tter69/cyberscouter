@@ -38,55 +38,16 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM + " TEXT," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_STARTOFTELEOP + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_QUESTIONSANSWERED + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSCARGO + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOCSHATCH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOLOW + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOMED + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSCARGOHIGH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARLOW + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARMED + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHFARHIGH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARLOW + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARMED + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTORSHATCHNEARHIGH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSCARGO + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELECSHATCH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOLOW + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOMED + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSCARGOHIGH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARLOW + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARMED + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHFARHIGH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARLOW + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARMED + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELERSHATCHNEARHIGH + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSCORE + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBASSIST + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHATCHGRDPICKUP + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKE + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTIPOVER + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER01 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER02 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER03 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER04 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER05 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER06 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER07 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER08 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER09 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_ANSWER10 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " INTEGER)";
 
     private static final String SQL_DELETE_MATCHES =

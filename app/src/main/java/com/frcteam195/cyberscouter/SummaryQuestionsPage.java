@@ -161,11 +161,6 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                             rb.setEnabled(true);
                         }
                     }
-                    int l_ans = CyberScouterMatchScouting.getAnswerFromIndex(cfg.getLast_question(), csm);
-                    if (-1 != l_ans) {
-                        rg.check(radioButtonArray[l_ans]);
-                        lastCheckedButton = radioButtonArray[l_ans];
-                    }
                 }
             }
         }
@@ -245,19 +240,6 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                     ans = -1;
             }
 
-                String col = CyberScouterMatchScouting.getColumnFromIndex(cfg.getLast_question());
-                if (null != col) {
-                    String[] cols = {col};
-                    Integer[] vals = {ans};
-
-                    try {
-                        CyberScouterMatchScouting.updateMatchMetric(db, cols, vals, cfg);
-                    } catch (Exception e) {
-                        MessageBox.showMessageBox(SummaryQuestionsPage.this, "Update Match Scouting Metric Failed Alert", "updateAnswer",
-                                "Attempt to update local match with answer to question failed!\n\n" +
-                                        "The error is:\n" + e.getMessage());
-                    }
-                }
         }
 
     }

@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        BluetoothComm.setbLastBTCommFailed(FakeBluetoothServer.bUseFakeBluetoothServer);
+
         button = findViewById(R.id.button_scouting);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +77,10 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.RED);
+        if(BluetoothComm.isbLastBTCommFailed())
+            paint.setColor(Color.RED);
+        else
+            paint.setColor(Color.GREEN);
         canvas.drawCircle(16, 16, 12, paint);
         ImageView iv = findViewById(R.id.imageView_btIndicator);
         iv.setImageBitmap(bitmap);

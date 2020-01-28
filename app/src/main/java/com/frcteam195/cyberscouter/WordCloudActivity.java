@@ -1,8 +1,11 @@
 package com.frcteam195.cyberscouter;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 public class WordCloudActivity extends AppCompatActivity {
     private String [] words = {"Fast", "Slow", "Efficient", "Efficient Ground Pickup", "NINO",
@@ -15,12 +18,15 @@ public class WordCloudActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_cloud);
     }
+    protected void wordLayout() {
+        Button myButton = new Button(this);
+        myButton.setText("h");
 
-    protected void createWordBubbles() {
-        for(int x = 0; x < words.length; ++x) {
-            System.out.println(words[x]);
-
-        }
+        LinearLayout ll = (LinearLayout) findViewById(R.id.layoutWordButtonCloud);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        ll.addView(myButton, lp);
+    }
 
     }
-}
+

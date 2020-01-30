@@ -51,8 +51,6 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="16dp"
         android:text="@string/CurrentTeam"
-        android:textColor="@color/CurrentTeamColor"
-        android:textColorLink="@color/CurrentTeamColor"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />

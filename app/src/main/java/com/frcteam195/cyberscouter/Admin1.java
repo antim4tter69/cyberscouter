@@ -52,24 +52,6 @@ public class Admin1 extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button5);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                setTestMode();
-            }
-        });
-
-        button = findViewById(R.id.button6);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                updateCode();
-            }
-        });
-
         button = findViewById(R.id.button7);
         button.setOnClickListener(new View.OnClickListener() {
 

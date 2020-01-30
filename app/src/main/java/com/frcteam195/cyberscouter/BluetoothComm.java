@@ -16,7 +16,15 @@ public class BluetoothComm {
     private final static String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
     private final static String _serviceName = "Team195Pi";
     private final static String _errorJson = "{'result': 'failed', 'msg': 'bluetooth command failed!'}";
+    private static boolean bLastBTCommFailed;
 
+    public static boolean isbLastBTCommFailed() {
+        return bLastBTCommFailed;
+    }
+
+    public static void setbLastBTCommFailed(boolean bLastBTCommFailed) {
+        BluetoothComm.bLastBTCommFailed = bLastBTCommFailed;
+    }
 
     static private String sendCommand(BluetoothAdapter _bluetoothAdapter, String json) {
         String resp = _errorJson;

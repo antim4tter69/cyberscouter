@@ -71,15 +71,6 @@ public class TelePage extends AppCompatActivity {
                 tv = findViewById(R.id.textView9);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-
-
-                button = findViewById(R.id.button18);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleCSHatch()));
-                button = findViewById(R.id.button30);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleCSCargo()));
-                button = findViewById(R.id.button43);
-                button.setText(String.format(Locale.getDefault(), "%d", csm.getTeleRSHatchNearLow()));
-
             }
         }
 
@@ -92,13 +83,220 @@ public class TelePage extends AppCompatActivity {
 
     public void EndGamePage() {
         Intent intent = new Intent(this, EndPage.class);
-
         startActivity(intent);
 
     }
 
+    public void cargoshipCargoMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-    
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoshipCargoPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoshipPanelMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoshipPanelPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void farPanelHighShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void farPanelHighShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void farPanelMedShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void farPanelMedShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+
+    }
+
+    public void farPanelLowShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void farPanelLowShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void nearPanelHighShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void nearPanelHighShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void nearPanelMedShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void nearPanelMedShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void nearPanelLowShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void nearPanelLowShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoLowShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoLowShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoMedShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoMedShotPlus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
+
+    public void cargoHighShotMinus() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if (null != cfg && null != cfg.getRole()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        }
+    }
 
     void setMetricValue(String col, int val) {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);

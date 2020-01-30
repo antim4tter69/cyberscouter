@@ -10,7 +10,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        BluetoothComm.setbLastBTCommFailed(FakeBluetoothServer.bUseFakeBluetoothServer);
+
         button = findViewById(R.id.button_scouting);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +74,16 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
+        Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        if(BluetoothComm.isbLastBTCommFailed())
+            paint.setColor(Color.RED);
+        else
+            paint.setColor(Color.GREEN);
+        canvas.drawCircle(16, 16, 12, paint);
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        iv.setImageBitmap(bitmap);
     }
 
     @Override
@@ -97,25 +113,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void processConfig(final SQLiteDatabase db) {
         try {
-            final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-            BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
-            BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getConfig(_bluetoothAdapter, Settings.Secure.getString(getContentResolver(), "bluetooth_name"));
-            JSONObject jo = new JSONObject(response);
-            String result = (String)jo.get("result");
-            if(result.equalsIgnoreCase("failed")){
-                MessageBox.showMessageBox(this, "Bluetooth Server Not Available", "processConfig", "The bluetooth server is not currently available - " + jo.get("msg"));
-                button = findViewById(R.id.button_scouting);
-                button.setEnabled(false);
-                return;
+            CyberScouterConfig csc = CyberScouterConfig.getConfig(this);
+            if(null != csc) {
+                textView = findViewById(R.id.textView_eventString);
+                textView.setText(csc.getEvent());
+                textView = findViewById(R.id.textView_roleString);
+                textView.setText(csc.getRole());
+                csc.setConfig(db);
             }
-            JSONObject payload = jo.getJSONObject("payload");
-            String event = payload.getString("event");
-            String role = payload.getString("role");
-            textView = findViewById(R.id.textView_eventString);
-            textView.setText(event);
-            textView = findViewById(R.id.textView_roleString);
-            textView.setText(role);
             if(0 == 0) return;
 
             /* Read the config values from SQLite */
@@ -219,7 +224,6 @@ public class MainActivity extends AppCompatActivity {
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, 0);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, 1);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, CyberScouterConfig.UNKNOWN_USER_IDX);
-        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_LASTQUESTION, 1);
 
 // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);

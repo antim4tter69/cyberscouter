@@ -11,11 +11,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".PitScoutingActivity"
+            android:label="@string/title_activity_pit_scouting"
+            android:theme="@style/AppTheme.NoActionBar">
+		</activity>
+
+        <activity android:name=".WordCloudActivity" android:theme="@style/AppTheme" />
         <service
             android:name=".BackgroundUpdater"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".SubmitPage" />
         <activity android:name=".MainActivity">
@@ -46,7 +53,6 @@
         <activity
             android:name=".SummaryQuestionsPage"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".SandstormPage"
             android:theme="@style/AppTheme.NoActionBar" />

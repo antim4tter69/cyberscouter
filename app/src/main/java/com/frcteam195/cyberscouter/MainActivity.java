@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             MessageBox.showMessageBox(this, "Unspecified Role Alert", "openScouting", "No scouting role is specified (\"Red 1\", \"Blue 1\", \"Red 2\", etc). " +
                     "You must go into the Admin page and specify a scouting role before you can continue.");
         } else {
-            Intent intent = new Intent(this, ScoutingPage.class);
+            Intent intent = new Intent(this, PitScoutingActivity.class);
             startActivity(intent);
         }
     }

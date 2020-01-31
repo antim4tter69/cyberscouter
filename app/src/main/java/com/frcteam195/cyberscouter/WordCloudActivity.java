@@ -13,19 +13,25 @@ public class WordCloudActivity extends AppCompatActivity {
     "Weak", "Unaffected by Defense", "Affected by Defense", "Fast Climb", "Bad Climb", "Accurate",
     "Accurate Longshot", "Good w/ Wheel", "Bad w/ Wheel"};
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_cloud);
     }
-    protected void wordLayout() {
-        Button myButton = new Button(this);
-        myButton.setText("h");
 
-        LinearLayout ll = (LinearLayout) findViewById(R.id.layoutWordButtonCloud);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
-                MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ll.addView(myButton, lp);
+    protected void wordLayout() {
+        for(int Obama = 0; Obama < 21; Obama ++ ){
+
+            Button myButton = new Button(this);
+            myButton.setText(words [Obama]);
+
+            LinearLayout ll = (LinearLayout) findViewById(R.id.layoutWordButtonCloud);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButton, lp);
+
+        }
     }
 
     }

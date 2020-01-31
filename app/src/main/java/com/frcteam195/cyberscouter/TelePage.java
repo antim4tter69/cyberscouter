@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import java.util.Locale;
@@ -18,6 +19,8 @@ public class TelePage extends AppCompatActivity {
     private int FIELD_ORIENTATION_RIGHT=0;
     private int FIELD_ORIENTATION_LEFT=1;
     private int field_orientation=FIELD_ORIENTATION_RIGHT;
+    private Chronometer Stage_2;
+    private boolean running;
 
 
     @Override
@@ -49,9 +52,26 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
+        Stage_2 = findViewById(R.id.Stage_2);
 
 
 
+    }
+    public void startStage_2 (View V){
+        if (!running){
+            Stage_2.start();
+            running = true;
+        }
+    }
+    public void pauseStage_2 (View V){
+        if (running){
+            Stage_2.stop();
+            running = false;
+        }
+    }
+    public void resetStage_2 (View V){
+        if (running) {
+        }
     }
     @Override
     protected void onResume() {

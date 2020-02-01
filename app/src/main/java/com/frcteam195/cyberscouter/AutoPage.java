@@ -14,7 +14,7 @@ public class AutoPage extends AppCompatActivity {
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-    private final int[] didnotshowButtons = {R.id.button_DidNotShowYes, R.id.button_DidNotShowNo};
+    private final int[] didnotshowButtons = {R.id.button_DidNotShowNo, R.id.button_DidNotShowYes};
     private final int[] penaltyButtons = {R.id.button_PenaltiesNo, R.id.button_PenaltiesYes};
 
 
@@ -99,7 +99,7 @@ public class AutoPage extends AppCompatActivity {
                 penaltiesNo();
             }
         });
-
+        
         didnotshowNo();
 
     }
@@ -184,12 +184,17 @@ public class AutoPage extends AppCompatActivity {
     }
 
     public void penaltiesYes() {
-        FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void penaltiesNo() {
-        FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
     }
+
+
+
+
+
 }
 

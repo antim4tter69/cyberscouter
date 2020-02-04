@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import java.util.Locale;
 
 public class TelePage extends AppCompatActivity {
@@ -18,6 +20,9 @@ public class TelePage extends AppCompatActivity {
     private int FIELD_ORIENTATION_RIGHT=0;
     private int FIELD_ORIENTATION_LEFT=1;
     private int field_orientation=FIELD_ORIENTATION_RIGHT;
+    private Chronometer Stage_2;
+    private long pauseOffset;
+    private boolean running;
 
 
     @Override
@@ -49,9 +54,28 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
+        Stage_2 = findViewById(R.id.Stage_2);
+        Stage_2 . setFormat("Time: %s");
+        Stage_2 . setBase(SystemClock.elapsedRealtime());
 
-
-
+    }
+    public void startStage_2 (View V){
+        if (!running){
+            Stage_2.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            Stage_2.start();
+            running = true;
+        }
+    }
+    public void pauseStage_2 (View V){
+        if (running){
+            Stage_2.stop();
+            pauseOffset = SystemClock.elapsedRealtime() - Stage_2.getBase();
+            running = false;
+        }
+    }
+    public void resetStage_2 (View V){
+        Stage_2.setBase(SystemClock.elapsedRealtime());
+        pauseOffset = 0;
     }
     @Override
     protected void onResume() {

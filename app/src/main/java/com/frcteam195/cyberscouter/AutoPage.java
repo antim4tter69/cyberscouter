@@ -14,23 +14,22 @@ public class AutoPage extends AppCompatActivity {
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-    private final int[] preloadButtons = {R.id.button_none, R.id.button_panel, R.id.button_cargo};
-    private final int[] startingPosButtons = {R.id.button_l1Left, R.id.button_l2Right};
-    private final int[] didnotshowButtons = {R.id.button_DidNotShowYes, R.id.button_DidNotShowNo};
-    private int FIELD_ORIENTATION_RIGHT=0;
-    private int FIELD_ORIENTATION_LEFT=1;
-    private int field_orientation=FIELD_ORIENTATION_RIGHT;
+    private final int[] didnotshowButtons = {R.id.button_DidNotShowNo, R.id.button_DidNotShowYes};
+    private final int[] penaltyButtons = {R.id.button_PenaltiesNo, R.id.button_PenaltiesYes};
+    private int innerGoalCount = 0;
+    private int outerGoalCount = 0;
+    private int lowerGoalCount = 0;
 
 
 
 
-@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_page);
 
         Intent intent = getIntent();
-        int field_orientation = intent.getIntExtra("field_orientation",0);
+        int field_orientation = intent.getIntExtra("field_orientation", 0);
 
         button = findViewById(R.id.button_startMatch);
         button.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +86,105 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
+        button = findViewById(R.id.button_PenaltiesYes);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                penaltiesYes();
+            }
+        });
+
+        button = findViewById(R.id.button_PenaltiesNo);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                penaltiesNo();
+            }
+        });
+
+        button = findViewById(R.id.InnerCounter);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                innerCounter();
+            }
+        });
+
+        button = findViewById(R.id.OuterCounter);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                outerCounter();
+            }
+        });
+
+        button = findViewById(R.id.LowerCounter);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                lowerCounter();
+            }
+        });
+
+        button = findViewById(R.id.InnerGoalMinus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                innerGoalMinus();
+            }
+        });
+
+        button = findViewById(R.id.InnerGoalPlus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                innerGoalPlus();
+            }
+        });
+
+        button = findViewById(R.id.OuterGoalMinus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                outerGoalMinus();
+            }
+        });
+
+        button = findViewById(R.id.OuterGoalPlus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                outerGoalPlus();
+            }
+        });
+
+        button = findViewById(R.id.LowerGoalMinus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                lowerGoalMinus();
+            }
+        });
+
+        button = findViewById(R.id.LowerGoalPlus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                lowerGoalPlus();
+            }
+        });
+
         didnotshowNo();
 
     }
@@ -115,37 +213,20 @@ public class AutoPage extends AppCompatActivity {
         }
     }
 
-    public void StartMatch(){
+    public void StartMatch() {
 
-            Intent intent = new Intent(this, SandstormPage.class);
-            startActivity(intent);
+        Intent intent = new Intent(this, SandstormPage.class);
+        startActivity(intent);
     }
 
 
-    public void ReturnToScoutingPage(){
+    public void ReturnToScoutingPage() {
         this.finish();
     }
 
-    public void groundFar(){}
-    public void groundNear(){}
 
-    public void levelOneLeft(){
-//        FakeRadioGroup.buttonPressed(this,1, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void levelOneCenter(){
-//        FakeRadioGroup.buttonPressed(this,2, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void levelOneRight(){
-//        FakeRadioGroup.buttonPressed(this, 3, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void levelTwoLeft(){
-//        FakeRadioGroup.buttonPressed(this,4, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void levelTwoRight(){
-//        FakeRadioGroup.buttonPressed(this,5, startingPosButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
 
-    public void skipMatch(){
+    public void skipMatch() {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -157,7 +238,7 @@ public class AutoPage extends AppCompatActivity {
             try {
                 CyberScouterMatchScouting.skipMatch(db, csm.getMatchScoutingID());
                 this.onResume();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 MessageBox.showMessageBox(this, "Skip Match Failed Alert", "skipMatch",
                         "Update of UploadStatus failed!\n\n" +
                                 "The error is:\n" + e.getMessage());
@@ -166,20 +247,84 @@ public class AutoPage extends AppCompatActivity {
     }
 
 
-    public void moveBonusYes(){
+    public void moveBonusYes() {
 //        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
-    public void moveBonusNo(){
+
+    public void moveBonusNo() {
 //        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
 
-    public void didnotshowYes(){
-//        FakeRadioGroup.buttonPressed(this, 0, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-//        Intent intent = new Intent(this, SubmitPage.class);
-//        startActivity(intent);
+    public void didnotshowYes() {
+        FakeRadioGroup.buttonPressed(this, 1, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        Intent intent = new Intent(this, SubmitPage.class);
+        startActivity(intent);
     }
-    public void didnotshowNo(){
-//        FakeRadioGroup.buttonPressed(this, 1, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+
+    public void didnotshowNo() {
+        FakeRadioGroup.buttonPressed(this, 0, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
+
+    public void penaltiesYes() {
+        FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    }
+
+    public void penaltiesNo() {
+        FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+
+    }
+
+    public void innerCounter() {
+
+    }
+    public void outerCounter() {
+
+    }
+    public void lowerCounter() {
+
+    }
+
+    public void innerGoalMinus() {
+        button = findViewById(R.id.InnerCounter);
+        if (innerGoalCount > 0)
+            innerGoalCount --;
+        button.setText(innerGoalCount);
+    }
+    public void innerGoalPlus() {
+        button = findViewById(R.id.InnerCounter);
+        innerGoalCount ++;
+        button.setText(innerGoalCount);
+
+    }
+    public void outerGoalMinus() {
+        button = findViewById(R.id.OuterCounter);
+        if (outerGoalCount > 0)
+            outerGoalCount --;
+        button.setText(outerGoalCount);
+    }
+    public void outerGoalPlus() {
+        button = findViewById(R.id.OuterCounter);
+        outerGoalCount ++;
+        button.setText(outerGoalCount);
+    }
+    public void lowerGoalMinus() {
+        button = findViewById(R.id.LowerCounter);
+        if (lowerGoalCount > 0)
+            lowerGoalCount --;
+        button.setText(lowerGoalCount);
+    }
+    public void lowerGoalPlus() {
+        button = findViewById(R.id.LowerCounter);
+        lowerGoalCount ++;
+        button.setText(lowerGoalCount);
+    }
+
+
+
+
+
 }
+

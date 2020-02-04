@@ -24,7 +24,7 @@ public class FakeRadioGroup {
             button = acty.findViewById(bs[i]);
             if(-1 != val && i == val) {
                 if(SELECTED_BUTTON_TEXT_COLOR == button.getCurrentTextColor()) {
-                    button.setTextColor(defaultButtonTextColor);
+//                    button.setTextColor(defaultButtonTextColor);
                   //  updateMetric(acty, col, -1);
                 } else {
                     button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);

@@ -104,33 +104,6 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.InnerCounter);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                innerCounter();
-            }
-        });
-
-        button = findViewById(R.id.OuterCounter);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                outerCounter();
-            }
-        });
-
-        button = findViewById(R.id.LowerCounter);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                lowerCounter();
-            }
-        });
-
         button = findViewById(R.id.InnerGoalMinus_button);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -277,54 +250,40 @@ public class AutoPage extends AppCompatActivity {
 
     }
 
-    public void innerCounter() {
-
-    }
-    public void outerCounter() {
-
-    }
-    public void lowerCounter() {
-
-    }
-
     public void innerGoalMinus() {
         button = findViewById(R.id.InnerCounter);
         if (innerGoalCount > 0)
             innerGoalCount --;
-        button.setText(innerGoalCount);
+        button.setText(String.valueOf(innerGoalCount));
     }
     public void innerGoalPlus() {
         button = findViewById(R.id.InnerCounter);
         innerGoalCount ++;
-        button.setText(innerGoalCount);
+        button.setText(String.valueOf(innerGoalCount));
 
     }
     public void outerGoalMinus() {
         button = findViewById(R.id.OuterCounter);
         if (outerGoalCount > 0)
             outerGoalCount --;
-        button.setText(outerGoalCount);
+        button.setText(String.valueOf(outerGoalCount));
     }
     public void outerGoalPlus() {
         button = findViewById(R.id.OuterCounter);
         outerGoalCount ++;
-        button.setText(outerGoalCount);
+        button.setText(String.valueOf(outerGoalCount));
     }
     public void lowerGoalMinus() {
         button = findViewById(R.id.LowerCounter);
         if (lowerGoalCount > 0)
             lowerGoalCount --;
-        button.setText(lowerGoalCount);
+        button.setText(String.valueOf(lowerGoalCount));
     }
     public void lowerGoalPlus() {
         button = findViewById(R.id.LowerCounter);
         lowerGoalCount ++;
-        button.setText(lowerGoalCount);
+        button.setText(String.valueOf(lowerGoalCount));
     }
-
-
-
-
 
 }
 

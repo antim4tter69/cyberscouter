@@ -7,15 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.widget.Button;
-import android.widget.ListView;
 
 
 /**
@@ -63,32 +55,7 @@ public class TelePopUpPage extends Fragment implements View.OnClickListener{
     }
 
     @Override
-    public void onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.TelePopUpPage, container, false);
-
-        upButton = (LowerPlusButton) view.findViewById(R.id.lowerPlusButton);
-        upButton.setOnClickListener(LowerPlusButton);
-
-        upButton = (LowerMinusButton) view.findViewById(R.id.LowerMinusButton);
-        upButton.setOnClickListener(LowerMinusButton);
-
-        upButton = (OuterPlusButton) view.findViewById(R.id.outerPlusButton);
-        upButton.setOnClickListener(OuterPlusButton);
-
-        upButton = (OuterMinusButton) view.findViewById(R.id.outerMinusButton);
-        upButton.setOnClickListener(LowerPlusButton);
-
-        upButton = (InnerPlusButton) view.findViewById(R.id.InnerPlusButton);
-        upButton.setOnClickListener(InnerPlusButton);
-
-        upButton = (InnerMinusButton) view.findViewById(R.id.InnerMinusButton);
-        upButton.setOnClickListener(InnerMinusButton);
-
-        upButton = (BackButton) view.findViewById(R.id.BackButton);
-        upButton.setOnClickListener(BackButton);
-
-        return view;
-
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
@@ -96,8 +63,86 @@ public class TelePopUpPage extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tele_pop_up_page, container, false);
+        View view = inflater.inflate(R.layout.fragment_tele_pop_up_page, container, false);
+
+        Button upButton = view.findViewById(R.id.lowerPlusButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lowerPlusButton();
+            }
+        });
+
+        upButton =  view.findViewById(R.id.LowerMinusButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lowerMinusButton();
+            }
+        });
+
+        upButton =  view.findViewById(R.id.outerPlusButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                outerPlusButton();
+            }
+        });
+
+        upButton =  view.findViewById(R.id.outerMinusButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                outerMinusButton();
+            }
+        });
+
+        upButton =  view.findViewById(R.id.InnerPlusButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                innerPlusButton();
+            }
+        });
+
+        upButton =  view.findViewById(R.id.InnerMinusButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                innerMinusButton();
+            }
+        });
+
+        upButton =  view.findViewById(R.id.BackButton);
+        upButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                backButton();
+            }
+        });
+
+        return view;
+    }
+
+    private void backButton() {
+    }
+
+    private void innerMinusButton() {
+    }
+
+    private void innerPlusButton() {
+    }
+
+    private void outerMinusButton() {
+    }
+
+    private void outerPlusButton() {
+    }
+
+    private void lowerMinusButton() {
+    }
+
+    private void lowerPlusButton() {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -122,6 +167,11 @@ public class TelePopUpPage extends Fragment implements View.OnClickListener{
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
     /**

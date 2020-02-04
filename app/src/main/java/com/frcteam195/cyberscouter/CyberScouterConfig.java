@@ -162,7 +162,7 @@ public class CyberScouterConfig {
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, user_id);
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, username);
 
-        long newRowId = db.insert(CyberScouterContract.Users.TABLE_NAME, null, values);
+        long newRowId = db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
 
     }
 }

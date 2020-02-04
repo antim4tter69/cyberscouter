@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.widget.Button;
 import android.widget.ListView;
 
 
@@ -25,12 +26,14 @@ import android.widget.ListView;
  * Use the {@link TelePopUpPage#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TelePopUpPage extends Fragment {
+public class TelePopUpPage extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static Integer INNER_VALUE = 0;
+    private static Integer OUTER_VALUE = 0;
+    private static Integer LOWER_VALUE = 0;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -60,7 +63,32 @@ public class TelePopUpPage extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.TelePopUpPage, container, false);
+
+        upButton = (LowerPlusButton) view.findViewById(R.id.lowerPlusButton);
+        upButton.setOnClickListener(LowerPlusButton);
+
+        upButton = (LowerMinusButton) view.findViewById(R.id.LowerMinusButton);
+        upButton.setOnClickListener(LowerMinusButton);
+
+        upButton = (OuterPlusButton) view.findViewById(R.id.outerPlusButton);
+        upButton.setOnClickListener(OuterPlusButton);
+
+        upButton = (OuterMinusButton) view.findViewById(R.id.outerMinusButton);
+        upButton.setOnClickListener(LowerPlusButton);
+
+        upButton = (InnerPlusButton) view.findViewById(R.id.InnerPlusButton);
+        upButton.setOnClickListener(InnerPlusButton);
+
+        upButton = (InnerMinusButton) view.findViewById(R.id.InnerMinusButton);
+        upButton.setOnClickListener(InnerMinusButton);
+
+        upButton = (BackButton) view.findViewById(R.id.BackButton);
+        upButton.setOnClickListener(BackButton);
+
+        return view;
+
         super.onCreate(savedInstanceState);
 
     }

@@ -25,10 +25,10 @@ public class FakeRadioGroup {
             if(-1 != val && i == val) {
                 if(SELECTED_BUTTON_TEXT_COLOR == button.getCurrentTextColor()) {
                     button.setTextColor(defaultButtonTextColor);
-                    updateMetric(acty, col, -1);
+                  //  updateMetric(acty, col, -1);
                 } else {
                     button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
-                    updateMetric(acty, col, val);
+   //                 updateMetric(acty, col, val);
                 }
             } else {
                 button.setTextColor(defaultButtonTextColor);

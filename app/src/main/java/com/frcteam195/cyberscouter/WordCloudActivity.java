@@ -18,18 +18,22 @@ public class WordCloudActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_cloud);
+        wordLayout();
     }
 
     protected void wordLayout() {
-        for(int Obama = 0; Obama < 21; Obama ++ ){
+        Button [] myButtons = new Button[20];
+        for(int Obama = 0; Obama < 20; Obama ++ ){
 
-            Button myButton = new Button(this);
-            myButton.setText(words [Obama]);
+            myButtons[Obama] = new Button(this);
+            myButtons[Obama].setText(words [Obama]);
 
-            LinearLayout ll = (LinearLayout) findViewById(R.id.layoutWordButtonCloud);
+            LinearLayout ll = findViewById(R.id.layoutWordButtonCloud);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
-                    MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(myButton, lp);
+                    WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButtons[Obama], lp);
+
+
 
         }
     }

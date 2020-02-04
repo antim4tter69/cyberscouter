@@ -104,7 +104,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toTopOf="@id/imageView8"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintbottom_toBottomOf="@id/imageView8" />
+        app:layout_constraintBottom_toBottomOf="@id/imageView8" />
 
     <Button
         android:id="@+id/zone_5"
@@ -162,47 +162,43 @@
         app:layout_constraintTop_toTopOf="@+id/imageView8"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Chronometer
-        android:id="@+id/Stage_2"
-        android:layout_width="227dp"
-        android:layout_height="68dp"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="275dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/button_next"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toEndOf="@+id/textView_roleTag"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintVertical_bias="0.028">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:onClick="startStage_2"
-        android:text="Start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView_roleTag"
-        app:layout_constraintTop_toBottomOf="@+id/Stage_2" />
+        <Chronometer
+            android:id="@+id/Stage_2"
+            android:layout_width="227dp"
+            android:layout_height="68dp"
+            android:textSize="30sp" />
 
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="pauseStage_2"
-        android:text="success"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView_roleTag"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="startStage_2"
+            android:text="Start" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="resetStage_2"
-        android:text="failure"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView_roleTag"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="pauseStage_2"
+            android:text="success" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="resetStage_2"
+            android:text="failure" />
+
+    </LinearLayout>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -16,6 +16,10 @@ public class AutoPage extends AppCompatActivity {
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
     private final int[] didnotshowButtons = {R.id.button_DidNotShowNo, R.id.button_DidNotShowYes};
     private final int[] penaltyButtons = {R.id.button_PenaltiesNo, R.id.button_PenaltiesYes};
+    private int innerGoalCount = 0;
+    private int outerGoalCount = 0;
+    private int lowerGoalCount = 0;
+
 
 
 
@@ -99,7 +103,88 @@ public class AutoPage extends AppCompatActivity {
                 penaltiesNo();
             }
         });
-        
+
+        button = findViewById(R.id.InnerCounter);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                innerCounter();
+            }
+        });
+
+        button = findViewById(R.id.OuterCounter);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                outerCounter();
+            }
+        });
+
+        button = findViewById(R.id.LowerCounter);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                lowerCounter();
+            }
+        });
+
+        button = findViewById(R.id.InnerGoalMinus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                innerGoalMinus();
+            }
+        });
+
+        button = findViewById(R.id.InnerGoalPlus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                innerGoalPlus();
+            }
+        });
+
+        button = findViewById(R.id.OuterGoalMinus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                outerGoalMinus();
+            }
+        });
+
+        button = findViewById(R.id.OuterGoalPlus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                outerGoalPlus();
+            }
+        });
+
+        button = findViewById(R.id.LowerGoalMinus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                lowerGoalMinus();
+            }
+        });
+
+        button = findViewById(R.id.LowerGoalPlus_button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                lowerGoalPlus();
+            }
+        });
+
         didnotshowNo();
 
     }
@@ -190,6 +275,51 @@ public class AutoPage extends AppCompatActivity {
     public void penaltiesNo() {
         FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
+    }
+
+    public void innerCounter() {
+
+    }
+    public void outerCounter() {
+
+    }
+    public void lowerCounter() {
+
+    }
+
+    public void innerGoalMinus() {
+        button = findViewById(R.id.InnerCounter);
+        if (innerGoalCount > 0)
+            innerGoalCount --;
+        button.setText(innerGoalCount);
+    }
+    public void innerGoalPlus() {
+        button = findViewById(R.id.InnerCounter);
+        innerGoalCount ++;
+        button.setText(innerGoalCount);
+
+    }
+    public void outerGoalMinus() {
+        button = findViewById(R.id.OuterCounter);
+        if (outerGoalCount > 0)
+            outerGoalCount --;
+        button.setText(outerGoalCount);
+    }
+    public void outerGoalPlus() {
+        button = findViewById(R.id.OuterCounter);
+        outerGoalCount ++;
+        button.setText(outerGoalCount);
+    }
+    public void lowerGoalMinus() {
+        button = findViewById(R.id.LowerCounter);
+        if (lowerGoalCount > 0)
+            lowerGoalCount --;
+        button.setText(lowerGoalCount);
+    }
+    public void lowerGoalPlus() {
+        button = findViewById(R.id.LowerCounter);
+        lowerGoalCount ++;
+        button.setText(lowerGoalCount);
     }
 
 

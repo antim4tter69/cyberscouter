@@ -19,11 +19,12 @@ public class WordCloudActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_cloud);
         wordLayout();
+
     }
 
     protected void wordLayout() {
         Button [] myButtons = new Button[20];
-        for(int Obama = 0; Obama < 20; Obama ++ ){
+        for(int Obama = 0; Obama < 5; Obama ++ ){
 
             myButtons[Obama] = new Button(this);
             myButtons[Obama].setText(words [Obama]);
@@ -36,7 +37,50 @@ public class WordCloudActivity extends AppCompatActivity {
 
 
         }
-    }
 
+        for(int Obama2 = 5; Obama2 < 10; Obama2 ++ ){
+
+            myButtons[Obama2] = new Button(this);
+            myButtons[Obama2].setText(words [Obama2]);
+
+            LinearLayout ll = findViewById(R.id.layoutWordButtonCloud2);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButtons[Obama2], lp);
+
+
+
+        }
+
+        for(int Obama3 = 10; Obama3 < 15; Obama3 ++ ){
+
+            myButtons[Obama3] = new Button(this);
+            myButtons[Obama3].setText(words [Obama3]);
+
+            LinearLayout ll = findViewById(R.id.layoutWordButtonCloud3);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButtons[Obama3], lp);
+
+
+
+        }
+
+        for(int Obama4 = 15; Obama4 < 20; Obama4 ++ ){
+
+            myButtons[Obama4] = new Button(this);
+            myButtons[Obama4].setText(words [Obama4]);
+
+            LinearLayout ll = findViewById(R.id.layoutWordButtonCloud4);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.
+                    WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButtons[Obama4], lp);
+
+
+
+        }
+
+
+    }
     }
 

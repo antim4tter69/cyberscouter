@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 public class SandstormPage extends AppCompatActivity {
     private Button button;
 
@@ -18,7 +16,7 @@ public class SandstormPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
 
-        button = findViewById(R.id.button_previous);
+        button = findViewById(R.id.button_Previous);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

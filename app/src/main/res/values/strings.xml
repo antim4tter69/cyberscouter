@@ -98,7 +98,7 @@
     <string name="LostCommText">Lost Comm</string>
     <string name="BrokeDownText">Broke Down</string>
     <string name="TippedOverText">Tipped Over</string>
-    <string name="GroundPanelPickupText">Ground Panel Pick Up</string>
+    <string name="GroundPickupText">Ground Pick Up</string>
 
     <string name="NamePickerTitle">Select Your Name</string>
 
@@ -137,4 +137,7 @@
     <string name="LowerText">Lower</string>
     <string name="AutoLabel">Auto</string>
     <string name="PowerPortContent">PowerPort</string>
+    <string name="DefenseText">Defense Played Against Robot</string>
+    <string name="SubSystemText">Sub System Broke</string>
+    <string name="HopperLoadText">Hopper Load</string>
 </resources>

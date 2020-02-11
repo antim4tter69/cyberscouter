@@ -8,9 +8,9 @@
 
     <LinearLayout
         android:id="@+id/layoutWordButtonCloud"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="1278dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="500dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,16 +18,16 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintVertical_bias="0.0"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutWordButtonCloud2"
-        android:layout_width="1281dp"
-        android:layout_height="100dp"
+        android:layout_width="1278dp"
+        android:layout_height="170dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutWordButtonCloud"
         app:layout_constraintVertical_bias="0.0"></LinearLayout>
@@ -35,16 +35,21 @@
     <LinearLayout
         android:id="@+id/layoutWordButtonCloud3"
         android:layout_width="1278dp"
-        android:layout_height="100dp"
+        android:layout_height="170dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="401dp"></LinearLayout>
+        app:layout_constraintBottom_toTopOf="@+id/layoutWordButtonCloud4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutWordButtonCloud2"></LinearLayout>
 
     <LinearLayout
         android:id="@+id/layoutWordButtonCloud4"
         android:layout_width="1278dp"
-        android:layout_height="100dp"
+        android:layout_height="170dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="502dp"></LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutWordButtonCloud3"></LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.frcteam195.cyberscouter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -125,24 +126,44 @@ public class TelePopUpPage extends Fragment implements View.OnClickListener{
     }
 
     private void backButton() {
+        Intent intent = new Intent(this, TelePage.class);
+        startActivity(intent);
     }
 
     private void innerMinusButton() {
+        Button = view.findViewById(R.id.InnerMinusButton);
+        if (INNER_VALUE > 0)
+            INNER_VALUE --;
+        Button.setText(String.valueOf(INNER_VALUE));
     }
 
     private void innerPlusButton() {
+        Button = view.findViewById(R.id.InnerPlusButton);
+        Button.setText(String.valueOf(INNER_VALUE));
     }
 
     private void outerMinusButton() {
+        Button = view.findViewById(R.id.outerMinusButton);
+        if (OUTER_VALUE > 0)
+            OUTER_VALUE --;
+        Button.setText(String.valueOf(OUTER_VALUE));
     }
 
     private void outerPlusButton() {
+        Button = view.findViewById(R.id.outerPlusButton);
+        Button.setText(String.valueOf(OUTER_VALUE));
     }
 
     private void lowerMinusButton() {
+        Button = view.findViewById(R.id.LowerMinusButton);
+        if (LOWER_VALUE > 0)
+            LOWER_VALUE --;
+        Button.setText(String.valueOf(LOWER_VALUE));
     }
 
     private void lowerPlusButton() {
+        Button = view.findViewById(R.id.lowerPlusButton);
+        Button.setText(String.valueOf(LOWER_VALUE));
     }
 
     // TODO: Rename method, update argument and hook method into UI event

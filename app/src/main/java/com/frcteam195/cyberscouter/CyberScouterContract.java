@@ -17,6 +17,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_FIELD_REDLEFT = "field_red_left";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_USERID = "user_id";
+        public static final String COLUMN_NAME_COMPUTER_TYPE_ID = "computer_type_id";
     }
 
     public static class Events implements BaseColumns {

@@ -130,6 +130,7 @@ public class CyberScouterUsers {
     static void setUsers(SQLiteDatabase db, String json) {
 
         try {
+            deleteUsers(db);
 
             JSONArray ja = new JSONArray(json);
             for (int i = 0; i < ja.length(); ++i) {

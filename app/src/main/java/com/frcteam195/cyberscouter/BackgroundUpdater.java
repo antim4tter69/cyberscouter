@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -66,7 +67,6 @@ public class BackgroundUpdater extends Service {
 
         @Override
         public void run() {
-            NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             int cnt = 0;
             while(keepRunning) {
                 cnt++;
@@ -91,16 +91,25 @@ public class BackgroundUpdater extends Service {
 //                            }
 //                        }
 //                    }
-                    popToast(Settings.Secure.getString(getContentResolver(), "bluetooth_name"));
-                    CyberScouterMatchScouting csms = new CyberScouterMatchScouting();
-                    csms.setMatchScoutingID(11111);
-                    csms.setEventID(22222);
-                    csms.setMatchID(33333);
-                    csms.setComputerID(44444);
-                    csms.setScouterID(55555);
-                    String jsonCsms = csms.toJSON();
+//                    popToast(Settings.Secure.getString(getContentResolver(), "bluetooth_name"));
+//                    CyberScouterMatchScouting csms = new CyberScouterMatchScouting();
+//                    csms.setMatchScoutingID(11111);
+//                    csms.setEventID(22222);
+//                    csms.setMatchID(33333);
+//                    csms.setComputerID(44444);
+//                    csms.setScouterID(55555);
+//                    String jsonCsms = csms.toJSON();
+//
+//                    sendToRfcommServer(jsonCsms);
 
-                    sendToRfcommServer(jsonCsms);
+                    int color = Color.GREEN;
+                    if(cnt > 2)
+                        color = Color.RED;
+                    if(cnt > 5)
+                        color = Color.BLUE;
+                    Intent i = new Intent(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER);
+                    i.putExtra("onlinestatus", color);
+                    getApplicationContext().sendBroadcast(i);
 
                     Thread.sleep(20000);
                 } catch (InterruptedException ie) {

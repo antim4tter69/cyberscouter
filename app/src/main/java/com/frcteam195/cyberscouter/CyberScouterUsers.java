@@ -1,8 +1,21 @@
 package com.frcteam195.cyberscouter;
 
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AppCompatActivity;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,6 +23,8 @@ import java.sql.Statement;
 import java.util.Vector;
 
 public class CyberScouterUsers {
+    public final static String USERS_UPDATED_FILTER = "frcteam195_cyberscouterusers_users_updated_intent_filter";
+
     public CyberScouterUsers() {
     }
 
@@ -19,32 +34,27 @@ public class CyberScouterUsers {
     private String cellPhone;
     private String email;
 
-    static CyberScouterUsers[] getUsers(Connection conn) {
-        Vector<CyberScouterUsers> csuv = new Vector<CyberScouterUsers>();
+    static void getUsersRemote(AppCompatActivity activity) {
         try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * from " + CyberScouterContract.Users.TABLE_NAME + " order by " + CyberScouterContract.Users.COLUMN_NAME_USERID);
-            while (rs.next()) {
-                CyberScouterUsers csu = new CyberScouterUsers();
-                csu.userID = rs.getInt(rs.findColumn(CyberScouterContract.Users.COLUMN_NAME_USERID));
-                csu.firstName = rs.getString(rs.findColumn(CyberScouterContract.Users.COLUMN_NAME_FIRSTNAME));
-                csu.lastName = rs.getString(rs.findColumn(CyberScouterContract.Users.COLUMN_NAME_LASTNAME));
-                csu.cellPhone = rs.getString(rs.findColumn(CyberScouterContract.Users.COLUMN_NAME_CELLPHONE));
-                csu.email = rs.getString(rs.findColumn(CyberScouterContract.Users.COLUMN_NAME_EMAIL));
-
-                csuv.add(csu);
+            BluetoothComm btcomm = new BluetoothComm();
+            String response = btcomm.getUsers(activity);
+            JSONObject jo = new JSONObject(response);
+            String result = (String) jo.get("result");
+            if (result.equalsIgnoreCase("failed")) {
+                return;
             }
-
+            JSONObject payload = jo.getJSONObject("payload");
+            if (null != payload) {
+                Intent i = new Intent(USERS_UPDATED_FILTER);
+                i.putExtra("cyberscouterusers", payload.toString());
+                activity.sendBroadcast(i);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (csuv.size() > 0) {
-            CyberScouterUsers[] csuv2 = new CyberScouterUsers[csuv.size()];
-            return csuv.toArray(csuv2);
-        } else {
-            return null;
-        }
+        return;
+
     }
 
     static String[] getUserNames(SQLiteDatabase db) {
@@ -109,28 +119,62 @@ public class CyberScouterUsers {
             }
 
             csua = new CyberScouterUsers[csuv.size()];
-            return(csuv.toArray(csua));
+            return (csuv.toArray(csua));
         }
 
         return csua;
     }
 
-    static void setUsers(SQLiteDatabase db, CyberScouterUsers[] csua) {
-        ContentValues values = new ContentValues();
+    static void setUsers(SQLiteDatabase db, String json) {
 
-        for(CyberScouterUsers user : csua) {
-            values.put(CyberScouterContract.Users.COLUMN_NAME_USERID, user.getUserID());
-            values.put(CyberScouterContract.Users.COLUMN_NAME_FIRSTNAME, user.getFirstName());
-            values.put(CyberScouterContract.Users.COLUMN_NAME_LASTNAME, user.getLastName());
-            values.put(CyberScouterContract.Users.COLUMN_NAME_CELLPHONE, user.getCellPhone());
-            values.put(CyberScouterContract.Users.COLUMN_NAME_EMAIL, user.getEmail());
+        try {
 
-            long newRowId = db.insert(CyberScouterContract.Users.TABLE_NAME, null, values);
+            JSONArray ja = new JSONArray(json);
+            for (int i = 0; i < ja.length(); ++i) {
+                JSONObject jo = ja.getJSONObject(i);
+                ContentValues values = new ContentValues();
+
+                values.put(CyberScouterContract.Users.COLUMN_NAME_USERID, jo.getString("UserID"));
+                values.put(CyberScouterContract.Users.COLUMN_NAME_FIRSTNAME, jo.getString("FirstName"));
+                values.put(CyberScouterContract.Users.COLUMN_NAME_LASTNAME, jo.getString("LastName"));
+                values.put(CyberScouterContract.Users.COLUMN_NAME_CELLPHONE, jo.getString("CellPhone"));
+                values.put(CyberScouterContract.Users.COLUMN_NAME_EMAIL, jo.getString("Email"));
+
+                long newRowId = db.insert(CyberScouterContract.Users.TABLE_NAME, null, values);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     static void deleteUsers(SQLiteDatabase db) {
         db.execSQL("DELETE from " + CyberScouterContract.Users.TABLE_NAME);
+    }
+
+    static public void getUsersWebService(final Activity activity) {
+        String ret = null;
+
+        RequestQueue rq = Volley.newRequestQueue(activity);
+        String url = String.format("%s/users", FakeBluetoothServer.webServiceBaseUrl);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Intent i = new Intent(USERS_UPDATED_FILTER);
+                            i.putExtra("cyberscouterusers", response);
+                            activity.sendBroadcast(i);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
     }
 
 

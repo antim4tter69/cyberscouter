@@ -17,6 +17,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_FIELD_REDLEFT = "field_red_left";
         public static final String COLUMN_NAME_USERNAME = "username";
         public static final String COLUMN_NAME_USERID = "user_id";
+        public static final String COLUMN_NAME_COMPUTER_TYPE_ID = "computer_type_id";
     }
 
     public static class Events implements BaseColumns {
@@ -82,7 +83,6 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_TELEWHEELSTAGE3TIME = "TeleWheelStage3Time";
         public static final String COLUMN_NAME_TELEWHEELSTAGE3STATUS = "TeleWheelStage3Status";
         public static final String COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS = "TeleWheelStage3Attempts";
-        public static final String COLUMN_NAME_CLIMBSTATUS = "ClimbStatus";
         public static final String COLUMN_NAME_CLIMBHEIGHT = "ClimbHeight";
         public static final String COLUMN_NAME_CLIMBPOSITION = "ClimbPosition";
         public static final String COLUMN_NAME_CLIMBMOVEONBAR = "ClimbMoveOnBar";
@@ -95,6 +95,16 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_SUMMPLAYEDDEFENSE = "SummPlayedDefense";
         public static final String COLUMN_NAME_SUMMDEFPLAYEDAGAINST = "SummDefPlayedAgainst";
         public static final String COLUMN_NAME_UPLOADSTATUS = "UploadStatus";
+        public static final String COLUMN_NAME_BROKEDOWN = "BrokeDown";
+        public static final String COLUMN_NAME_SUBSYSTEMBROKEDOWN = "SubSystemBrokeDown";
+        public static final String COLUMN_NAME_GROUNDPICKUP = "GroundPickup";
+        public static final String COLUMN_NAME_HOPPERLOAD =  "HopperLoad";
+        public static final String COLUMN_NAME_DEFENSEPLAYEDAGAINST = "DefensePlayedAgainst";
+        public static final String COLUMN_NAME_LEVEL = "Level";
+        public static final String COLUMN_NAME_MOVEDONBAR = "MovedOnBar";
+        public static final String COLUMN_NAME_PLAYEDDEFENSE = "PlayedDefense";
+        public static final String COLUMN_NAME_CLIMBSTATUS = "ClimbStatus";
+
     }
 
     public static class Questions implements BaseColumns {

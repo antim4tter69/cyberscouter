@@ -1,31 +1,27 @@
 package com.frcteam195.cyberscouter;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothManager;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import org.json.JSONObject;
 
@@ -45,6 +41,30 @@ public class MainActivity extends AppCompatActivity {
     private static Integer g_backgroundProgress;
 
     static final private String g_adminPassword = "HailRobotOverlords";
+
+    BroadcastReceiver mConfigReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String ret = intent.getStringExtra("cyberscouterconfig");
+            processConfig(ret);
+        }
+    };
+
+    BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int color = intent.getIntExtra("onlinestatus", Color.RED);
+            updateStatusIndicator(color);
+        }
+    };
+
+    BroadcastReceiver mUsersReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String ret = intent.getStringExtra("cyberscouterusers");
+            updateUsers(ret);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,114 +94,107 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        if(BluetoothComm.isbLastBTCommFailed())
-            paint.setColor(Color.RED);
-        else
-            paint.setColor(Color.GREEN);
-        canvas.drawCircle(16, 16, 12, paint);
-        ImageView iv = findViewById(R.id.imageView_btIndicator);
-        iv.setImageBitmap(bitmap);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        processConfig(db);
+        registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
+        registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
+        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
+        CyberScouterConfig.getConfigRemote(this);
+        CyberScouterUsers.getUsersRemote(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (REQUEST_ENABLE_BT == requestCode) {
-            Toast.makeText(getApplicationContext(), String.format("Result: %d", resultCode), Toast.LENGTH_LONG).show();
-        }
+//        if (REQUEST_ENABLE_BT == requestCode) {
+//            Toast.makeText(getApplicationContext(), String.format("Result: %d", resultCode), Toast.LENGTH_LONG).show();
+//        }
     }
 
     @Override
     protected void onDestroy() {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         mDbHelper.close();
+        unregisterReceiver(mConfigReceiver);
+        unregisterReceiver(mOnlineStatusReceiver);
+        unregisterReceiver(mUsersReceiver);
         super.onDestroy();
     }
 
-    private void processConfig(final SQLiteDatabase db) {
+    private void processConfig(String config_json) {
         try {
-            CyberScouterConfig csc = CyberScouterConfig.getConfig(this);
-            if(null != csc) {
+            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+            final SQLiteDatabase db = mDbHelper.getWritableDatabase();
+            if (null != config_json) {
+                JSONObject jo = new JSONObject(config_json);
                 textView = findViewById(R.id.textView_eventString);
-                textView.setText(csc.getEvent());
+                textView.setText(jo.getString("EventName") + ", " + jo.getString("EventLocation"));
                 textView = findViewById(R.id.textView_roleString);
-                textView.setText(csc.getRole());
-                csc.setConfig(db);
+                textView.setText(jo.getString("AllianceStation"));
+                CyberScouterConfig.setConfigLocal(db, jo);
             }
-            if(0 == 0) return;
-
-            /* Read the config values from SQLite */
-            final CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-            if(null == cfg || !cfg.isOffline()) {
-                try {
-                    Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
-                    ComponentName cn = startService(backgroundIntent);
-                    if (null == cn) {
-                        MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!");
-                    }
-                } catch(Exception e){
-                    MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
-                            "The error is:\n" + e.getMessage());
+            try {
+                Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
+                ComponentName cn = startService(backgroundIntent);
+                if (null == cn) {
+                    MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!");
                 }
+            } catch (Exception e) {
+                MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
+                        "The error is:\n" + e.getMessage());
             }
+
+            if (0 == 0) return;
 
             /* if there's no existing local configuration, we're going to assume the tablet
             is "online", meaning that it can talk to the SQL Server database.  If there is a
             configuration record, we'll use the offline setting from that to determine whether we
             should query the SQL Server database for the current event.
              */
-            if ((null == cfg) || (!cfg.isOffline())) {
-                getEventTask eventTask = new getEventTask(new IOnEventListener<CyberScouterEvent>() {
-                    @Override
-                    public void onSuccess(CyberScouterEvent result) {
-                        CyberScouterConfig cfg2 = cfg;
-                        if (null != cfg) {
-                            if (null != result && (result.getEventID() != cfg.getEvent_id())) {
-                                setEvent(result);
-                                cfg2 = CyberScouterConfig.getConfig(db);
-                            }
-                            setFieldsFromConfig(cfg2);
-                        } else {
-                            setFieldsToDefaults(db, result.getEventName());
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(Exception e) {
-                        if (null == e) {
-                            if (null == cfg || null == cfg.getEvent()) {
-                                button = findViewById(R.id.button_scouting);
-                                button.setEnabled(false);
-                                MessageBox.showMessageBox(MainActivity.this, "Event Not Found Alert", "processConfig", "No current event found!  Cannot continue.");
-                            }
-                        } else {
-                            setFieldsFromConfig(cfg);
-                            MessageBox.showMessageBox(MainActivity.this, "Fetch Event Failed Alert", "getEventTask", "Fetch of Current Event information failed!\n\n" +
-                                    "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
-
-                        }
-                    }
-                });
-
-                eventTask.execute();
-            } else {
-                setFieldsFromConfig(cfg);
-            }
+//            if ((null == cfg) || (!cfg.isOffline())) {
+//                getEventTask eventTask = new getEventTask(new IOnEventListener<CyberScouterEvent>() {
+//                    @Override
+//                    public void onSuccess(CyberScouterEvent result) {
+//                        CyberScouterConfig cfg2 = cfg;
+//                        if (null != cfg) {
+//                            if (null != result && (result.getEventID() != cfg.getEvent_id())) {
+//                                setEvent(result);
+//                                cfg2 = CyberScouterConfig.getConfig(db);
+//                            }
+//                            setFieldsFromConfig(cfg2);
+//                        } else {
+//                            setFieldsToDefaults(db, result.getEventName());
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Exception e) {
+//                        if (null == e) {
+//                            if (null == cfg || null == cfg.getEvent()) {
+//                                button = findViewById(R.id.button_scouting);
+//                                button.setEnabled(false);
+//                                MessageBox.showMessageBox(MainActivity.this, "Event Not Found Alert", "processConfig", "No current event found!  Cannot continue.");
+//                            }
+//                        } else {
+//                            setFieldsFromConfig(cfg);
+//                            MessageBox.showMessageBox(MainActivity.this, "Fetch Event Failed Alert", "getEventTask", "Fetch of Current Event information failed!\n\n" +
+//                                    "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
+//
+//                        }
+//                    }
+//                });
+//
+//                eventTask.execute();
+//            } else {
+//                setFieldsFromConfig(cfg);
+//            }
         } catch (Exception e) {
             MessageBox.showMessageBox(this, "Exception Caught", "processConfig", "An exception occurred: \n" + e.getMessage());
             e.printStackTrace();
@@ -234,13 +247,23 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if(null != cfg && -1 == TeamMap.getNumberForTeam(cfg.getRole())) {
-            MessageBox.showMessageBox(this, "Unspecified Role Alert", "openScouting", "No scouting role is specified (\"Red 1\", \"Blue 1\", \"Red 2\", etc). " +
-                    "You must go into the Admin page and specify a scouting role before you can continue.");
-        } else {
-            Intent intent = new Intent(this, ScoutingPage.class); //this line for testing purposes
-            startActivity(intent);
+        Class nextIntent = null;
+        switch (cfg.getComputer_type_id()) {
+            case (CyberScouterConfig.CONFIG_COMPUTER_TYPE_LEVEL_1_SCOUTER):
+                nextIntent = ScoutingPage.class;
+                break;
+            case (CyberScouterConfig.CONFIG_COMPUTER_TYPE_LEVEL_2_SCOUTER):
+                nextIntent = WordCloudActivity.class;
+                break;
+            case (CyberScouterConfig.CONFIG_COMPUTER_TYPE_LEVEL_PIT_SCOUTER):
+                nextIntent = PitScoutingActivity.class;
+                break;
+            default:
+                nextIntent = ScoutingPage.class;
         }
+
+        Intent intent = new Intent(this, nextIntent);
+        startActivity(intent);
     }
 
     public void syncData() {
@@ -250,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
 
             final CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-            if(null != cfg) {
+            if (null != cfg) {
 
                 if (cfg.isOffline()) {
                     MessageBox.showMessageBox(this, "Offline Alert", "syncData", "You are currently offline. If you want to sync, please get online!");
@@ -288,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
                     getUserNamesTask namesTask = new getUserNamesTask(new IOnEventListener<CyberScouterUsers[]>() {
                         @Override
                         public void onSuccess(CyberScouterUsers[] result) {
-                            CyberScouterUsers.setUsers(db, result);
+//                            CyberScouterUsers.setUsers(db, result);
                         }
 
                         @Override
@@ -399,11 +422,11 @@ public class MainActivity extends AppCompatActivity {
                 Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
                         + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
 
-                CyberScouterUsers[] csua = CyberScouterUsers.getUsers(conn);
+                CyberScouterUsers[] csua = null;
 
                 conn.close();
 
-                if(null != csua)
+                if (null != csua)
                     return csua;
 
             } catch (Exception e) {
@@ -449,7 +472,7 @@ public class MainActivity extends AppCompatActivity {
 
                 conn.close();
 
-                if(null != csqa)
+                if (null != csqa)
                     return csqa;
 
             } catch (Exception e) {
@@ -573,7 +596,7 @@ public class MainActivity extends AppCompatActivity {
         protected Void doInBackground(Void... arg) {
             int cnt = 0;
 
-            while(true) { // forever
+            while (true) { // forever
                 try {
                     cnt++;
                     publishProgress(cnt);
@@ -606,9 +629,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Integer...progress) {
+        protected void onProgressUpdate(Integer... progress) {
             g_backgroundProgress = progress[0];
         }
 
+    }
+
+    private void updateStatusIndicator(int color) {
+        Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(color);
+        canvas.drawCircle(16, 16, 12, paint);
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        iv.setImageBitmap(bitmap);
+    }
+
+    private void updateUsers(String json){
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        CyberScouterUsers.setUsers(db, json);
     }
 }

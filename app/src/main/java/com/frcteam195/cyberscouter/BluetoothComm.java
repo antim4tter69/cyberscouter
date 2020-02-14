@@ -1,8 +1,13 @@
 package com.frcteam195.cyberscouter;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
+import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 
 import org.json.JSONObject;
 
@@ -18,6 +23,9 @@ public class BluetoothComm {
     private final static String _errorJson = "{'result': 'failed', 'msg': 'bluetooth command failed!'}";
     private static boolean bLastBTCommFailed;
 
+    public final static String ONLINE_STATUS_UPDATED_FILTER = "frcteam195_bluetoothcomm_online_status_updated_intent_filter";
+
+
     public static boolean isbLastBTCommFailed() {
         return bLastBTCommFailed;
     }
@@ -26,10 +34,12 @@ public class BluetoothComm {
         BluetoothComm.bLastBTCommFailed = bLastBTCommFailed;
     }
 
-    static private String sendCommand(BluetoothAdapter _bluetoothAdapter, String json) {
+    private String sendCommand(Activity activity, String json) {
         String resp = _errorJson;
 
         try {
+            final BluetoothManager bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
+            BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
 
             Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
             if (pairedDevices.size() > 0) {
@@ -68,21 +78,46 @@ public class BluetoothComm {
         return resp;
     }
 
-    static public String getConfig(BluetoothAdapter _bluetoothAdapter, String clientId) {
+    public String getConfig(AppCompatActivity activity) {
         String returnJson = _errorJson;
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("cmd", "get-config");
-            jsonObject.put("payload", clientId);
+            String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
+            JSONObject jr = new JSONObject();
+            JSONObject j1 = new JSONObject();
+
+            j1.put("computerName", btname);
+            jr.put("cmd", "get-config");
+            jr.put("payload", j1);
 
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
-                returnJson = FakeBluetoothServer.getResponse("get-config");
+                FakeBluetoothServer fbts = new FakeBluetoothServer();
+                fbts.getResponse(activity, jr);
             } else {
-                returnJson = BluetoothComm.sendCommand(_bluetoothAdapter, jsonObject.toString());
+                returnJson = sendCommand(activity, jr.toString());
             }
         } catch(Exception e) {
             e.printStackTrace();
         }
      return(returnJson);
+    }
+
+    public String getUsers(AppCompatActivity activity) {
+        String returnJson = _errorJson;
+        try {
+            String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
+            JSONObject jr = new JSONObject();
+
+            jr.put("cmd", "get-users");
+
+            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+                FakeBluetoothServer fbts = new FakeBluetoothServer();
+                fbts.getResponse(activity, jr);
+            } else {
+                returnJson = sendCommand(activity, jr.toString());
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return(returnJson);
     }
 }

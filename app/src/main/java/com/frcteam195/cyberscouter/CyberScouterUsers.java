@@ -25,6 +25,8 @@ import java.util.Vector;
 public class CyberScouterUsers {
     public final static String USERS_UPDATED_FILTER = "frcteam195_cyberscouterusers_users_updated_intent_filter";
 
+    private static boolean webQueryInProgress = false;
+
     public CyberScouterUsers() {
     }
 
@@ -152,8 +154,11 @@ public class CyberScouterUsers {
     }
 
     static public void getUsersWebService(final Activity activity) {
-        String ret = null;
 
+        if(webQueryInProgress)
+            return;
+
+        webQueryInProgress = true;
         RequestQueue rq = Volley.newRequestQueue(activity);
         String url = String.format("%s/users", FakeBluetoothServer.webServiceBaseUrl);
 
@@ -161,6 +166,7 @@ public class CyberScouterUsers {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        webQueryInProgress = false;
                         try {
                             Intent i = new Intent(USERS_UPDATED_FILTER);
                             i.putExtra("cyberscouterusers", response);
@@ -172,7 +178,16 @@ public class CyberScouterUsers {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                webQueryInProgress = false;
+                String msg = "Unknown error type";
+                if(null == error.networkResponse) {
+                    msg = error.getMessage();
+                } else {
+                    msg = String.format("Status Code: %d\nMessage: %s", error.networkResponse.statusCode, new String(error.networkResponse.data));
+                }
+
+                MessageBox.showMessageBox(activity, "Fetch of Users Failed", "CyberScouterUsers.getUsersWebService",
+                        String.format("Can't get list of users.\nContact a scouting mentor right away\n\n%s\n", msg));
             }
         });
 

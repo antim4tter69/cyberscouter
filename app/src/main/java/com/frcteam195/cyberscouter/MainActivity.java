@@ -99,10 +99,10 @@ public class MainActivity extends AppCompatActivity {
             Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
             ComponentName cn = startService(backgroundIntent);
             if (null == cn) {
-                MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!");
+                MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "onCreate", "Attempt to start background update service failed!");
             }
         } catch (Exception e) {
-            MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
+            MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "onCreate", "Attempt to start background update service failed!\n\n" +
                     "The error is:\n" + e.getMessage());
         }
     }
@@ -143,22 +143,23 @@ public class MainActivity extends AppCompatActivity {
             final SQLiteDatabase db = mDbHelper.getWritableDatabase();
             if (null != config_json) {
                 JSONObject jo = new JSONObject(config_json);
-                textView = findViewById(R.id.textView_eventString);
-                String event = jo.getString("EventName") + ", " + jo.getString("EventLocation");
-                textView.setText(event);
-                String allianceStation = jo.getString("AllianceStation");
-                textView = findViewById(R.id.textView_roleString);
-                if (allianceStation.startsWith("Blu"))
-                    textView.setTextColor(Color.BLUE);
-                else if (allianceStation.startsWith("Red"))
-                    textView.setTextColor(Color.RED);
-                else
-                    textView.setTextColor(Color.BLACK);
-                textView.setText(allianceStation);
-                CyberScouterConfig.setConfigLocal(db, jo);
-                button = findViewById(R.id.button_scouting);
-                button.setEnabled(true);
-
+                    textView = findViewById(R.id.textView_eventString);
+                    String event = jo.getString("EventName") + ", " + jo.getString("EventLocation");
+                    textView.setText(event);
+                    String allianceStation = jo.getString("AllianceStation");
+                    textView = findViewById(R.id.textView_roleString);
+                    if (allianceStation.startsWith("Blu"))
+                        textView.setTextColor(Color.BLUE);
+                    else if (allianceStation.startsWith("Red"))
+                        textView.setTextColor(Color.RED);
+                    else
+                        textView.setTextColor(Color.BLACK);
+                    textView.setText(allianceStation);
+                    CyberScouterConfig.setConfigLocal(db, jo);
+                    button = findViewById(R.id.button_scouting);
+                    button.setEnabled(true);
+            } else {
+                MessageBox.showMessageBox(MainActivity.this, "Fetch Config Failed", "processConfig", "Attempt to fetch scouting configuration failed!");
             }
         } catch (Exception e) {
             MessageBox.showMessageBox(this, "Exception Caught", "processConfig", "An exception occurred: \n" + e.getMessage());

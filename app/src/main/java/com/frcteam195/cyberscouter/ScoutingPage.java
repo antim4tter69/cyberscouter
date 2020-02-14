@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ScoutingPage extends AppCompatActivity {
+public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
     private int FIELD_ORIENTATION_RIGHT=0;
     private int FIELD_ORIENTATION_LEFT=1;
     private int field_orientation=FIELD_ORIENTATION_RIGHT;
@@ -33,13 +33,14 @@ public class ScoutingPage extends AppCompatActivity {
             }
         });
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openNamePickerPage();
-//
-//            }
-//        });
+        button = findViewById(R.id.Button_NamePicker);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNamePickerPage();
+
+            }
+        });
         button = findViewById(R.id.Button_Return);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,17 +149,9 @@ public class ScoutingPage extends AppCompatActivity {
         }
 
     public void openNamePickerPage(){
-
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        if(!cfg.isOffline()) {
-            FragmentManager fm = getSupportFragmentManager();
-            NamePickerDialog npd = new NamePickerDialog();
-            npd.show(fm, "namepicker");
-        }
+        FragmentManager fm = getSupportFragmentManager();
+        NamePickerDialog npd = new NamePickerDialog();
+        npd.show(fm, "namepicker");
     }
 
     public void returnToMainMenu(){
@@ -210,5 +203,10 @@ public class ScoutingPage extends AppCompatActivity {
     private void setFieldImage(int img) {
         ImageView imageView = findViewById(R.id.imageView2);
         imageView.setImageResource(img);
+    }
+
+    @Override
+    public void onNameSelected(String name, int idx) {
+        setUsername(name, idx);
     }
 }

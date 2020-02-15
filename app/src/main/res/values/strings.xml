@@ -110,7 +110,7 @@
 
     <string name="ourTeamName">Team 195</string>
     <string name="ourTeamCityState">Southington, Connecticut</string>
-    <string name="roleTagText">Role:</string>
+    <string name="roleTagText">Alliance station:</string>
     <string name="eventTagText">Event:</string>
 
     <string name="sandstormTitle">Sandstorm</string>
@@ -151,4 +151,5 @@
     <string name="AttemptedText">Attempted</string>
     <string name="ClimbedText">Climbed</string>
     <string name="ClimbPosition">Climb Position</string>
+    <string name="connection_indicator_desc">Green=Bluetooth Connected, Yellow=Network Connected, Red=Not Connected</string>
 </resources>

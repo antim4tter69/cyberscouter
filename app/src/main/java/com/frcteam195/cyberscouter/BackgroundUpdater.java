@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import java.io.OutputStream;
@@ -104,8 +103,10 @@ public class BackgroundUpdater extends Service {
 //                    sendToRfcommServer(jsonCsms);
 
                     int color = Color.GREEN;
-                    if(FakeBluetoothServer.bUseFakeBluetoothServer)
-                        color = ContextCompat.getColor(getApplicationContext(), R.color.Amber);
+                    if(cnt > 2)
+                        color = Color.RED;
+                    if(cnt > 5)
+                        color = Color.BLUE;
                     Intent i = new Intent(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER);
                     i.putExtra("onlinestatus", color);
                     getApplicationContext().sendBroadcast(i);

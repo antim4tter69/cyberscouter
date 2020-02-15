@@ -12,7 +12,7 @@ public class PhysicalPropertiesTab extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_physical_properties,container,true);
+        View view=inflater.inflate(R.layout.fragment_physical_properties,container,false);
         return view;
     }
 }

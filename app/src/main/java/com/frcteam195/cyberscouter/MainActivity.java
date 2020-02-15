@@ -501,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
                 Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
                         + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
 
-                l_matches = CyberScouterMatchScouting.getMatches(conn, currentEventId);
+//                l_matches = CyberScouterMatchScouting.getMatches(conn, currentEventId);
 
                 conn.close();
 

@@ -91,7 +91,7 @@ public class Admin1 extends AppCompatActivity {
         if (null != cfg) {
             Spinner spnr = findViewById(R.id.spinner);
             ArrayAdapter<String> adapter = (ArrayAdapter<String>)spnr.getAdapter();
-            int spinnerPosition = adapter.getPosition(cfg.getRole());
+            int spinnerPosition = adapter.getPosition(cfg.getAlliance_station());
             if (-1 != spinnerPosition)
                 spnr.setSelection(spinnerPosition);
         }

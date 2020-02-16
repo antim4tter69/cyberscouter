@@ -1,17 +1,11 @@
 package com.frcteam195.cyberscouter;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,11 +15,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class CyberScouterConfig {
     public final static String CONFIG_UPDATED_FILTER = "frcteam195_cyberscouterconfig_config_updated_intent_filter";
@@ -38,8 +27,8 @@ public class CyberScouterConfig {
     public static final int CONFIG_COMPUTER_TYPE_LEVEL_2_SCOUTER = 1;
     public static final int CONFIG_COMPUTER_TYPE_LEVEL_PIT_SCOUTER = 2;
 
-    private String role;
-    private String role_col;
+    private String alliance_station;
+    private String alliance_station_id;
     private String event;
     private int event_id;
     private int tablet_num;
@@ -52,12 +41,12 @@ public class CyberScouterConfig {
     public CyberScouterConfig() {
     }
 
-    public String getRole() {
-        return role;
+    public String getAlliance_station() {
+        return alliance_station;
     }
 
-    public String getRole_col() {
-        return role_col;
+    public String getAlliance_station_id() {
+        return alliance_station_id;
     }
 
     public String getEvent() {
@@ -150,8 +139,8 @@ public class CyberScouterConfig {
             if (0 < cursor.getCount() && cursor.moveToFirst()) {
                 ret = new CyberScouterConfig();
                 /* Read the config values from SQLite */
-                ret.role = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE));
-                ret.role_col = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE_COL));
+                ret.alliance_station = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE));
+                ret.alliance_station_id = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE_COL));
                 ret.event = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT));
                 ret.event_id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID));
                 ret.tablet_num = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM));
@@ -219,7 +208,7 @@ public class CyberScouterConfig {
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, jo.getString("EventName"));
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, jo.getString("AllianceStation"));
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID, jo.getString("ComputerTypeID"));
-//        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE_COL, role_col);
+//        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE_COL, alliance_station_id);
 //        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, field_red_left);
 //        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE, offline);
 //        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM, tablet_num);

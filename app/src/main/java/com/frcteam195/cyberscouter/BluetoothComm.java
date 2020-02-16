@@ -120,4 +120,28 @@ public class BluetoothComm {
         }
         return(returnJson);
     }
+
+    public String getMatches(AppCompatActivity activity, int eventId, int allianceStationId) {
+        String returnJson = _errorJson;
+        try {
+            String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
+            JSONObject jr = new JSONObject();
+            JSONObject j1 = new JSONObject();
+
+            j1.put("eventId", eventId);
+            j1.put("allianceStationId", allianceStationId);
+            jr.put("cmd", "get-matches");
+            jr.put("payload", j1);
+
+            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+                FakeBluetoothServer fbts = new FakeBluetoothServer();
+                fbts.getResponse(activity, jr);
+            } else {
+                returnJson = sendCommand(activity, jr.toString());
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return(returnJson);
+    }
 }

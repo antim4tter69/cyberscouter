@@ -38,7 +38,7 @@ public class SubmitPage extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView7);

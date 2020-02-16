@@ -28,6 +28,7 @@ class CyberScouterMatchScouting {
     public final static String MATCH_SCOUTING_UPDATED_FILTER = "frcteam195_cyberscoutermatchscouting_match_scouting_updated_intent_filter";
 
     private static boolean webQueryInProgress = false;
+    private static long lastUpdateChecksum = 0;
 
     private int matchScoutingID;
     private int eventID;
@@ -341,11 +342,11 @@ class CyberScouterMatchScouting {
     }
 
     static void updateMatchMetric(SQLiteDatabase db, String[] lColumns, Integer[] lValues, CyberScouterConfig cfg) throws Exception {
-        CyberScouterMatchScouting csms = getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        CyberScouterMatchScouting csms = getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
         if (null == csms)
-            throw new Exception(String.format("No current unscouted match was found!  Attempt to update a match statistic failed!\n\nRole=%s", cfg.getRole()));
+            throw new Exception(String.format("No current unscouted match was found!  Attempt to update a match statistic failed!\n\nRole=%s", cfg.getAlliance_station()));
         if (null == lColumns || null == lValues || lColumns.length != lValues.length)
-            throw new Exception(String.format("Bad request! Attempt to update a match statistic failed!\n\nRole=%s", cfg.getRole()));
+            throw new Exception(String.format("Bad request! Attempt to update a match statistic failed!\n\nRole=%s", cfg.getAlliance_station()));
 
         ContentValues values = new ContentValues();
         for (int i = 0; i < lColumns.length; ++i) {

@@ -93,7 +93,7 @@ public class ScoutingPage extends AppCompatActivity {
         CyberScouterMatchScouting csm = null;
 
         if(null != cfg )
-            csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+            csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView7);

@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private uploadMatchScoutingResultsTask g_backgroundUpdater;
     private static Integer g_backgroundProgress;
 
-    static final private String g_adminPassword = "HailRobotOverlords";
-
     BroadcastReceiver mConfigReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -65,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
             updateUsers(ret);
         }
     };
+
+    BroadcastReceiver mMatchesReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String ret = intent.getStringExtra("cyberscoutermatches");
+            updateMatches(ret);
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
+        registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
         CyberScouterConfig.getConfigRemote(this);
         CyberScouterUsers.getUsersRemote(this);
     }
@@ -124,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(mConfigReceiver);
         unregisterReceiver(mOnlineStatusReceiver);
         unregisterReceiver(mUsersReceiver);
+        unregisterReceiver(mMatchesReceiver);
         super.onDestroy();
     }
 
@@ -136,8 +145,18 @@ public class MainActivity extends AppCompatActivity {
                 textView = findViewById(R.id.textView_eventString);
                 textView.setText(jo.getString("EventName") + ", " + jo.getString("EventLocation"));
                 textView = findViewById(R.id.textView_roleString);
-                textView.setText(jo.getString("AllianceStation"));
+                String allianceStation = jo.getString("AllianceStation");
+                if (allianceStation.startsWith("Blu"))
+                    textView.setTextColor(Color.BLUE);
+                else if (allianceStation.startsWith("Red"))
+                    textView.setTextColor(Color.RED);
+                else
+                    textView.setTextColor(Color.BLACK);
+                textView.setText(allianceStation);
+                int eventId = jo.getInt("EventID");
+                int allianceStationId = jo.getInt("AllianceStationID");
                 CyberScouterConfig.setConfigLocal(db, jo);
+                CyberScouterMatchScouting.getMatchesRemote(this, eventId, allianceStationId);
             }
             try {
                 Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
@@ -204,14 +223,14 @@ public class MainActivity extends AppCompatActivity {
     void setFieldsFromConfig(CyberScouterConfig cfg) {
         TextView tv;
         tv = findViewById(R.id.textView_roleString);
-        String tmp = cfg.getRole();
+        String tmp = cfg.getAlliance_station();
         if (tmp.startsWith("Blu"))
             tv.setTextColor(Color.BLUE);
         else if (tmp.startsWith("Red"))
             tv.setTextColor(Color.RED);
         else
             tv.setTextColor(Color.BLACK);
-        tv.setText(cfg.getRole());
+        tv.setText(cfg.getAlliance_station());
 
         tv = findViewById(R.id.textView_eventString);
         tv.setText(cfg.getEvent());
@@ -649,5 +668,9 @@ public class MainActivity extends AppCompatActivity {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
         CyberScouterUsers.setUsers(db, json);
+    }
+
+    private void updateMatches(String json){
+
     }
 }

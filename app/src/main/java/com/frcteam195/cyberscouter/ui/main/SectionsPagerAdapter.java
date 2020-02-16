@@ -7,7 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.frcteam195.cyberscouter.AutoTab;
+import com.frcteam195.cyberscouter.EndgameTab;
+import com.frcteam195.cyberscouter.PhysicalPropertiesTab;
 import com.frcteam195.cyberscouter.R;
+import com.frcteam195.cyberscouter.TeleopTab;
 
 /**
  * A [FragmentPagerAdapter] that returns a fragment corresponding to
@@ -27,9 +31,18 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceholderFragment.newInstance(position + 1);
+        switch (position) {
+            case 0:
+                return new PhysicalPropertiesTab();
+            case 1:
+                return new AutoTab();
+            case 2:
+                return new TeleopTab();
+            case 3:
+                return new EndgameTab();
+            default:
+                return null;
+        }
     }
 
     @Nullable

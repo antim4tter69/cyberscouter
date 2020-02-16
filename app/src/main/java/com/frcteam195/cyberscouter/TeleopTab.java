@@ -12,7 +12,6 @@ public class TeleopTab extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.teleop_tab,container,false);
-        return view;
+        return inflater.inflate(R.layout.fragment_teleop,container,false);
     }
 }

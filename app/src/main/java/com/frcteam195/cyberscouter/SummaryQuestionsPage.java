@@ -23,7 +23,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         setContentView(R.layout.activity_summary_questions_page);
 
 
-        button = findViewById(R.id.button_previous);
+        button = findViewById(R.id.button_Previous);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

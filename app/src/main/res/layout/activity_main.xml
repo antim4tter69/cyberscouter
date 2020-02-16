@@ -10,7 +10,7 @@
         android:id="@+id/textView_appTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="48dp"
         android:text="@string/Proj_Name"
         android:textSize="75sp"
@@ -32,9 +32,10 @@
         android:id="@+id/textView_teamName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:text="@string/ourTeamName"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="@+id/textView_appTitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_appTitle" />
 
     <TextView
@@ -60,21 +61,23 @@
         android:id="@+id/textView_eventTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/eventTagText"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="@+id/textView_roleTag"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <TextView
         android:id="@+id/textView_roleTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="64dp"
         android:text="@string/roleTagText"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_eventTag"
-        app:layout_constraintStart_toStartOf="@+id/textView_teamName"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_logo"
         tools:ignore="MissingConstraints" />
 
@@ -92,7 +95,6 @@
         android:id="@+id/imageView_logo"
         android:layout_width="719dp"
         android:layout_height="195dp"
-        android:contentDescription="@string/logo_description"
         app:layout_constraintBottom_toTopOf="@+id/button_scouting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -114,7 +116,6 @@
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:contentDescription="@string/connection_indicator_desc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/background_light" />

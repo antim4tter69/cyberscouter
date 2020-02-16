@@ -16,38 +16,6 @@
         app:layout_constraintStart_toStartOf="@+id/textViewInner"
         app:layout_constraintTop_toBottomOf="@+id/textViewInner" />
 
-    <TextView
-        android:id="@+id/textViewDidNotShow"
-        android:layout_width="311dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/DidNotShow"
-        android:textSize="45sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_PenaltiesYes" />
-
-    <Button
-        android:id="@+id/button_DidNotShowYes"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="16dp"
-        android:elevation="0dp"
-        android:text="@string/YesButton"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textViewDidNotShow"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDidNotShow" />
-
-    <Button
-        android:id="@+id/button_DidNotShowNo"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/NoButton"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/button_PenaltiesNo"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDidNotShow" />
-
     <Button
         android:id="@+id/InnerGoalPlus_button"
         android:layout_width="68dp"
@@ -178,7 +146,7 @@
         android:layout_width="256dp"
         android:layout_height="64dp"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="128dp"
         android:text="@string/PenaltyText"
         android:textAlignment="center"
         android:textSize="45sp"

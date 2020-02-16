@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
-import java.util.Locale;
 
 public class TelePage extends AppCompatActivity {
     private Button button;
@@ -36,7 +34,7 @@ public class TelePage extends AppCompatActivity {
         TextView tv = findViewById(R.id.textView_roleTag);
         tv.setText(R.string.teleopTitle);
 
-        button = findViewById(R.id.button_previous);
+        button = findViewById(R.id.button_Previous);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

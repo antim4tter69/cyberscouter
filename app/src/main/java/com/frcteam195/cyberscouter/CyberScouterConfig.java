@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,8 +33,6 @@ public class CyberScouterConfig {
     final static String UNKNOWN_ROLE = "Unknown Role";
     final static String UNKNOWN_EVENT = "Unknown Event";
     final static int UNKNOWN_USER_IDX = -1;
-
-    private static boolean webQueryInProgress = false;
 
     public static final int CONFIG_COMPUTER_TYPE_LEVEL_1_SCOUTER = 0;
     public static final int CONFIG_COMPUTER_TYPE_LEVEL_2_SCOUTER = 1;
@@ -187,10 +184,8 @@ public class CyberScouterConfig {
     }
 
     static public void getConfigWebService(final Activity activity, String computerName) {
-        if(webQueryInProgress)
-            return;
+        String ret = null;
 
-        webQueryInProgress = true;
         RequestQueue rq = Volley.newRequestQueue(activity);
         String url = String.format("%s/config?computerName=%s", FakeBluetoothServer.webServiceBaseUrl, computerName);
 
@@ -198,7 +193,6 @@ public class CyberScouterConfig {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        webQueryInProgress = false;
                         try {
                             Intent i = new Intent(CONFIG_UPDATED_FILTER);
                             i.putExtra("cyberscouterconfig", response);
@@ -210,15 +204,7 @@ public class CyberScouterConfig {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                webQueryInProgress = false;
-                String msg = "Unknown error type";
-                if(null == error.networkResponse) {
-                    msg = error.getMessage();
-                } else {
-                    msg = String.format("Status Code: %d\nMessage: %s", error.networkResponse.statusCode, new String(error.networkResponse.data));
-                }
-                MessageBox.showMessageBox(activity, "Fetch of Scouting Configuration Failed", "CyberScouterConfig.getConfigWebService",
-                        String.format("Can't get scouting configuration.\nContact a scouting mentor right away\n\n%s\n", msg));
+                error.printStackTrace();
             }
         });
 

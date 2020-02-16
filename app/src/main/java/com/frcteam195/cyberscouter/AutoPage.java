@@ -14,7 +14,6 @@ public class AutoPage extends AppCompatActivity {
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-    private final int[] didnotshowButtons = {R.id.button_DidNotShowNo, R.id.button_DidNotShowYes};
     private final int[] penaltyButtons = {R.id.button_PenaltiesNo, R.id.button_PenaltiesYes};
     private int innerGoalCount = 0;
     private int outerGoalCount = 0;
@@ -65,24 +64,6 @@ public class AutoPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 moveBonusNo();
-            }
-        });
-
-        button = findViewById(R.id.button_DidNotShowYes);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                didnotshowYes();
-            }
-        });
-
-        button = findViewById(R.id.button_DidNotShowNo);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                didnotshowNo();
             }
         });
 
@@ -158,8 +139,8 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        didnotshowNo();
 
+        
     }
 
     @Override
@@ -188,7 +169,7 @@ public class AutoPage extends AppCompatActivity {
 
     public void StartMatch() {
 
-        Intent intent = new Intent(this, SandstormPage.class);
+        Intent intent = new Intent(this, EndPage.class);
         startActivity(intent);
     }
 
@@ -230,16 +211,6 @@ public class AutoPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
-
-    public void didnotshowYes() {
-        FakeRadioGroup.buttonPressed(this, 1, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        Intent intent = new Intent(this, SubmitPage.class);
-        startActivity(intent);
-    }
-
-    public void didnotshowNo() {
-        FakeRadioGroup.buttonPressed(this, 0, didnotshowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
 
     public void penaltiesYes() {
         FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);

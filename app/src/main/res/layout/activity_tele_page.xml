@@ -7,7 +7,7 @@
     tools:context=".TelePage">
 
     <Button
-        android:id="@+id/button_previous"
+        android:id="@+id/button_Previous"
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:text="@string/PreviousButton"
@@ -76,7 +76,7 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_next"
-        app:layout_constraintStart_toEndOf="@+id/button_previous" />
+        app:layout_constraintStart_toEndOf="@+id/button_Previous" />
 
     <ImageView
         android:id="@+id/imageView8"

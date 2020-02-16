@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        button.setEnabled(false);
 
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 
@@ -95,16 +94,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-        try {
-            Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
-            ComponentName cn = startService(backgroundIntent);
-            if (null == cn) {
-                MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "onCreate", "Attempt to start background update service failed!");
-            }
-        } catch (Exception e) {
-            MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "onCreate", "Attempt to start background update service failed!\n\n" +
-                    "The error is:\n" + e.getMessage());
-        }
+
     }
 
     @Override
@@ -143,24 +133,68 @@ public class MainActivity extends AppCompatActivity {
             final SQLiteDatabase db = mDbHelper.getWritableDatabase();
             if (null != config_json) {
                 JSONObject jo = new JSONObject(config_json);
-                    textView = findViewById(R.id.textView_eventString);
-                    String event = jo.getString("EventName") + ", " + jo.getString("EventLocation");
-                    textView.setText(event);
-                    String allianceStation = jo.getString("AllianceStation");
-                    textView = findViewById(R.id.textView_roleString);
-                    if (allianceStation.startsWith("Blu"))
-                        textView.setTextColor(Color.BLUE);
-                    else if (allianceStation.startsWith("Red"))
-                        textView.setTextColor(Color.RED);
-                    else
-                        textView.setTextColor(Color.BLACK);
-                    textView.setText(allianceStation);
-                    CyberScouterConfig.setConfigLocal(db, jo);
-                    button = findViewById(R.id.button_scouting);
-                    button.setEnabled(true);
-            } else {
-                MessageBox.showMessageBox(MainActivity.this, "Fetch Config Failed", "processConfig", "Attempt to fetch scouting configuration failed!");
+                textView = findViewById(R.id.textView_eventString);
+                textView.setText(jo.getString("EventName") + ", " + jo.getString("EventLocation"));
+                textView = findViewById(R.id.textView_roleString);
+                textView.setText(jo.getString("AllianceStation"));
+                CyberScouterConfig.setConfigLocal(db, jo);
             }
+            try {
+                Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
+                ComponentName cn = startService(backgroundIntent);
+                if (null == cn) {
+                    MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!");
+                }
+            } catch (Exception e) {
+                MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
+                        "The error is:\n" + e.getMessage());
+            }
+
+            if (0 == 0) return;
+
+            /* if there's no existing local configuration, we're going to assume the tablet
+            is "online", meaning that it can talk to the SQL Server database.  If there is a
+            configuration record, we'll use the offline setting from that to determine whether we
+            should query the SQL Server database for the current event.
+             */
+//            if ((null == cfg) || (!cfg.isOffline())) {
+//                getEventTask eventTask = new getEventTask(new IOnEventListener<CyberScouterEvent>() {
+//                    @Override
+//                    public void onSuccess(CyberScouterEvent result) {
+//                        CyberScouterConfig cfg2 = cfg;
+//                        if (null != cfg) {
+//                            if (null != result && (result.getEventID() != cfg.getEvent_id())) {
+//                                setEvent(result);
+//                                cfg2 = CyberScouterConfig.getConfig(db);
+//                            }
+//                            setFieldsFromConfig(cfg2);
+//                        } else {
+//                            setFieldsToDefaults(db, result.getEventName());
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Exception e) {
+//                        if (null == e) {
+//                            if (null == cfg || null == cfg.getEvent()) {
+//                                button = findViewById(R.id.button_scouting);
+//                                button.setEnabled(false);
+//                                MessageBox.showMessageBox(MainActivity.this, "Event Not Found Alert", "processConfig", "No current event found!  Cannot continue.");
+//                            }
+//                        } else {
+//                            setFieldsFromConfig(cfg);
+//                            MessageBox.showMessageBox(MainActivity.this, "Fetch Event Failed Alert", "getEventTask", "Fetch of Current Event information failed!\n\n" +
+//                                    "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
+//
+//                        }
+//                    }
+//                });
+//
+//                eventTask.execute();
+//            } else {
+//                setFieldsFromConfig(cfg);
+//            }
         } catch (Exception e) {
             MessageBox.showMessageBox(this, "Exception Caught", "processConfig", "An exception occurred: \n" + e.getMessage());
             e.printStackTrace();
@@ -611,7 +645,7 @@ public class MainActivity extends AppCompatActivity {
         iv.setImageBitmap(bitmap);
     }
 
-    private void updateUsers(String json) {
+    private void updateUsers(String json){
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         final SQLiteDatabase db = mDbHelper.getWritableDatabase();
         CyberScouterUsers.setUsers(db, json);

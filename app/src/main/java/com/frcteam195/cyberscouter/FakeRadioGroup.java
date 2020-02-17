@@ -42,7 +42,7 @@ public class FakeRadioGroup {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
             try {

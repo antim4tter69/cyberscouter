@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -39,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     private uploadMatchScoutingResultsTask g_backgroundUpdater;
     private static Integer g_backgroundProgress;
-
-    static final private String g_adminPassword = "HailRobotOverlords";
 
     BroadcastReceiver mConfigReceiver = new BroadcastReceiver() {
         @Override
@@ -66,13 +63,26 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    BroadcastReceiver mMatchesReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String ret = intent.getStringExtra("cyberscoutermatches");
+            updateMatchesLocal(ret);
+        }
+    };
+
+    SQLiteDatabase _db = null;
+
+    private int currentCommStatusColor = Color.LTGRAY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
-        BluetoothComm.setbLastBTCommFailed(FakeBluetoothServer.bUseFakeBluetoothServer);
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        _db = mDbHelper.getWritableDatabase();
 
         button = findViewById(R.id.button_scouting);
         button.setOnClickListener(new View.OnClickListener() {
@@ -101,11 +111,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        updateStatusIndicator(Color.LTGRAY);
+
         registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
-        CyberScouterConfig.getConfigRemote(this);
+        registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
         CyberScouterUsers.getUsersRemote(this);
+        CyberScouterConfig.getConfigRemote(this);
     }
 
     @Override
@@ -124,20 +137,28 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(mConfigReceiver);
         unregisterReceiver(mOnlineStatusReceiver);
         unregisterReceiver(mUsersReceiver);
+        unregisterReceiver(mMatchesReceiver);
         super.onDestroy();
     }
 
     private void processConfig(String config_json) {
         try {
-            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-            final SQLiteDatabase db = mDbHelper.getWritableDatabase();
             if (null != config_json) {
                 JSONObject jo = new JSONObject(config_json);
                 textView = findViewById(R.id.textView_eventString);
                 textView.setText(jo.getString("EventName") + ", " + jo.getString("EventLocation"));
                 textView = findViewById(R.id.textView_roleString);
-                textView.setText(jo.getString("AllianceStation"));
-                CyberScouterConfig.setConfigLocal(db, jo);
+                String allianceStation = jo.getString("AllianceStation");
+                if (allianceStation.startsWith("Blu"))
+                    textView.setTextColor(Color.BLUE);
+                else if (allianceStation.startsWith("Red"))
+                    textView.setTextColor(Color.RED);
+                else
+                    textView.setTextColor(Color.BLACK);
+                textView.setText(allianceStation);
+                int eventId = jo.getInt("EventID");
+                CyberScouterConfig.setConfigLocal(_db, jo);
+                CyberScouterMatchScouting.getMatchesRemote(this, eventId);
             }
             try {
                 Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
@@ -204,14 +225,14 @@ public class MainActivity extends AppCompatActivity {
     void setFieldsFromConfig(CyberScouterConfig cfg) {
         TextView tv;
         tv = findViewById(R.id.textView_roleString);
-        String tmp = cfg.getRole();
+        String tmp = cfg.getAlliance_station();
         if (tmp.startsWith("Blu"))
             tv.setTextColor(Color.BLUE);
         else if (tmp.startsWith("Red"))
             tv.setTextColor(Color.RED);
         else
             tv.setTextColor(Color.BLACK);
-        tv.setText(cfg.getRole());
+        tv.setText(cfg.getAlliance_station());
 
         tv = findViewById(R.id.textView_eventString);
         tv.setText(cfg.getEvent());
@@ -225,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         tmp = CyberScouterConfig.UNKNOWN_ROLE;
         tv = findViewById(R.id.textView_roleString);
         tv.setText(tmp);
-        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM, tmp);
         if (null != eventName)
             tmp = eventName;
         else
@@ -263,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, nextIntent);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 
@@ -282,11 +304,11 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(CyberScouterMatchScouting[] result) {
                             try {
-                                CyberScouterMatchScouting.deleteOldMatches(MainActivity.this, cfg.getEvent_id());
-                                String tmp = CyberScouterMatchScouting.mergeMatches(MainActivity.this, result);
-
-                                Toast t = Toast.makeText(MainActivity.this, "Data synced successfully! -- " + tmp, Toast.LENGTH_SHORT);
-                                t.show();
+//                                CyberScouterMatchScouting.deleteOldMatches(MainActivity.this, cfg.getEvent_id());
+//                                String tmp = CyberScouterMatchScouting.mergeMatches(MainActivity.this, result);
+//
+//                                Toast t = Toast.makeText(MainActivity.this, "Data synced successfully! -- " + tmp, Toast.LENGTH_SHORT);
+//                                t.show();
                             } catch (Exception ee) {
                                 MessageBox.showMessageBox(MainActivity.this, "Fetch Match Scouting Failed Alert", "syncData.getMatchScoutingTask.onSuccess",
                                         "Attempt to update local match information failed!\n\n" +
@@ -535,7 +557,7 @@ public class MainActivity extends AppCompatActivity {
                 Connection conn = DriverManager.getConnection("jdbc:jtds:sqlserver://"
                         + DbInfo.MSSQLServerAddress + "/" + DbInfo.MSSQLDbName, DbInfo.MSSQLUsername, DbInfo.MSSQLPassword);
 
-                l_matches = CyberScouterMatchScouting.getMatches(conn, currentEventId);
+//                l_matches = CyberScouterMatchScouting.getMatches(conn, currentEventId);
 
                 conn.close();
 
@@ -636,18 +658,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStatusIndicator(int color) {
-        Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(color);
-        canvas.drawCircle(16, 16, 12, paint);
         ImageView iv = findViewById(R.id.imageView_btIndicator);
-        iv.setImageBitmap(bitmap);
+        BluetoothComm.updateStatusIndicator(iv, color);
+        currentCommStatusColor = color;
     }
 
     private void updateUsers(String json){
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        CyberScouterUsers.setUsers(db, json);
+        CyberScouterUsers.deleteUsers(_db);
+        CyberScouterUsers.setUsers(_db, json);
+    }
+
+    private void updateMatchesLocal(String json){
+        try {
+            CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+            CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
+            CyberScouterMatchScouting.mergeMatches(_db, json);
+            button = findViewById(R.id.button_scouting);
+            button.setEnabled(true);
+        } catch(Exception e) {
+            MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",
+                    String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));
+            e.printStackTrace();
+        }
     }
 }

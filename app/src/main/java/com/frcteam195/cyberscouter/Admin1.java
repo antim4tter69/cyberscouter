@@ -91,7 +91,7 @@ public class Admin1 extends AppCompatActivity {
         if (null != cfg) {
             Spinner spnr = findViewById(R.id.spinner);
             ArrayAdapter<String> adapter = (ArrayAdapter<String>)spnr.getAdapter();
-            int spinnerPosition = adapter.getPosition(cfg.getRole());
+            int spinnerPosition = adapter.getPosition(cfg.getAlliance_station());
             if (-1 != spinnerPosition)
                 spnr.setSelection(spinnerPosition);
         }
@@ -118,7 +118,7 @@ public class Admin1 extends AppCompatActivity {
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, val);
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM, val);
             int count = db.update(
                     CyberScouterContract.ConfigEntry.TABLE_NAME,
                     values,

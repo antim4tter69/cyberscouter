@@ -24,21 +24,18 @@ public class NamePickerDialog extends DialogFragment {
 
             CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-            if(!cfg.isOffline()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-                String[] names = CyberScouterUsers.getUserNames(db);
-                builder.setTitle(R.string.NamePickerTitle)
-                        .setItems(names, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                ListView lv = ((AlertDialog)dialog).getListView();
-                                String tmp = (String)lv.getItemAtPosition(which);
-                                mListener.onNameSelected(tmp, which);
-                            }
-                        });
-                return builder.create();
-            }
+            String[] names = CyberScouterUsers.getUserNames(db);
+            builder.setTitle(R.string.NamePickerTitle)
+                    .setItems(names, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            ListView lv = ((AlertDialog) dialog).getListView();
+                            String tmp = (String) lv.getItemAtPosition(which);
+                            mListener.onNameSelected(tmp, which);
+                        }
+                    });
+            return builder.create();
         } catch (Exception e) {
             e.printStackTrace();
         }

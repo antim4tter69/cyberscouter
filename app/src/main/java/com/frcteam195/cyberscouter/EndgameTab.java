@@ -12,7 +12,6 @@ public class EndgameTab extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.endgame_tab,container,false);
-        return view;
+        return inflater.inflate(R.layout.fragment_endgame,container,false);
     }
 }

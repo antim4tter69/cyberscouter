@@ -84,8 +84,8 @@ public class TelePage extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if (null != cfg && null != cfg.getRole()) {
-            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        if (null != cfg && null != cfg.getAlliance_station()) {
+            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
             if (null != csm) {
                 TextView tv = findViewById(R.id.textView7);
@@ -114,8 +114,8 @@ public class TelePage extends AppCompatActivity {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-        if (null != cfg && null != cfg.getRole()) {
-            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        if (null != cfg && null != cfg.getAlliance_station()) {
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
         }
     }
 
@@ -131,7 +131,7 @@ public class TelePage extends AppCompatActivity {
         String[] cols = {col};
         Integer[] vals = {val};
 
-        if (null != cfg && null != cfg.getRole()) {
+        if (null != cfg && null != cfg.getAlliance_station()) {
             try {
                 CyberScouterMatchScouting.updateMatchMetric(db, cols, vals, cfg);
             } catch (Exception e) {

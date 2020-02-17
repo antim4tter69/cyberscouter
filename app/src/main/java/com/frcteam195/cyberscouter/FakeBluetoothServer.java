@@ -26,6 +26,10 @@ public class FakeBluetoothServer {
                 CyberScouterConfig.getConfigWebService(activity, fakeBluetoothComputerName);
             } else if (cmd == "get-users") {
                 CyberScouterUsers.getUsersWebService(activity);
+            } else if (cmd == "get-matches") {
+                JSONObject payload = obj.getJSONObject("payload");
+                int eventId = payload.getInt("eventId");
+                CyberScouterMatchScouting.getMatchesWebService(activity, eventId);
             }
         } catch(Exception e) {
             e.printStackTrace();

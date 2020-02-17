@@ -23,6 +23,7 @@
         android:layout_height="88dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
+        android:enabled="false"
         android:text="@string/scoutingButtonText"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,10 +33,9 @@
         android:id="@+id/textView_teamName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:text="@string/ourTeamName"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_appTitle"
         app:layout_constraintTop_toBottomOf="@+id/textView_appTitle" />
 
     <TextView
@@ -61,23 +61,21 @@
         android:id="@+id/textView_eventTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/eventTagText"
         android:textSize="36sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_roleTag"
         app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <TextView
         android:id="@+id/textView_roleTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="64dp"
         android:text="@string/roleTagText"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_eventTag"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_teamName"
         app:layout_constraintTop_toBottomOf="@+id/imageView_logo"
         tools:ignore="MissingConstraints" />
 

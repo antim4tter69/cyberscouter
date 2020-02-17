@@ -1,8 +1,12 @@
 package com.frcteam195.cyberscouter;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,10 +16,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ScoutingPage extends AppCompatActivity {
-    private int FIELD_ORIENTATION_RIGHT=0;
-    private int FIELD_ORIENTATION_LEFT=1;
-    private int field_orientation=FIELD_ORIENTATION_RIGHT;
+public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
+    private int FIELD_ORIENTATION_RIGHT = 0;
+    private int FIELD_ORIENTATION_LEFT = 1;
+    private int field_orientation = FIELD_ORIENTATION_RIGHT;
+
+    private SQLiteDatabase db = null;
+
+    BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int color = intent.getIntExtra("onlinestatus", Color.RED);
+            updateStatusIndicator(color);
+        }
+    };
+
+    private int currentCommStatusColor = Color.LTGRAY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +49,15 @@ public class ScoutingPage extends AppCompatActivity {
             }
         });
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openNamePickerPage();
-//
-//            }
-//        });
+        Button npbutton = findViewById(R.id.Button_NamePicker);
+        npbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNamePickerPage();
+
+            }
+        });
+
         button = findViewById(R.id.Button_Return);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,72 +66,73 @@ public class ScoutingPage extends AppCompatActivity {
             }
         });
 
-        imageButton = findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                setFieldRedLeft(1);
-                field_orientation = FIELD_ORIENTATION_LEFT;
-                setFieldImage(R.drawable.red_left);
-            }
-        });
-
-        imageButton = findViewById(R.id.imageButton2);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                setFieldRedLeft(0);
-                field_orientation = FIELD_ORIENTATION_RIGHT;
-                setFieldImage(R.drawable.red_right);
-            }
-        });
-
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        db = mDbHelper.getWritableDatabase();
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        if(CyberScouterConfig.UNKNOWN_USER_IDX != cfg.getUser_id()) {
+            npbutton.setText(cfg.getUsername());
+        } else {
+            npbutton.setText("Select your name");
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        Intent intent = getIntent();
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
+
+        registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if (null != cfg && cfg.isFieldRedLeft())
-            setFieldImage(R.drawable.red_left);
-        else
-            setFieldImage(R.drawable.red_right);
-
         CyberScouterMatchScouting csm = null;
 
-        if(null != cfg )
-            csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
+        if (null != cfg)
+            csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView7);
             tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
-            tv = findViewById(R.id.textView9);
-            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+            TextView tvtn = findViewById(R.id.textView_teamNumber);
+            String currentMatchTeam = csm.getTeam();
+            tvtn.setText(getString(R.string.tagTeam, currentMatchTeam));
             CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo(), csm.getMatchID());
-            if(null != csma && 6 == csma.length) {
+            if (null != csma && 6 == csma.length) {
+                String tmpTeam = null;
                 tv = findViewById(R.id.textView20);
                 tv.setText(csma[0].getTeam());
+                if(csma[0].getTeam().equals(currentMatchTeam)) {
+                    tvtn.setTextColor(Color.RED);
+                }
                 tv = findViewById(R.id.textView21);
                 tv.setText(csma[1].getTeam());
+                if(csma[1].getTeam().equals(currentMatchTeam)) {
+                    tvtn.setTextColor(Color.RED);
+                }
                 tv = findViewById(R.id.textView22);
                 tv.setText(csma[2].getTeam());
+                if(csma[2].getTeam().equals(currentMatchTeam)) {
+                    tvtn.setTextColor(Color.RED);
+                }
                 tv = findViewById(R.id.textView35);
                 tv.setText(csma[3].getTeam());
+                if(csma[3].getTeam().equals(currentMatchTeam)) {
+                    tvtn.setTextColor(Color.BLUE);
+                }
                 tv = findViewById(R.id.textView27);
                 tv.setText(csma[4].getTeam());
+                if(csma[4].getTeam().equals(currentMatchTeam)) {
+                    tvtn.setTextColor(Color.BLUE);
+                }
                 tv = findViewById(R.id.textView26);
                 tv.setText(csma[5].getTeam());
+                if(csma[5].getTeam().equals(currentMatchTeam)) {
+                    tvtn.setTextColor(Color.BLUE);
+                }
             }
         }
 
@@ -127,41 +146,38 @@ public class ScoutingPage extends AppCompatActivity {
         finish();
     }
 
-
-    public void openAuto(){
-//        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-//
-//        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-//
-//        if(null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
-//                FragmentManager fm = getSupportFragmentManager();
-//                NamePickerDialog npd = new NamePickerDialog();
-//                npd.show(fm, "namepicker");
-//            }
-//            else {
-                Intent intent = new Intent(this, AutoPage.class);
-                intent.putExtra("field_orientation",field_orientation);
-                startActivity(intent);
-
-//            }
-        }
-
-    public void openNamePickerPage(){
-
+    @Override
+    protected void onDestroy() {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        if(!cfg.isOffline()) {
-            FragmentManager fm = getSupportFragmentManager();
-            NamePickerDialog npd = new NamePickerDialog();
-            npd.show(fm, "namepicker");
-        }
+        mDbHelper.close();
+        unregisterReceiver(mOnlineStatusReceiver);
+        super.onDestroy();
     }
 
-    public void returnToMainMenu(){
+
+    public void openAuto() {
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+        if(null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
+                FragmentManager fm = getSupportFragmentManager();
+                NamePickerDialog npd = new NamePickerDialog();
+                npd.show(fm, "namepicker");
+            }
+            else {
+        Intent intent = new Intent(this, AutoPage.class);
+        intent.putExtra("field_orientation", field_orientation);
+        startActivity(intent);
+
+            }
+    }
+
+    public void openNamePickerPage() {
+        FragmentManager fm = getSupportFragmentManager();
+        NamePickerDialog npd = new NamePickerDialog();
+        npd.show(fm, "namepicker");
+    }
+
+    public void returnToMainMenu() {
         Intent intent = new Intent(this, MainActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -171,9 +187,6 @@ public class ScoutingPage extends AppCompatActivity {
 
     public void setUsername(String val, int idx) {
         try {
-            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
             ContentValues values = new ContentValues();
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, val);
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, idx);
@@ -190,9 +203,6 @@ public class ScoutingPage extends AppCompatActivity {
 
     private void setFieldRedLeft(int val) {
         try {
-            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-            SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
             ContentValues values = new ContentValues();
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, val);
             int count = db.update(
@@ -210,5 +220,17 @@ public class ScoutingPage extends AppCompatActivity {
     private void setFieldImage(int img) {
         ImageView imageView = findViewById(R.id.imageView2);
         imageView.setImageResource(img);
+    }
+
+    @Override
+    public void onNameSelected(String name, int idx) {
+        Button button = findViewById(R.id.Button_NamePicker);
+        button.setText(name);
+        setUsername(name, idx);
+    }
+
+    private void updateStatusIndicator(int color) {
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        BluetoothComm.updateStatusIndicator(iv, color);
     }
 }

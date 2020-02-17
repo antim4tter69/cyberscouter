@@ -25,13 +25,8 @@ public class BluetoothComm {
 
     public final static String ONLINE_STATUS_UPDATED_FILTER = "frcteam195_bluetoothcomm_online_status_updated_intent_filter";
 
-
-    public static boolean isbLastBTCommFailed() {
+    public static boolean bLastBTCommFailed() {
         return bLastBTCommFailed;
-    }
-
-    public static void setbLastBTCommFailed(boolean bLastBTCommFailed) {
-        BluetoothComm.bLastBTCommFailed = bLastBTCommFailed;
     }
 
     private String sendCommand(Activity activity, String json) {
@@ -96,8 +91,10 @@ public class BluetoothComm {
                 returnJson = sendCommand(activity, jr.toString());
             }
         } catch(Exception e) {
+            bLastBTCommFailed = true;
             e.printStackTrace();
         }
+        bLastBTCommFailed = false;
      return(returnJson);
     }
 
@@ -116,12 +113,14 @@ public class BluetoothComm {
                 returnJson = sendCommand(activity, jr.toString());
             }
         } catch(Exception e) {
+            bLastBTCommFailed = true;
             e.printStackTrace();
         }
+        bLastBTCommFailed = false;
         return(returnJson);
     }
 
-    public String getMatches(AppCompatActivity activity, int eventId, int allianceStationId) {
+    public String getMatches(AppCompatActivity activity, int eventId) {
         String returnJson = _errorJson;
         try {
             String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
@@ -129,7 +128,6 @@ public class BluetoothComm {
             JSONObject j1 = new JSONObject();
 
             j1.put("eventId", eventId);
-            j1.put("allianceStationId", allianceStationId);
             jr.put("cmd", "get-matches");
             jr.put("payload", j1);
 
@@ -140,8 +138,10 @@ public class BluetoothComm {
                 returnJson = sendCommand(activity, jr.toString());
             }
         } catch(Exception e) {
+            bLastBTCommFailed = true;
             e.printStackTrace();
         }
+        bLastBTCommFailed = false;
         return(returnJson);
     }
 }

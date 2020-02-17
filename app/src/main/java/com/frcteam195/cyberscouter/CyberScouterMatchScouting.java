@@ -18,10 +18,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -106,10 +102,10 @@ class CyberScouterMatchScouting {
         return json;
     }
 
-    static void getMatchesRemote(AppCompatActivity activity, int eventId, int allianceStationId) {
+    static void getMatchesRemote(AppCompatActivity activity, int eventId) {
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getMatches(activity, eventId, allianceStationId);
+            String response = btcomm.getMatches(activity, eventId);
             JSONObject jo = new JSONObject(response);
             String result = (String) jo.get("result");
             if (result.equalsIgnoreCase("failed")) {
@@ -445,14 +441,14 @@ class CyberScouterMatchScouting {
         return (String.format(Locale.getDefault(), "%d matches inserted, %d matches updated", inserted, updated));
     }
 
-    static public void getMatchesWebService(final Activity activity, int eventId, int allianceStationId) {
+    static public void getMatchesWebService(final Activity activity, int eventId) {
 
         if (webQueryInProgress)
             return;
 
         webQueryInProgress = true;
         RequestQueue rq = Volley.newRequestQueue(activity);
-        String url = String.format("%s/match-scouting?eventId=%s&allianceStationId=%s", FakeBluetoothServer.webServiceBaseUrl, eventId, allianceStationId);
+        String url = String.format("%s/match-scouting?eventId=%s", FakeBluetoothServer.webServiceBaseUrl, eventId);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

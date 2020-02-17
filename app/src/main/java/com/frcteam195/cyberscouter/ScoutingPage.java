@@ -1,7 +1,10 @@
 package com.frcteam195.cyberscouter;
 
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +22,16 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     private int field_orientation = FIELD_ORIENTATION_RIGHT;
 
     private SQLiteDatabase db = null;
+
+    BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int color = intent.getIntExtra("onlinestatus", Color.RED);
+            updateStatusIndicator(color);
+        }
+    };
+
+    private int currentCommStatusColor = Color.LTGRAY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +70,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         db = mDbHelper.getWritableDatabase();
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-        if(null != cfg.getUsername()) {
+        if(CyberScouterConfig.UNKNOWN_USER_IDX != cfg.getUser_id()) {
             npbutton.setText(cfg.getUsername());
         } else {
             npbutton.setText("Select your name");
@@ -67,6 +80,12 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     @Override
     protected void onResume() {
         super.onResume();
+
+        Intent intent = getIntent();
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
+
+        registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
@@ -200,5 +219,10 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         Button button = findViewById(R.id.Button_NamePicker);
         button.setText(name);
         setUsername(name, idx);
+    }
+
+    private void updateStatusIndicator(int color) {
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        BluetoothComm.updateStatusIndicator(iv, color);
     }
 }

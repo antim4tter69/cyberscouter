@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     SQLiteDatabase _db = null;
 
+    private int currentCommStatusColor = Color.LTGRAY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        CyberScouterMatchScouting.deleteOldMatches(_db, 99);
+        updateStatusIndicator(Color.LTGRAY);
 
         registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
@@ -282,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, nextIntent);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 
@@ -655,13 +658,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStatusIndicator(int color) {
-        Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(color);
-        canvas.drawCircle(16, 16, 12, paint);
         ImageView iv = findViewById(R.id.imageView_btIndicator);
-        iv.setImageBitmap(bitmap);
+        BluetoothComm.updateStatusIndicator(iv, color);
+        currentCommStatusColor = color;
     }
 
     private void updateUsers(String json){

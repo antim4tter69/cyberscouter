@@ -191,4 +191,14 @@
         app:layout_constraintStart_toEndOf="@+id/imageButton"
         app:srcCompat="@drawable/field_2020" />
 
+    <ImageView
+        android:id="@+id/imageView_btIndicator"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/ic_launcher_background" />
+
 </android.support.constraint.ConstraintLayout>

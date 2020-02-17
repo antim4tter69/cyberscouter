@@ -6,8 +6,12 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 import org.json.JSONObject;
 
@@ -143,5 +147,14 @@ public class BluetoothComm {
         }
         bLastBTCommFailed = false;
         return(returnJson);
+    }
+
+    public static void updateStatusIndicator(ImageView iv, int color) {
+        Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(color);
+        canvas.drawCircle(16, 16, 12, paint);
+        iv.setImageBitmap(bitmap);
     }
 }

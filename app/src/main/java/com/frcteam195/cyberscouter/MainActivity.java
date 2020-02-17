@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String ret = intent.getStringExtra("cyberscoutermatches");
-            updateMatches(ret);
+            updateMatchesLocal(ret);
         }
     };
 
@@ -301,11 +301,11 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(CyberScouterMatchScouting[] result) {
                             try {
-                                CyberScouterMatchScouting.deleteOldMatches(MainActivity.this, cfg.getEvent_id());
-                                String tmp = CyberScouterMatchScouting.mergeMatches(MainActivity.this, result);
-
-                                Toast t = Toast.makeText(MainActivity.this, "Data synced successfully! -- " + tmp, Toast.LENGTH_SHORT);
-                                t.show();
+//                                CyberScouterMatchScouting.deleteOldMatches(MainActivity.this, cfg.getEvent_id());
+//                                String tmp = CyberScouterMatchScouting.mergeMatches(MainActivity.this, result);
+//
+//                                Toast t = Toast.makeText(MainActivity.this, "Data synced successfully! -- " + tmp, Toast.LENGTH_SHORT);
+//                                t.show();
                             } catch (Exception ee) {
                                 MessageBox.showMessageBox(MainActivity.this, "Fetch Match Scouting Failed Alert", "syncData.getMatchScoutingTask.onSuccess",
                                         "Attempt to update local match information failed!\n\n" +
@@ -670,7 +670,17 @@ public class MainActivity extends AppCompatActivity {
         CyberScouterUsers.setUsers(db, json);
     }
 
-    private void updateMatches(String json){
-
+    private void updateMatchesLocal(String json){
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        try {
+            CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+            CyberScouterMatchScouting.deleteOldMatches(db, cfg.getEvent_id());
+            CyberScouterMatchScouting.mergeMatches(db, json);
+        } catch(Exception e) {
+            MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",
+                    String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));
+            e.printStackTrace();
+        }
     }
 }

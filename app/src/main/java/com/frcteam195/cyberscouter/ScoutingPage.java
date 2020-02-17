@@ -146,6 +146,14 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        mDbHelper.close();
+        unregisterReceiver(mOnlineStatusReceiver);
+        super.onDestroy();
+    }
+
 
     public void openAuto() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);

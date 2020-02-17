@@ -118,7 +118,7 @@ public class Admin1 extends AppCompatActivity {
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
             ContentValues values = new ContentValues();
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, val);
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM, val);
             int count = db.update(
                     CyberScouterContract.ConfigEntry.TABLE_NAME,
                     values,

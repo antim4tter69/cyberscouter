@@ -29,8 +29,7 @@ public class FakeBluetoothServer {
             } else if (cmd == "get-matches") {
                 JSONObject payload = obj.getJSONObject("payload");
                 int eventId = payload.getInt("eventId");
-                int allianceStationId = payload.getInt("allianceStationId");
-                CyberScouterMatchScouting.getMatchesWebService(activity, eventId, allianceStationId);
+                CyberScouterMatchScouting.getMatchesWebService(activity, eventId);
             }
         } catch(Exception e) {
             e.printStackTrace();

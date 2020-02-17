@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -72,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    SQLiteDatabase _db = null;
+
+    private int currentCommStatusColor = Color.LTGRAY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        BluetoothComm.setbLastBTCommFailed(FakeBluetoothServer.bUseFakeBluetoothServer);
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        _db = mDbHelper.getWritableDatabase();
 
         button = findViewById(R.id.button_scouting);
         button.setOnClickListener(new View.OnClickListener() {
@@ -108,12 +111,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        updateStatusIndicator(Color.LTGRAY);
+
         registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
         registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
-        CyberScouterConfig.getConfigRemote(this);
         CyberScouterUsers.getUsersRemote(this);
+        CyberScouterConfig.getConfigRemote(this);
     }
 
     @Override
@@ -138,8 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void processConfig(String config_json) {
         try {
-            CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-            final SQLiteDatabase db = mDbHelper.getWritableDatabase();
             if (null != config_json) {
                 JSONObject jo = new JSONObject(config_json);
                 textView = findViewById(R.id.textView_eventString);
@@ -154,9 +157,8 @@ public class MainActivity extends AppCompatActivity {
                     textView.setTextColor(Color.BLACK);
                 textView.setText(allianceStation);
                 int eventId = jo.getInt("EventID");
-                int allianceStationId = jo.getInt("AllianceStationID");
-                CyberScouterConfig.setConfigLocal(db, jo);
-                CyberScouterMatchScouting.getMatchesRemote(this, eventId, allianceStationId);
+                CyberScouterConfig.setConfigLocal(_db, jo);
+                CyberScouterMatchScouting.getMatchesRemote(this, eventId);
             }
             try {
                 Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
@@ -244,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
         tmp = CyberScouterConfig.UNKNOWN_ROLE;
         tv = findViewById(R.id.textView_roleString);
         tv.setText(tmp);
-        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ROLE, tmp);
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM, tmp);
         if (null != eventName)
             tmp = eventName;
         else
@@ -282,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent intent = new Intent(this, nextIntent);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 
@@ -655,28 +658,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateStatusIndicator(int color) {
-        Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(color);
-        canvas.drawCircle(16, 16, 12, paint);
         ImageView iv = findViewById(R.id.imageView_btIndicator);
-        iv.setImageBitmap(bitmap);
+        BluetoothComm.updateStatusIndicator(iv, color);
+        currentCommStatusColor = color;
     }
 
     private void updateUsers(String json){
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        CyberScouterUsers.setUsers(db, json);
+        CyberScouterUsers.deleteUsers(_db);
+        CyberScouterUsers.setUsers(_db, json);
     }
 
     private void updateMatchesLocal(String json){
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        final SQLiteDatabase db = mDbHelper.getWritableDatabase();
         try {
-            CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-            CyberScouterMatchScouting.deleteOldMatches(db, cfg.getEvent_id());
-            CyberScouterMatchScouting.mergeMatches(db, json);
+            CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+            CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
+            CyberScouterMatchScouting.mergeMatches(_db, json);
+            button = findViewById(R.id.button_scouting);
+            button.setEnabled(true);
         } catch(Exception e) {
             MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",
                     String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));

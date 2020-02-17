@@ -8,8 +8,8 @@ public class CyberScouterContract {
 
     public static class ConfigEntry implements BaseColumns {
         public static final String TABLE_NAME = "config";
-        public static final String COLUMN_NAME_ROLE = "role";
-        public static final String COLUMN_NAME_ROLE_COL = "role_col";
+        public static final String COLUMN_NAME_ALLIANCE_STATIOM = "alliance_station";
+        public static final String COLUMN_NAME_ALLIANCE_STATION_ID = "alliance_station_id";
         public static final String COLUMN_NAME_EVENT = "event";
         public static final String COLUMN_NAME_EVENT_ID = "event_id";
         public static final String COLUMN_NAME_TABLET_NUM = "tablet_num";

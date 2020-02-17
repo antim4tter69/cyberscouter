@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
         registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
-        CyberScouterConfig.getConfigRemote(this);
         CyberScouterUsers.getUsersRemote(this);
+        CyberScouterConfig.getConfigRemote(this);
     }
 
     @Override
@@ -677,6 +677,8 @@ public class MainActivity extends AppCompatActivity {
             CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
             CyberScouterMatchScouting.deleteOldMatches(db, cfg.getEvent_id());
             CyberScouterMatchScouting.mergeMatches(db, json);
+            button = findViewById(R.id.button_scouting);
+            button.setEnabled(true);
         } catch(Exception e) {
             MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",
                     String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));

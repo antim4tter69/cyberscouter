@@ -151,9 +151,7 @@ public class CyberScouterUsers {
         db.execSQL("DELETE from " + CyberScouterContract.Users.TABLE_NAME);
     }
 
-    static public void getUsersWebService(final Activity activity) {
-        String ret = null;
-
+    static public void getUsersWebService(final AppCompatActivity activity) {
         RequestQueue rq = Volley.newRequestQueue(activity);
         String url = String.format("%s/users", FakeBluetoothServer.webServiceBaseUrl);
 
@@ -175,6 +173,10 @@ public class CyberScouterUsers {
                 error.printStackTrace();
             }
         });
+
+        rq.add(stringRequest);
+        return;
+
     }
 
 

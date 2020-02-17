@@ -294,19 +294,19 @@ class CyberScouterMatchScouting {
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, jo.getInt("MatchScoutingID"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, jo.getInt("EventID"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, jo.getInt("MatchID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, jo.isNull("ComputerID") ? -1 : jo.getInt("ComputerID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, jo.isNull("ScouterID") ? -1 : jo.getInt("ScouterID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, jo.isNull("ReviewerID") ? -1 : jo.getInt("ReviewerID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, jo.optInt("ComputerID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, jo.optInt("ScouterID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, jo.optInt("ReviewerID"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, jo.getString("Team"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, jo.isNull("TeamMatchNo") ? -1 : jo.getInt("TeamMatchNo"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, jo.optInt("TeamMatchNo"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, jo.getInt("AllianceStationID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, jo.isNull("ScoutingStatus") ? -1 : jo.getInt("ScoutingStatus"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, jo.isNull("AutoStartPos") ? 0 : jo.getInt("AutoStartPos"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.isNull("AutoDidNotShow") ? 0 : jo.getInt("AutoDidNotShow"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.isNull("AutoMoveBonus") ? 0 : jo.getInt("AutoMoveBonus"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, jo.isNull("SummLostComm") ? 0 : jo.getInt("SummLostComm"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, jo.isNull("SummBrokeDown") ? 0 : jo.getInt("SummBrokeDown"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, jo.isNull("SummSubSystemBroke") ? 0 : jo.getInt("SummSubSystemBroke"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, jo.optInt("ScoutingStatus"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, jo.optInt("AutoStartPos"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.optInt("AutoDidNotShow"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.optInt("AutoMoveBonus"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, jo.optInt("SummLostComm"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, jo.optInt("SummBrokeDown"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, jo.optInt("SummSubSystemBroke"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
 
         newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
@@ -327,7 +327,7 @@ class CyberScouterMatchScouting {
 
         ContentValues values = new ContentValues();
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, rmatch.getString("Team"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, rmatch.getInt("ScoutingStatus"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, rmatch.optInt("ScoutingStatus"));
 
         String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
         String[] selectionArgs = {String.format(Locale.getDefault(), "%d", lmatch.matchScoutingID)};

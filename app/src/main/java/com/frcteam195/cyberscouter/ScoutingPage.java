@@ -12,10 +12,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ScoutingPage extends AppCompatActivity {
-    private int FIELD_ORIENTATION_RIGHT=0;
-    private int FIELD_ORIENTATION_LEFT=1;
-    private int field_orientation=FIELD_ORIENTATION_RIGHT;
+public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
+    private int FIELD_ORIENTATION_RIGHT = 0;
+    private int FIELD_ORIENTATION_LEFT = 1;
+    private int field_orientation = FIELD_ORIENTATION_RIGHT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +33,15 @@ public class ScoutingPage extends AppCompatActivity {
             }
         });
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                openNamePickerPage();
-//
-//            }
-//        });
+        button = findViewById(R.id.Button_NamePicker);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNamePickerPage();
+
+            }
+        });
+
         button = findViewById(R.id.Button_Return);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +94,7 @@ public class ScoutingPage extends AppCompatActivity {
 
         CyberScouterMatchScouting csm = null;
 
-        if(null != cfg )
+        if (null != cfg)
             csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
@@ -101,7 +103,7 @@ public class ScoutingPage extends AppCompatActivity {
             tv = findViewById(R.id.textView9);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
             CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo(), csm.getMatchID());
-            if(null != csma && 6 == csma.length) {
+            if (null != csma && 6 == csma.length) {
                 tv = findViewById(R.id.textView20);
                 tv.setText(csma[0].getTeam());
                 tv = findViewById(R.id.textView21);
@@ -128,7 +130,7 @@ public class ScoutingPage extends AppCompatActivity {
     }
 
 
-    public void openAuto(){
+    public void openAuto() {
 //        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
 //        SQLiteDatabase db = mDbHelper.getWritableDatabase();
 //
@@ -140,28 +142,24 @@ public class ScoutingPage extends AppCompatActivity {
 //                npd.show(fm, "namepicker");
 //            }
 //            else {
-                Intent intent = new Intent(this, AutoPage.class);
-                intent.putExtra("field_orientation",field_orientation);
-                startActivity(intent);
+        Intent intent = new Intent(this, AutoPage.class);
+        intent.putExtra("field_orientation", field_orientation);
+        startActivity(intent);
 
 //            }
-        }
+    }
 
-    public void openNamePickerPage(){
+    public void openNamePickerPage() {
 
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        if(!cfg.isOffline()) {
-            FragmentManager fm = getSupportFragmentManager();
-            NamePickerDialog npd = new NamePickerDialog();
-            npd.show(fm, "namepicker");
-        }
+        FragmentManager fm = getSupportFragmentManager();
+        NamePickerDialog npd = new NamePickerDialog();
+        npd.show(fm, "namepicker");
     }
 
-    public void returnToMainMenu(){
+    public void returnToMainMenu() {
         Intent intent = new Intent(this, MainActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -210,5 +208,11 @@ public class ScoutingPage extends AppCompatActivity {
     private void setFieldImage(int img) {
         ImageView imageView = findViewById(R.id.imageView2);
         imageView.setImageResource(img);
+    }
+
+    @Override
+    public void onNameSelected(String name, int idx) {
+        Button button = findViewById(R.id.Button_NamePicker);
+        button.setText(name);
     }
 }

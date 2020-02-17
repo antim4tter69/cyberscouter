@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.sql.Connection;
@@ -98,7 +99,7 @@ class CyberScouterMatchScouting {
             jsonObject.put("scouterID", getScouterID());
 
             json = jsonObject.toString();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -188,8 +189,8 @@ class CyberScouterMatchScouting {
 
         String selection =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " = ? AND "
-                    + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ? AND "
-                    + CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " = ?";
+                        + CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID + " = ? AND "
+                        + CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " = ?";
 
         String[] selectionArgs = {
                 String.format(Locale.getDefault(), "%d", l_eventID),
@@ -200,7 +201,7 @@ class CyberScouterMatchScouting {
         String sortOrder =
                 CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO + " ASC";
 
-        return(getLocalMatches(db, selection, selectionArgs, sortOrder));
+        return (getLocalMatches(db, selection, selectionArgs, sortOrder));
     }
 
     private static CyberScouterMatchScouting[] getLocalMatches(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
@@ -286,53 +287,47 @@ class CyberScouterMatchScouting {
         }
     }
 
-    private static void setMatch(Context ctx, CyberScouterMatchScouting csm) {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+    private static void setMatch(SQLiteDatabase db, JSONObject jo) throws Exception {
 
+        long newRowId = 0;
         ContentValues values = new ContentValues();
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, csm.getMatchScoutingID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, csm.getEventID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, csm.getMatchID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, csm.getComputerID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, csm.getScouterID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, csm.getReviewerID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, csm.getTeam());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, csm.getTeamMatchNo());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, csm.getAllianceStationID());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED, csm.getMatchEnded());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, csm.getScoutingStatus());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW, csm.getAreasToReview());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE, csm.getComplete());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, csm.getAutoStartPos());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, csm.getAutoDidNotShow());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, csm.getAutoMoveBonus());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, csm.getSummLostComm());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, csm.getSummBrokeDown());
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, csm.getSummSubsystemBroke());
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, jo.getInt("MatchScoutingID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, jo.getInt("EventID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, jo.getInt("MatchID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, jo.isNull("ComputerID") ? -1 : jo.getInt("ComputerID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, jo.isNull("ScouterID") ? -1 : jo.getInt("ScouterID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, jo.isNull("ReviewerID") ? -1 : jo.getInt("ReviewerID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, jo.getString("Team"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, jo.isNull("TeamMatchNo") ? -1 : jo.getInt("TeamMatchNo"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, jo.getInt("AllianceStationID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, jo.isNull("ScoutingStatus") ? -1 : jo.getInt("ScoutingStatus"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, jo.isNull("AutoStartPos") ? 0 : jo.getInt("AutoStartPos"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.isNull("AutoDidNotShow") ? 0 : jo.getInt("AutoDidNotShow"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.isNull("AutoMoveBonus") ? 0 : jo.getInt("AutoMoveBonus"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, jo.isNull("SummLostComm") ? 0 : jo.getInt("SummLostComm"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, jo.isNull("SummBrokeDown") ? 0 : jo.getInt("SummBrokeDown"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, jo.isNull("SummSubSystemBroke") ? 0 : jo.getInt("SummSubSystemBroke"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
 
-        long newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
+        newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
     }
 
-    static void deleteOldMatches(Context ctx, int l_eventID) {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+    static void deleteOldMatches(SQLiteDatabase db, int l_eventID) {
 
         String[] whereArgs = {String.format(Locale.getDefault(), "%d", l_eventID)};
 
         db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " <> ?", whereArgs);
     }
 
-    private static void updateMatchTeamAndScoutingStatus(SQLiteDatabase db, CyberScouterMatchScouting rmatch, CyberScouterMatchScouting lmatch) throws Exception {
+    private static void updateMatchTeamAndScoutingStatus(SQLiteDatabase db, JSONObject rmatch, CyberScouterMatchScouting lmatch) throws Exception {
 
         // if this is a match that we've finished scouting but hasn't been uploaded yet...
-        if(UploadStatus.READY_TO_UPLOAD == lmatch.getUploadStatus())
+        if (UploadStatus.READY_TO_UPLOAD == lmatch.getUploadStatus())
             return;
 
         ContentValues values = new ContentValues();
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, rmatch.team);
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, rmatch.scoutingStatus);
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, rmatch.getString("Team"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, rmatch.getInt("ScoutingStatus"));
 
         String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID + " = ?";
         String[] selectionArgs = {String.format(Locale.getDefault(), "%d", lmatch.matchScoutingID)};
@@ -425,28 +420,34 @@ class CyberScouterMatchScouting {
 
     // If there are new match scouting records, insert them into the local database.
     // Otherwise, update the scouting status and the team for each match, to keep that info current
-    static String mergeMatches(Context ctx, CyberScouterMatchScouting[] remoteMatches) throws Exception {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(ctx);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        int updated=0, inserted=0;
+    static String mergeMatches(SQLiteDatabase db, String remoteMatchesJson) throws Exception {
+        if (lastUpdateChecksum == remoteMatchesJson.hashCode()) {
+            return ("No changes");
+        }
 
-        for (CyberScouterMatchScouting rmatch : remoteMatches) {
-            CyberScouterMatchScouting lmatch = getLocalMatch(db, rmatch.eventID, rmatch.matchID, rmatch.allianceStationID);
+        int updated = 0, inserted = 0;
+
+        JSONArray ja = new JSONArray(remoteMatchesJson);
+
+        for (int i = 0; i < ja.length(); ++i) {
+            JSONObject jo = ja.getJSONObject(i);
+            CyberScouterMatchScouting lmatch = getLocalMatch(db, jo.getInt("EventID"), jo.getInt("MatchID"), jo.getInt("AllianceStationID"));
             if (null != lmatch) {
-                updateMatchTeamAndScoutingStatus(db, rmatch, lmatch);
+                updateMatchTeamAndScoutingStatus(db, jo, lmatch);
                 updated++;
             } else {
-                setMatch(ctx, rmatch);
+                setMatch(db, jo);
                 inserted++;
             }
         }
 
-        return(String.format(Locale.getDefault(), "%d matches inserted, %d matches updated", inserted, updated));
+        lastUpdateChecksum = remoteMatchesJson.hashCode();
+        return (String.format(Locale.getDefault(), "%d matches inserted, %d matches updated", inserted, updated));
     }
 
     static public void getMatchesWebService(final Activity activity, int eventId, int allianceStationId) {
 
-        if(webQueryInProgress)
+        if (webQueryInProgress)
             return;
 
         webQueryInProgress = true;
@@ -471,7 +472,7 @@ class CyberScouterMatchScouting {
             public void onErrorResponse(VolleyError error) {
                 webQueryInProgress = false;
                 String msg = "Unknown error type";
-                if(null == error.networkResponse) {
+                if (null == error.networkResponse) {
                     msg = error.getMessage();
                 } else {
                     msg = String.format("Status Code: %d\nMessage: %s", error.networkResponse.statusCode, new String(error.networkResponse.data));

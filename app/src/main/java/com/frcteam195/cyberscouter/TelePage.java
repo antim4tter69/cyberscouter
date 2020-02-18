@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class TelePage extends AppCompatActivity {
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int FIELD_ORIENTATION_RIGHT=0;
     private int FIELD_ORIENTATION_LEFT=1;
-    private int field_orientation=FIELD_ORIENTATION_RIGHT;
+    private int field_orientation;
     private Chronometer Stage_2;
     private long pauseOffset;
     private boolean running;
@@ -27,9 +28,12 @@ public class TelePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
-        super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        intent.getIntExtra("field_orientation",field_orientation);
+        field_orientation = intent.getIntExtra("field_orientation",field_orientation);
+        ImageView iv = findViewById(R.id.imageView8);
+        if(FIELD_ORIENTATION_RIGHT == field_orientation) {
+            iv.setImageResource(R.drawable.field_2020_flipped);
+        }
 
         TextView tv = findViewById(R.id.textView_roleTag);
         tv.setText(R.string.teleopTitle);
@@ -84,17 +88,17 @@ public class TelePage extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if (null != cfg && null != cfg.getAlliance_station()) {
-            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
-
-            if (null != csm) {
-                TextView tv = findViewById(R.id.textView7);
-                tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
-                tv = findViewById(R.id.textView9);
-                tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-
-            }
-        }
+//        if (null != cfg && null != cfg.getAlliance_station()) {
+//            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+//
+//            if (null != csm) {
+//                TextView tv = findViewById(R.id.textView7);
+//                tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
+//                tv = findViewById(R.id.textView9);
+//                tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+//
+//            }
+//        }
 
 
     }

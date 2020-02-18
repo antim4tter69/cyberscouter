@@ -99,7 +99,6 @@
     <string name="BrokeDownText">Broke Down</string>
     <string name="TippedOverText">Tipped Over</string>
     <string name="GroundPickupText">Ground Pick Up</string>
-
     <string name="NamePickerTitle">Select Your Name</string>
 
     <string name="tagTeam">Team %s</string>

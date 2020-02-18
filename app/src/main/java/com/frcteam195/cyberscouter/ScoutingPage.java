@@ -105,7 +105,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
+            tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
             TextView tvtn = findViewById(R.id.textView_teamNumber);
             String currentMatchTeam = csm.getTeam();
             tvtn.setText(getString(R.string.tagTeam, currentMatchTeam));

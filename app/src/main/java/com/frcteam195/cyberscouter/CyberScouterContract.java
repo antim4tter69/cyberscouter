@@ -44,6 +44,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_MATCHSCOUTINGID = "MatchScoutingID";
         public static final String COLUMN_NAME_EVENTID = "EventID";
         public static final String COLUMN_NAME_MATCHID = "MatchID";
+        public static final String COLUMN_NAME_MATCH_NUMBER = "MatchNo";
         public static final String COLUMN_NAME_COMPUTERID = "ComputerID";
         public static final String COLUMN_NAME_SCOUTERID = "ScouterID";
         public static final String COLUMN_NAME_REVIEWERID = "ReviewerID";

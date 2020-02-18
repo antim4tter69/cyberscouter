@@ -19,7 +19,7 @@ public class AutoPage extends AppCompatActivity {
     private int outerGoalCount = 0;
     private int lowerGoalCount = 0;
 
-
+    private int field_orientation;
 
 
     @Override
@@ -28,7 +28,7 @@ public class AutoPage extends AppCompatActivity {
         setContentView(R.layout.activity_auto_page);
 
         Intent intent = getIntent();
-        int field_orientation = intent.getIntExtra("field_orientation", 0);
+        field_orientation = intent.getIntExtra("field_orientation", 0);
 
         button = findViewById(R.id.button_startMatch);
         button.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +169,8 @@ public class AutoPage extends AppCompatActivity {
 
     public void StartMatch() {
 
-        Intent intent = new Intent(this, EndPage.class);
+        Intent intent = new Intent(this, TelePage.class);
+        intent.putExtra("field_orientation", field_orientation);
         startActivity(intent);
     }
 

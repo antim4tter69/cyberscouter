@@ -152,4 +152,13 @@
     <string name="ClimbedText">Climbed</string>
     <string name="ClimbPosition">Climb Position</string>
     <string name="connection_indicator_desc">Green=Bluetooth Connected, Yellow=Network Connected, Red=Not Connected</string>
+
+    <string name="Size">Size</string>
+    <string name="Length">Length</string>
+    <string name="Width">Width</string>
+    <string name="Height">Height</string>
+    <string name="Weight">Weight</string>
+    <string name="Inches">in</string>
+    <string name="Pounds">lb</string>
+    <string name="DriveType">Drive Type</string>
 </resources>

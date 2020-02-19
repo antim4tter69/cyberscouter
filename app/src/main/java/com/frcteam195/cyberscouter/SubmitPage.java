@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,11 +20,20 @@ public class SubmitPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_page);
 
-        button = findViewById(R.id.button7);
+        button = findViewById(R.id.Button_Previous);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 returnToSummaryQuestions();
+
+            }
+        });
+
+        button = findViewById(R.id.Button_Submit);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitMatch();
 
             }
         });
@@ -42,8 +52,15 @@ public class SubmitPage extends AppCompatActivity {
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
-            tv = findViewById(R.id.textView9);
+            tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
+            tv = findViewById(R.id.textView_teamNumber);
+            if(csm.getAllianceStationID() < 4) {
+                tv.setTextColor(Color.RED);
+            } else if(csm.getAllianceStationID() < 7) {
+                tv.setTextColor(Color.BLUE);
+            } else {
+                tv.setTextColor(Color.BLACK);
+            }
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
             g_matchScoutingID = csm.getMatchScoutingID();
@@ -65,6 +82,7 @@ public class SubmitPage extends AppCompatActivity {
                     "Update of UploadStatus and ScoutingStatus failed!\n\n" +
                             "The error is:\n" + e.getMessage());
         }
+        returnToScoutingPage();
 
     }
 

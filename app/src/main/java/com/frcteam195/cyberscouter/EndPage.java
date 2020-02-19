@@ -247,18 +247,18 @@ public class EndPage extends AppCompatActivity {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
-
-        if (null != csm) {
-            TextView tv = findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
-            tv = findViewById(R.id.textView9);
-            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-
-            FakeRadioGroup.buttonDisplay(this, csm.getSummLostComm(), lostCommButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-
-            FakeRadioGroup.buttonDisplay(this, csm.getSummHatchGrdPickup(), groundPickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        }
+//        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+//
+//        if (null != csm) {
+//            TextView tv = findViewById(R.id.textView7);
+//            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
+//            tv = findViewById(R.id.textView9);
+//            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+//
+//            FakeRadioGroup.buttonDisplay(this, csm.getSummLostComm(), lostCommButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//
+//            FakeRadioGroup.buttonDisplay(this, csm.getSummHatchGrdPickup(), groundPickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//        }
     }
 
     public void returnToTelePage(){
@@ -266,7 +266,7 @@ public class EndPage extends AppCompatActivity {
     }
 
     public void summaryQuestionsPage(){
-        Intent intent = new Intent(this, SummaryQuestionsPage.class);
+        Intent intent = new Intent(this, SubmitPage.class);
         startActivity(intent);
 
     }

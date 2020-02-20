@@ -100,6 +100,9 @@
     <string name="TippedOverText">Tipped Over</string>
     <string name="GroundPickupText">Ground Pick Up</string>
     <string name="NamePickerTitle">Select Your Name</string>
+    <string name="PickupText">Pick Up</string>
+    <string name="NumberOfPreload">Number of Preload</string>
+    <string name="TypicalCellsStored">Typical Scored Power Cells</string>
 
     <string name="tagTeam">Team %s</string>
     <string name="tagEvent">Event %s</string>

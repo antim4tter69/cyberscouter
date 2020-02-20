@@ -21,12 +21,11 @@
         android:id="@+id/Button_Previous"
         android:layout_width="173dp"
         android:layout_height="95dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/PreviousButton"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -48,33 +47,30 @@
         android:text="@string/CurrentMatch"
         android:textColor="@android:color/black"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView_roleTag"
+        app:layout_constraintStart_toStartOf="@+id/textView_roleTag"
         app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <TextView
         android:id="@+id/textView_teamNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/CurrentTeam"
         android:textColor="@color/CurrentTeamColor"
         android:textColorLink="@color/CurrentTeamColor"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView_roleTag"
         android:layout_width="211dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:text="@string/SubmitPageTitle"
         android:textColor="@android:color/black"
         android:textSize="40sp"
@@ -88,8 +84,8 @@
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="210dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/ResetButton"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

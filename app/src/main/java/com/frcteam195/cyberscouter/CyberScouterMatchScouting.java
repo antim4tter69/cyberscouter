@@ -30,6 +30,7 @@ class CyberScouterMatchScouting {
     private int matchScoutingID;
     private int eventID;
     private int matchID;
+    private int matchNo;
     private int computerID;
     private int scouterID;
     private int reviewerID;
@@ -210,6 +211,7 @@ class CyberScouterMatchScouting {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_MATCH_NUMBER,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID,
@@ -246,6 +248,7 @@ class CyberScouterMatchScouting {
                     csm.matchScoutingID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID));
                     csm.eventID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID));
                     csm.matchID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID));
+                    csm.matchNo = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCH_NUMBER));
                     csm.computerID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID));
                     csm.scouterID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID));
                     csm.reviewerID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID));
@@ -290,6 +293,7 @@ class CyberScouterMatchScouting {
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, jo.getInt("MatchScoutingID"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, jo.getInt("EventID"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, jo.getInt("MatchID"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCH_NUMBER, jo.getInt("MatchNo"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, jo.optInt("ComputerID"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, jo.optInt("ScouterID"));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, jo.optInt("ReviewerID"));
@@ -586,5 +590,9 @@ class CyberScouterMatchScouting {
 
     public void setScouterID(int scouterID) {
         this.scouterID = scouterID;
+    }
+
+    public int getMatchNo() {
+        return matchNo;
     }
 }

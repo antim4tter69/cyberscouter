@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import android.widget.TextView;
 public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
     private int FIELD_ORIENTATION_RIGHT = 0;
     private int FIELD_ORIENTATION_LEFT = 1;
-    private int field_orientation = FIELD_ORIENTATION_RIGHT;
+    private int field_orientation = FIELD_ORIENTATION_LEFT;
 
     private SQLiteDatabase db = null;
 
@@ -35,7 +36,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ImageButton imageButton;
         Button button;
 
         super.onCreate(savedInstanceState);
@@ -70,11 +70,20 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         db = mDbHelper.getWritableDatabase();
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-        if(CyberScouterConfig.UNKNOWN_USER_IDX != cfg.getUser_id()) {
+        if (CyberScouterConfig.UNKNOWN_USER_IDX != cfg.getUser_id()) {
             npbutton.setText(cfg.getUsername());
         } else {
             npbutton.setText("Select your name");
         }
+
+        ImageView iv = findViewById(R.id.imageView2);
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flipFieldOrientation();
+            }
+        });
+        iv.setEnabled(true);
     }
 
     @Override
@@ -96,41 +105,40 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
+            tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
             TextView tvtn = findViewById(R.id.textView_teamNumber);
             String currentMatchTeam = csm.getTeam();
             tvtn.setText(getString(R.string.tagTeam, currentMatchTeam));
             CyberScouterMatchScouting[] csma = CyberScouterMatchScouting.getCurrentMatchAllTeams(db, csm.getTeamMatchNo(), csm.getMatchID());
             if (null != csma && 6 == csma.length) {
-                String tmpTeam = null;
                 tv = findViewById(R.id.textView20);
                 tv.setText(csma[0].getTeam());
-                if(csma[0].getTeam().equals(currentMatchTeam)) {
+                if (csma[0].getTeam().equals(currentMatchTeam)) {
                     tvtn.setTextColor(Color.RED);
                 }
                 tv = findViewById(R.id.textView21);
                 tv.setText(csma[1].getTeam());
-                if(csma[1].getTeam().equals(currentMatchTeam)) {
+                if (csma[1].getTeam().equals(currentMatchTeam)) {
                     tvtn.setTextColor(Color.RED);
                 }
                 tv = findViewById(R.id.textView22);
                 tv.setText(csma[2].getTeam());
-                if(csma[2].getTeam().equals(currentMatchTeam)) {
+                if (csma[2].getTeam().equals(currentMatchTeam)) {
                     tvtn.setTextColor(Color.RED);
                 }
                 tv = findViewById(R.id.textView35);
                 tv.setText(csma[3].getTeam());
-                if(csma[3].getTeam().equals(currentMatchTeam)) {
+                if (csma[3].getTeam().equals(currentMatchTeam)) {
                     tvtn.setTextColor(Color.BLUE);
                 }
                 tv = findViewById(R.id.textView27);
                 tv.setText(csma[4].getTeam());
-                if(csma[4].getTeam().equals(currentMatchTeam)) {
+                if (csma[4].getTeam().equals(currentMatchTeam)) {
                     tvtn.setTextColor(Color.BLUE);
                 }
                 tv = findViewById(R.id.textView26);
                 tv.setText(csma[5].getTeam());
-                if(csma[5].getTeam().equals(currentMatchTeam)) {
+                if (csma[5].getTeam().equals(currentMatchTeam)) {
                     tvtn.setTextColor(Color.BLUE);
                 }
             }
@@ -158,17 +166,16 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     public void openAuto() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-        if(null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
-                FragmentManager fm = getSupportFragmentManager();
-                NamePickerDialog npd = new NamePickerDialog();
-                npd.show(fm, "namepicker");
-            }
-            else {
-        Intent intent = new Intent(this, AutoPage.class);
-        intent.putExtra("field_orientation", field_orientation);
-        startActivity(intent);
+        if (null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
+            FragmentManager fm = getSupportFragmentManager();
+            NamePickerDialog npd = new NamePickerDialog();
+            npd.show(fm, "namepicker");
+        } else {
+            Intent intent = new Intent(this, AutoPage.class);
+            intent.putExtra("field_orientation", field_orientation);
+            startActivity(intent);
 
-            }
+        }
     }
 
     public void openNamePickerPage() {
@@ -201,25 +208,40 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         }
     }
 
-    private void setFieldRedLeft(int val) {
-        try {
-            ContentValues values = new ContentValues();
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, val);
-            int count = db.update(
-                    CyberScouterContract.ConfigEntry.TABLE_NAME,
-                    values,
-                    null,
-                    null);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw (e);
+    private void flipFieldOrientation() {
+        ImageButton im1, im2;
+        im1 = findViewById(R.id.imageButton);
+        im2 = findViewById(R.id.imageButton2);
+
+        Drawable d1 = im1.getDrawable();
+        Drawable d2 = im2.getDrawable();
+
+        im1.setImageDrawable(d2);
+        im2.setImageDrawable(d1);
+
+        ImageView iv = findViewById(R.id.imageView2);
+
+        field_orientation = field_orientation == FIELD_ORIENTATION_LEFT ? FIELD_ORIENTATION_RIGHT : FIELD_ORIENTATION_LEFT;
+
+        if(FIELD_ORIENTATION_LEFT == field_orientation) {
+            iv.setImageResource(R.drawable.field_2020);
+        } else {
+            iv.setImageResource(R.drawable.field_2020_flipped);
         }
 
-    }
+//        try {
+//            ContentValues values = new ContentValues();
+//            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, val);
+//            int count = db.update(
+//                    CyberScouterContract.ConfigEntry.TABLE_NAME,
+//                    values,
+//                    null,
+//                    null);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw (e);
+//        }
 
-    private void setFieldImage(int img) {
-        ImageView imageView = findViewById(R.id.imageView2);
-        imageView.setImageResource(img);
     }
 
     @Override

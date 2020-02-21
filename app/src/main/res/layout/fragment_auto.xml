@@ -8,15 +8,165 @@
     tools:context=".ui.main.PlaceholderFragment">
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.165"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.663" />
+        android:id="@+id/button_TypicalCellsStoredMinus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/MinusButton"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
+        app:layout_constraintStart_toEndOf="@+id/button_PreloadPlus" />
 
+    <Button
+        android:id="@+id/button_PreloadPlus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/PlusButton"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
+        app:layout_constraintStart_toEndOf="@+id/button_PreloadCounter" />
+
+    <Button
+        android:id="@+id/button_TypicalCellsStoredPlus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/PlusButton"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
+        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredCounter" />
+
+    <Button
+        android:id="@+id/button_PreloadMinus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/MinusButton"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_PreloadCounter"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="64dp"
+        android:background="@android:color/transparent"
+        android:text="@string/ZeroText"
+        android:textColorLink="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
+        app:layout_constraintStart_toEndOf="@+id/button_PreloadMinus" />
+
+    <Button
+        android:id="@+id/button_TypicalCellsStoredCounter"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="64dp"
+        android:background="@android:color/transparent"
+        android:text="@string/ZeroText"
+        android:textColorLink="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
+        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredMinus" />
+
+    <Button
+        android:id="@+id/button_moveBonusNo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/NoButton"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_Pickup"
+        app:layout_constraintStart_toEndOf="@+id/button_moveBonusYes" />
+
+    <Button
+        android:id="@+id/button_PickupNo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="96dp"
+        android:text="@string/NoButton"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_PickupYes" />
+
+    <Button
+        android:id="@+id/button_PickupYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="96dp"
+        android:text="@string/YesButton"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_moveBonusYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="64dp"
+        android:text="@string/YesButton"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/textview_Pickup"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_Pickup"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/PickupText"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_PickupYes"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_MoveBonus"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/MoveBonusText"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_moveBonusNo"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textview_NumberOfPreload"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/NumberOfPreload"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_PreloadCounter"
+        app:layout_constraintEnd_toEndOf="@+id/button_PreloadCounter"
+        app:layout_constraintStart_toStartOf="@+id/button_PreloadCounter" />
+
+    <TextView
+        android:id="@+id/textView_TypicalCellsStored"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/TypicalCellsStored"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_TypicalCellsStoredCounter"
+
+        app:layout_constraintEnd_toEndOf="@id/button_TypicalCellsStoredCounter"
+        app:layout_constraintStart_toStartOf="@id/button_TypicalCellsStoredCounter" />
 </android.support.constraint.ConstraintLayout>

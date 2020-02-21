@@ -85,9 +85,9 @@ public class AutoTab extends Fragment {
     }
 
     public void pickupNo()  {
-        FakeRadioGroup.buttonPressed(this, 0, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed( this, 0, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void pickupYes()  {
-        FakeRadioGroup.buttonPressed(this, 1, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        getActivity();
     }
 }

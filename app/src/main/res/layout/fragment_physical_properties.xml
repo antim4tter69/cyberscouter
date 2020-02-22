@@ -182,24 +182,24 @@
         android:text="@string/MinusButton"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/height"
-        app:layout_constraintTop_toTopOf="@+id/button6" />
+        app:layout_constraintTop_toTopOf="@+id/startbutton3" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/startbutton2"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
+        app:layout_constraintStart_toEndOf="@+id/startbutton3"
+        app:layout_constraintTop_toTopOf="@+id/startbutton1" />
 
     <Button
-        android:id="@+id/button6"
+        android:id="@+id/startbutton3"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintStart_toEndOf="@+id/startbutton1"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
@@ -217,11 +217,11 @@
         android:layout_height="40dp"
         android:text="@string/TopSpeed"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/button3"
+        app:layout_constraintStart_toStartOf="@+id/startbutton1"
         app:layout_constraintTop_toBottomOf="@+id/heightInput" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/startbutton5"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="175dp"
@@ -232,13 +232,13 @@
         app:layout_constraintTop_toTopOf="@+id/button11" />
 
     <Button
-        android:id="@+id/button10"
+        android:id="@+id/startbutton6"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/button11"
-        app:layout_constraintTop_toTopOf="@+id/button9" />
+        app:layout_constraintTop_toTopOf="@+id/startbutton5" />
 
     <Button
         android:id="@+id/button11"
@@ -246,7 +246,7 @@
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/button9"
+        app:layout_constraintStart_toEndOf="@+id/startbutton5"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
@@ -357,7 +357,7 @@
         android:text="@string/Pneumatics"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/button12"
-        app:layout_constraintTop_toTopOf="@+id/button5" />
+        app:layout_constraintTop_toTopOf="@+id/startbutton2" />
 
     <Button
         android:id="@+id/button15"
@@ -367,7 +367,7 @@
         android:text="@string/YesButton"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/textView31"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintTop_toBottomOf="@+id/startbutton2" />
 
     <Button
         android:id="@+id/button16"

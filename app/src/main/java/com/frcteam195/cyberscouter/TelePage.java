@@ -27,18 +27,23 @@ public class TelePage extends AppCompatActivity {
     private Chronometer Stage_2;
     private long pauseOffset;
     private boolean running;
+    private int currentCommStatusColor;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
+
         Intent intent = getIntent();
         field_orientation = intent.getIntExtra("field_orientation",field_orientation);
         ImageView iv = findViewById(R.id.imageView8);
         if(FIELD_ORIENTATION_RIGHT == field_orientation) {
             iv.setImageResource(R.drawable.field_2020_flipped);
         }
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
+
 
         TextView tv = findViewById(R.id.textView_roleTag);
         tv.setText(R.string.teleopTitle);
@@ -114,6 +119,7 @@ public class TelePage extends AppCompatActivity {
 
     public void EndGamePage() {
         Intent intent = new Intent(this, EndPage.class);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
 
     }
@@ -170,5 +176,9 @@ public class TelePage extends AppCompatActivity {
             zone_5.setEnabled(false);
         }
         return null;
+    }
+    private void updateStatusIndicator(int color) {
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        BluetoothComm.updateStatusIndicator(iv, color);
     }
 }

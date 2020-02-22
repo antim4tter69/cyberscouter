@@ -23,41 +23,41 @@ public class AutoTab extends Fragment {
 
 
 
-        button = view.findViewById(R.id.button_moveBonusNo);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                moveBonusNo();
-            }
-        });
-
-        button = view.findViewById(R.id.button_moveBonusYes);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                moveBonusYes();
-            }
-        });
-
-        button = view.findViewById(R.id.button_PickupNo);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                pickupNo();
-            }
-        });
-
-        button = view.findViewById(R.id.button_PickupYes);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                pickupYes();
-            }
-        });
+//        button = view.findViewById(R.id.button_moveBonusNo);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                moveBonusNo();
+//            }
+//        });
+//
+//        button = view.findViewById(R.id.button_moveBonusYes);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                moveBonusYes();
+//            }
+//        });
+//
+//        button = view.findViewById(R.id.button_PickupNo);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                pickupNo();
+//            }
+//        });
+//
+//        button = view.findViewById(R.id.button_PickupYes);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                pickupYes();
+//            }
+//        });
 
 
 
@@ -77,17 +77,17 @@ public class AutoTab extends Fragment {
 
 
 
-    public void moveBonusNo()  {
-        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void moveBonusYes()  {
-        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-
-    public void pickupNo()  {
-        FakeRadioGroup.buttonPressed( this, 0, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-    public void pickupYes()  {
-        getActivity();
-    }
+//    public void moveBonusNo()  {
+//        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//    }
+//    public void moveBonusYes()  {
+//        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//    }
+//
+//    public void pickupNo()  {
+//        FakeRadioGroup.buttonPressed( this, 0, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+//    }
+//    public void pickupYes()  {
+//        getActivity();
+//    }
 }

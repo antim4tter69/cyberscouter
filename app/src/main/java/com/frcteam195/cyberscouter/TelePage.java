@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity {
     private Button button;
+    private Button zone_1;
+    private Button zone_2;
+    private Button zone_3;
+    private Button zone_4;
+    private Button zone_5;
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int FIELD_ORIENTATION_RIGHT=0;
@@ -145,5 +150,25 @@ public class TelePage extends AppCompatActivity {
             MessageBox.showMessageBox(this, "Configuration Not Found Alert", "setMetricValue", "An error occurred trying to acquire current configuration.  Cannot continue.");
         }
         this.onResume();
+    }
+
+    public Void onClick (View v){
+        if(field_orientation==FIELD_ORIENTATION_LEFT)
+        {
+            zone_1.setEnabled(true);
+            zone_2.setEnabled(true);
+            zone_3.setEnabled(true);
+            zone_4.setEnabled(true);
+            zone_5.setEnabled(true);
+        }
+        else
+        {
+            zone_1.setEnabled(false);
+            zone_2.setEnabled(false);
+            zone_3.setEnabled(false);
+            zone_4.setEnabled(false);
+            zone_5.setEnabled(false);
+        }
+        return null;
     }
 }

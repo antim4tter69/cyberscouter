@@ -84,27 +84,42 @@
         android:layout_height="503dp"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.249"
+        app:layout_constraintHorizontal_bias="0.238"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_roleTag"
-        app:layout_constraintVertical_bias="0.932"
+        app:layout_constraintVertical_bias="0.937"
         app:srcCompat="@drawable/field_2020" />
 
     <Button
+        android:id="@+id/zone_3"
+        android:layout_width="400dp"
+        android:layout_height="468dp"
+        android:alpha=".5"
+        android:background="#8B4513"
+        android:text="3"
+        android:fromDegrees="10"
+        app:layout_constraintBottom_toTopOf="@+id/zone_5"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintHorizontal_bias="0.202"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
         android:id="@+id/zone_1"
-        android:layout_width="164dp"
-        android:layout_height="217dp"
+        android:layout_width="84dp"
+        android:layout_height="114dp"
         android:layout_weight="1"
         android:alpha=".5"
         android:background="#FFFF00"
         android:text="1"
+        app:layout_constraintBottom_toBottomOf="@id/imageView8"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toTopOf="@id/imageView8"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintBottom_toBottomOf="@id/imageView8" />
+        app:layout_constraintVertical_bias="0.204" />
 
     <Button
         android:id="@+id/zone_5"
@@ -112,55 +127,43 @@
         android:layout_height="234dp"
         android:alpha=".5"
         android:background="#00ff00"
+        android:rotation="45"
         android:text="5"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="@+id/imageView8"
         app:layout_constraintTop_toBottomOf="@+id/zone_1"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/zone_3"
-        android:layout_width="289dp"
-        android:layout_height="225dp"
-        android:alpha=".5"
-        android:background="#8B4513"
-        android:text="3"
-        app:layout_constraintBottom_toTopOf="@+id/zone_5"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/zone_1"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/zone_4"
-        android:layout_width="384dp"
-        android:layout_height="439dp"
+        android:layout_width="342dp"
+        android:layout_height="448dp"
         android:layout_marginBottom="44dp"
         android:alpha=".5"
         android:background="#AFEEEE"
         android:text="4"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.402"
         app:layout_constraintStart_toEndOf="@+id/zone_5"
         app:layout_constraintTop_toTopOf="@+id/imageView8"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/zone_2"
-        android:layout_width="242dp"
-        android:layout_height="93dp"
-        android:alpha=".55"
+        android:layout_width="161dp"
+        android:layout_height="92dp"
+        android:alpha=".5"
         android:background="#FFc0cb"
         android:text="2"
         app:layout_constraintBottom_toBottomOf="@+id/zone_3"
         app:layout_constraintEnd_toEndOf="@+id/zone_4"
+        app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toEndOf="@+id/zone_1"
         app:layout_constraintTop_toTopOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.039" />
 
     <LinearLayout
         android:layout_width="250dp"

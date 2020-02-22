@@ -163,4 +163,17 @@
     <string name="Inches">in</string>
     <string name="Pounds">lb</string>
     <string name="DriveType">Drive Type</string>
+    <string name="Motor">Motor Type</string>
+    <string name="DriveMotors"># of Drive Motors</string>
+    <string name="TopSpeed">Top Speed</string>
+    <string name="Wheel">Wheel Type</string>
+    <string name="NumberWheels">Number of Wheels</string>
+    <string name="GearRatio">Gear Ratio</string>
+    <string name="GearSpeeds">Gear Speeds</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="ProgLang">Programming Language</string>
+    <string name="Pneumatics">Pneumatics</string>
+    <string name="Colon">:</string>
 </resources>

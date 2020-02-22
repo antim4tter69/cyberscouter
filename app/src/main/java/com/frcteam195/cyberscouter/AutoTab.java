@@ -8,7 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 public class AutoTab extends Fragment {
     private Button button;
@@ -19,6 +22,10 @@ public class AutoTab extends Fragment {
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int NumberOfPreloadCount = 0;
     private int TypicalCellsStoredCount = 0;
+    private String[] SpinnerItems = {"Starting Position", "1", "2", "3", "4", "5", "6"};
+    //private Button findViewById(int button_PreloadCounter) {
+      //  return null;
+    //}
 
     @Nullable
     @Override
@@ -26,6 +33,11 @@ public class AutoTab extends Fragment {
         View view = inflater.inflate(R.layout.fragment_auto, container, false);
         _view = view;
 
+
+
+        Spinner dropdown = view.findViewById(R.id.spinner_StartPosition);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, SpinnerItems);
+        dropdown.setAdapter(adapter);
 
 
         button = view.findViewById(R.id.button_moveBonusNo);
@@ -36,6 +48,7 @@ public class AutoTab extends Fragment {
                 moveBonusNo();
             }
         });
+        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = view.findViewById(R.id.button_moveBonusYes);
         button.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +58,7 @@ public class AutoTab extends Fragment {
                 moveBonusYes();
             }
         });
+        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = view.findViewById(R.id.button_PickupNo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +68,7 @@ public class AutoTab extends Fragment {
                 pickupNo();
             }
         });
+        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = view.findViewById(R.id.button_PickupYes);
         button.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +78,44 @@ public class AutoTab extends Fragment {
                 pickupYes();
             }
         });
+        defaultButtonTextColor = button.getCurrentTextColor();
+
+        button = view.findViewById(R.id.button_PreloadMinus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                numberOfPreloadMinus();
+            }
+        });
+
+        button = view.findViewById(R.id.button_PreloadPlus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                numberOfPreloadPlus();
+            }
+        });
+
+        button = view.findViewById(R.id.button_TypicalCellsStoredMinus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                typicalCellsStoredMinus();
+            }
+        });
+
+        button = view.findViewById(R.id.button_TypicalCellsStoredPlus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                typicalCellsStoredPlus();
+            }
+        });
+
 
 
 
@@ -97,6 +150,28 @@ public class AutoTab extends Fragment {
     }
 
     public void numberOfPreloadMinus() {
-        
+        button = _view.findViewById(R.id.button_PreloadCounter);
+        if (NumberOfPreloadCount > 0)
+            NumberOfPreloadCount --;
+        button.setText(String.valueOf(NumberOfPreloadCount));
     }
+    public void numberOfPreloadPlus() {
+        button = _view.findViewById(R.id.button_PreloadCounter);
+        NumberOfPreloadCount ++;
+        button.setText(String.valueOf(NumberOfPreloadCount));
+    }
+    public void typicalCellsStoredMinus() {
+        button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
+        if (TypicalCellsStoredCount > 0)
+            TypicalCellsStoredCount --;
+        button.setText(String.valueOf(TypicalCellsStoredCount));
+    }
+
+    public void typicalCellsStoredPlus() {
+        button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
+        TypicalCellsStoredCount ++;
+        button.setText(String.valueOf(TypicalCellsStoredCount));
+    }
+
+
 }

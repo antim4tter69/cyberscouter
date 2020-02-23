@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class EndPage extends AppCompatActivity {
@@ -24,12 +25,17 @@ public class EndPage extends AppCompatActivity {
     private final int[] playedDefenseButtons = {R.id.button_PlayedDefenseNo, R.id.button_PlayedDefenseYes};
     private final int[] climbStatusButtons = {R.id.button_Climbed, R.id.button_AttemptedClimb, R.id.button_BusyClimb, R.id.button_ParkedClimb};
 
-    
+    private int currentCommStatusColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_page);
+
+        Intent intent = getIntent();
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
+
 
         button = findViewById(R.id.button_Previous);
         button.setOnClickListener(new View.OnClickListener() {
@@ -267,6 +273,7 @@ public class EndPage extends AppCompatActivity {
 
     public void summaryQuestionsPage(){
         Intent intent = new Intent(this, SubmitPage.class);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
 
     }
@@ -341,6 +348,9 @@ public class EndPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 3, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
-
+    private void updateStatusIndicator(int color) {
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        BluetoothComm.updateStatusIndicator(iv, color);
+    }
 
 }

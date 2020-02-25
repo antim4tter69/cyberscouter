@@ -173,6 +173,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         } else {
             Intent intent = new Intent(this, AutoPage.class);
             intent.putExtra("field_orientation", field_orientation);
+            intent.putExtra("commstatuscolor", currentCommStatusColor);
             startActivity(intent);
 
         }

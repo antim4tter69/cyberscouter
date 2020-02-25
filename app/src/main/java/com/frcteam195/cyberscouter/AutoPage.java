@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AutoPage extends AppCompatActivity {
@@ -20,6 +21,7 @@ public class AutoPage extends AppCompatActivity {
     private int lowerGoalCount = 0;
 
     private int field_orientation;
+    private int currentCommStatusColor;
 
 
     @Override
@@ -29,6 +31,9 @@ public class AutoPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         field_orientation = intent.getIntExtra("field_orientation", 0);
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
+
 
         button = findViewById(R.id.button_startMatch);
         button.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +176,7 @@ public class AutoPage extends AppCompatActivity {
 
         Intent intent = new Intent(this, TelePage.class);
         intent.putExtra("field_orientation", field_orientation);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 
@@ -257,5 +263,9 @@ public class AutoPage extends AppCompatActivity {
         button.setText(String.valueOf(lowerGoalCount));
     }
 
+    private void updateStatusIndicator(int color) {
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        BluetoothComm.updateStatusIndicator(iv, color);
+    }
 }
 

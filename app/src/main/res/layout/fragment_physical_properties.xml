@@ -199,6 +199,8 @@
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
+        android:text="@string/ZeroText"
+        android:textSize="40sp"
         app:layout_constraintStart_toEndOf="@+id/motorMinusButton"
         app:layout_constraintTop_toBottomOf="@+id/numberOfMotor" />
 
@@ -246,6 +248,8 @@
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
+        android:text="@string/ZeroText"
+        android:textSize="40sp"
         app:layout_constraintStart_toEndOf="@+id/wheelsMinusButton"
         app:layout_constraintTop_toBottomOf="@+id/numberOfWheels" />
 

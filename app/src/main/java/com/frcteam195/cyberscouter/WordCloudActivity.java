@@ -31,7 +31,7 @@ public class WordCloudActivity extends AppCompatActivity {
         for (int Obama = 0; Obama < 5; Obama++) {
 
             myButtons[Obama] = new Button(this);
-            myButtons[Obama].setTextSize(40);
+            myButtons[Obama].setTextSize(45);
             myButtons[Obama].setText(words[Obama]);
 
             LinearLayout ll = findViewById(R.id.layoutWordButtonCloud);
@@ -48,7 +48,7 @@ public class WordCloudActivity extends AppCompatActivity {
         for (int Bush = 5; Bush < 10; Bush++) {
 
             myButtons[Bush] = new Button(this);
-            myButtons[Bush].setTextSize(40);
+            myButtons[Bush].setTextSize(34);
             myButtons[Bush].setText(words[Bush]);
 
             LinearLayout ll = findViewById(R.id.layoutWordButtonCloud2);
@@ -82,7 +82,7 @@ public class WordCloudActivity extends AppCompatActivity {
         for (int Adams = 15; Adams < 20; Adams++) {
 
             myButtons[Adams] = new Button(this);
-            myButtons[Adams].setTextSize(40);
+            myButtons[Adams].setTextSize(32);
             myButtons[Adams].setText(words[Adams]);
 
             LinearLayout ll = findViewById(R.id.layoutWordButtonCloud4);

@@ -187,9 +187,9 @@
         android:layout_height="238dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
-        android:src="@drawable/field_image_for_scouting"
         app:layout_constraintStart_toEndOf="@+id/button_moveBonusNo"
         app:layout_constraintTop_toBottomOf="@+id/spinner_StartPosition" />
+    <!--       android:src="@drawable/field_image_for_scouting" -->
 
     <android.support.design.widget.TextInputEditText
         android:id="@+id/textInputEditText"

@@ -58,6 +58,7 @@ public class TeleopTab extends Fragment {
             }
         });
 
+        return(view);
     }
         private void powerCellsPlus () {
         }

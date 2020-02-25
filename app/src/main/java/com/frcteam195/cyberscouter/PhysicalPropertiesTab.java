@@ -133,27 +133,27 @@ public class PhysicalPropertiesTab extends Fragment {
     }
 
     private void motorMinusButton(){
-        button = _view.findViewById(R.id.button_numberOfMotor);
+        button = _view.findViewById(R.id.numberOfMotorsButton);
         if (numberOfMotors > 0)
             numberOfMotors --;
         button.setText(String.valueOf(numberOfMotors));
     }
 
     private void motorPlusButton(){
-        button = _view.findViewById(R.id.button_numberOfMotor);
+        button = _view.findViewById(R.id.numberOfMotorsButton);
             numberOfMotors ++;
         button.setText(String.valueOf(numberOfMotors));
     }
 
     private void wheelsMinusButton(){
-        button = _view.findViewById(R.id.button_numberOfWheels);
+        button = _view.findViewById(R.id.numberOfWheelsButton);
         if (numberOfWheels > 0)
             numberOfWheels --;
         button.setText(String.valueOf(numberOfWheels));
     }
 
     private void wheelsPlusButton(){
-        button = _view.findViewById(R.id.button_numberOfWheels);
+        button = _view.findViewById(R.id.numberOfWheelsButton);
             numberOfWheels ++;
         button.setText(String.valueOf(numberOfWheels));
     }

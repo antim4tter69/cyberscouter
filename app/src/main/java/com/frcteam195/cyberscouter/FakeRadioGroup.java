@@ -8,7 +8,7 @@ import android.widget.Button;
 public class FakeRadioGroup {
     private static Button button;
 
-    static void buttonDisplay(Activity acty, int val, int[] bs, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor) {
+    static public void buttonDisplay(Activity acty, int val, int[] bs, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor) {
 
         for(int i = 0 ; i<bs.length ; ++i){
             button = acty.findViewById(bs[i]);
@@ -20,7 +20,7 @@ public class FakeRadioGroup {
         }
     }
 
-    static void buttonPressed(Activity acty, int val, int[] bs, String col, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor){
+    static public void buttonPressed(Activity acty, int val, int[] bs, String col, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor){
         for(int i = 0 ; i<bs.length ; ++i){
             button = acty.findViewById(bs[i]);
             if(-1 != val && i == val) {
@@ -37,7 +37,7 @@ public class FakeRadioGroup {
         }
     }
 
-    static void buttonDisplay(Activity acty, View view, int val, int[] bs, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor) {
+    static public void buttonDisplay(Activity acty, View view, int val, int[] bs, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor) {
 
         for(int i = 0 ; i<bs.length ; ++i){
             button = view.findViewById(bs[i]);
@@ -49,7 +49,7 @@ public class FakeRadioGroup {
         }
     }
 
-    static void buttonPressed(Activity acty, View view, int val, int[] bs, String col, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor){
+    static public void buttonPressed(Activity acty, View view, int val, int[] bs, String col, int SELECTED_BUTTON_TEXT_COLOR, int defaultButtonTextColor){
         for(int i = 0 ; i<bs.length ; ++i){
             button = view.findViewById(bs[i]);
             if(-1 != val && i == val) {

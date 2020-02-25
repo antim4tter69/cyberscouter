@@ -153,6 +153,7 @@
     <string name="AttemptedText">Attempted</string>
     <string name="ClimbedText">Climbed</string>
     <string name="ClimbPosition">Climb Position</string>
+    <string name="AutoSummary">Auto Summary</string>
     <string name="connection_indicator_desc">Green=Bluetooth Connected, Yellow=Network Connected, Red=Not Connected</string>
 
     <string name="Size">Size</string>

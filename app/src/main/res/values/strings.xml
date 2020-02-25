@@ -177,4 +177,14 @@
     <string name="ProgLang">Programming Language</string>
     <string name="Pneumatics">Pneumatics</string>
     <string name="Colon">:</string>
+
+
+    <string name="oneOne">1</string>
+    <string name="twoTwo">2</string>
+    <string name="threeThree">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="Continue">Continue</string>
+    <string name="LongCrap">Please Select a Starting Position to Continue</string>
 </resources>

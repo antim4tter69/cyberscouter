@@ -9,16 +9,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SubmitPage extends AppCompatActivity {
     private Button button;
     private int g_matchScoutingID;
+    private int currentCommStatusColor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_page);
+
+        Intent intent = getIntent();
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
+
 
         button = findViewById(R.id.Button_Previous);
         button.setOnClickListener(new View.OnClickListener() {
@@ -118,5 +126,9 @@ public class SubmitPage extends AppCompatActivity {
         });
         messageBox.show();
 
+    }
+    private void updateStatusIndicator(int color) {
+        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        BluetoothComm.updateStatusIndicator(iv, color);
     }
 }

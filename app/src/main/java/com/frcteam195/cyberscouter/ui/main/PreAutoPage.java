@@ -36,6 +36,15 @@ public class PreAutoPage {
                 }
             });
 
+        button = view.findViewById(R.id.startbutton1);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                ();
+            }
+        });
+
         button = view.findViewById(R.id.startbutton2);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -130,7 +139,7 @@ public class PreAutoPage {
     }
 
     public void startPositions()  {
-        FakeRadioGroup.buttonPressed( this, 0, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     }

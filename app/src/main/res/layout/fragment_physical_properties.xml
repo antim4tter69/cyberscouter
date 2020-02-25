@@ -182,27 +182,25 @@
         android:text="@string/MinusButton"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/height"
-        app:layout_constraintTop_toTopOf="@+id/button_numberOfMotor" />
+        app:layout_constraintTop_toTopOf="@+id/startbutton3" />
 
     <Button
-        android:id="@+id/motorPlusButton"
+        android:id="@+id/startbutton2"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/button_numberOfMotor"
-        app:layout_constraintTop_toTopOf="@+id/motorMinusButton" />
+        app:layout_constraintStart_toEndOf="@+id/startbutton3"
+        app:layout_constraintTop_toTopOf="@+id/startbutton1" />
 
     <Button
-        android:id="@+id/button_numberOfMotor"
+        android:id="@+id/startbutton3"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        android:text="@string/ZeroText"
-        android:textSize="40sp"
-        app:layout_constraintStart_toEndOf="@+id/motorMinusButton"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfMotor" />
+        app:layout_constraintStart_toEndOf="@+id/startbutton1"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
         android:id="@+id/numberOfMotor"
@@ -219,11 +217,11 @@
         android:layout_height="40dp"
         android:text="@string/NumberWheels"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/motorMinusButton"
+        app:layout_constraintStart_toStartOf="@+id/startbutton1"
         app:layout_constraintTop_toBottomOf="@+id/heightInput" />
 
     <Button
-        android:id="@+id/wheelsMinusButton"
+        android:id="@+id/startbutton5"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="175dp"
@@ -234,13 +232,13 @@
         app:layout_constraintTop_toTopOf="@+id/button_numberOfWheels" />
 
     <Button
-        android:id="@+id/wheelsPlusButton"
+        android:id="@+id/startbutton6"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/button_numberOfWheels"
-        app:layout_constraintTop_toTopOf="@+id/wheelsMinusButton" />
+        app:layout_constraintStart_toEndOf="@+id/button11"
+        app:layout_constraintTop_toTopOf="@+id/startbutton5" />
 
     <Button
         android:id="@+id/button_numberOfWheels"
@@ -248,10 +246,8 @@
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
         android:background="#FFFFFF"
-        android:text="@string/ZeroText"
-        android:textSize="40sp"
-        app:layout_constraintStart_toEndOf="@+id/wheelsMinusButton"
-        app:layout_constraintTop_toBottomOf="@+id/numberOfWheels" />
+        app:layout_constraintStart_toEndOf="@+id/startbutton5"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <TextView
         android:id="@+id/wheelType"
@@ -360,8 +356,8 @@
         android:layout_height="40dp"
         android:text="@string/Pneumatics"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/gearSpeed1"
-        app:layout_constraintTop_toTopOf="@+id/motorPlusButton" />
+        app:layout_constraintStart_toStartOf="@+id/button12"
+        app:layout_constraintTop_toTopOf="@+id/startbutton2" />
 
     <Button
         android:id="@+id/pneumaticsYes"
@@ -370,8 +366,8 @@
         android:layout_marginStart="10dp"
         android:text="@string/YesButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/pneumatics"
-        app:layout_constraintTop_toBottomOf="@+id/motorPlusButton" />
+        app:layout_constraintStart_toStartOf="@+id/textView31"
+        app:layout_constraintTop_toBottomOf="@+id/startbutton2" />
 
     <Button
         android:id="@+id/pneumaticsNo"

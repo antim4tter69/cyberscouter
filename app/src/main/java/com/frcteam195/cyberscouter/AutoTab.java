@@ -120,18 +120,6 @@ public class AutoTab extends Fragment {
         return view;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
     public void moveBonusNo()  {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
@@ -169,21 +157,4 @@ public class AutoTab extends Fragment {
         TypicalCellsStoredCount ++;
         button.setText(String.valueOf(TypicalCellsStoredCount));
     }
-
-
-=======
-//    public void moveBonusNo()  {
-//        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-//    }
-//    public void moveBonusYes()  {
-//        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-//    }
-//
-//    public void pickupNo()  {
-//        FakeRadioGroup.buttonPressed( this, 0, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-//    }
-//    public void pickupYes()  {
-//        getActivity();
-//    }
->>>>>>> 25d325851c32df7cc0d1855dad4e81e734cd1966
 }

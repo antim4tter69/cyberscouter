@@ -19,6 +19,8 @@ public class TelePage extends AppCompatActivity {
     private Button zone_3;
     private Button zone_4;
     private Button zone_5;
+    private ImageView imageView8;
+    private ImageView imageView9;
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int FIELD_ORIENTATION_RIGHT=0;
@@ -69,6 +71,107 @@ public class TelePage extends AppCompatActivity {
         Stage_2 = findViewById(R.id.Stage_2);
         Stage_2 . setFormat("Time: %s");
         Stage_2 . setBase(SystemClock.elapsedRealtime());
+
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+
+        if(csm.getAllianceStationID() < 4) {
+            if(field_orientation==FIELD_ORIENTATION_LEFT)
+            {
+                button = findViewById(R.id.zone_1);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_2);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_3);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_4);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_5);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+            }
+            else
+            {
+                button = findViewById(R.id.zone_1);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_2);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_3);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_4);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_5);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+            }
+        } else{
+            if(field_orientation==FIELD_ORIENTATION_LEFT)
+            {
+                button = findViewById(R.id.zone_1);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_2);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_3);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_4);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_5);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                button = findViewById(R.id.zone_1);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_2);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_3);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_4);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_5);
+                button.setEnabled(false);
+                button.setVisibility(View.VISIBLE);
+            }
+        }
 
     }
     public void startStage_2 (View V){
@@ -158,25 +261,6 @@ public class TelePage extends AppCompatActivity {
         this.onResume();
     }
 
-    public Void onClick (View v){
-        if(field_orientation==FIELD_ORIENTATION_LEFT)
-        {
-            zone_1.setEnabled(true);
-            zone_2.setEnabled(true);
-            zone_3.setEnabled(true);
-            zone_4.setEnabled(true);
-            zone_5.setEnabled(true);
-        }
-        else
-        {
-            zone_1.setEnabled(false);
-            zone_2.setEnabled(false);
-            zone_3.setEnabled(false);
-            zone_4.setEnabled(false);
-            zone_5.setEnabled(false);
-        }
-        return null;
-    }
     private void updateStatusIndicator(int color) {
         ImageView iv = findViewById(R.id.imageView_btIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);

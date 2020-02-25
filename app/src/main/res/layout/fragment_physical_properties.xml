@@ -11,8 +11,8 @@
         android:id="@+id/size"
         android:layout_width="80dp"
         android:layout_height="60dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:text="@string/Size"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,30 +177,32 @@
         android:id="@+id/motorMinusButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:text="@string/MinusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/height"
-        app:layout_constraintTop_toTopOf="@+id/startbutton3" />
+        app:layout_constraintStart_toStartOf="@+id/numberOfMotor"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfMotor" />
 
     <Button
-        android:id="@+id/startbutton2"
+        android:id="@+id/wheelsPlusButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/startbutton3"
-        app:layout_constraintTop_toTopOf="@+id/startbutton1" />
+        app:layout_constraintEnd_toEndOf="@+id/numberOfWheels"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfWheels" />
 
     <Button
-        android:id="@+id/startbutton3"
+        android:id="@+id/numberOfMotorsButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:background="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/startbutton1"
-        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+        app:layout_constraintEnd_toStartOf="@+id/motorPlusButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/motorMinusButton"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfMotor" />
 
     <TextView
         android:id="@+id/numberOfMotor"
@@ -215,39 +217,42 @@
         android:id="@+id/numberOfWheels"
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/NumberWheels"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/startbutton1"
-        app:layout_constraintTop_toBottomOf="@+id/heightInput" />
+        app:layout_constraintStart_toStartOf="@+id/motorMinusButton"
+        app:layout_constraintTop_toBottomOf="@+id/motorMinusButton" />
 
     <Button
-        android:id="@+id/startbutton5"
+        android:id="@+id/wheelsMinusButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:text="@string/MinusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/weight"
-        app:layout_constraintTop_toTopOf="@+id/button_numberOfWheels" />
+        app:layout_constraintStart_toStartOf="@+id/numberOfWheels"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfWheels" />
 
     <Button
-        android:id="@+id/startbutton6"
+        android:id="@+id/motorPlusButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/button11"
-        app:layout_constraintTop_toTopOf="@+id/startbutton5" />
+        app:layout_constraintEnd_toEndOf="@+id/numberOfMotor"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfMotor" />
 
     <Button
-        android:id="@+id/button_numberOfWheels"
+        android:id="@+id/numberOfWheelsButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:background="#FFFFFF"
-        app:layout_constraintStart_toEndOf="@+id/startbutton5"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintEnd_toStartOf="@+id/wheelsPlusButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/wheelsMinusButton"
+        app:layout_constraintTop_toBottomOf="@+id/numberOfWheels" />
 
     <TextView
         android:id="@+id/wheelType"
@@ -354,30 +359,31 @@
         android:id="@+id/pneumatics"
         android:layout_width="200dp"
         android:layout_height="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/Pneumatics"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/button12"
-        app:layout_constraintTop_toTopOf="@+id/startbutton2" />
+        app:layout_constraintStart_toStartOf="@+id/weightInput"
+        app:layout_constraintTop_toBottomOf="@+id/weightInput" />
 
     <Button
         android:id="@+id/pneumaticsYes"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
         android:text="@string/YesButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textView31"
-        app:layout_constraintTop_toBottomOf="@+id/startbutton2" />
+        app:layout_constraintStart_toStartOf="@+id/pneumatics"
+        app:layout_constraintTop_toBottomOf="@+id/pneumatics" />
 
     <Button
         android:id="@+id/pneumaticsNo"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:text="@string/NoButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/pneumaticsYes"
-        app:layout_constraintTop_toTopOf="@+id/pneumaticsYes" />
+        app:layout_constraintEnd_toEndOf="@+id/pneumatics"
+        app:layout_constraintTop_toBottomOf="@+id/pneumatics" />
 
     <EditText
         android:id="@+id/gearRatio1"

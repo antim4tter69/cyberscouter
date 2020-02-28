@@ -1,5 +1,6 @@
 package com.frcteam195.cyberscouter.ui.main;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,85 +16,84 @@ import com.frcteam195.cyberscouter.CyberScouterContract;
 import com.frcteam195.cyberscouter.FakeRadioGroup;
 import com.frcteam195.cyberscouter.R;
 
-public class PreAutoPage extends Fragment {
+public class PreAutoPage extends AppCompatActivity {
     private Button button;
     private final int[] startPositionButtons = {R.id.startbutton1, R.id.startbutton2, R.id.startbutton3, R.id.startbutton4, R.id.startbutton5, R.id.startbutton6};
     private final int[] didNotShowButtons = {R.id.didntshowyesbutton, R.id.didntshownobutton};
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    View _view;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_auto, container, false);
-        _view = view;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pre_auto_page);
 
 
-//        button = view.findViewById(R.id.startbutton1);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    ();
-//                }
-//            });
-//
-//        button = view.findViewById(R.id.startbutton1);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                ();
-//            }
-//        });
-//
-//        button = view.findViewById(R.id.startbutton2);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    ();
-//                }
-//            });
-//
-//        button = view.findViewById(R.id.startbutton3);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//                @Override
-//                public void onClick(View v) {
-//                    ();
-//                }
-//            });
-//
-//        button = view.findViewById(R.id.startbutton4);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                ();
-//            }
-//        });
-//
-//        button = view.findViewById(R.id.startbutton5);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                ();
-//            }
-//        });
-//
-//        button = view.findViewById(R.id.startbutton6);
-//        button.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                ();
-//            }
-//        });
-//
-        button = view.findViewById(R.id.didntshownobutton);
+        button = findViewById(R.id.startbutton1);
+        button.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+        button = findViewById(R.id.startbutton1);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        button = findViewById(R.id.startbutton2);
+        button.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+        button = findViewById(R.id.startbutton3);
+        button.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
+        button = findViewById(R.id.startbutton4);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        button = findViewById(R.id.startbutton5);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        button = findViewById(R.id.startbutton6);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        button = findViewById(R.id.didntshownobutton);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -102,7 +102,7 @@ public class PreAutoPage extends Fragment {
             }
         });
 
-        button = view.findViewById(R.id.didntshowyesbutton);
+        button = findViewById(R.id.didntshowyesbutton);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -111,17 +111,16 @@ public class PreAutoPage extends Fragment {
             }
         });
 
-        return view;
     }
 
     public void didntShowNo()  {
-        FakeRadioGroup.buttonPressed(getActivity(),  _view,0, didNotShowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this,0, didNotShowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void didntShowYes()  {
-        FakeRadioGroup.buttonPressed(getActivity(), _view,1, didNotShowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this,1, didNotShowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void startPositions()  {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 }

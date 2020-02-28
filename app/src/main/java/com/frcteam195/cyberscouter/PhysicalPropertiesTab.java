@@ -160,31 +160,31 @@ public class PhysicalPropertiesTab extends Fragment {
 
     private void gearSpeed1(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,gearSpeedButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELECTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void gearSpeed2(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,gearSpeedButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELECTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void gearSpeed3(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,2,gearSpeedButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELECTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void pneumaticsYes(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,pneumaticsYNButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void pneumaticsNo(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,pneumaticsYNButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 }

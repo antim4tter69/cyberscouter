@@ -220,11 +220,11 @@ public class AutoPage extends AppCompatActivity {
 
 
     public void penaltiesYes() {
-        FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void penaltiesNo() {
-        FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTIES, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
 
     }
 

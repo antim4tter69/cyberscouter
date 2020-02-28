@@ -2,7 +2,6 @@ package com.frcteam195.cyberscouter;
 
 import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,7 +21,7 @@ import java.util.Locale;
 import java.util.Vector;
 
 class CyberScouterMatchScouting {
-    public final static String MATCH_SCOUTING_UPDATED_FILTER = "frcteam195_cyberscoutermatchscouting_match_scouting_updated_intent_filter";
+    final static String MATCH_SCOUTING_UPDATED_FILTER = "frcteam195_cyberscoutermatchscouting_match_scouting_updated_intent_filter";
 
     private static boolean webQueryInProgress = false;
     private static long lastUpdateChecksum = 0;
@@ -37,10 +36,7 @@ class CyberScouterMatchScouting {
     private String team;
     private int teamMatchNo;
     private int allianceStationID;
-    private boolean matchEnded;
-    private int scoutingStatus;
-    private int areasToReview;
-    private boolean complete;
+
     private int autoStartPos;
     private int autoDidNotShow;
     private int autoMoveBonus;
@@ -48,19 +44,16 @@ class CyberScouterMatchScouting {
     private int autoBallOuter;
     private int autoBallInner;
     private int autoPenalty;
+
     private int teleBallLowZone1;
     private int teleBallOuterZone1;
     private int teleBallInnerZone1;
-    private int teleBallLowZone2;
     private int teleBallOuterZone2;
     private int teleBallInnerZone2;
-    private int teleBallLowZone3;
     private int teleBallOuterZone3;
     private int teleBallInnerZone3;
-    private int teleBallLowZone4;
     private int teleBallOuterZone4;
     private int teleBallInnerZone4;
-    private int teleBallLowZone5;
     private int teleBallOuterZone5;
     private int teleBallInnerZone5;
     private int teleWheelStage2Time;
@@ -69,19 +62,24 @@ class CyberScouterMatchScouting {
     private int teleWheelStage3Time;
     private int teleWheelStage3Status;
     private int teleWheelStage3Attempts;
+
     private int climbStatus;
     private int climbHeight;
     private int climbPosition;
     private int climbMoveOnBar;
     private int climbLevelStatus;
-    private int summHatchGrdPickup;
-    private int summLostComm;
+
     private int summBrokeDown;
+    private int summLostComm;
     private int summSubsystemBroke;
     private int summGroundPickup;
     private int summHopperLoad;
     private int summPlayedDefense;
     private int summDefPlayedAgainst;
+
+    private boolean matchEnded;
+    private int scoutingStatus;
+    private boolean complete;
     private int uploadStatus;
 
     public String toJSON() {
@@ -225,9 +223,39 @@ class CyberScouterMatchScouting {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
 
 
@@ -257,14 +285,43 @@ class CyberScouterMatchScouting {
                     csm.allianceStationID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID));
                     csm.matchEnded = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED)) == 1);
                     csm.scoutingStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS));
-                    csm.areasToReview = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW));
                     csm.complete = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE)) == 1);
                     csm.autoStartPos = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS));
                     csm.autoDidNotShow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
                     csm.autoMoveBonus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
+                    csm.autoBallLow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW));
+                    csm.autoBallOuter = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER));
+                    csm.autoBallInner = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER));
+                    csm.autoPenalty = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY));
+                    csm.teleBallLowZone1 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1));
+                    csm.teleBallOuterZone1 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1));
+                    csm.teleBallInnerZone1 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1));
+                    csm.teleBallOuterZone2 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2));
+                    csm.teleBallInnerZone2 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2));
+                    csm.teleBallOuterZone3 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3));
+                    csm.teleBallInnerZone3 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3));
+                    csm.teleBallOuterZone4 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4));
+                    csm.teleBallInnerZone4 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4));
+                    csm.teleBallOuterZone5 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5));
+                    csm.teleBallInnerZone5 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5));
+                    csm.teleWheelStage2Time = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME));
+                    csm.teleWheelStage2Status = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS));
+                    csm.teleWheelStage2Attempts = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS));
+                    csm.teleWheelStage3Time = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME));
+                    csm.teleWheelStage3Status = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS));
+                    csm.teleWheelStage3Attempts = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS));
+                    csm.climbStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS));
+                    csm.climbHeight = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT));
+                    csm.climbPosition = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION));
+                    csm.climbMoveOnBar = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR));
+                    csm.climbLevelStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS));
                     csm.summLostComm = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
                     csm.summBrokeDown = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN));
                     csm.summSubsystemBroke = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE));
+                    csm.summGroundPickup = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP));
+                    csm.summHopperLoad = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD));
+                    csm.summPlayedDefense = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE));
+                    csm.summDefPlayedAgainst = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST));
                     csm.uploadStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS));
 
                     csmv.add(csm);
@@ -288,28 +345,60 @@ class CyberScouterMatchScouting {
 
     private static void setMatch(SQLiteDatabase db, JSONObject jo) throws Exception {
 
-        long newRowId = 0;
         ContentValues values = new ContentValues();
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, jo.getInt("MatchScoutingID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, jo.getInt("EventID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, jo.getInt("MatchID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCH_NUMBER, jo.getInt("MatchNo"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, jo.optInt("ComputerID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, jo.optInt("ScouterID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, jo.optInt("ReviewerID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, jo.getString("Team"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, jo.optInt("TeamMatchNo"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, jo.getInt("AllianceStationID"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, jo.optInt("ScoutingStatus"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, jo.optInt("AutoStartPos"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.optInt("AutoDidNotShow"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.optInt("AutoMoveBonus"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, jo.optInt("SummLostComm"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, jo.optInt("SummBrokeDown"));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, jo.optInt("SummSubSystemBroke"));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, jo.getInt(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID, jo.getInt(CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID, jo.getInt(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHID));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCH_NUMBER, jo.getInt(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCH_NUMBER));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_REVIEWERID));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM, jo.getString(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAM));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, jo.getInt(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
 
-        newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
+        long newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
+        if(-1 == newRowId) {
+            throw(new Exception("An invalid row id was generated by the SQLite database insert command"));
+        }
     }
 
     static void deleteOldMatches(SQLiteDatabase db, int l_eventID) {
@@ -445,7 +534,7 @@ class CyberScouterMatchScouting {
         return (String.format(Locale.getDefault(), "%d matches inserted, %d matches updated", inserted, updated));
     }
 
-    static public void getMatchesWebService(final Activity activity, int eventId) {
+    static void getMatchesWebService(final Activity activity, int eventId) {
 
         if (webQueryInProgress)
             return;
@@ -471,7 +560,7 @@ class CyberScouterMatchScouting {
             @Override
             public void onErrorResponse(VolleyError error) {
                 webQueryInProgress = false;
-                String msg = "Unknown error type";
+                String msg;
                 if (null == error.networkResponse) {
                     msg = error.getMessage();
                 } else {
@@ -484,115 +573,115 @@ class CyberScouterMatchScouting {
         });
 
         rq.add(stringRequest);
-        return;
     }
 
 
     int getMatchScoutingID() {
         return matchScoutingID;
     }
-
     int getEventID() {
         return eventID;
     }
-
     int getMatchID() {
         return matchID;
     }
-
+    int getMatchNo() {
+        return matchNo;
+    }
     int getComputerID() {
         return computerID;
     }
-
-    int getScouterID() {
-        return scouterID;
-    }
-
+    int getScouterID() { return scouterID; }
     int getReviewerID() {
         return reviewerID;
     }
-
     String getTeam() {
         return team;
     }
-
     int getTeamMatchNo() {
         return teamMatchNo;
     }
-
     int getAllianceStationID() {
         return allianceStationID;
-    }
-
-    boolean getMatchEnded() {
-        return matchEnded;
-    }
-
-    int getScoutingStatus() {
-        return scoutingStatus;
-    }
-
-    int getAreasToReview() {
-        return areasToReview;
-    }
-
-    boolean getComplete() {
-        return complete;
     }
 
     int getAutoStartPos() {
         return autoStartPos;
     }
-
     int getAutoDidNotShow() {
         return autoDidNotShow;
     }
-
     int getAutoMoveBonus() {
         return autoMoveBonus;
     }
+    int getAutoBallLow() { return autoBallLow; }
+    int getAutoBallOuter() { return autoBallOuter; }
+    int getAutoBallInner() { return autoBallInner; }
+    int getAutoPenalty() { return autoPenalty; }
 
-    int getSummHatchGrdPickup() {
-        return summHatchGrdPickup;
-    }
+    int getTeleBallLowZone1() { return teleBallLowZone1; }
+    int getTeleBallOuterZone1() { return teleBallOuterZone1; }
+    int getTeleBallInnerZone1() { return teleBallInnerZone1; }
+    int getTeleBallOuterZone2() { return teleBallOuterZone2; }
+    int getTeleBallInnerZone2() { return teleBallInnerZone2; }
+    int getTeleBallOuterZone3() { return teleBallOuterZone3; }
+    int getTeleBallInnerZone3() { return teleBallInnerZone3; }
+    int getTeleBallOuterZone4() { return teleBallOuterZone4; }
+    int getTeleBallInnerZone4() { return teleBallInnerZone4; }
+    int getTeleBallOuterZone5() { return teleBallOuterZone5; }
+    int getTeleBallInnerZone5() { return teleBallInnerZone5; }
+    int getTeleWheelStage2Time() { return teleWheelStage2Time; }
+    int getTeleWheelStage2Status() { return teleWheelStage2Status; }
+    int getTeleWheelStage2Attempts() { return teleWheelStage2Attempts; }
+    int getTeleWheelStage3Time() { return teleWheelStage3Time; }
+    int getTeleWheelStage3Status() { return teleWheelStage3Status; }
+    int getTeleWheelStage3Attempts() { return teleWheelStage3Attempts; }
+
+    int getClimbStatus() { return climbStatus; }
+    int getClimbHeight() { return climbHeight; }
+    int getClimbPosition() { return climbPosition; }
+    int getClimbMoveOnBar() { return climbMoveOnBar; }
+    int getClimbLevelStatus() { return climbLevelStatus; }
 
     int getSummLostComm() {
         return summLostComm;
     }
-
     int getSummBrokeDown() {
         return summBrokeDown;
     }
-
-    int getSummSubsystemBroke() {
-        return summSubsystemBroke;
-    }
+    int getSummSubsystemBroke() { return summSubsystemBroke; }
+    int getSummGroundPickup() { return summGroundPickup; }
+    int getSummHopperLoad() { return summHopperLoad; }
+    int getSummPlayedDefense() { return summPlayedDefense; }
+    int getSummDefPlayedAgainst() { return summDefPlayedAgainst; }
 
     int getUploadStatus() {
         return uploadStatus;
     }
+    boolean getMatchEnded() {
+        return matchEnded;
+    }
+    int getScoutingStatus() {
+        return scoutingStatus;
+    }
+    boolean getComplete() {
+        return complete;
+    }
 
-    public void setMatchScoutingID(int matchScoutingID) {
+
+    void setMatchScoutingID(int matchScoutingID) {
         this.matchScoutingID = matchScoutingID;
     }
-
-    public void setEventID(int eventID) {
+    void setEventID(int eventID) {
         this.eventID = eventID;
     }
-
-    public void setMatchID(int matchID) {
+    void setMatchID(int matchID) {
         this.matchID = matchID;
     }
-
-    public void setComputerID(int computerID) {
+    void setComputerID(int computerID) {
         this.computerID = computerID;
     }
-
-    public void setScouterID(int scouterID) {
+    void setScouterID(int scouterID) {
         this.scouterID = scouterID;
-    }
-
-    public int getMatchNo() {
-        return matchNo;
     }
 }

@@ -121,17 +121,17 @@ public class AutoTab extends Fragment {
     }
 
     public void moveBonusNo()  {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, moveBonusButtons, CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void moveBonusYes()  {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, moveBonusButtons, CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void pickupNo()  {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, pickupButtons, CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void pickupYes()  {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, pickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, pickupButtons, CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 
     public void numberOfPreloadMinus() {

@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 16;
-    public static final String DATABASE_NAME = "CyberScouter.db";
+    private static final int DATABASE_VERSION = 17;
+    private static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
             "CREATE TABLE " + CyberScouterContract.ConfigEntry.TABLE_NAME + " (" +
@@ -52,16 +52,12 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE2 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE3 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE4 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4 + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE5 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5 + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME + " INTEGER," +
@@ -75,14 +71,15 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " INTEGER)";
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " INTEGER)"
+            ;
 
     private static final String SQL_DELETE_MATCHES =
             "DROP TABLE IF EXISTS " + CyberScouterContract.MatchScouting.TABLE_NAME;
@@ -105,11 +102,52 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.Questions.COLUMN_NAME_EVENTID + " INTEGER," +
                     CyberScouterContract.Questions.COLUMN_NAME_QUESTIONNUMBER + " INTEGER," +
                     CyberScouterContract.Questions.COLUMN_NAME_QUESTIONTEXT + " TEXT," +
-                    CyberScouterContract.Questions.COLUMN_NAME_ANSWERS + " TEXT)";
+                    CyberScouterContract.Questions.COLUMN_NAME_ANSWERS + " TEXT)"
             ;
 
     private static final String SQL_DELETE_QUESTIONS =
             "DROP TABLE IF EXISTS " + CyberScouterContract.Questions.TABLE_NAME;
+
+    private static final String SQL_CREATE_TEAMS =
+            "CREATE TABLE " + CyberScouterContract.Teams.TABLE_NAME + " (" +
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM + " INTEGER PRIMARY KEY," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM_NAME + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM_LOCATION + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_WHEEL_TYPE_ID + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_DRIVE_TYPE_ID + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_MOTOR_TYPE_ID + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_LANGUAGE_ID + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_SPEED + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_GEAR_RATIO + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_LENGTH + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WIDTH + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID + " INTEGER)"
+            ;
+
+    private static final String SQL_DELETE_TEAMS =
+            "DROP TABLE IF EXISTS " + CyberScouterContract.Teams.TABLE_NAME;
 
     public CyberScouterDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

@@ -285,55 +285,55 @@ public class EndPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 1, lostCommButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void brokeDownNo() {
-        FakeRadioGroup.buttonPressed(this, 0, brokeDownButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_BROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, brokeDownButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void brokeDownYes() {
-        FakeRadioGroup.buttonPressed(this, 1, brokeDownButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_BROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, brokeDownButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void subSystemBrokeNo() {
-        FakeRadioGroup.buttonPressed(this, 0, subSystemBrokeButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUBSYSTEMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, subSystemBrokeButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void subSystemBrokeYes() {
-        FakeRadioGroup.buttonPressed(this, 1, subSystemBrokeButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUBSYSTEMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, subSystemBrokeButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void groundPickupNo() {
-        FakeRadioGroup.buttonPressed(this, 0, groundPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_GROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, groundPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void groundPickupYes() {
-        FakeRadioGroup.buttonPressed(this, 1, groundPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_GROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, groundPickupButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void hopperLoadNo() {
-        FakeRadioGroup.buttonPressed(this, 0, hopperLoadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_HOPPERLOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, hopperLoadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void hopperLoadYes() {
-        FakeRadioGroup.buttonPressed(this, 1, hopperLoadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_HOPPERLOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, hopperLoadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void defenseNone() {
-        FakeRadioGroup.buttonPressed(this, 0, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_DEFENSEPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void defenseWeak() {
-        FakeRadioGroup.buttonPressed(this, 1, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_DEFENSEPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void defenseStrong() {
-        FakeRadioGroup.buttonPressed(this, 2, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_DEFENSEPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 2, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelNo() {
-        FakeRadioGroup.buttonPressed(this, 0, levelButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_LEVEL, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, levelButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void levelYes() {
-        FakeRadioGroup.buttonPressed(this, 1, levelButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_LEVEL, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, levelButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void movedOnBarNo() {
-        FakeRadioGroup.buttonPressed(this, 0, movedOnBarButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_MOVEDONBAR, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, movedOnBarButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void movedOnBarYes() {
-        FakeRadioGroup.buttonPressed(this, 1, movedOnBarButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_MOVEDONBAR, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, movedOnBarButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void playedDefenseNo() {
-        FakeRadioGroup.buttonPressed(this, 0, playedDefenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 0, playedDefenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void playedDefenseYes() {
-        FakeRadioGroup.buttonPressed(this, 1, playedDefenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, 1, playedDefenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
     public void climbed() {
         FakeRadioGroup.buttonPressed(this, 0, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);

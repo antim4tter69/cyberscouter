@@ -1,15 +1,10 @@
 package com.frcteam195.cyberscouter.ui.main;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.frcteam195.cyberscouter.CyberScouterContract;
@@ -35,52 +30,43 @@ public class PreAutoPage extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-
+                    startPosition(1);
                 }
             });
-
-        button = findViewById(R.id.startbutton1);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
         button = findViewById(R.id.startbutton2);
         button.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
+            @Override
+            public void onClick(View v) {
+                startPosition(2);
+            }
+        });
 
         button = findViewById(R.id.startbutton3);
         button.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-
+                    startPosition(3);
                 }
             });
 
         button = findViewById(R.id.startbutton4);
         button.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    startPosition(4);
+                }
+            });
 
         button = findViewById(R.id.startbutton5);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
+                startPosition(5);
             }
         });
 
@@ -89,7 +75,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-
+                startPosition(6);
             }
         });
 
@@ -98,7 +84,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                didntShowNo();
+                didntShow(0);
             }
         });
 
@@ -107,20 +93,16 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                didntShowYes();
+                didntShow(1);
             }
         });
 
     }
 
-    public void didntShowNo()  {
+    public void didntShow(int val)  {
         FakeRadioGroup.buttonPressed(this,0, didNotShowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
-    public void didntShowYes()  {
-        FakeRadioGroup.buttonPressed(this,1, didNotShowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-    }
-
-    public void startPositions()  {
-        FakeRadioGroup.buttonPressed(this, 0, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_PICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    public void startPosition(int val)  {
+        FakeRadioGroup.buttonPressed(this, val, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 }

@@ -102,49 +102,49 @@ public class EndgameTab extends Fragment {
 
     private void yesCanTheyClimb() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,canTheyClimb,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_CANTHEYCLIMB,
+                CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 
     private void noCanTheyClimb() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,canTheyClimb,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_CANTHEYCLIMB,
+                CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 
     private void yesMoveOnBar() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,moveOnBar,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_MOVEONBAR,
+                CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 
     private void noMoveOnBar() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,moveOnBar,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_MOVEONBAR,
+                CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 
     private void yesLockingMechanism() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,lockingMechanism,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_LOCKINGMECHANISM,
+                CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 
     private void noLockingMechanism() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,lockingMechanism,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_LOCKINGMECHANISM,
+                CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 
     private void yesCenterClimb() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,centerClimb,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_CENTERCLIMB,
+                CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 
     private void noCenterClimb() {
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,centerClimb,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_CENTERCLIMB,
+                CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB,
                 SELECTED_BUTTON_TEXT_COLOR,defaultButtonTextColor);
     }
 }

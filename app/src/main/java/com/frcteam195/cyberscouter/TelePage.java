@@ -14,11 +14,16 @@ import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity {
     private Button button;
-    private Button zone_1;
-    private Button zone_2;
-    private Button zone_3;
-    private Button zone_4;
-    private Button zone_5;
+    private Button zone_1L;
+    private Button zone_2L;
+    private Button zone_3L;
+    private Button zone_4L;
+    private Button zone_5L;
+    private Button zone_1R;
+    private Button zone_2R;
+    private Button zone_3R;
+    private Button zone_4R;
+    private Button zone_5R;
     private ImageView imageView8;
     private ImageView imageView9;
     private int defaultButtonTextColor;
@@ -30,7 +35,6 @@ public class TelePage extends AppCompatActivity {
     private long pauseOffset;
     private boolean running;
     private int currentCommStatusColor;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,101 +83,273 @@ public class TelePage extends AppCompatActivity {
 
         CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
+        button = findViewById(R.id.zone_1L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(1);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_1R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(1);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_2L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(2);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_2R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(2);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_3L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(3);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_3R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(3);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_4L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(4);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_4R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(4);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_5L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(5);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_5R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(5);
+
+            }
+        });
+
         if(csm.getAllianceStationID() < 4) {
             if(field_orientation==FIELD_ORIENTATION_LEFT)
             {
-                button = findViewById(R.id.zone_1);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_1L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_2);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_2L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_3);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_3L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_4);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_4L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_5);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_5L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
+                button = findViewById(R.id.zone_1R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_2R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_3R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_4R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_5R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
             }
             else
             {
-                button = findViewById(R.id.zone_1);
+                button = findViewById(R.id.zone_1L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_2);
+                button = findViewById(R.id.zone_2L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_3);
+                button = findViewById(R.id.zone_3L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_4);
+                button = findViewById(R.id.zone_4L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_5);
+                button = findViewById(R.id.zone_5L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
+                button = findViewById(R.id.zone_1R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_2R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_3R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_4R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_5R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
             }
         } else{
             if(field_orientation==FIELD_ORIENTATION_LEFT)
             {
-                button = findViewById(R.id.zone_1);
+                button = findViewById(R.id.zone_1L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_2);
+                button = findViewById(R.id.zone_2L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_3);
+                button = findViewById(R.id.zone_3L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_4);
+                button = findViewById(R.id.zone_4L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_5);
+                button = findViewById(R.id.zone_5L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_1R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_2R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_3R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_4R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_5R);
+                button.setEnabled(true);
+                button.setVisibility(View.VISIBLE);
             }
             else
             {
-                button = findViewById(R.id.zone_1);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_1L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_2);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_2L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_3);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_3L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_4);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_4L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_5);
-                button.setEnabled(false);
+                button = findViewById(R.id.zone_5L);
+                button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
+
+                button = findViewById(R.id.zone_1R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_2R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_3R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_4R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
+
+                button = findViewById(R.id.zone_5R);
+                button.setEnabled(false);
+                button.setVisibility(View.INVISIBLE);
             }
         }
 
     }
+
+    private void zone_Clicked(int i) {
+    }
+
     public void startStage_2 (View V){
         if (!running){
             Stage_2.setBase(SystemClock.elapsedRealtime() - pauseOffset);

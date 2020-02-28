@@ -83,6 +83,96 @@ public class TelePage extends AppCompatActivity {
 
         CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
+        button = findViewById(R.id.zone_1L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(1);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_1R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(1);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_2L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(2);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_2R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(2);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_3L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(3);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_3R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(3);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_4L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(4);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_4R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(4);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_5L);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(5);
+
+            }
+        });
+
+        button = findViewById(R.id.zone_5R);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                zone_Clicked(5);
+
+            }
+        });
+
         if(csm.getAllianceStationID() < 4) {
             if(field_orientation==FIELD_ORIENTATION_LEFT)
             {
@@ -256,6 +346,10 @@ public class TelePage extends AppCompatActivity {
         }
 
     }
+
+    private void zone_Clicked(int i) {
+    }
+
     public void startStage_2 (View V){
         if (!running){
             Stage_2.setBase(SystemClock.elapsedRealtime() - pauseOffset);

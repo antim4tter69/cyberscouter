@@ -199,6 +199,8 @@
         android:layout_height="80dp"
         android:layout_marginTop="16dp"
         android:background="#FFFFFF"
+        android:text="@string/ZeroText"
+        android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/motorPlusButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/motorMinusButton"
@@ -247,8 +249,10 @@
         android:id="@+id/numberOfWheelsButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:background="#FFFFFF"
+        android:text="@string/ZeroText"
+        android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/wheelsPlusButton"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/wheelsMinusButton"
@@ -359,11 +363,12 @@
         android:id="@+id/pneumatics"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
         android:text="@string/Pneumatics"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/weightInput"
-        app:layout_constraintTop_toBottomOf="@+id/weightInput" />
+        app:layout_constraintStart_toStartOf="@+id/progLangPicker"
+        app:layout_constraintTop_toBottomOf="@+id/progLangPicker" />
 
     <Button
         android:id="@+id/pneumaticsYes"

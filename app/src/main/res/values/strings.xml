@@ -187,4 +187,10 @@
     <string name="six">6</string>
     <string name="Continue">Continue</string>
     <string name="LongCrap">Please Select a Starting Position to Continue</string>
+
+    <string name="canTheyClimb">Can They Climb?</string>
+    <string name="moveOnBar">Move On Bar?</string>
+    <string name="lockingMechansim">Locking Mechanism</string>
+    <string name="centerClimb">Center Climb?</string>
+    <string name="avgClimbHeight">Avg. Climb Height</string>
 </resources>

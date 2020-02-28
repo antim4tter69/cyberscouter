@@ -13,14 +13,17 @@ import android.widget.TextView;
 
 
 public class TeleopTab extends Fragment {
-    int[] Kennedy = {0};
-    int[] Lincoln = {0};
+    private Button button;
+    private View _view;
+    int Kennedy = 0;
+    int Lincoln = 0;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teleop, container, false);
+        _view = view;
 
         Button Washington = view.findViewById(R.id.button_powerCellsPlus);
         Washington.setOnClickListener(new View.OnClickListener() {
@@ -61,14 +64,28 @@ public class TeleopTab extends Fragment {
         return(view);
     }
         private void powerCellsPlus () {
+        button = _view.findViewById(R.id.textButton1);
+        Kennedy ++;
+        button.setText(String.valueOf(Kennedy));
         }
 
         private void powerCellsMinus () {
+            button = _view.findViewById(R.id.textButton1);
+            if (Kennedy > 0)
+            Kennedy --;
+            button.setText(String.valueOf(Kennedy));
         }
 
         private void maxCapacityPlus () {
+            button = _view.findViewById(R.id.textButton2);
+            Lincoln ++;
+            button.setText(String.valueOf(Lincoln));
         }
 
         private void maxCapacityMinus () {
+            button = _view.findViewById(R.id.textButton2);
+            if (Lincoln > 0)
+            Kennedy --;
+            button.setText(String.valueOf(Lincoln));
         }
     }

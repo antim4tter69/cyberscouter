@@ -18,7 +18,7 @@ public class PhysicalPropertiesTab extends Fragment {
     private final int[] pneumaticsYNButtons = {R.id.pneumaticsYes,R.id.pneumaticsNo};
     private View _view;
     private int defaultButtonTextColor;
-    private final int SELCTED_BUTTON_TEXT_COLOR = Color.GREEN;
+    private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int numberOfMotors = 0;
     private int numberOfWheels = 0;
     private String[] driveTypes = {"Kiwi", "Other"};
@@ -160,31 +160,31 @@ public class PhysicalPropertiesTab extends Fragment {
 
     private void gearSpeed1(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,gearSpeedButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELCTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void gearSpeed2(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,gearSpeedButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELCTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void gearSpeed3(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,2,gearSpeedButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELCTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.MatchScouting.COLUMN_NAME_GEARSPEED,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void pneumaticsYes(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,pneumaticsYNButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_PNEUMATICS,SELCTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.MatchScouting.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
     private void pneumaticsNo(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,pneumaticsYNButtons,
-                CyberScouterContract.MatchScouting.COLUMN_NAME_PNEUMATICS,SELCTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.MatchScouting.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 }

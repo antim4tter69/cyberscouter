@@ -71,6 +71,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    BroadcastReceiver mTeamsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String ret = intent.getStringExtra("cyberscouterteams");
+            updateTeams(ret);
+        }
+    };
+
     SQLiteDatabase _db = null;
 
     private int currentCommStatusColor = Color.LTGRAY;
@@ -117,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
         registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
+        registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
         CyberScouterUsers.getUsersRemote(this);
+        CyberScouterTeams.getTeamsRemote(this);
         CyberScouterConfig.getConfigRemote(this);
     }
 
@@ -680,5 +690,10 @@ public class MainActivity extends AppCompatActivity {
                     String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));
             e.printStackTrace();
         }
+    }
+
+    private void updateTeams(String teams) {
+        CyberScouterTeams.deleteTeams(_db);
+        CyberScouterTeams.setTeams(_db, teams);
     }
 }

@@ -181,25 +181,7 @@
         app:layout_constraintStart_toEndOf="@+id/button_PreloadPlus"
         app:layout_constraintTop_toBottomOf="@+id/button_TypicalCellsStoredMinus" />
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="495dp"
-        android:layout_height="238dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toEndOf="@+id/button_moveBonusNo"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_StartPosition" />
     <!--       android:src="@drawable/field_image_for_scouting" -->
-
-    <android.support.design.widget.TextInputEditText
-        android:id="@+id/textInputEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="8dp"
-        android:hint="Type here:"
-        app:layout_constraintStart_toEndOf="@+id/textView_TypicalCellsStored"
-        app:layout_constraintTop_toBottomOf="@+id/textView_AutoSummary" />
 
     <TextView
         android:id="@+id/textView_AutoSummary"
@@ -212,5 +194,28 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button_TypicalCellsStoredCounter"
         app:layout_constraintStart_toEndOf="@+id/textView_TypicalCellsStored" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="495dp"
+        android:layout_height="238dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/field_image_for_scouting"
+        app:layout_constraintStart_toEndOf="@+id/button_moveBonusNo"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_StartPosition" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Type Here"
+        android:inputType="textMultiLine"
+        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredPlus"
+        app:layout_constraintTop_toBottomOf="@+id/textView_AutoSummary" />
 
 </android.support.constraint.ConstraintLayout>

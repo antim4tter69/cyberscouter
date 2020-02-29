@@ -7,61 +7,6 @@
     tools:context=".EndPage">
 
     <Button
-        android:id="@+id/button_LostCommNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
-        app:layout_constraintTop_toBottomOf="@+id/textView_RobotProblem" />
-
-    <Button
-        android:id="@+id/button_BrokeDownNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
-        app:layout_constraintTop_toBottomOf="@+id/button_LostCommNo" />
-
-    <Button
-        android:id="@+id/button_SubSystemBrokeNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
-        app:layout_constraintTop_toBottomOf="@+id/button_BrokeDownNo" />
-
-    <Button
-        android:id="@+id/button_GroundPickupNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
-        app:layout_constraintTop_toBottomOf="@+id/button_SubSystemBrokeNo" />
-
-    <Button
-        android:id="@+id/button_HopperLoadNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
-        app:layout_constraintTop_toBottomOf="@+id/button_GroundPickupNo" />
-
-    <Button
         android:id="@+id/button_PlayedDefenseNo"
         android:layout_width="48dp"
         android:layout_height="48dp"
@@ -93,61 +38,6 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button_MovedOnBarNo"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button_LostCommYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
-        app:layout_constraintTop_toBottomOf="@+id/textView_RobotProblem" />
-
-    <Button
-        android:id="@+id/button_BrokeDownYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
-        app:layout_constraintTop_toBottomOf="@+id/button_LostCommYes" />
-
-    <Button
-        android:id="@+id/button_SubSystemBrokeYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
-        app:layout_constraintTop_toBottomOf="@+id/button_BrokeDownYes" />
-
-    <Button
-        android:id="@+id/button_GroundPickupYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
-        app:layout_constraintTop_toBottomOf="@+id/button_SubSystemBrokeYes" />
-
-    <Button
-        android:id="@+id/button_HopperLoadYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
-        app:layout_constraintTop_toBottomOf="@+id/button_GroundPickupYes" />
 
     <Button
         android:id="@+id/button_PlayedDefenseYes"
@@ -235,8 +125,8 @@
         android:id="@+id/textView_RobotProblem"
         android:layout_width="230dp"
         android:layout_height="56dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="256dp"
         android:text="@string/RobotProblemsText"
         android:textColor="@android:color/black"
         android:textSize="32sp"
@@ -247,88 +137,182 @@
         android:id="@+id/textView_LostComm"
         android:layout_width="128dp"
         android:layout_height="48dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="20dp"
         android:text="@string/LostCommText"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_RobotProblem" />
 
-    <TextView
-        android:id="@+id/textView_BrokeDown"
-        android:layout_width="128dp"
+    <Button
+        android:id="@+id/button_LostCommYes"
+        android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/BrokeDownText"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/YesButton"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_LostComm" />
+        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
+        app:layout_constraintTop_toBottomOf="@+id/textView_RobotProblem" />
+
+    <Button
+        android:id="@+id/button_SubSystemBrokeYes"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:text="@string/YesButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
+        app:layout_constraintTop_toBottomOf="@+id/button_BrokeDownYes" />
+
+    <Button
+        android:id="@+id/button_HopperLoadYes"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/YesButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
+        app:layout_constraintTop_toBottomOf="@+id/button_GroundPickupYes" />
+
+    <Button
+        android:id="@+id/button_SubSystemBrokeNo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:text="@string/NoButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
+        app:layout_constraintTop_toBottomOf="@+id/button_BrokeDownNo" />
+
+    <Button
+        android:id="@+id/button_GroundPickupNo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/NoButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
+        app:layout_constraintTop_toBottomOf="@+id/button_SubSystemBrokeNo" />
 
     <TextView
         android:id="@+id/textView_SubSystemBroke"
         android:layout_width="196dp"
         android:layout_height="48dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="56dp"
         android:text="@string/SubSystemText"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_BrokeDown" />
 
-    <TextView
-        android:id="@+id/textView_GroundPickup"
-        android:layout_width="172dp"
+    <Button
+        android:id="@+id/button_LostCommNo"
+        android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/GroundPickupText"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/NoButton"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_SubSystemBroke" />
+        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
+        app:layout_constraintTop_toBottomOf="@+id/textView_RobotProblem" />
 
     <TextView
         android:id="@+id/textView6_HopperLoad"
         android:layout_width="144dp"
         android:layout_height="48dp"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="40dp"
         android:text="@string/HopperLoadText"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_GroundPickup" />
 
     <TextView
+        android:id="@+id/textView_BrokeDown"
+        android:layout_width="128dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="124dp"
+        android:text="@string/BrokeDownText"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_LostComm" />
+
+    <TextView
+        android:id="@+id/textView_GroundPickup"
+        android:layout_width="172dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/GroundPickupText"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_SubSystemBroke" />
+
+    <Button
+        android:id="@+id/button_BrokeDownYes"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:text="@string/YesButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
+        app:layout_constraintTop_toBottomOf="@+id/button_LostCommYes" />
+
+    <Button
+        android:id="@+id/button_GroundPickupYes"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/YesButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/textView_LostComm"
+        app:layout_constraintTop_toBottomOf="@+id/button_SubSystemBrokeYes" />
+
+    <Button
+        android:id="@+id/button_BrokeDownNo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:text="@string/NoButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
+        app:layout_constraintTop_toBottomOf="@+id/button_LostCommNo" />
+
+    <Button
+        android:id="@+id/button_HopperLoadNo"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/NoButton"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/button_LostCommYes"
+        app:layout_constraintTop_toBottomOf="@+id/button_GroundPickupNo" />
+
+    <TextView
         android:id="@+id/textView_DefenseText"
         android:layout_width="350dp"
         android:layout_height="36dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginStart="576dp"
+        android:layout_marginTop="24dp"
         android:layout_marginBottom="128dp"
         android:text="@string/DefenseText"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button_Previous"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6_HopperLoad" />
-
-    <Button
-        android:id="@+id/button_DefenseNone"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/PreloadNoneButton"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_DefenseText" />
+        app:layout_constraintTop_toBottomOf="@+id/button_Climbed"
+        app:layout_constraintVertical_bias="0.155" />
 
     <Button
         android:id="@+id/button_DefenseWeak"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/WeakDefenseText"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/button_DefenseNone"
@@ -338,11 +322,22 @@
         android:id="@+id/button_DefenseStrong"
         android:layout_width="100dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:text="@string/StrongDefenseText"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/button_DefenseWeak"
+        app:layout_constraintTop_toBottomOf="@+id/textView_DefenseText" />
+
+    <Button
+        android:id="@+id/button_DefenseNone"
+        android:layout_width="100dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="568dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/PreloadNoneButton"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_DefenseText" />
 
     <TextView
@@ -458,5 +453,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/background_light" />
+
+    <TextView
+        android:id="@+id/textView_endgameMatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="64dp"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6_endgameTeam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_endgameMatch" />
 
 </android.support.constraint.ConstraintLayout>

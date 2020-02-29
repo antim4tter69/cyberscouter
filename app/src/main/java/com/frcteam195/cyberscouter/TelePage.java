@@ -5,14 +5,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class TelePage extends AppCompatActivity {
+public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragmentInteractionListener {
     private Button button;
     private Button zone_1L;
     private Button zone_2L;
@@ -28,13 +32,16 @@ public class TelePage extends AppCompatActivity {
     private ImageView imageView9;
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private int FIELD_ORIENTATION_RIGHT=0;
-    private int FIELD_ORIENTATION_LEFT=1;
+    private int FIELD_ORIENTATION_RIGHT = 0;
+    private int FIELD_ORIENTATION_LEFT = 1;
     private int field_orientation;
     private Chronometer Stage_2;
     private long pauseOffset;
     private boolean running;
     private int currentCommStatusColor;
+
+    private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+    private SQLiteDatabase _db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +49,9 @@ public class TelePage extends AppCompatActivity {
         setContentView(R.layout.activity_tele_page);
 
         Intent intent = getIntent();
-        field_orientation = intent.getIntExtra("field_orientation",field_orientation);
+        field_orientation = intent.getIntExtra("field_orientation", field_orientation);
         ImageView iv = findViewById(R.id.imageView8);
-        if(FIELD_ORIENTATION_RIGHT == field_orientation) {
+        if (FIELD_ORIENTATION_RIGHT == field_orientation) {
             iv.setImageResource(R.drawable.field_2020_flipped);
         }
         currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
@@ -73,8 +80,8 @@ public class TelePage extends AppCompatActivity {
         });
 
         Stage_2 = findViewById(R.id.Stage_2);
-        Stage_2 . setFormat("Time: %s");
-        Stage_2 . setBase(SystemClock.elapsedRealtime());
+        Stage_2.setFormat("Time: %s");
+        Stage_2.setBase(SystemClock.elapsedRealtime());
 
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -173,9 +180,8 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        if(csm.getAllianceStationID() < 4) {
-            if(field_orientation==FIELD_ORIENTATION_LEFT)
-            {
+        if (csm.getAllianceStationID() < 4) {
+            if (field_orientation == FIELD_ORIENTATION_LEFT) {
                 button = findViewById(R.id.zone_1L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
@@ -215,9 +221,7 @@ public class TelePage extends AppCompatActivity {
                 button = findViewById(R.id.zone_5R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
-            }
-            else
-            {
+            } else {
                 button = findViewById(R.id.zone_1L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
@@ -258,9 +262,8 @@ public class TelePage extends AppCompatActivity {
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
             }
-        } else{
-            if(field_orientation==FIELD_ORIENTATION_LEFT)
-            {
+        } else {
+            if (field_orientation == FIELD_ORIENTATION_LEFT) {
                 button = findViewById(R.id.zone_1L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
@@ -300,9 +303,7 @@ public class TelePage extends AppCompatActivity {
                 button = findViewById(R.id.zone_5R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
-            }
-            else
-            {
+            } else {
                 button = findViewById(R.id.zone_1L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
@@ -348,48 +349,51 @@ public class TelePage extends AppCompatActivity {
     }
 
     private void zone_Clicked(int i) {
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//        TelePopUpPage tpp = new TelePopUpPage();
+//        ViewGroup vg = (ViewGroup)button.getParent();
+//        fragmentTransaction.replace(R.id.fragment_frame, tpp);
+//        fragmentTransaction.commit();
     }
 
-    public void startStage_2 (View V){
-        if (!running){
+    public void startStage_2(View V) {
+        if (!running) {
             Stage_2.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             Stage_2.start();
             running = true;
         }
     }
-    public void pauseStage_2 (View V){
-        if (running){
+
+    public void pauseStage_2(View V) {
+        if (running) {
             Stage_2.stop();
             pauseOffset = SystemClock.elapsedRealtime() - Stage_2.getBase();
             running = false;
         }
     }
-    public void resetStage_2 (View V){
+
+    public void resetStage_2(View V) {
         Stage_2.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
     }
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        _db = mDbHelper.getWritableDatabase();
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        if (null != cfg && null != cfg.getAlliance_station()) {
+            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-//        if (null != cfg && null != cfg.getAlliance_station()) {
-//            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
-//
-//            if (null != csm) {
-//                TextView tv = findViewById(R.id.textView7);
-//                tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
-//                tv = findViewById(R.id.textView9);
-//                tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-//
-//            }
-//        }
-
-
+            if (null != csm) {
+                TextView tv = findViewById(R.id.textView_teleMatch);
+                tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
+                tv = findViewById(R.id.textView_teamNumber);
+                tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+            }
+        }
     }
 
     public void returnToAutoPage() {
@@ -404,12 +408,11 @@ public class TelePage extends AppCompatActivity {
     }
 
     public void cargoshipCargoMinus() {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        _db = mDbHelper.getWritableDatabase();
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg && null != cfg.getAlliance_station()) {
-            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
         }
     }
 
@@ -440,5 +443,10 @@ public class TelePage extends AppCompatActivity {
     private void updateStatusIndicator(int color) {
         ImageView iv = findViewById(R.id.imageView_btIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
+    }
+
+    @Override
+    public void onFragmentInteraction(CyberScouterMatchScouting csm) {
+
     }
 }

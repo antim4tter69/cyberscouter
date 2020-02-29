@@ -105,48 +105,44 @@
         android:id="@+id/button_startMatch"
         android:layout_width="173dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="36dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/StartMatchButton"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.934"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="429dp"
         android:layout_height="623dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="16dp"
         android:contentDescription="@string/PowerPortContent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.51"
         app:srcCompat="@drawable/powerport" />
 
     <TextView
         android:id="@+id/textViewMoveBonus"
         android:layout_width="240dp"
         android:layout_height="64dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
         android:text="@string/MoveBonusText"
         android:textAlignment="center"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Team" />
 
     <TextView
         android:id="@+id/textViewPenalties"
         android:layout_width="256dp"
         android:layout_height="64dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="32dp"
         android:text="@string/PenaltyText"
         android:textAlignment="center"
         android:textSize="45sp"
@@ -157,7 +153,7 @@
         android:id="@+id/textViewOuter"
         android:layout_width="240dp"
         android:layout_height="64dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="84dp"
         android:text="@string/OuterText"
         android:textAlignment="center"
@@ -169,7 +165,7 @@
         android:id="@+id/textViewLower"
         android:layout_width="240dp"
         android:layout_height="64dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="84dp"
         android:text="@string/LowerText"
         android:textAlignment="center"
@@ -195,11 +191,10 @@
         android:id="@+id/textViewAutoTitle"
         android:layout_width="200dp"
         android:layout_height="64dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/AutoLabel"
         android:textAlignment="center"
         android:textSize="45sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -272,6 +267,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/background_light" />
+
+    <TextView
+        android:id="@+id/textView_Match"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="72dp"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_Team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Match" />
 
 
 </android.support.constraint.ConstraintLayout>

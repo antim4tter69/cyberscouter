@@ -19,9 +19,20 @@ public class AutoPage extends AppCompatActivity {
     private int innerGoalCount = 0;
     private int outerGoalCount = 0;
     private int lowerGoalCount = 0;
+    private int moveBonus = 0;
+    private int penalties = 0;
 
     private int field_orientation;
     private int currentCommStatusColor;
+    private final CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+    private SQLiteDatabase _db;
+
+    String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
+        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY,
+        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER,
+        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER,
+        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW};
+    Integer[] _lValues = new Integer[_lColumns.length];
 
 
     @Override
@@ -143,37 +154,42 @@ public class AutoPage extends AppCompatActivity {
                 lowerGoalPlus();
             }
         });
-
-
-        
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        _db = mDbHelper.getWritableDatabase();
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-//        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getRole()));
-        CyberScouterMatchScouting csm = null;
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
-            TextView tv = findViewById(R.id.textView7);
-            tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
-            tv = findViewById(R.id.textView9);
+            TextView tv = findViewById(R.id.textView_Match);
+            tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
+            tv = findViewById(R.id.textView_Team);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-//            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            FakeRadioGroup.buttonDisplay(this, csm.getAutoPenalty(), penaltyButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            button = findViewById(R.id.InnerCounter);
+            button.setText(String.valueOf(csm.getAutoBallInner()));
+            button = findViewById(R.id.OuterCounter);
+            button.setText(String.valueOf(csm.getAutoBallOuter()));
+            button = findViewById(R.id.LowerCounter);
+            button.setText(String.valueOf(csm.getAutoBallLow()));
 
-//            FakeRadioGroup.buttonDisplay(this, csm.getAutoStartPos(), startingPosButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            moveBonus = csm.getAutoMoveBonus();
+            penalties = csm.getAutoPenalty();
+            innerGoalCount = csm.getAutoBallInner();
+            outerGoalCount = csm.getAutoBallOuter();
+            lowerGoalCount = csm.getAutoBallLow();
         }
     }
 
     public void StartMatch() {
-
+        updateAutoData();
         Intent intent = new Intent(this, TelePage.class);
         intent.putExtra("field_orientation", field_orientation);
         intent.putExtra("commstatuscolor", currentCommStatusColor);
@@ -182,6 +198,7 @@ public class AutoPage extends AppCompatActivity {
 
 
     public void ReturnToScoutingPage() {
+        updateAutoData();
         this.finish();
     }
 
@@ -211,20 +228,24 @@ public class AutoPage extends AppCompatActivity {
     public void moveBonusYes() {
 //        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        moveBonus = 1;
     }
 
     public void moveBonusNo() {
 //        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        moveBonus = 0;
     }
 
 
     public void penaltiesYes() {
         FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        penalties = 1;
     }
 
     public void penaltiesNo() {
         FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        penalties = 0;
 
     }
 
@@ -266,6 +287,18 @@ public class AutoPage extends AppCompatActivity {
     private void updateStatusIndicator(int color) {
         ImageView iv = findViewById(R.id.imageView_btIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
+    }
+
+    private void updateAutoData() {
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        try {
+            Integer[] _lValues = {moveBonus, penalties, innerGoalCount, outerGoalCount, lowerGoalCount};
+            CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
+        } catch(Exception e) {
+            e.printStackTrace();
+            MessageBox.showMessageBox(this, "Update Error",
+                    "AutoPage.updateAutoData", "SQLite update failed!\n "+e.getMessage());
+        }
     }
 }
 

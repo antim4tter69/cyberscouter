@@ -148,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(mOnlineStatusReceiver);
         unregisterReceiver(mUsersReceiver);
         unregisterReceiver(mMatchesReceiver);
+        unregisterReceiver(mTeamsReceiver);
         super.onDestroy();
     }
 

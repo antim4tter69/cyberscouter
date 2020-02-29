@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tele_page_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TelePage">
@@ -29,34 +30,33 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textView_teleMatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="344dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/CurrentMatch"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.294"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_teamNumber"
         android:layout_width="wrap_content"
         android:layout_height="41dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginTop="344dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/CurrentTeam"
+        android:textColor="@android:color/black"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_teleMatch" />
 
     <TextView
         android:id="@+id/textView_roleTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="32dp"
         android:text="Tele-op"
         android:textColor="@android:color/black"
         android:textSize="40sp"
@@ -96,8 +96,8 @@
         android:layout_height="468dp"
         android:alpha=".5"
         android:background="#8B4513"
-        android:text="3"
         android:fromDegrees="10"
+        android:text="3"
         app:layout_constraintBottom_toTopOf="@+id/zone_5L"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.202"
@@ -169,14 +169,13 @@
         android:id="@+id/linearLayout"
         android:layout_width="250dp"
         android:layout_height="275dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/button_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintStart_toEndOf="@+id/textView_roleTag"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028">
+        app:layout_constraintStart_toEndOf="@+id/textView_roleTag">
 
         <Chronometer
             android:id="@+id/Stage_2"
@@ -214,20 +213,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/background_light" />
-
-    <Button
-        android:id="@+id/zone_1R"
-        android:layout_width="78dp"
-        android:layout_height="100dp"
-        android:alpha=".5"
-        android:background="#FFFF00"
-        android:text="1"
-        app:layout_constraintBottom_toBottomOf="@+id/zone_2R"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.57"
-        app:layout_constraintStart_toEndOf="@+id/textView_teamNumber"
-        app:layout_constraintTop_toBottomOf="@+id/zone_5R"
-        app:layout_constraintVertical_bias="0.434" />
 
     <Button
         android:id="@+id/zone_3R"
@@ -287,5 +272,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.298" />
 
+    <Button
+        android:id="@+id/zone_1R"
+        android:layout_width="78dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="100dp"
+        android:alpha=".5"
+        android:background="#FFFF00"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8" />
 
 </android.support.constraint.ConstraintLayout>
+

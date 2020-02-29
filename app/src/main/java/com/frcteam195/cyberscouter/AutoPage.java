@@ -32,7 +32,6 @@ public class AutoPage extends AppCompatActivity {
         CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER,
         CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER,
         CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW};
-    Integer[] _lValues = new Integer[_lColumns.length];
 
 
     @Override

@@ -444,7 +444,6 @@ class CyberScouterMatchScouting {
 
         if (1 > updateMatch(db, values, selection, selectionArgs))
             throw new Exception(String.format("An error occurred while updating the local match scouting table.\n\nNo rows were updated for MatchScoutingID=%d", csms.matchScoutingID));
-
     }
 
     static void updateMatchUploadStatus(SQLiteDatabase db, int l_matchScoutingID, int newStatus) throws Exception {

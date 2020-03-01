@@ -40,6 +40,8 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private boolean running;
     private int currentCommStatusColor;
 
+    private Integer[][] values = new Integer[5][4];
+
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
 
@@ -346,6 +348,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         }
 
+
     }
 
     @Override
@@ -362,6 +365,33 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
                 tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
                 tv = findViewById(R.id.textView_teamNumber);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+
+                for(int i=0; i<5 ; ++i) {
+                    values[i][0] = i+1;
+                    switch(i) {
+                        case 0:
+                            values[i][1] = csm.getTeleBallLowZone1();
+                            values[i][2] = csm.getTeleBallInnerZone1();
+                            values[i][3] = csm.getTeleBallOuterZone1();
+                            break;
+                        case 1:
+                            values[i][2] = csm.getTeleBallInnerZone2();
+                            values[i][3] = csm.getTeleBallOuterZone2();
+                            break;
+                        case 2:
+                            values[i][2] = csm.getTeleBallInnerZone3();
+                            values[i][3] = csm.getTeleBallOuterZone3();
+                            break;
+                        case 3:
+                            values[i][2] = csm.getTeleBallInnerZone4();
+                            values[i][3] = csm.getTeleBallOuterZone4();
+                            break;
+                        case 4:
+                            values[i][2] = csm.getTeleBallInnerZone5();
+                            values[i][3] = csm.getTeleBallOuterZone5();
+                            break;
+                    }
+                }
             }
         }
     }
@@ -369,6 +399,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private void zone_Clicked(int i) {
         FragmentManager fm = getSupportFragmentManager();
         TelePopUpPage tpp = new TelePopUpPage();
+        tpp.setValues(values[i-1]);
         tpp.show(fm, "telepopup");
     }
 
@@ -443,7 +474,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     }
 
     @Override
-    public void onFragmentInteraction(CyberScouterMatchScouting csm) {
+    public void onFragmentInteraction() {
 
     }
 }

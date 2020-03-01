@@ -4,32 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TelePopUpPage.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TelePopUpPage#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TelePopUpPage extends DialogFragment implements View.OnClickListener{
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private static Integer INNER_VALUE = 0;
-    private static Integer OUTER_VALUE = 0;
-    private static Integer LOWER_VALUE = 0;
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Integer[] values = new Integer[4];
 
     private OnFragmentInteractionListener mListener;
 
@@ -37,22 +19,10 @@ public class TelePopUpPage extends DialogFragment implements View.OnClickListene
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TelePopUpPage.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TelePopUpPage newInstance(String param1, String param2) {
-        TelePopUpPage fragment = new TelePopUpPage();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public void setValues(Integer[] _vals){
+        for(int i=0 ; i < _vals.length ; ++i) {
+            this.values[i] = _vals[i];
+        }
     }
 
     @Override
@@ -122,10 +92,20 @@ public class TelePopUpPage extends DialogFragment implements View.OnClickListene
             }
         });
 
+        TextView tv = view.findViewById(R.id.textView_Zone);
+        tv.setText(getString(R.string.zone_text, values[0]));
+        Button button = view.findViewById(R.id.InnerScore);
+        button.setText(values[1].toString());
+        button = view.findViewById(R.id.outerScore);
+        button.setText(values[2].toString());
+        button = view.findViewById(R.id.lowerScore);
+        button.setText(values[3].toString());
+
         return view;
     }
 
     private void backButton() {
+        this.dismiss();
     }
 
     private void innerMinusButton() {
@@ -149,7 +129,7 @@ public class TelePopUpPage extends DialogFragment implements View.OnClickListene
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(new CyberScouterMatchScouting());
+            mListener.onFragmentInteraction();
         }
     }
 
@@ -175,18 +155,8 @@ public class TelePopUpPage extends DialogFragment implements View.OnClickListene
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(CyberScouterMatchScouting csm);
+        void onFragmentInteraction();
     }
 }

@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 public class PreAutoPage extends AppCompatActivity {
     private Button button;
     private final int[] startPositionButtons = {R.id.startbutton1, R.id.startbutton2, R.id.startbutton3, R.id.startbutton4, R.id.startbutton5, R.id.startbutton6};
-    private final int[] didNotShowButtons = {R.id.didntshowyesbutton, R.id.didntshownobutton};
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
 
@@ -26,6 +24,13 @@ public class PreAutoPage extends AppCompatActivity {
     private int currentCommStatusColor;
     private final CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
+
+    private String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW};
+    private int[] _lValues;
+    private int _didNotShow = 0;
+    private int _startPos = 0;
+
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override
@@ -50,11 +55,12 @@ public class PreAutoPage extends AppCompatActivity {
         _db = mDbHelper.getWritableDatabase();
 
         button = findViewById(R.id.startbutton1);
+        defaultButtonTextColor = Color.LTGRAY;
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                startPosition(1);
+                startPosition(0);
             }
         });
 
@@ -63,7 +69,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(2);
+                startPosition(1);
             }
         });
 
@@ -72,7 +78,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(3);
+                startPosition(2);
             }
         });
 
@@ -81,7 +87,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(4);
+                startPosition(3);
             }
         });
 
@@ -90,7 +96,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(5);
+                startPosition(4);
             }
         });
 
@@ -99,16 +105,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(6);
-            }
-        });
-
-        button = findViewById(R.id.didntshownobutton);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                didntShow(0);
+                startPosition(5);
             }
         });
 
@@ -117,16 +114,25 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                didntShow(1);
+                didNotShow();
             }
         });
 
-        button = findViewById(R.id.AutoContinueButton);
+        button = findViewById(R.id.PreAutoContinueButton);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 openAutoPage();
+            }
+        });
+
+        button = findViewById(R.id.button_preAutoPrevious);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                previous();
             }
         });
     }
@@ -138,11 +144,10 @@ public class PreAutoPage extends AppCompatActivity {
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-
         CyberScouterMatchScouting csm = null;
-
-        if (null != cfg)
+        if (null != cfg) {
             csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+        }
 
         if (null != csm) {
             TextView tv = findViewById(R.id.textView_preAutoMatch);
@@ -150,16 +155,41 @@ public class PreAutoPage extends AppCompatActivity {
             tv = findViewById(R.id.textView_preAutoTeam);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
+            _startPos = csm.getAutoStartPos();
+            FakeRadioGroup.buttonDisplay(this, _startPos, startPositionButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         }
-
     }
 
-    public void didntShow(int val) {
-        FakeRadioGroup.buttonPressed(this, 0, didNotShowButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    @Override
+    protected void onDestroy(){
+        unregisterReceiver(mOnlineStatusReceiver);
+        super.onDestroy();
+    }
+
+    private void didNotShow() {
+        _didNotShow = 1;
+        updatePreAutoData();
+        Intent intent = new Intent(this, SubmitPage.class);
+        intent.putExtra("field_orientation", field_orientation);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
+        startActivity(intent);
+    }
+
+    private void updatePreAutoData() {
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        try {
+            Integer[] _lValues = {_startPos, _didNotShow};
+            CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
+        } catch(Exception e) {
+            e.printStackTrace();
+            MessageBox.showMessageBox(this, "Update Error",
+                    "PreAutoPage.updatePreAutoData", "SQLite update failed!\n "+e.getMessage());
+        }
     }
 
     public void startPosition(int val) {
         FakeRadioGroup.buttonPressed(this, val, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        _startPos = val;
     }
 
     private void updateStatusIndicator(int color) {
@@ -167,14 +197,18 @@ public class PreAutoPage extends AppCompatActivity {
         BluetoothComm.updateStatusIndicator(iv, color);
     }
 
-    public void openAutoPage() {
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+    private void openAutoPage() {
+        updatePreAutoData();
 
         Intent intent = new Intent(this, AutoPage.class);
         intent.putExtra("field_orientation", field_orientation);
         intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
+    }
 
+    private void previous(){
+        updatePreAutoData();
+        this.finish();
     }
 
 }

@@ -17,7 +17,7 @@
         android:text="@string/lower_text"
         android:textAlignment="center"
         android:textColor="#020000"
-        android:textSize="36sp"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LowerMinusButton" />
 
@@ -129,84 +129,65 @@
         android:id="@+id/InnerBox"
         android:layout_width="134dp"
         android:layout_height="48dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="156dp"
         android:text="@string/inner_text"
         android:textAlignment="center"
         android:textColor="#020000"
-        android:textSize="36sp"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/InnerPlusButton"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/InnerScore" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/InnerPlusButton"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:text="@string/PlusButton"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/InnerScore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 
     <EditText
         android:id="@+id/InnerScore"
         android:layout_width="56dp"
         android:layout_height="57dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/ZeroText"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/InnerPlusButton"
         app:layout_constraintStart_toEndOf="@+id/InnerMinusButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 
     <Button
         android:id="@+id/InnerMinusButton"
         android:layout_width="54dp"
         android:layout_height="53dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 
     <EditText
-        android:id="@+id/Zone"
-        android:layout_width="137dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="335dp"
-        android:layout_marginTop="337dp"
-        android:layout_marginBottom="337dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:id="@+id/textView_Zone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:inputType="text"
         android:text="@string/zone_text"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ZoneNumber"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/ZoneNumber"
-        android:layout_width="78dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="337dp"
-        android:layout_marginEnd="348dp"
-        android:layout_marginBottom="337dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/Zone"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

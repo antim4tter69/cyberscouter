@@ -348,13 +348,28 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        _db = mDbHelper.getWritableDatabase();
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        if (null != cfg && null != cfg.getAlliance_station()) {
+            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+
+            if (null != csm) {
+                TextView tv = findViewById(R.id.textView_teleMatch);
+                tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
+                tv = findViewById(R.id.textView_teamNumber);
+                tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+            }
+        }
+    }
+
     private void zone_Clicked(int i) {
-//        FragmentManager fm = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-//        TelePopUpPage tpp = new TelePopUpPage();
-//        ViewGroup vg = (ViewGroup)button.getParent();
-//        fragmentTransaction.replace(R.id.fragment_frame, tpp);
-//        fragmentTransaction.commit();
+        FragmentManager fm = getSupportFragmentManager();
+        TelePopUpPage tpp = new TelePopUpPage();
+        tpp.show(fm, "telepopup");
     }
 
     public void startStage_2(View V) {
@@ -376,24 +391,6 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     public void resetStage_2(View V) {
         Stage_2.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        _db = mDbHelper.getWritableDatabase();
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        if (null != cfg && null != cfg.getAlliance_station()) {
-            CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
-
-            if (null != csm) {
-                TextView tv = findViewById(R.id.textView_teleMatch);
-                tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
-                tv = findViewById(R.id.textView_teamNumber);
-                tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-            }
-        }
     }
 
     public void returnToAutoPage() {

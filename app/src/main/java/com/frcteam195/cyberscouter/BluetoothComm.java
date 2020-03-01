@@ -149,6 +149,28 @@ public class BluetoothComm {
         return(returnJson);
     }
 
+    public String getTeams(AppCompatActivity activity) {
+        String returnJson = _errorJson;
+        try {
+            String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
+            JSONObject jr = new JSONObject();
+
+            jr.put("cmd", "get-teams");
+
+            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+                FakeBluetoothServer fbts = new FakeBluetoothServer();
+                fbts.getResponse(activity, jr);
+            } else {
+                returnJson = sendCommand(activity, jr.toString());
+            }
+        } catch(Exception e) {
+            bLastBTCommFailed = true;
+            e.printStackTrace();
+        }
+        bLastBTCommFailed = false;
+        return(returnJson);
+    }
+
     public static void updateStatusIndicator(ImageView iv, int color) {
         Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);

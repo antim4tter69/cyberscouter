@@ -49,7 +49,7 @@ class CyberScouterTeams {
     static void getTeamsRemote(AppCompatActivity activity) {
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getUsers(activity);
+            String response = btcomm.getTeams(activity);
             JSONObject jo = new JSONObject(response);
             String result = (String) jo.get("result");
             if (result.equalsIgnoreCase("failed")) {

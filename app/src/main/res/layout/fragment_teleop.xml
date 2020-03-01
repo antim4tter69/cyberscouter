@@ -7,11 +7,36 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.PlaceholderFragment">
 
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="241dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="472dp"
+        android:text="Color Wheel?"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="268dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="140dp"
+        android:text="Teleop Strategy"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/textButton2"
         android:layout_width="79dp"
         android:layout_height="82dp"
         android:text="0"
+        android:background="#FFFFFF"
         android:textAlignment="center"
         android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -102,6 +127,7 @@
         android:layout_width="79dp"
         android:layout_height="82dp"
         android:text="0"
+        android:background="#FFFFFF"
         android:textAlignment="center"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/textButton2"
@@ -110,5 +136,102 @@
         app:layout_constraintStart_toEndOf="@+id/button_powerCellsMinus"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.592" />
+
+    <Button
+        android:id="@+id/yesButton3"
+        android:layout_width="109dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="452dp"
+        android:text="@string/YesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/yesButton2"
+        android:layout_width="109dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="280dp"
+        android:text="@string/YesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/yesButton1"
+        android:layout_width="109dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/YesButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/noButton1"
+        android:layout_width="109dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="140dp"
+        android:text="@string/NoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/noButton2"
+        android:layout_width="109dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="280dp"
+        android:text="@string/NoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.602"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="241dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="216dp"
+        android:layout_marginEnd="472dp"
+        android:text="Defense?"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="240dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="372dp"
+        android:layout_marginEnd="472dp"
+        android:text="Can They Evade Defense?"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/noButton3"
+        android:layout_width="108dp"
+        android:layout_height="63dp"
+        android:layout_marginTop="452dp"
+        android:layout_marginEnd="460dp"
+        android:text="@string/NoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:layout_width="271dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="140dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

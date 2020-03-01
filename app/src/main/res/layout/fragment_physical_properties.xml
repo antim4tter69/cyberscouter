@@ -14,15 +14,15 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/Size"
-        android:textSize="40sp"
+        android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/length"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:text="@string/Length"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/size"
@@ -31,7 +31,7 @@
     <EditText
         android:id="@+id/lengthInput"
         android:layout_width="145dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -52,7 +52,7 @@
         android:id="@+id/width"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/Width"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/lengthInput"
@@ -61,7 +61,7 @@
     <EditText
         android:id="@+id/widthInput"
         android:layout_width="145dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -81,8 +81,8 @@
     <TextView
         android:id="@+id/height"
         android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:text="@string/Height"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/widthInput"
@@ -91,7 +91,7 @@
     <EditText
         android:id="@+id/heightInput"
         android:layout_width="145dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -110,9 +110,9 @@
 
     <TextView
         android:id="@+id/weight"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
         android:text="@string/Weight"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/heightInput"
@@ -121,7 +121,7 @@
     <EditText
         android:id="@+id/weightInput"
         android:layout_width="145dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="numberDecimal"
@@ -141,11 +141,11 @@
     <TextView
         android:id="@+id/driveType"
         android:layout_width="200dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="175dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="195dp"
         android:text="@string/DriveType"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/length"
+        app:layout_constraintStart_toEndOf="@+id/size"
         app:layout_constraintTop_toTopOf="@+id/size" />
 
     <Spinner
@@ -159,7 +159,7 @@
     <TextView
         android:id="@+id/motor"
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:text="@string/Motor"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/driveTypePicker"
@@ -211,7 +211,7 @@
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:text="@string/DriveMotors"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/motorTypePicker"
         app:layout_constraintTop_toBottomOf="@+id/width" />
 
@@ -261,7 +261,7 @@
     <TextView
         android:id="@+id/wheelType"
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginStart="125dp"
         android:text="@string/Wheel"
         android:textSize="30sp"
@@ -287,11 +287,12 @@
     <EditText
         android:id="@+id/editText_topSpeed"
         android:layout_width="145dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/topSpeed"
-        app:layout_constraintTop_toTopOf="@+id/motorTypePicker" />
+        app:layout_constraintTop_toBottomOf="@+id/topSpeed" />
 
     <TextView
         android:id="@+id/gearRatio"
@@ -347,7 +348,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="125dp"
         android:text="@string/ProgLang"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintStart_toEndOf="@+id/editText_topSpeed"
         app:layout_constraintTop_toTopOf="@+id/editText_topSpeed" />
 
@@ -393,8 +394,8 @@
     <EditText
         android:id="@+id/gearRatio1"
         android:layout_width="70dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/gearRatio"
@@ -403,7 +404,7 @@
     <EditText
         android:id="@+id/gearRatio2"
         android:layout_width="70dp"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:ems="10"
         android:inputType="number"

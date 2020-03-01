@@ -14,7 +14,8 @@
         android:layout_marginStart="75dp"
         android:layout_marginTop="75dp"
         android:text="@string/canTheyClimb"
-        android:textSize="40sp"
+        android:textSize="35sp"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,9 +45,10 @@
         android:id="@+id/moveOnBar"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="75dp"
         android:text="@string/moveOnBar"
-        android:textSize="40sp"
+        android:textSize="35sp"
+        android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@+id/canTheyClimb"
         app:layout_constraintTop_toTopOf="@+id/canTheyClimb" />
 
@@ -76,9 +78,10 @@
         android:id="@+id/textView4"
         android:layout_width="375dp"
         android:layout_height="60dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="75dp"
         android:text="@string/lockingMechansim"
-        android:textSize="40sp"
+        android:textSize="35sp"
+        android:textAlignment="center"
         app:layout_constraintStart_toEndOf="@+id/moveOnBar"
         app:layout_constraintTop_toTopOf="@+id/moveOnBar" />
 
@@ -110,7 +113,8 @@
         android:layout_height="60dp"
         android:layout_marginTop="200dp"
         android:text="@string/centerClimb"
-        android:textSize="40sp"
+        android:textSize="35sp"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="@+id/canTheyClimb"
         app:layout_constraintTop_toBottomOf="@+id/canTheyClimb" />
 
@@ -142,7 +146,8 @@
         android:layout_height="60dp"
         android:layout_marginTop="200dp"
         android:text="@string/avgClimbHeight"
-        android:textSize="40sp"
+        android:textSize="35sp"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 

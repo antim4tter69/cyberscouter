@@ -168,7 +168,7 @@
     <string name="DriveMotors"># of Drive Motors</string>
     <string name="TopSpeed">Top Speed</string>
     <string name="Wheel">Wheel Type</string>
-    <string name="NumberWheels">Number of Wheels</string>
+    <string name="NumberWheels"># of Wheels</string>
     <string name="GearRatio">Gear Ratio</string>
     <string name="GearSpeeds">Gear Speeds</string>
     <string name="one">1</string>

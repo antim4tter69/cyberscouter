@@ -13,9 +13,9 @@ public class FakeRadioGroup {
         for(int i = 0 ; i<bs.length ; ++i){
             button = acty.findViewById(bs[i]);
             if(-1 != val && i == val) {
-                button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
+                button.setBackgroundColor(SELECTED_BUTTON_TEXT_COLOR);
             } else {
-                button.setTextColor(defaultButtonTextColor);
+                button.setBackgroundColor(defaultButtonTextColor);
             }
         }
     }
@@ -25,14 +25,11 @@ public class FakeRadioGroup {
             button = acty.findViewById(bs[i]);
             if(-1 != val && i == val) {
                 if(SELECTED_BUTTON_TEXT_COLOR == button.getCurrentTextColor()) {
-//                    button.setTextColor(defaultButtonTextColor);
-                  //  updateMetric(acty, col, -1);
                 } else {
-                    button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
-   //                 updateMetric(acty, col, val);
+                    button.setBackgroundColor(SELECTED_BUTTON_TEXT_COLOR);
                 }
             } else {
-                button.setTextColor(defaultButtonTextColor);
+                button.setBackgroundColor(defaultButtonTextColor);
             }
         }
     }
@@ -42,9 +39,9 @@ public class FakeRadioGroup {
         for(int i = 0 ; i<bs.length ; ++i){
             button = view.findViewById(bs[i]);
             if(-1 != val && i == val) {
-                button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
+                button.setBackgroundColor(SELECTED_BUTTON_TEXT_COLOR);
             } else {
-                button.setTextColor(defaultButtonTextColor);
+                button.setBackgroundColor(defaultButtonTextColor);
             }
         }
     }
@@ -54,14 +51,11 @@ public class FakeRadioGroup {
             button = view.findViewById(bs[i]);
             if(-1 != val && i == val) {
                 if(SELECTED_BUTTON_TEXT_COLOR == button.getCurrentTextColor()) {
-//                    button.setTextColor(defaultButtonTextColor);
-                    //  updateMetric(acty, col, -1);
                 } else {
-                    button.setTextColor(SELECTED_BUTTON_TEXT_COLOR);
-                    //                 updateMetric(acty, col, val);
+                    button.setBackgroundColor(SELECTED_BUTTON_TEXT_COLOR);
                 }
             } else {
-                button.setTextColor(defaultButtonTextColor);
+                button.setBackgroundColor(defaultButtonTextColor);
             }
         }
     }

@@ -56,6 +56,9 @@
         <activity
             android:name=".SandstormPage"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PreAutoPage"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

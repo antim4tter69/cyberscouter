@@ -45,7 +45,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAuto();
+                openPreAuto();
             }
         });
 
@@ -163,7 +163,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
 
-    public void openAuto() {
+    public void openPreAuto() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
         if (null == cfg || (CyberScouterConfig.UNKNOWN_USER_IDX == cfg.getUser_id())) {
@@ -171,7 +171,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             NamePickerDialog npd = new NamePickerDialog();
             npd.show(fm, "namepicker");
         } else {
-            Intent intent = new Intent(this, AutoPage.class);
+            Intent intent = new Intent(this, PreAutoPage.class);
             intent.putExtra("field_orientation", field_orientation);
             intent.putExtra("commstatuscolor", currentCommStatusColor);
             startActivity(intent);

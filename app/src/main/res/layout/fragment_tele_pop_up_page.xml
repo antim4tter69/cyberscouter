@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:textAlignment="center"
     tools:context=".TelePopUpPage">
 
@@ -12,87 +12,76 @@
         android:id="@+id/LowerBox"
         android:layout_width="134dp"
         android:layout_height="48dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="355dp"
+        android:layout_marginTop="64dp"
         android:text="@string/lower_text"
         android:textAlignment="center"
         android:textColor="#020000"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LowerMinusButton" />
+        android:textSize="40sp"
+        app:layout_constraintTop_toBottomOf="@+id/outerScore"
+        tools:layout_editor_absoluteX="458dp" />
 
     <Button
         android:id="@+id/LowerMinusButton"
         android:layout_width="54dp"
         android:layout_height="53dp"
-        android:layout_marginStart="369dp"
-        android:layout_marginTop="576dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/lowerScore"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/outerMinusButton"
+        app:layout_constraintTop_toBottomOf="@+id/LowerBox" />
 
     <EditText
         android:id="@+id/lowerScore"
         android:layout_width="56dp"
         android:layout_height="57dp"
-        android:layout_marginTop="576dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/ZeroText"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/LowerBox"
-        app:layout_constraintEnd_toStartOf="@+id/lowerPlusButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="@+id/outerScore"
+        app:layout_constraintTop_toBottomOf="@+id/LowerBox" />
 
     <Button
         android:id="@+id/lowerPlusButton"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:layout_marginTop="580dp"
-        android:layout_marginEnd="325dp"
+        android:layout_marginTop="8dp"
         android:text="@string/PlusButton"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/outerPlusButton"
+        app:layout_constraintTop_toBottomOf="@+id/LowerBox" />
 
     <TextView
         android:id="@+id/OuterBox"
         android:layout_width="134dp"
         android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="173dp"
+        android:layout_marginTop="64dp"
         android:text="@string/outer_text"
         android:textAlignment="center"
         android:textColor="#020000"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/outerScore" />
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="@+id/LowerBox"
+        app:layout_constraintStart_toStartOf="@+id/LowerBox"
+        app:layout_constraintTop_toBottomOf="@+id/InnerScore" />
 
     <Button
         android:id="@+id/outerPlusButton"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="126dp"
+        android:layout_marginTop="8dp"
         android:text="@string/PlusButton"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/InnerPlusButton"
+        app:layout_constraintTop_toBottomOf="@+id/OuterBox" />
 
     <EditText
         android:id="@+id/outerScore"
         android:layout_width="56dp"
         android:layout_height="57dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
         android:autofillHints=""
         android:ems="10"
         android:inputType="textPersonName"
@@ -100,21 +89,18 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/outerPlusButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/InnerScore"
+        app:layout_constraintTop_toBottomOf="@+id/OuterBox" />
 
     <Button
         android:id="@+id/outerMinusButton"
         android:layout_width="54dp"
         android:layout_height="53dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/outerScore"
-        app:layout_constraintStart_toEndOf="@+id/InnerPlusButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/InnerMinusButton"
+        app:layout_constraintTop_toBottomOf="@+id/OuterBox" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -129,92 +115,73 @@
         android:id="@+id/InnerBox"
         android:layout_width="134dp"
         android:layout_height="48dp"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="120dp"
         android:text="@string/inner_text"
         android:textAlignment="center"
         android:textColor="#020000"
-        android:textSize="36sp"
+        android:textSize="40sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/InnerScore" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/InnerPlusButton"
         android:layout_width="52dp"
         android:layout_height="52dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/PlusButton"
         android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/InnerScore"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 
     <EditText
         android:id="@+id/InnerScore"
         android:layout_width="56dp"
         android:layout_height="57dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/ZeroText"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/InnerPlusButton"
         app:layout_constraintStart_toEndOf="@+id/InnerMinusButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 
     <Button
         android:id="@+id/InnerMinusButton"
         android:layout_width="54dp"
         android:layout_height="53dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 
     <EditText
-        android:id="@+id/Zone"
-        android:layout_width="137dp"
-        android:layout_height="81dp"
-        android:layout_marginStart="335dp"
-        android:layout_marginTop="337dp"
-        android:layout_marginBottom="337dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:id="@+id/textView_Zone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:inputType="text"
         android:text="@string/zone_text"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ZoneNumber"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/ZoneNumber"
-        android:layout_width="78dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="337dp"
-        android:layout_marginEnd="348dp"
-        android:layout_marginBottom="337dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="50sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/Zone"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/BackButton"
         android:layout_width="127dp"
         android:layout_height="67dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#008F2929"
         android:text="@string/back_text"
         android:textSize="25sp"

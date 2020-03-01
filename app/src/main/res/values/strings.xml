@@ -119,7 +119,7 @@
     <string name="teleopTitle">Teleop</string>
 
     <string name="logo_description">Team Logo</string>
-    <string name="zone_text">Zone</string>
+    <string name="zone_text">Zone %d</string>
     <string name="outer_text">Outer</string>
     <string name="inner_text">Inner</string>
     <string name="lower_text">Lower</string>

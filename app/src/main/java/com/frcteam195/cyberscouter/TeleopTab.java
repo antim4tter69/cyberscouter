@@ -16,9 +16,9 @@ public class TeleopTab extends Fragment {
     private View _view;
     int Kennedy = 0;
     int Lincoln = 0;
-    private final int[] colorWheelYN = {R.id.noButton1,R.id.yesButton1};
-    private final int[] defenseYN = {R.id.noButton2,R.id.yesButton2};
-    private final int[] evadeYN = {R.id.noButton3,R.id.yesButton3};
+    private final int[] COLOR_WHEELYN = {R.id.noButton1, R.id.yesButton1};
+    private final int[] defenseYN = {R.id.noButton2, R.id.yesButton2};
+    private final int[] evadeYN = {R.id.noButton3, R.id.yesButton3};
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
 
@@ -125,67 +125,68 @@ public class TeleopTab extends Fragment {
         });
         defaultButtonTextColor = Washington.getCurrentTextColor();
 
-        return(view);
+        return (view);
     }
-        private void powerCellsPlus () {
+
+    private void powerCellsPlus() {
         button = _view.findViewById(R.id.textButton1);
-        Kennedy ++;
+        Kennedy++;
         button.setText(String.valueOf(Kennedy));
-        }
+    }
 
-        private void powerCellsMinus () {
-            button = _view.findViewById(R.id.textButton1);
-            if (Kennedy > 0)
-            Kennedy --;
-            button.setText(String.valueOf(Kennedy));
-        }
+    private void powerCellsMinus() {
+        button = _view.findViewById(R.id.textButton1);
+        if (Kennedy > 0)
+            Kennedy--;
+        button.setText(String.valueOf(Kennedy));
+    }
 
-        private void maxCapacityPlus () {
-            button = _view.findViewById(R.id.textButton2);
-            Lincoln ++;
-            button.setText(String.valueOf(Lincoln));
-        }
+    private void maxCapacityPlus() {
+        button = _view.findViewById(R.id.textButton2);
+        Lincoln++;
+        button.setText(String.valueOf(Lincoln));
+    }
 
-        private void maxCapacityMinus () {
-            button = _view.findViewById(R.id.textButton2);
-            if (Lincoln > 0)
-            Lincoln --;
-            button.setText(String.valueOf(Lincoln));
-        }
+    private void maxCapacityMinus() {
+        button = _view.findViewById(R.id.textButton2);
+        if (Lincoln > 0)
+            Lincoln--;
+        button.setText(String.valueOf(Lincoln));
+    }
 
-        private void noButton1(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,colorWheelYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLORWHEEL, SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
-        }
-
-    private void yesButton1(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,colorWheelYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLORWHEEL, SELECTED_BUTTON_TEXT_COLOR,
+    private void noButton1() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, COLOR_WHEELYN,
+                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
-    private void noButton2(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,defenseYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLORWHEEL, SELECTED_BUTTON_TEXT_COLOR,
+    private void yesButton1() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, COLOR_WHEELYN,
+                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
-    private void yesButton2(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,defenseYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLORWHEEL, SELECTED_BUTTON_TEXT_COLOR,
+    private void noButton2() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, defenseYN,
+                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
-    private void noButton3(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,evadeYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLORWHEEL, SELECTED_BUTTON_TEXT_COLOR,
+    private void yesButton2() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, defenseYN,
+                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
 
-    private void yesButton3(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,evadeYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLORWHEEL, SELECTED_BUTTON_TEXT_COLOR,
+    private void noButton3() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, evadeYN,
+                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonTextColor);
     }
+
+    private void yesButton3() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, evadeYN,
+                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
+                defaultButtonTextColor);
     }
+}

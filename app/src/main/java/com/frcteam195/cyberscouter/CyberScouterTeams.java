@@ -2,15 +2,19 @@ package com.frcteam195.cyberscouter;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 class CyberScouterTeams {
     public final static String TEAMS_UPDATED_FILTER = "frcteam195_cyberscouterteams_teams_updated_intent_filter";
 
+    private int teamID;
     private int team;
     private String TeamName;
     private String TeamLocation;
@@ -52,18 +56,119 @@ class CyberScouterTeams {
         try {
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.getTeams(activity);
-            if(null != response) {
+            if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = (String) jo.get("result");
-                if("failure" != result) {
-                    ret = (String)jo.get("payload");
+                if ("failure" != result) {
+                    ret = (String) jo.get("payload");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return(ret);
+        return (ret);
+    }
+
+    static CyberScouterTeams getCurrentTeam(SQLiteDatabase db, String team) {
+        CyberScouterTeams cst = null;
+
+        Cursor cursor = null;
+        try {
+            String selection = CyberScouterContract.Teams.COLUMN_NAME_TEAM + " = ?";
+            String[] selectionArgs = {
+                    String.format(Locale.getDefault(), "%s", team)
+            };
+
+
+            String[] projection = {
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM,
+                    CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS,
+                    CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS,
+                    CyberScouterContract.Teams.COLUMN_NAME_WHEEL_TYPE_ID,
+                    CyberScouterContract.Teams.COLUMN_NAME_DRIVE_TYPE_ID,
+                    CyberScouterContract.Teams.COLUMN_NAME_MOTOR_TYPE_ID,
+                    CyberScouterContract.Teams.COLUMN_NAME_LANGUAGE_ID,
+                    CyberScouterContract.Teams.COLUMN_NAME_SPEED,
+                    CyberScouterContract.Teams.COLUMN_NAME_GEAR_RATIO,
+                    CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_LENGTH,
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WIDTH,
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT,
+                    CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT,
+                    CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,
+                    CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD,
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED,
+                    CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS,
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP,
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID,
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY,
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED,
+                    CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY,
+                    CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL,
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE,
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE,
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY,
+                    CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB,
+                    CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB,
+                    CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
+                    CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
+                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID
+            };
+
+            cursor = db.query(
+                    CyberScouterContract.Teams.TABLE_NAME,   // The table to query
+                    projection,             // The array of columns to return (pass null to get all)
+                    selection,              // The columns for the WHERE clause
+                    selectionArgs,          // The values for the WHERE clause
+                    null,                   // don't group the rows
+                    null,                   // don't filter by row groups
+                    null               // The sort order
+            );
+
+            if (0 < cursor.getCount()) {
+                while (cursor.moveToNext()) {
+                    cst = new CyberScouterTeams();
+                    cst.team = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TEAM));
+                    cst.NumWheels = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS));
+                    cst.NumDriveMotors = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS));
+                    cst.WheelTypeID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_WHEEL_TYPE_ID));
+                    cst.DriveTypeID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_DRIVE_TYPE_ID));
+                    cst.MotorTypeID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_MOTOR_TYPE_ID));
+                    cst.LanguageID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_LANGUAGE_ID));
+                    cst.Speed = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_SPEED));
+                    cst.GearRatio = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_GEAR_RATIO));
+                    cst.NumGearSpeed = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED));
+                    cst.RobotLength = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_LENGTH));
+                    cst.RobotWidth = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WIDTH));
+                    cst.RobotHeight = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT));
+                    cst.RobotWeight = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT));
+                    cst.Pneumatics = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS));
+                    cst.NumPreload = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD));
+                    cst.AutoBallsScored = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED));
+                    cst.MoveBonus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS));
+                    cst.AutoPickUp = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP));
+                    cst.AutoStartPosID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID));
+                    cst.AutoSummary = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY));
+                    cst.TeleBallsScored = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED));
+                    cst.MaxBallCapacity = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY));
+                    cst.ColorWheel = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL));
+                    cst.TeleDefense = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE));
+                    cst.TeleDefenseEvade = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE));
+                    cst.TeleStrategy = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY));
+                    cst.CanClimb = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB));
+                    cst.CenterClimb = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB));
+                    cst.CanMoveOnBar = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR));
+                    cst.LockingMechanism = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
+                    cst.ClimbHeightID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return cst;
     }
 
     static void setTeams(SQLiteDatabase db, String json) {

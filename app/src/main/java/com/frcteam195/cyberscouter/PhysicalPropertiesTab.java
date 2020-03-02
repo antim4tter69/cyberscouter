@@ -1,21 +1,26 @@
 package com.frcteam195.cyberscouter;
 
+import android.app.Activity;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 public class PhysicalPropertiesTab extends Fragment {
     private Button button;
     private final int[] gearSpeedButtons = {R.id.gearSpeed1,R.id.gearSpeed2,R.id.gearSpeed3};
-    private final int[] pneumaticsYNButtons = {R.id.pneumaticsYes,R.id.pneumaticsNo};
+    private final int[] pneumaticsYNButtons = {R.id.pneumaticsNo,R.id.pneumaticsYes};
     private View _view;
     private int defaultButtonTextColor;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
@@ -25,6 +30,15 @@ public class PhysicalPropertiesTab extends Fragment {
     private String[] motorTypes = {"Falcon", "Other"};
     private String[] wheelTypes = {"Colson", "Other"};
     private String[] progLangTypes = {"Java", "Other"};
+    private CyberScouterDbHelper mDbHelper;
+    SQLiteDatabase _db;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        mDbHelper = new CyberScouterDbHelper(getActivity());
+    }
 
     @Nullable
     @Override
@@ -130,6 +144,29 @@ public class PhysicalPropertiesTab extends Fragment {
         defaultButtonTextColor = button.getCurrentTextColor();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
+        String team = "195";
+
+        CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, team);
+
+        if(null != cst) {
+            EditText et = _view.findViewById(R.id.lengthInput);
+            et.setText(cst.getRobotLength());
+            et = _view.findViewById(R.id.widthInput);
+            et.setText(cst.getRobotWidth());
+            et = _view.findViewById(R.id.heightInput);
+            et.setText(cst.getRobotHeight());
+            et = _view.findViewById(R.id.weightInput);
+            et.setText(cst.getRobotWeight());
+
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getPneumatics(), pneumaticsYNButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        }
     }
 
     private void motorMinusButton(){

@@ -41,6 +41,27 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private int currentCommStatusColor;
 
     private Integer[][] values = new Integer[5][4];
+    private int _stage2Attempts = 0, _stage2Time = 0, _stage2Status = 0, _stage3Attempts = 0, _stage3Time = 0, _stage3Status = 0;
+
+    String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS
+    };
+    Integer[] _lValues = new Integer[_lColumns.length];
 
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
@@ -348,6 +369,27 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         }
 
+        button = findViewById(R.id.button_teleStartChron);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startStage_2(v);
+            }
+        });
+        button = findViewById(R.id.button_teleSuccessChron);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetStage_2(v);
+            }
+        });
+        button = findViewById(R.id.button_teleFailureChron);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseStage_2(v);
+            }
+        });
 
     }
 
@@ -357,7 +399,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
 
         _db = mDbHelper.getWritableDatabase();
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        if (null != cfg && null != cfg.getAlliance_station()) {
+        if (null != cfg) {
             CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
             if (null != csm) {
@@ -370,28 +412,40 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
                     values[i][0] = i+1;
                     switch(i) {
                         case 0:
-                            values[i][1] = csm.getTeleBallLowZone1();
-                            values[i][2] = csm.getTeleBallInnerZone1();
-                            values[i][3] = csm.getTeleBallOuterZone1();
+                            values[i][1] = csm.getTeleBallInnerZone1();
+                            values[i][2] = csm.getTeleBallOuterZone1();
+                            values[i][3] = csm.getTeleBallLowZone1();
                             break;
                         case 1:
-                            values[i][2] = csm.getTeleBallInnerZone2();
-                            values[i][3] = csm.getTeleBallOuterZone2();
+                            values[i][1] = csm.getTeleBallInnerZone2();
+                            values[i][2] = csm.getTeleBallOuterZone2();
                             break;
                         case 2:
-                            values[i][2] = csm.getTeleBallInnerZone3();
-                            values[i][3] = csm.getTeleBallOuterZone3();
+                            values[i][1] = csm.getTeleBallInnerZone3();
+                            values[i][2] = csm.getTeleBallOuterZone3();
                             break;
                         case 3:
-                            values[i][2] = csm.getTeleBallInnerZone4();
-                            values[i][3] = csm.getTeleBallOuterZone4();
+                            values[i][1] = csm.getTeleBallInnerZone4();
+                            values[i][2] = csm.getTeleBallOuterZone4();
                             break;
                         case 4:
-                            values[i][2] = csm.getTeleBallInnerZone5();
-                            values[i][3] = csm.getTeleBallOuterZone5();
+                            values[i][1] = csm.getTeleBallInnerZone5();
+                            values[i][2] = csm.getTeleBallOuterZone5();
                             break;
                     }
                 }
+                tv = findViewById(R.id.textView_stage);
+                if(0 == csm.getTeleWheelStage2Time()) {
+                    tv.setText(getString(R.string.teleStage2));
+                } else {
+                    tv.setText(getString(R.string.teleStage3));
+                }
+                _stage2Status = csm.getTeleWheelStage2Status();
+                _stage2Time = csm.getTeleWheelStage2Time();
+                _stage2Attempts = csm.getTeleWheelStage2Attempts();
+                _stage3Time = csm.getTeleWheelStage3Time();
+                _stage3Attempts = csm.getTeleWheelStage3Attempts();
+                _stage3Status = csm.getTeleWheelStage3Status();
             }
         }
     }
@@ -411,54 +465,73 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         }
     }
 
-    public void pauseStage_2(View V) {
+    private void pauseStage_2(View V) {
         if (running) {
             Stage_2.stop();
             pauseOffset = SystemClock.elapsedRealtime() - Stage_2.getBase();
             running = false;
+            if(0 == _stage2Time) {
+                _stage2Attempts++;
+            } else {
+                _stage3Attempts++;
+            }
         }
     }
 
-    public void resetStage_2(View V) {
+    private void resetStage_2(View V) {
         Stage_2.setBase(SystemClock.elapsedRealtime());
         pauseOffset = 0;
+        if(running) {
+            Stage_2.stop();
+            running = false;
+        }
+        if(0 == _stage2Time) {
+            _stage2Time = (int) (SystemClock.elapsedRealtime() - Stage_2.getBase()) / 1000;
+            _stage2Status = 1;
+            TextView tv = findViewById(R.id.textView_stage);
+            tv.setText(getString(R.string.teleStage3));
+        } else {
+            _stage3Time = (int) (SystemClock.elapsedRealtime() - Stage_2.getBase()) / 1000;
+            _stage3Status = 1;
+        }
     }
 
     public void returnToAutoPage() {
+        setMetricValues();
         this.finish();
     }
 
     public void EndGamePage() {
+        setMetricValues();
         Intent intent = new Intent(this, EndPage.class);
         intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
-
     }
 
-    public void cargoshipCargoMinus() {
-        _db = mDbHelper.getWritableDatabase();
-
+    void setMetricValues() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        if (null != cfg && null != cfg.getAlliance_station()) {
-            CyberScouterMatchScouting csms = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
-        }
-    }
 
-    void setMetricValue(String col, int val) {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        _lValues[0] = values[0][1];
+        _lValues[1] = values[0][2];
+        _lValues[2] = values[0][3];
+        _lValues[3] = values[1][1];
+        _lValues[4] = values[1][2];
+        _lValues[5] = values[2][1];
+        _lValues[6] = values[2][2];
+        _lValues[7] = values[3][1];
+        _lValues[8] = values[3][2];
+        _lValues[9] = values[4][1];
+        _lValues[10] = values[4][2];
+        _lValues[11] = _stage2Attempts;
+        _lValues[12] = _stage2Time;
+        _lValues[13] = _stage2Status;
+        _lValues[14] = _stage3Attempts;
+        _lValues[15] = _stage3Time;
+        _lValues[16] = _stage3Status;
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        if (0 > val)
-            val = 0;
-
-        String[] cols = {col};
-        Integer[] vals = {val};
-
-        if (null != cfg && null != cfg.getAlliance_station()) {
+        if (null != cfg) {
             try {
-                CyberScouterMatchScouting.updateMatchMetric(db, cols, vals, cfg);
+                CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
             } catch (Exception e) {
                 MessageBox.showMessageBox(this, "Metric Update Failed Alert", "setMetricValue", "An error occurred trying to update metric.\n\nError is:\n" + e.getMessage());
             }
@@ -473,8 +546,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         BluetoothComm.updateStatusIndicator(iv, color);
     }
 
-    @Override
-    public void onFragmentInteraction() {
-
+    public void onFragmentInteraction(Integer[] fragmentValues) {
+        for(int i = 1; i<fragmentValues.length ; ++i) {
+            values[fragmentValues[0] - 1][i] = fragmentValues[i];
+        }
     }
 }

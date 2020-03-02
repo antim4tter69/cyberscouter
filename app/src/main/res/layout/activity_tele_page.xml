@@ -11,6 +11,7 @@
         android:id="@+id/button_Previous"
         android:layout_width="173dp"
         android:layout_height="95dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/PreviousButton"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,6 +23,7 @@
         android:id="@+id/button_next"
         android:layout_width="173dp"
         android:layout_height="95dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/NextButton"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Tele-op"
+        android:text="@string/teleopTitle"
         android:textColor="@android:color/black"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,6 +84,7 @@
         android:id="@+id/imageView8"
         android:layout_width="1031dp"
         android:layout_height="503dp"
+        android:contentDescription="@string/logo_description"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -97,7 +100,7 @@
         android:alpha=".5"
         android:background="#8B4513"
         android:fromDegrees="10"
-        android:text="3"
+        android:text="@string/three"
         app:layout_constraintBottom_toTopOf="@+id/zone_5L"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.202"
@@ -112,7 +115,7 @@
         android:layout_weight="1"
         android:alpha=".5"
         android:background="#FFFF00"
-        android:text="1"
+        android:text="@string/one"
         app:layout_constraintBottom_toBottomOf="@id/imageView8"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
@@ -128,7 +131,7 @@
         android:alpha=".5"
         android:background="#00ff00"
         android:rotation="45"
-        android:text="5"
+        android:text="@string/five"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.069"
@@ -143,7 +146,7 @@
         android:layout_marginBottom="44dp"
         android:alpha=".5"
         android:background="#AFEEEE"
-        android:text="4"
+        android:text="@string/four"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="@+id/imageView8"
         app:layout_constraintHorizontal_bias="0.402"
@@ -157,7 +160,7 @@
         android:layout_height="92dp"
         android:alpha=".5"
         android:background="#FFc0cb"
-        android:text="2"
+        android:text="@string/two"
         app:layout_constraintBottom_toBottomOf="@+id/zone_3L"
         app:layout_constraintEnd_toEndOf="@+id/zone_4L"
         app:layout_constraintHorizontal_bias="0.358"
@@ -184,22 +187,22 @@
             android:textSize="30sp" />
 
         <Button
+            android:id="@+id/button_teleStartChron"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="startStage_2"
-            android:text="Start" />
+            android:text="@string/StartMatch" />
 
         <Button
+            android:id="@+id/button_teleSuccessChron"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="pauseStage_2"
-            android:text="success" />
+            android:text="@string/success" />
 
         <Button
+            android:id="@+id/button_teleFailureChron"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="resetStage_2"
-            android:text="failure" />
+            android:text="@string/failure" />
 
     </LinearLayout>
 
@@ -220,7 +223,7 @@
         android:layout_height="468dp"
         android:alpha=".5"
         android:background="#8B4513"
-        android:text="3"
+        android:text="@string/three"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -234,7 +237,7 @@
         android:layout_marginTop="396dp"
         android:alpha=".5"
         android:background="#FFc0cb"
-        android:text="2"
+        android:text="@string/two"
         app:layout_constraintBottom_toTopOf="@+id/Reset_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.457"
@@ -248,7 +251,7 @@
         android:layout_height="474dp"
         android:alpha=".5"
         android:background="#AFEEEE"
-        android:text="4"
+        android:text="@string/four"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/zone_3L"
         app:layout_constraintHorizontal_bias="1.0"
@@ -264,7 +267,7 @@
         android:alpha=".5"
         android:background="#00ff00"
         android:rotation="45"
-        android:text="5"
+        android:text="@string/five"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout"
         app:layout_constraintHorizontal_bias="0.757"
@@ -280,9 +283,18 @@
         android:layout_marginBottom="100dp"
         android:alpha=".5"
         android:background="#FFFF00"
-        android:text="1"
+        android:text="@string/one"
         app:layout_constraintBottom_toBottomOf="@+id/imageView8"
         app:layout_constraintEnd_toEndOf="@+id/imageView8" />
+
+    <TextView
+        android:id="@+id/textView_stage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
 </android.support.constraint.ConstraintLayout>
 

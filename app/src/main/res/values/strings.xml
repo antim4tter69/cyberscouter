@@ -193,4 +193,9 @@
     <string name="lockingMechansim">Locking Mechanism</string>
     <string name="centerClimb">Center Climb?</string>
     <string name="avgClimbHeight">Avg. Climb Height</string>
+
+    <string name="teleStage2">Stage 2</string>
+    <string name="teleStage3">Stage 3</string>
+    <string name="success">success</string>
+    <string name="failure">failure</string>
 </resources>

@@ -17,8 +17,10 @@
         android:textAlignment="center"
         android:textColor="#020000"
         android:textSize="40sp"
-        app:layout_constraintTop_toBottomOf="@+id/outerScore"
-        tools:layout_editor_absoluteX="458dp" />
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/OuterBox"
+        app:layout_constraintStart_toStartOf="@+id/OuterBox"
+        app:layout_constraintTop_toBottomOf="@+id/outerScore" />
 
     <Button
         android:id="@+id/LowerMinusButton"
@@ -27,6 +29,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="24sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/outerMinusButton"
         app:layout_constraintTop_toBottomOf="@+id/LowerBox" />
 
@@ -41,6 +44,7 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/outerScore"
         app:layout_constraintTop_toBottomOf="@+id/LowerBox" />
 
@@ -51,6 +55,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/PlusButton"
         android:textSize="24sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/outerPlusButton"
         app:layout_constraintTop_toBottomOf="@+id/LowerBox" />
 
@@ -63,8 +68,9 @@
         android:textAlignment="center"
         android:textColor="#020000"
         android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="@+id/LowerBox"
-        app:layout_constraintStart_toStartOf="@+id/LowerBox"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/InnerBox"
+        app:layout_constraintStart_toStartOf="@+id/InnerBox"
         app:layout_constraintTop_toBottomOf="@+id/InnerScore" />
 
     <Button
@@ -74,6 +80,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/PlusButton"
         android:textSize="24sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/InnerPlusButton"
         app:layout_constraintTop_toBottomOf="@+id/OuterBox" />
 
@@ -89,6 +96,7 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/InnerScore"
         app:layout_constraintTop_toBottomOf="@+id/OuterBox" />
 
@@ -99,6 +107,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="24sp"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/InnerMinusButton"
         app:layout_constraintTop_toBottomOf="@+id/OuterBox" />
 
@@ -121,6 +130,7 @@
         android:textAlignment="center"
         android:textColor="#020000"
         android:textSize="40sp"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,6 +143,7 @@
         android:layout_marginEnd="16dp"
         android:text="@string/PlusButton"
         android:textSize="24sp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/InnerScore"
         app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
@@ -149,6 +160,7 @@
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="30sp"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/InnerMinusButton"
         app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 
@@ -160,6 +172,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="24sp"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/InnerBox" />
 

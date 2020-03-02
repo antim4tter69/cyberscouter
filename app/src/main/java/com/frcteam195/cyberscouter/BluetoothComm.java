@@ -61,7 +61,6 @@ public class BluetoothComm {
                         mmInputStream.read(ibytes);
                         resp = new String(ibytes);
 
-
                         mmSocket.close();
 
                         break;
@@ -91,6 +90,7 @@ public class BluetoothComm {
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
+                returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
@@ -113,6 +113,7 @@ public class BluetoothComm {
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
+                returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
@@ -138,6 +139,7 @@ public class BluetoothComm {
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
+                returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
@@ -160,6 +162,7 @@ public class BluetoothComm {
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
+                returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }

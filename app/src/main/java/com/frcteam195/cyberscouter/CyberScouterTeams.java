@@ -46,27 +46,24 @@ class CyberScouterTeams {
     private int LockingMechanism;
     private int ClimbHeightID;
 
-    static void getTeamsRemote(AppCompatActivity activity) {
+    static String getTeamsRemote(AppCompatActivity activity) {
+        String ret = null;
+
         try {
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.getTeams(activity);
-            JSONObject jo = new JSONObject(response);
-            String result = (String) jo.get("result");
-            if (result.equalsIgnoreCase("failed")) {
-                return;
-            }
-            JSONObject payload = jo.getJSONObject("payload");
-            if (null != payload) {
-                Intent i = new Intent(TEAMS_UPDATED_FILTER);
-                i.putExtra("cyberscouterteams", payload.toString());
-                activity.sendBroadcast(i);
+            if(null != response) {
+                JSONObject jo = new JSONObject(response);
+                String result = (String) jo.get("result");
+                if("failure" != result) {
+                    ret = (String)jo.get("payload");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return;
-
+        return(ret);
     }
 
     static void setTeams(SQLiteDatabase db, String json) {

@@ -55,30 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    BroadcastReceiver mUsersReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String ret = intent.getStringExtra("cyberscouterusers");
-            updateUsers(ret);
-        }
-    };
-
-    BroadcastReceiver mMatchesReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String ret = intent.getStringExtra("cyberscoutermatches");
-            updateMatchesLocal(ret);
-        }
-    };
-
-    BroadcastReceiver mTeamsReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String ret = intent.getStringExtra("cyberscouterteams");
-            updateTeams(ret);
-        }
-    };
-
+    private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     SQLiteDatabase _db = null;
 
     private int currentCommStatusColor = Color.LTGRAY;
@@ -86,11 +63,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         _db = mDbHelper.getWritableDatabase();
+
+        registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
+        registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
 
         button = findViewById(R.id.button_scouting);
         button.setOnClickListener(new View.OnClickListener() {
@@ -121,14 +99,13 @@ public class MainActivity extends AppCompatActivity {
 
         updateStatusIndicator(Color.LTGRAY);
 
-        registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
-        registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
-        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
-        registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
-        registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
-        CyberScouterUsers.getUsersRemote(this);
-        CyberScouterTeams.getTeamsRemote(this);
-        CyberScouterConfig.getConfigRemote(this);
+//        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
+//        registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
+//        registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
+        String cfg_str = CyberScouterConfig.getConfigRemote(this);
+        if(null != cfg_str) {
+            processConfig(cfg_str);
+        }
     }
 
     @Override
@@ -142,13 +119,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         mDbHelper.close();
         unregisterReceiver(mConfigReceiver);
         unregisterReceiver(mOnlineStatusReceiver);
-        unregisterReceiver(mUsersReceiver);
-        unregisterReceiver(mMatchesReceiver);
-        unregisterReceiver(mTeamsReceiver);
+//        unregisterReceiver(mUsersReceiver);
+//        unregisterReceiver(mMatchesReceiver);
         super.onDestroy();
     }
 
@@ -169,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(allianceStation);
                 int eventId = jo.getInt("EventID");
                 CyberScouterConfig.setConfigLocal(_db, jo);
-                CyberScouterMatchScouting.getMatchesRemote(this, eventId);
+                button = findViewById(R.id.button_scouting);
+                button.setEnabled(true);
             }
             try {
                 Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
@@ -672,29 +648,5 @@ public class MainActivity extends AppCompatActivity {
         ImageView iv = findViewById(R.id.imageView_btIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
         currentCommStatusColor = color;
-    }
-
-    private void updateUsers(String json){
-        CyberScouterUsers.deleteUsers(_db);
-        CyberScouterUsers.setUsers(_db, json);
-    }
-
-    private void updateMatchesLocal(String json){
-        try {
-            CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-            CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
-            CyberScouterMatchScouting.mergeMatches(_db, json);
-            button = findViewById(R.id.button_scouting);
-            button.setEnabled(true);
-        } catch(Exception e) {
-            MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",
-                    String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));
-            e.printStackTrace();
-        }
-    }
-
-    private void updateTeams(String teams) {
-        CyberScouterTeams.deleteTeams(_db);
-        CyberScouterTeams.setTeams(_db, teams);
     }
 }

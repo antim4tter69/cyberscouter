@@ -81,27 +81,23 @@ public class CyberScouterConfig {
         return computer_type_id;
     }
 
-    static public void getConfigRemote(AppCompatActivity activity) {
+    static public String getConfigRemote(AppCompatActivity activity) {
+        String ret = null;
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.getConfig(activity);
-            JSONObject jo = new JSONObject(response);
-            String result = (String) jo.get("result");
-            if (result.equalsIgnoreCase("failed")) {
-                return;
-            }
-            JSONObject payload = jo.getJSONObject("payload");
-            if (null != payload) {
-                Intent i = new Intent(CONFIG_UPDATED_FILTER);
-                i.putExtra("cyberscouterconfig", payload.toString());
-                activity.sendBroadcast(i);
+            if(null != response) {
+                JSONObject jo = new JSONObject(response);
+                String result = (String) jo.get("result");
+                if(result != "failure") {
+                    ret = (String) jo.get("payload");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return;
+        return(ret);
     }
 
     static public CyberScouterConfig getConfig(SQLiteDatabase db) {

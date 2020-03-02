@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,10 +32,22 @@ public class PitScoutingActivity extends AppCompatActivity {
         }
     };
 
+    BroadcastReceiver mTeamsReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String ret = intent.getStringExtra("cyberscouterteams");
+            updateTeams(ret);
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pit_scouting);
+
+        registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
+
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -47,6 +60,15 @@ public class PitScoutingActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
+        String teams_str = CyberScouterTeams.getTeamsRemote(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        unregisterReceiver(mTeamsReceiver);
+
+        super.onDestroy();
     }
 
     public Fragment getItem(int position) {
@@ -74,4 +96,10 @@ public class PitScoutingActivity extends AppCompatActivity {
         BluetoothComm.updateStatusIndicator(iv, color);
     }
 
+    private void updateTeams(String teams) {
+        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+        SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
+        CyberScouterTeams.deleteTeams(_db);
+        CyberScouterTeams.setTeams(_db, teams);
+    }
 }

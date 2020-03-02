@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -60,7 +61,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(0);
+                startPosition(1);
             }
         });
 
@@ -69,7 +70,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(1);
+                startPosition(2);
             }
         });
 
@@ -78,7 +79,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(2);
+                startPosition(3);
             }
         });
 
@@ -87,7 +88,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(3);
+                startPosition(4);
             }
         });
 
@@ -96,7 +97,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(4);
+                startPosition(5);
             }
         });
 
@@ -105,7 +106,7 @@ public class PreAutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startPosition(5);
+                startPosition(6);
             }
         });
 
@@ -156,7 +157,13 @@ public class PreAutoPage extends AppCompatActivity {
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
             _startPos = csm.getAutoStartPos();
-            FakeRadioGroup.buttonDisplay(this, _startPos, startPositionButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            button = findViewById(R.id.PreAutoContinueButton);
+            if(0 < _startPos) {
+                FakeRadioGroup.buttonDisplay(this, _startPos - 1, startPositionButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+                button.setEnabled(true);
+            } else {
+                button.setEnabled(false);
+            }
         }
     }
 
@@ -168,6 +175,7 @@ public class PreAutoPage extends AppCompatActivity {
 
     private void didNotShow() {
         _didNotShow = 1;
+        _startPos = 0;
         updatePreAutoData();
         Intent intent = new Intent(this, SubmitPage.class);
         intent.putExtra("field_orientation", field_orientation);
@@ -188,8 +196,10 @@ public class PreAutoPage extends AppCompatActivity {
     }
 
     public void startPosition(int val) {
-        FakeRadioGroup.buttonPressed(this, val, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        FakeRadioGroup.buttonPressed(this, val - 1, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         _startPos = val;
+        button = findViewById(R.id.PreAutoContinueButton);
+        button.setEnabled(true);
     }
 
     private void updateStatusIndicator(int color) {

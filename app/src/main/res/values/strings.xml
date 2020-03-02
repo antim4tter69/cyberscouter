@@ -198,4 +198,5 @@
     <string name="teleStage3">Stage 3</string>
     <string name="success">success</string>
     <string name="failure">failure</string>
+    <string name="completed">Completed</string>
 </resources>

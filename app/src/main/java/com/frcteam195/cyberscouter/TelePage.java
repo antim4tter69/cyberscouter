@@ -102,6 +102,15 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
+        button = findViewById(R.id.Reset_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetTimer();
+
+            }
+        });
+
         Stage_2 = findViewById(R.id.Stage_2);
         Stage_2.setFormat("Time: %s");
         Stage_2.setBase(SystemClock.elapsedRealtime());
@@ -434,18 +443,13 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
                             break;
                     }
                 }
-                tv = findViewById(R.id.textView_stage);
-                if(0 == csm.getTeleWheelStage2Time()) {
-                    tv.setText(getString(R.string.teleStage2));
-                } else {
-                    tv.setText(getString(R.string.teleStage3));
-                }
                 _stage2Status = csm.getTeleWheelStage2Status();
                 _stage2Time = csm.getTeleWheelStage2Time();
                 _stage2Attempts = csm.getTeleWheelStage2Attempts();
                 _stage3Time = csm.getTeleWheelStage3Time();
                 _stage3Attempts = csm.getTeleWheelStage3Attempts();
                 _stage3Status = csm.getTeleWheelStage3Status();
+                setTimer();
             }
         }
     }
@@ -479,21 +483,23 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     }
 
     private void resetStage_2(View V) {
-        Stage_2.setBase(SystemClock.elapsedRealtime());
-        pauseOffset = 0;
         if(running) {
             Stage_2.stop();
             running = false;
         }
+        int ltime = (int)(SystemClock.elapsedRealtime() - Stage_2.getBase()) / 1000;
         if(0 == _stage2Time) {
-            _stage2Time = (int) (SystemClock.elapsedRealtime() - Stage_2.getBase()) / 1000;
+            _stage2Time = ltime;
             _stage2Status = 1;
             TextView tv = findViewById(R.id.textView_stage);
             tv.setText(getString(R.string.teleStage3));
         } else {
-            _stage3Time = (int) (SystemClock.elapsedRealtime() - Stage_2.getBase()) / 1000;
+            _stage3Time = ltime;
             _stage3Status = 1;
         }
+        pauseOffset = 0;
+        Stage_2.setBase(SystemClock.elapsedRealtime());
+        setTimer();
     }
 
     public void returnToAutoPage() {
@@ -538,7 +544,41 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         } else {
             MessageBox.showMessageBox(this, "Configuration Not Found Alert", "setMetricValue", "An error occurred trying to acquire current configuration.  Cannot continue.");
         }
-        this.onResume();
+    }
+
+    private void setTimer(){
+        TextView tv = findViewById(R.id.textView_stage);
+        tv = findViewById(R.id.textView_stage);
+        if(0 == _stage2Time) {
+            tv.setText(getString(R.string.teleStage2));
+        } else if(0 == _stage3Time){
+            tv.setText(getString(R.string.teleStage3));
+        } else {
+            tv.setText(getString(R.string.completed));
+            button = findViewById(R.id.button_teleStartChron);
+            button.setEnabled(false);
+            button = findViewById(R.id.button_teleFailureChron);
+            button.setEnabled(false);
+            button = findViewById(R.id.button_teleSuccessChron);
+            button.setEnabled(false);
+        }
+    }
+
+    private void resetTimer(){
+        _stage2Time = 0 ;
+        _stage2Attempts = 0;
+        _stage2Status = 0;
+        _stage3Time = 0 ;
+        _stage3Attempts = 0;
+        _stage3Status = 0;
+        TextView tv = findViewById(R.id.textView_stage);
+        tv.setText(getString(R.string.teleStage2));
+        button = findViewById(R.id.button_teleStartChron);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_teleFailureChron);
+        button.setEnabled(true);
+        button = findViewById(R.id.button_teleSuccessChron);
+        button.setEnabled(true);
     }
 
     private void updateStatusIndicator(int color) {

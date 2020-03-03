@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class CyberScouterConfig {
@@ -86,12 +87,13 @@ public class CyberScouterConfig {
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getConfig(activity);
+            String response = btcomm.getConfig(activity, null);
             if(null != response) {
                 JSONObject jo = new JSONObject(response);
-                String result = (String) jo.get("result");
+                String result = jo.getString("result");
                 if(result != "failure") {
-                    ret = (String) jo.get("payload");
+                    JSONObject jop = (JSONObject) jo.get("payload");
+                    ret = jop.toString();
                 }
             }
         } catch (Exception e) {

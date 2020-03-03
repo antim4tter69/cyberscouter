@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class EndPage extends AppCompatActivity {
     private Button button;
-    private int defaultButtonTextColor;
+    private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] lostCommButtons = {R.id.button_LostCommNo, R.id.button_LostCommYes};
     private final int[] brokeDownButtons = {R.id.button_BrokeDownNo, R.id.button_BrokeDownYes};
@@ -62,7 +62,6 @@ public class EndPage extends AppCompatActivity {
 
             }
         });
-        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = findViewById(R.id.button_Next);
         button.setOnClickListener(new View.OnClickListener() {

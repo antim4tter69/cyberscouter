@@ -18,7 +18,7 @@ import android.widget.TextView;
 public class PreAutoPage extends AppCompatActivity {
     private Button button;
     private final int[] startPositionButtons = {R.id.startbutton1, R.id.startbutton2, R.id.startbutton3, R.id.startbutton4, R.id.startbutton5, R.id.startbutton6};
-    private int defaultButtonTextColor;
+    private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
 
     private int field_orientation;
@@ -56,7 +56,6 @@ public class PreAutoPage extends AppCompatActivity {
         _db = mDbHelper.getWritableDatabase();
 
         button = findViewById(R.id.startbutton1);
-        defaultButtonTextColor = Color.LTGRAY;
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override

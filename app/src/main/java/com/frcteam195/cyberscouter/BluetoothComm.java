@@ -53,13 +53,28 @@ public class BluetoothComm {
                         mmOutputStream.write(json.getBytes());
                         Thread.sleep(1);
                         byte[] ibytes = new byte[mmInputStream.available()];
-                        int length = ibytes.length;
                         while(ibytes.length == 0) {
                             Thread.sleep(10);
                             ibytes = new byte[mmInputStream.available()];
                         }
+                        System.out.println(String.format("1. Bytes available: %d", ibytes.length));
                         mmInputStream.read(ibytes);
                         resp = new String(ibytes);
+                        if(0x03 != ibytes[ibytes.length - 1]) {
+                            for(int i=0; i<20; ++i) {
+                                Thread.sleep(100);
+                                ibytes = new byte[mmInputStream.available()];
+                                if(0 < ibytes.length) {
+                                    System.out.println(String.format("2. Bytes available: %d", ibytes.length));
+                                    mmInputStream.read(ibytes);
+                                    resp = resp.concat(new String(ibytes));
+                                    System.out.println(String.format("2a. Return string length = %d", resp.length()));
+                                    if(0x03 == ibytes[ibytes.length -1]) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
 
                         mmSocket.close();
 
@@ -76,7 +91,7 @@ public class BluetoothComm {
         return resp;
     }
 
-    public String getConfig(AppCompatActivity activity) {
+    public String getConfig(AppCompatActivity activity, String last_hash) {
         String returnJson = _errorJson;
         try {
             String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
@@ -86,6 +101,9 @@ public class BluetoothComm {
             j1.put("computerName", btname);
             jr.put("cmd", "get-config");
             jr.put("payload", j1);
+            if(null != last_hash) {
+                jr.put("last_hash", last_hash);
+            }
 
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
@@ -102,13 +120,16 @@ public class BluetoothComm {
      return(returnJson);
     }
 
-    public String getUsers(AppCompatActivity activity) {
+    public String getUsers(AppCompatActivity activity, String last_hash) {
         String returnJson = _errorJson;
         try {
             String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-users");
+            if(null != last_hash) {
+                jr.put("last_hash", last_hash);
+            }
 
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
@@ -125,7 +146,7 @@ public class BluetoothComm {
         return(returnJson);
     }
 
-    public String getMatches(AppCompatActivity activity, int eventId) {
+    public String getMatches(AppCompatActivity activity, int eventId, String last_hash) {
         String returnJson = _errorJson;
         try {
             String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
@@ -135,6 +156,9 @@ public class BluetoothComm {
             j1.put("eventId", eventId);
             jr.put("cmd", "get-matches");
             jr.put("payload", j1);
+            if(null != last_hash) {
+                jr.put("last_hash", last_hash);
+            }
 
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
@@ -151,13 +175,16 @@ public class BluetoothComm {
         return(returnJson);
     }
 
-    public String getTeams(AppCompatActivity activity) {
+    public String getTeams(AppCompatActivity activity, String last_hash) {
         String returnJson = _errorJson;
         try {
             String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-teams");
+            if(null != last_hash) {
+                jr.put("last_hash", last_hash);
+            }
 
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();

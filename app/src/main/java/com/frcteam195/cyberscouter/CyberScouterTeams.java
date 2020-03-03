@@ -14,6 +14,8 @@ import java.util.Locale;
 class CyberScouterTeams {
     public final static String TEAMS_UPDATED_FILTER = "frcteam195_cyberscouterteams_teams_updated_intent_filter";
 
+    private static String last_hash = null;
+
     private int teamID;
     private int team;
     private String TeamName;
@@ -55,12 +57,18 @@ class CyberScouterTeams {
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getTeams(activity);
+            String response = btcomm.getTeams(activity, last_hash);
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
-                String result = (String) jo.get("result");
+                String result = jo.getString("result");
                 if ("failure" != result) {
-                    ret = (String) jo.get("payload");
+                    if(result.equalsIgnoreCase("skip")) {
+                        ret = "skip";
+                    } else {
+                        JSONArray payload = jo.getJSONArray("payload");
+                        ret = payload.toString();
+                        last_hash = jo.getString("hash");
+                    }
                 }
             }
         } catch (Exception e) {

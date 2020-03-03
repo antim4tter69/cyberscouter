@@ -114,11 +114,17 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
         updateStatusIndicator(currentCommStatusColor);
 
-        CyberScouterUsers.getUsersRemote(this);
+        String csu_str = CyberScouterUsers.getUsersRemote(this);
+        if(null != csu_str) {
+            updateUsers(csu_str);
+        }
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg) {
-            CyberScouterMatchScouting.getMatchesRemote(this, cfg.getEvent_id());
+            String csms_str = CyberScouterMatchScouting.getMatchesRemote(this, cfg.getEvent_id());
+            if(null != csms_str) {
+                updateMatchesLocal(csms_str);
+            }
         }
     }
 
@@ -235,15 +241,19 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         BluetoothComm.updateStatusIndicator(iv, color);
     }
     private void updateUsers(String json){
-        CyberScouterUsers.deleteUsers(_db);
-        CyberScouterUsers.setUsers(_db, json);
+        if(!json.equalsIgnoreCase("skip")) {
+            CyberScouterUsers.deleteUsers(_db);
+            CyberScouterUsers.setUsers(_db, json);
+        }
     }
 
     private void updateMatchesLocal(String json){
         try {
             CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-            CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
-            CyberScouterMatchScouting.mergeMatches(_db, json);
+            if(!json.equalsIgnoreCase("skip")) {
+                CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
+                CyberScouterMatchScouting.mergeMatches(_db, json);
+            }
             CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
             if (null != csm) {
                 TextView tv = findViewById(R.id.textView7);
@@ -284,6 +294,8 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
                         tvtn.setTextColor(Color.BLUE);
                     }
                 }
+                Button button = findViewById(R.id.Button_Start);
+                button.setEnabled(true);
             }
         } catch(Exception e) {
             MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",

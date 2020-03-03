@@ -24,6 +24,7 @@ import java.util.Vector;
 
 public class CyberScouterUsers {
     public final static String USERS_UPDATED_FILTER = "frcteam195_cyberscouterusers_users_updated_intent_filter";
+    private static String last_hash = null;
 
     public CyberScouterUsers() {
     }
@@ -34,27 +35,30 @@ public class CyberScouterUsers {
     private String cellPhone;
     private String email;
 
-    static void getUsersRemote(AppCompatActivity activity) {
+    static String getUsersRemote(AppCompatActivity activity) {
+        String ret = null;
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getUsers(activity);
-            JSONObject jo = new JSONObject(response);
-            String result = (String) jo.get("result");
-            if (result.equalsIgnoreCase("failed")) {
-                return;
-            }
-            JSONObject payload = jo.getJSONObject("payload");
-            if (null != payload) {
-                Intent i = new Intent(USERS_UPDATED_FILTER);
-                i.putExtra("cyberscouterusers", payload.toString());
-                activity.sendBroadcast(i);
+            String response = btcomm.getUsers(activity, last_hash);
+            if(null != response) {
+                JSONObject jo = new JSONObject(response);
+                String result = jo.getString("result");
+                if (!result.equalsIgnoreCase("failure")) {
+                    if(result.equalsIgnoreCase("skip")) {
+                        ret = "skip";
+                    } else {
+                        JSONArray payload = jo.getJSONArray("payload");
+                        ret = payload.toString();
+                        last_hash = jo.getString("hash");
+                    }
+                    return ret;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return;
-
+        return ret;
     }
 
     static String[] getUserNames(SQLiteDatabase db) {

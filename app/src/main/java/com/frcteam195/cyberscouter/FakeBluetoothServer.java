@@ -7,10 +7,10 @@ import org.json.JSONObject;
 
 public class FakeBluetoothServer {
 
-    final public static boolean bUseFakeBluetoothServer = false;
+    final public static boolean bUseFakeBluetoothServer = true;
     final public static String webServiceBaseUrl = "https://8zaof0vuah.execute-api.us-east-1.amazonaws.com";
 
-    final public static String fakeBluetoothComputerName = "Team 195 Scout 1";
+    final public static String fakeBluetoothComputerName = "Team 195 Scout 11";
 
 
 
@@ -30,6 +30,8 @@ public class FakeBluetoothServer {
                 JSONObject payload = obj.getJSONObject("payload");
                 int eventId = payload.getInt("eventId");
                 CyberScouterMatchScouting.getMatchesWebService(activity, eventId);
+            } else if (cmd == "get-teams") {
+                CyberScouterTeams.getTeamsWebService(activity);
             }
         } catch(Exception e) {
             e.printStackTrace();

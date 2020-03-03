@@ -6,6 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -78,14 +85,42 @@ class CyberScouterTeams {
         return (ret);
     }
 
-    static CyberScouterTeams getCurrentTeam(SQLiteDatabase db, String team) {
+    static public void getTeamsWebService(final AppCompatActivity activity) {
+        RequestQueue rq = Volley.newRequestQueue(activity);
+        String url = String.format("%s/teams", FakeBluetoothServer.webServiceBaseUrl);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            Intent i = new Intent(TEAMS_UPDATED_FILTER);
+                            i.putExtra("cyberscouterteams", response);
+                            activity.sendBroadcast(i);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        rq.add(stringRequest);
+        return;
+
+    }
+
+    static CyberScouterTeams getCurrentTeam(SQLiteDatabase db, int team) {
         CyberScouterTeams cst = null;
 
         Cursor cursor = null;
         try {
             String selection = CyberScouterContract.Teams.COLUMN_NAME_TEAM + " = ?";
             String[] selectionArgs = {
-                    String.format(Locale.getDefault(), "%s", team)
+                    String.format(Locale.getDefault(), "%d", team)
             };
 
 

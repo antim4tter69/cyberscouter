@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class AutoPage extends AppCompatActivity {
     private Button button;
-    private int defaultButtonTextColor;
+    private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
     private final int[] penaltyButtons = {R.id.button_PenaltiesNo, R.id.button_PenaltiesYes};
@@ -62,7 +62,6 @@ public class AutoPage extends AppCompatActivity {
                 ReturnToScoutingPage();
             }
         });
-        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = findViewById(R.id.button_moveBonusYes);
         button.setOnClickListener(new View.OnClickListener() {

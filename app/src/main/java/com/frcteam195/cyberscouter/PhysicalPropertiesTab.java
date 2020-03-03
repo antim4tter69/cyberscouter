@@ -22,7 +22,7 @@ public class PhysicalPropertiesTab extends Fragment {
     private final int[] gearSpeedButtons = {R.id.gearSpeed1,R.id.gearSpeed2,R.id.gearSpeed3};
     private final int[] pneumaticsYNButtons = {R.id.pneumaticsNo,R.id.pneumaticsYes};
     private View _view;
-    private int defaultButtonTextColor;
+    private int defaultButtonBackgroundColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int numberOfMotors = 0;
     private int numberOfWheels = 0;
@@ -103,7 +103,6 @@ public class PhysicalPropertiesTab extends Fragment {
                 gearSpeed1();
             }
         });
-        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = view.findViewById(R.id.gearSpeed2);
         button.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +111,6 @@ public class PhysicalPropertiesTab extends Fragment {
                 gearSpeed2();
             }
         });
-        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = view.findViewById(R.id.gearSpeed3);
         button.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +119,6 @@ public class PhysicalPropertiesTab extends Fragment {
                 gearSpeed3();
             }
         });
-        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = view.findViewById(R.id.pneumaticsYes);
         button.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +127,6 @@ public class PhysicalPropertiesTab extends Fragment {
                 pneumaticsYes();
             }
         });
-        defaultButtonTextColor = button.getCurrentTextColor();
 
         button = view.findViewById(R.id.pneumaticsNo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +135,6 @@ public class PhysicalPropertiesTab extends Fragment {
                 pneumaticsNo();
             }
         });
-        defaultButtonTextColor = button.getCurrentTextColor();
 
         return view;
     }
@@ -178,8 +173,25 @@ public class PhysicalPropertiesTab extends Fragment {
             et.setText(String.valueOf(cst.getRobotHeight()));
             et = _view.findViewById(R.id.weightInput);
             et.setText(String.valueOf(cst.getRobotWeight()));
+            et = _view.findViewById(R.id.editText_topSpeed);
+            et.setText(String.valueOf(cst.getSpeed()));
+            String gearRatio = cst.getGearRatio();
+            if(gearRatio.contains(":")) {
+                String [] aGearRatio = gearRatio.split(":");
+                et = _view.findViewById(R.id.gearRatio1);
+                et.setText(aGearRatio[0]);
+                et = _view.findViewById(R.id.gearRatio2);
+                et.setText(aGearRatio[1]);
+            }
 
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getPneumatics(), pneumaticsYNButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+
+            button = _view.findViewById(R.id.numberOfMotorsButton);
+            button.setText(String.valueOf(cst.getNumDriveMotors()));
+            button = _view.findViewById(R.id.numberOfWheelsButton);
+            button.setText(String.valueOf(cst.getNumWheels()));
+
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getPneumatics(), pneumaticsYNButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getNumGearSpeed(), gearSpeedButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         }
     }
 
@@ -212,30 +224,30 @@ public class PhysicalPropertiesTab extends Fragment {
     private void gearSpeed1(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,gearSpeedButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                defaultButtonBackgroundColor);
     }
 
     private void gearSpeed2(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,gearSpeedButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                defaultButtonBackgroundColor);
     }
 
     private void gearSpeed3(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,2,gearSpeedButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                defaultButtonBackgroundColor);
     }
 
     private void pneumaticsYes(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,pneumaticsYNButtons,
+        FakeRadioGroup.buttonPressed(getActivity(),_view,1,pneumaticsYNButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                defaultButtonBackgroundColor);
     }
 
     private void pneumaticsNo(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,pneumaticsYNButtons,
+        FakeRadioGroup.buttonPressed(getActivity(),_view,0,pneumaticsYNButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                defaultButtonBackgroundColor);
     }
 }

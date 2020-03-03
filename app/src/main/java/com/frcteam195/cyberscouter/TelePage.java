@@ -30,8 +30,6 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private Button zone_5R;
     private ImageView imageView8;
     private ImageView imageView9;
-    private int defaultButtonTextColor;
-    private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int FIELD_ORIENTATION_RIGHT = 0;
     private int FIELD_ORIENTATION_LEFT = 1;
     private int field_orientation;

@@ -8,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 public class TelePopUpPage extends DialogFragment implements View.OnClickListener{
     private Integer[] values = new Integer[4];
@@ -96,7 +97,7 @@ public class TelePopUpPage extends DialogFragment implements View.OnClickListene
 
         TextView tv = view.findViewById(R.id.textView_Zone);
         tv.setText(getString(R.string.zone_text, values[0]));
-        EditText et = view.findViewById(R.id.InnerScore);
+        TextView et = view.findViewById(R.id.InnerScore);
         et.setText(values[1].toString());
         et = view.findViewById(R.id.outerScore);
         et.setText(values[2].toString());
@@ -138,42 +139,42 @@ public class TelePopUpPage extends DialogFragment implements View.OnClickListene
     private void innerMinusButton() {
         if(0 < values[1]) {
             values[1]--;
-            EditText et = view.findViewById(R.id.InnerScore);
+            TextView et = view.findViewById(R.id.InnerScore);
             et.setText(values[1].toString());
         }
     }
 
     private void innerPlusButton() {
         values[1]++;
-        EditText et = view.findViewById(R.id.InnerScore);
+        TextView et = view.findViewById(R.id.InnerScore);
         et.setText(values[1].toString());
     }
 
     private void outerMinusButton() {
         if(0 < values[2]) {
             values[2]--;
-            EditText et = view.findViewById(R.id.outerScore);
+            TextView et = view.findViewById(R.id.outerScore);
             et.setText(values[2].toString());
         }
     }
 
     private void outerPlusButton() {
         values[2]++;
-        EditText et = view.findViewById(R.id.outerScore);
+        TextView et = view.findViewById(R.id.outerScore);
         et.setText(values[2].toString());
     }
 
     private void lowerMinusButton() {
         if(0 < values[3]) {
             values[3]--;
-            EditText et = view.findViewById(R.id.lowerScore);
+            TextView et = view.findViewById(R.id.lowerScore);
             et.setText(values[3].toString());
         }
     }
 
     private void lowerPlusButton() {
         values[3]++;
-        EditText et = view.findViewById(R.id.lowerScore);
+        TextView et = view.findViewById(R.id.lowerScore);
         et.setText(values[3].toString());
     }
 

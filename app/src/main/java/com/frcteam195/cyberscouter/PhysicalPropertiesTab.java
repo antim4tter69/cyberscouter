@@ -26,10 +26,10 @@ public class PhysicalPropertiesTab extends Fragment {
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int numberOfMotors = 0;
     private int numberOfWheels = 0;
-    private String[] driveTypes = {"Kiwi", "Other"};
-    private String[] motorTypes = {"Falcon", "Other"};
-    private String[] wheelTypes = {"Colson", "Other"};
-    private String[] progLangTypes = {"Java", "Other"};
+    private String[] driveTypes = {"Swerve","Mecanum","Tank","H-Drive","Other"};
+    private String[] motorTypes = {"CIM","NEO","Falcon","Other"};
+    private String[] wheelTypes = {"Colson","Mecanum","Tread","Omni","Pneumatic","Traction","Other"};
+    private String[] progLangTypes = {"Java","C++","LabView","Python","Other"};
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
 

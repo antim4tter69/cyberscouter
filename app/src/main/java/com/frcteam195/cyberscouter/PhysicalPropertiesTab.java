@@ -36,8 +36,6 @@ public class PhysicalPropertiesTab extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        mDbHelper = new CyberScouterDbHelper(getActivity());
     }
 
     @Nullable
@@ -150,20 +148,36 @@ public class PhysicalPropertiesTab extends Fragment {
     public void onResume() {
         super.onResume();
 
+        populateScreen();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if(isVisibleToUser) {
+            populateScreen();
+        }
+    }
+
+    private void populateScreen() {
+        if(null == getActivity()) {
+            return;
+        }
+        mDbHelper = new CyberScouterDbHelper(getActivity());
+
         SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
-        String team = "195";
+        int team = 195;
 
         CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, team);
 
         if(null != cst) {
             EditText et = _view.findViewById(R.id.lengthInput);
-            et.setText(cst.getRobotLength());
+            et.setText(String.valueOf(cst.getRobotLength()));
             et = _view.findViewById(R.id.widthInput);
-            et.setText(cst.getRobotWidth());
+            et.setText(String.valueOf(cst.getRobotWidth()));
             et = _view.findViewById(R.id.heightInput);
-            et.setText(cst.getRobotHeight());
+            et.setText(String.valueOf(cst.getRobotHeight()));
             et = _view.findViewById(R.id.weightInput);
-            et.setText(cst.getRobotWeight());
+            et.setText(String.valueOf(cst.getRobotWeight()));
 
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getPneumatics(), pneumaticsYNButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         }

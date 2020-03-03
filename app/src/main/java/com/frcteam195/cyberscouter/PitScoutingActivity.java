@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import com.frcteam195.cyberscouter.ui.main.SectionsPagerAdapter;
 
 public class PitScoutingActivity extends AppCompatActivity {
+    private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override
@@ -47,7 +49,6 @@ public class PitScoutingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pit_scouting);
 
         registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
-
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -61,12 +62,18 @@ public class PitScoutingActivity extends AppCompatActivity {
         super.onResume();
 
         String teams_str = CyberScouterTeams.getTeamsRemote(this);
+        if(null != teams_str && !teams_str.equalsIgnoreCase("skip")) {
+            updateTeams(teams_str);
+        }
     }
 
     @Override
     protected void onDestroy() {
-
+        if(mDbHelper != null) {
+            mDbHelper.close();
+        }
         unregisterReceiver(mTeamsReceiver);
+
 
         super.onDestroy();
     }
@@ -97,7 +104,6 @@ public class PitScoutingActivity extends AppCompatActivity {
     }
 
     private void updateTeams(String teams) {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
         CyberScouterTeams.deleteTeams(_db);
         CyberScouterTeams.setTeams(_db, teams);

@@ -152,7 +152,7 @@
 
     <TextView
         android:id="@+id/textView_roleTag"
-        android:layout_width="367dp"
+        android:layout_width="400dp"
         android:layout_height="55dp"
         android:text="@string/ScoutingPage"
         android:textColor="@android:color/black"

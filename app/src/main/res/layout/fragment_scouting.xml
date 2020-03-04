@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView_fragmentScoutingUser"
         app:layout_constraintTop_toBottomOf="@+id/textView_fragmentScoutingUser" />
 
@@ -43,7 +44,7 @@
         android:text="@string/fragmentScoutingTeamText"
         android:textColor="@android:color/black"
         android:textSize="40sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView_fragmentScoutingUser"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_fragmentScoutingTitle" />
@@ -52,12 +53,25 @@
         android:id="@+id/textView_fragmentScoutingUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="256dp"
         android:text="@string/fragmentScoutingUser"
         android:textColor="@android:color/black"
         android:textSize="40sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView_fragmentScoutingTeam"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_fragmentScoutingTitle" />
+
+    <Button
+        android:id="@+id/button_scoutingTabCommit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/completed"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_teams" />
 </android.support.constraint.ConstraintLayout>

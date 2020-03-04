@@ -141,7 +141,7 @@ public class AutoTab extends Fragment {
         mDbHelper = new CyberScouterDbHelper(getActivity());
 
         _db = mDbHelper.getWritableDatabase();
-        currentTeam = 195;
+        currentTeam = PitScoutingActivity.getCurrentTeam();
 
         CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, currentTeam);
 

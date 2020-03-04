@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 19;
+    private static final int DATABASE_VERSION = 20;
     private static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
@@ -143,7 +143,8 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID + " INTEGER)"
+                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING + " INTEGER)"
             ;
 
     private static final String SQL_DELETE_TEAMS =

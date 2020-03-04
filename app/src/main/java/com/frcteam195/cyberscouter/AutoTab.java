@@ -134,6 +134,14 @@ public class AutoTab extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        if (mDbHelper != null) {
+            mDbHelper.close();
+        }
+        super.onDestroy();
+    }
+
     private void populateScreen() {
         if (null == getActivity()) {
             return;

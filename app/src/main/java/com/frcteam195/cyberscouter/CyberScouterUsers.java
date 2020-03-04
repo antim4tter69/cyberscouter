@@ -144,7 +144,7 @@ public class CyberScouterUsers {
                 values.put(CyberScouterContract.Users.COLUMN_NAME_CELLPHONE, jo.getString("CellPhone"));
                 values.put(CyberScouterContract.Users.COLUMN_NAME_EMAIL, jo.getString("Email"));
 
-                long newRowId = db.insert(CyberScouterContract.Users.TABLE_NAME, null, values);
+                long newRowId = db.insertWithOnConflict(CyberScouterContract.Users.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
             }
         } catch (Exception e) {
             e.printStackTrace();

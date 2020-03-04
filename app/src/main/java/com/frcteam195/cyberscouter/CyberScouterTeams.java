@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Locale;
+import java.util.Vector;
 
 class CyberScouterTeams {
     public final static String TEAMS_UPDATED_FILTER = "frcteam195_cyberscouterteams_teams_updated_intent_filter";
@@ -111,6 +112,45 @@ class CyberScouterTeams {
         rq.add(stringRequest);
         return;
 
+    }
+
+    static String[] getTeamNumbers(SQLiteDatabase db) {
+        Vector<String> teamVector = new Vector<>();
+        Cursor cursor;
+        try {
+            String[] projection = {
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM,
+            };
+
+            cursor = db.query(
+                    CyberScouterContract.Teams.TABLE_NAME,   // The table to query
+                    projection,             // The array of columns to return (pass null to get all)
+                    null,              // The columns for the WHERE clause
+                    null,          // The values for the WHERE clause
+                    null,                   // don't group the rows
+                    null,                   // don't filter by row groups
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM + " ASC"               // The sort order
+            );
+
+            if (0 < cursor.getCount()) {
+                while (cursor.moveToNext()) {
+                    String team_no = String.valueOf(cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TEAM)));
+                    teamVector.add(team_no);
+                }
+            }
+
+
+
+            } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (0 < teamVector.size()) {
+            String[] nv2 = new String[teamVector.size()];
+            return teamVector.toArray(nv2);
+        } else {
+            return(null);
+        }
     }
 
     static CyberScouterTeams getCurrentTeam(SQLiteDatabase db, int team) {
@@ -258,7 +298,7 @@ class CyberScouterTeams {
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
 
-                long newRowId = db.insert(CyberScouterContract.Teams.TABLE_NAME, null, values);
+                long newRowId = db.insertWithOnConflict(CyberScouterContract.Teams.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -268,6 +308,29 @@ class CyberScouterTeams {
     static void deleteTeams(SQLiteDatabase db) {
         db.execSQL("DELETE from " + CyberScouterContract.Teams.TABLE_NAME);
     }
+
+    static void updateTeamMetric(SQLiteDatabase db, String lcolumn, Integer lvalue, Integer currentTeam) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(lcolumn, lvalue);
+
+        String selection = CyberScouterContract.Teams.COLUMN_NAME_TEAM + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", currentTeam)
+        };
+
+        if (1 > updateTeam(db, values, selection, selectionArgs))
+            throw new Exception(String.format("An error occurred while updating the local teams table.\n\nNo rows were updated for Team=%d", currentTeam));
+
+    }
+
+    private static int updateTeam(SQLiteDatabase db, ContentValues values, String selection, String[] selectionArgs) {
+        return db.update(
+                CyberScouterContract.Teams.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
+    }
+
 
     int getTeam() {
         return team;

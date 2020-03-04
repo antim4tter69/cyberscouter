@@ -42,6 +42,13 @@ public class PitScoutingActivity extends AppCompatActivity {
         }
     };
 
+    BroadcastReceiver mUsersReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String ret = intent.getStringExtra("cyberscouterusers");
+            updateUsers(ret);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,8 @@ public class PitScoutingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pit_scouting);
 
         registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
+        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
+
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
@@ -65,6 +74,11 @@ public class PitScoutingActivity extends AppCompatActivity {
         if(null != teams_str && !teams_str.equalsIgnoreCase("skip")) {
             updateTeams(teams_str);
         }
+
+        String users_str = CyberScouterUsers.getUsersRemote(this);
+        if(null != users_str && !users_str.equalsIgnoreCase("skip")) {
+            updateUsers(users_str);
+        }
     }
 
     @Override
@@ -73,30 +87,10 @@ public class PitScoutingActivity extends AppCompatActivity {
             mDbHelper.close();
         }
         unregisterReceiver(mTeamsReceiver);
-
+        unregisterReceiver(mUsersReceiver);
 
         super.onDestroy();
     }
-
-    public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-                return new PhysicalPropertiesTab();
-            case 1:
-                return new AutoTab();
-            case 2:
-                return new TeleopTab();
-            case 3:
-                return new EndgameTab();
-            default:
-                return null;
-        }
-    }
-
-    public int getCount() {
-        return 4;
-    }
-
 
     private void updateStatusIndicator(int color) {
         ImageView iv = findViewById(R.id.imageView_btIndicator);
@@ -105,7 +99,13 @@ public class PitScoutingActivity extends AppCompatActivity {
 
     private void updateTeams(String teams) {
         SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
-        CyberScouterTeams.deleteTeams(_db);
         CyberScouterTeams.setTeams(_db, teams);
+    }
+
+    private void updateUsers(String json){
+        SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
+        if(!json.equalsIgnoreCase("skip")) {
+            CyberScouterUsers.setUsers(_db, json);
+        }
     }
 }

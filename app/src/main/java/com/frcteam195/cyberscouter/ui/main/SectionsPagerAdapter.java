@@ -11,6 +11,7 @@ import com.frcteam195.cyberscouter.AutoTab;
 import com.frcteam195.cyberscouter.EndgameTab;
 import com.frcteam195.cyberscouter.PhysicalPropertiesTab;
 import com.frcteam195.cyberscouter.R;
+import com.frcteam195.cyberscouter.ScoutingTab;
 import com.frcteam195.cyberscouter.TeleopTab;
 
 /**
@@ -20,7 +21,7 @@ import com.frcteam195.cyberscouter.TeleopTab;
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2,
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_0, R.string.tab_text_1, R.string.tab_text_2,
             R.string.tab_text_3, R.string.tab_text_4};
     private final Context mContext;
 
@@ -33,12 +34,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new PhysicalPropertiesTab();
+                return new ScoutingTab();
             case 1:
-                return new AutoTab();
+                return new PhysicalPropertiesTab();
             case 2:
-                return new TeleopTab();
+                return new AutoTab();
             case 3:
+                return new TeleopTab();
+            case 4:
                 return new EndgameTab();
             default:
                 return null;
@@ -53,7 +56,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 2 total pages.
-        return 4;
+        return 5;
     }
 }

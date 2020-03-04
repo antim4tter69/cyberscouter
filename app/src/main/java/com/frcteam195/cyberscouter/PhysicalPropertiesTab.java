@@ -26,10 +26,14 @@ public class PhysicalPropertiesTab extends Fragment {
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private int numberOfMotors = 0;
     private int numberOfWheels = 0;
+    private int pneumatics = 0;
+    private int gearSpeed = 0;
     private String[] driveTypes = {"Swerve","Mecanum","Tank","H-Drive","Other"};
     private String[] motorTypes = {"CIM","NEO","Falcon","Other"};
     private String[] wheelTypes = {"Colson","Mecanum","Tread","Omni","Pneumatic","Traction","Other"};
     private String[] progLangTypes = {"Java","C++","LabView","Python","Other"};
+    private int currentTeam;
+
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
 
@@ -100,7 +104,7 @@ public class PhysicalPropertiesTab extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gearSpeed1();
+                gearSpeed(0);
             }
         });
 
@@ -108,7 +112,7 @@ public class PhysicalPropertiesTab extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gearSpeed2();
+                gearSpeed(1);
             }
         });
 
@@ -116,7 +120,7 @@ public class PhysicalPropertiesTab extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gearSpeed3();
+                gearSpeed(2);
             }
         });
 
@@ -142,7 +146,6 @@ public class PhysicalPropertiesTab extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         populateScreen();
     }
 
@@ -157,12 +160,13 @@ public class PhysicalPropertiesTab extends Fragment {
         if(null == getActivity()) {
             return;
         }
+
         mDbHelper = new CyberScouterDbHelper(getActivity());
 
-        SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
-        int team = 195;
+        _db =  mDbHelper.getWritableDatabase();
+        currentTeam = 195;
 
-        CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, team);
+        CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, currentTeam);
 
         if(null != cst) {
             EditText et = _view.findViewById(R.id.lengthInput);
@@ -186,12 +190,16 @@ public class PhysicalPropertiesTab extends Fragment {
 
 
             button = _view.findViewById(R.id.numberOfMotorsButton);
-            button.setText(String.valueOf(cst.getNumDriveMotors()));
+            numberOfMotors = cst.getNumDriveMotors();
+            button.setText(String.valueOf(numberOfMotors));
             button = _view.findViewById(R.id.numberOfWheelsButton);
-            button.setText(String.valueOf(cst.getNumWheels()));
+            numberOfWheels = cst.getNumWheels();
+            button.setText(String.valueOf(numberOfWheels));
 
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getPneumatics(), pneumaticsYNButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getNumGearSpeed(), gearSpeedButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            pneumatics = cst.getPneumatics();
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, pneumatics, pneumaticsYNButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            gearSpeed = cst.getNumGearSpeed();
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, gearSpeed, gearSpeedButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         }
     }
 
@@ -200,12 +208,22 @@ public class PhysicalPropertiesTab extends Fragment {
         if (numberOfMotors > 0)
             numberOfMotors --;
         button.setText(String.valueOf(numberOfMotors));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, numberOfMotors, currentTeam);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void motorPlusButton(){
         button = _view.findViewById(R.id.numberOfMotorsButton);
             numberOfMotors ++;
         button.setText(String.valueOf(numberOfMotors));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, numberOfMotors, currentTeam);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void wheelsMinusButton(){
@@ -213,41 +231,57 @@ public class PhysicalPropertiesTab extends Fragment {
         if (numberOfWheels > 0)
             numberOfWheels --;
         button.setText(String.valueOf(numberOfWheels));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS, numberOfWheels, currentTeam);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void wheelsPlusButton(){
         button = _view.findViewById(R.id.numberOfWheelsButton);
             numberOfWheels ++;
         button.setText(String.valueOf(numberOfWheels));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS, numberOfWheels, currentTeam);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    private void gearSpeed1(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,gearSpeedButtons,
+    private void gearSpeed(int val){
+        FakeRadioGroup.buttonPressed(getActivity(),_view,val, gearSpeedButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonBackgroundColor);
-    }
-
-    private void gearSpeed2(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,gearSpeedButtons,
-                CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonBackgroundColor);
-    }
-
-    private void gearSpeed3(){
-        FakeRadioGroup.buttonPressed(getActivity(),_view,2,gearSpeedButtons,
-                CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED,SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonBackgroundColor);
+        gearSpeed = val;
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED, val, currentTeam);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void pneumaticsYes(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,1,pneumaticsYNButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonBackgroundColor);
+        pneumatics = 1;
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS, 1, currentTeam);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void pneumaticsNo(){
         FakeRadioGroup.buttonPressed(getActivity(),_view,0,pneumaticsYNButtons,
                 CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonBackgroundColor);
+        pneumatics = 0;
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS, 0, currentTeam);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }

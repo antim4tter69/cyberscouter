@@ -8,23 +8,26 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.frcteam195.cyberscouter.ui.main.SectionsPagerAdapter;
 
+import java.util.List;
+
 public class PitScoutingActivity extends AppCompatActivity {
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
+    private static int _currentTeam;
 
+    public static int getCurrentTeam(){ return(_currentTeam);}
+    public static void setCurrentTeam(int l_team) { _currentTeam = l_team; }
+
+    private static ScoutingTab scoutingTabFragment;
+    public void setScoutingTab(ScoutingTab st) { scoutingTabFragment = st;}
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override
@@ -42,13 +45,13 @@ public class PitScoutingActivity extends AppCompatActivity {
         }
     };
 
-    BroadcastReceiver mUsersReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String ret = intent.getStringExtra("cyberscouterusers");
-            updateUsers(ret);
-        }
-    };
+//    BroadcastReceiver mUsersReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String ret = intent.getStringExtra("cyberscouterusers");
+//            updateUsers(ret);
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class PitScoutingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pit_scouting);
 
         registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
-        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
+//        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
@@ -75,10 +78,10 @@ public class PitScoutingActivity extends AppCompatActivity {
             updateTeams(teams_str);
         }
 
-        String users_str = CyberScouterUsers.getUsersRemote(this);
-        if(null != users_str && !users_str.equalsIgnoreCase("skip")) {
-            updateUsers(users_str);
-        }
+//        String users_str = CyberScouterUsers.getUsersRemote(this);
+//        if(null != users_str && !users_str.equalsIgnoreCase("skip")) {
+//            updateUsers(users_str);
+//        }
     }
 
     @Override
@@ -87,7 +90,7 @@ public class PitScoutingActivity extends AppCompatActivity {
             mDbHelper.close();
         }
         unregisterReceiver(mTeamsReceiver);
-        unregisterReceiver(mUsersReceiver);
+//        unregisterReceiver(mUsersReceiver);
 
         super.onDestroy();
     }
@@ -100,6 +103,17 @@ public class PitScoutingActivity extends AppCompatActivity {
     private void updateTeams(String teams) {
         SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
         CyberScouterTeams.setTeams(_db, teams);
+
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        List<Fragment> fragList = supportFragmentManager.getFragments();
+        for(Fragment f : fragList) {
+            if(f instanceof ScoutingTab) {
+                ScoutingTab st = (ScoutingTab)f;
+                st.teamFetchCompleted();
+                break;
+            }
+        }
+
     }
 
     private void updateUsers(String json){

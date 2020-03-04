@@ -59,6 +59,7 @@ class CyberScouterTeams {
     private int CanMoveOnBar;
     private int LockingMechanism;
     private int ClimbHeightID;
+    private int DoneScouting;
 
     static String getTeamsRemote(AppCompatActivity activity) {
         String ret = null;
@@ -196,7 +197,8 @@ class CyberScouterTeams {
                     CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB,
                     CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
                     CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
-                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID
+                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID,
+                    CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING
             };
 
             cursor = db.query(
@@ -244,6 +246,7 @@ class CyberScouterTeams {
                     cst.CanMoveOnBar = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR));
                     cst.LockingMechanism = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                     cst.ClimbHeightID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
+                    cst.DoneScouting = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING));
                 }
             }
 
@@ -297,6 +300,7 @@ class CyberScouterTeams {
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING, 0);
 
                 long newRowId = db.insertWithOnConflict(CyberScouterContract.Teams.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
             }
@@ -467,4 +471,6 @@ class CyberScouterTeams {
     int getClimbHeightID() {
         return ClimbHeightID;
     }
+
+    int getDoneScouting() { return DoneScouting; }
 }

@@ -242,7 +242,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
     private void updateUsers(String json){
         if(!json.equalsIgnoreCase("skip")) {
-            CyberScouterUsers.deleteUsers(_db);
             CyberScouterUsers.setUsers(_db, json);
         }
     }

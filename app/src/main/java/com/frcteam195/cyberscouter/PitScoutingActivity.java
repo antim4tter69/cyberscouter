@@ -22,9 +22,13 @@ import java.util.List;
 public class PitScoutingActivity extends AppCompatActivity {
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private static int _currentTeam;
+    private static boolean _commitDisabled;
 
     public static int getCurrentTeam(){ return(_currentTeam);}
     public static void setCurrentTeam(int l_team) { _currentTeam = l_team; }
+
+    public static boolean getCommitDisabled(){ return(_commitDisabled);}
+    public static void setCommitDisabled(boolean l_val) { _commitDisabled = l_val; }
 
     private static ScoutingTab scoutingTabFragment;
     public void setScoutingTab(ScoutingTab st) { scoutingTabFragment = st;}

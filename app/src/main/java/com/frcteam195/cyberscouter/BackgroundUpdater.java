@@ -100,25 +100,25 @@ public class BackgroundUpdater extends Service {
                             e.printStackTrace();
                         }
 
-                        try {
-                            CyberScouterTeams[] csta = CyberScouterMatchScouting.getTeamsReadyToUpload(db,
-                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
-                            if (null != csta) {
-                                for (CyberScouterTeams cst : csta) {
-                                    String ret = cst.setMatchesRemote(activity);
-                                    if (ret.equalsIgnoreCase("success")) {
-                                        String[] l_column = {CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS};
-                                        Integer[] l_value = {1};
-                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
-                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", cst.getTeam()));
-                                    }
-                                }
-                            } else {
-                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//                        try {
+//                            CyberScouterTeams[] csta = CyberScouterMatchScouting.getTeamsReadyToUpload(db,
+//                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
+//                            if (null != csta) {
+//                                for (CyberScouterTeams cst : csta) {
+//                                    String ret = cst.setMatchesRemote(activity);
+//                                    if (ret.equalsIgnoreCase("success")) {
+//                                        String[] l_column = {CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS};
+//                                        Integer[] l_value = {1};
+//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
+//                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", cst.getTeam()));
+//                                    }
+//                                }
+//                            } else {
+//                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
                     }
 
                     int color = Color.GREEN;

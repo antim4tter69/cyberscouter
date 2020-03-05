@@ -60,6 +60,7 @@ class CyberScouterTeams {
     private int LockingMechanism;
     private int ClimbHeightID;
     private int DoneScouting;
+    private int UploadStatus;
 
     static String getTeamsRemote(AppCompatActivity activity) {
         String ret = null;
@@ -198,7 +199,8 @@ class CyberScouterTeams {
                     CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
                     CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
                     CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID,
-                    CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING
+                    CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING,
+                    CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS
             };
 
             cursor = db.query(
@@ -247,6 +249,7 @@ class CyberScouterTeams {
                     cst.LockingMechanism = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                     cst.ClimbHeightID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
                     cst.DoneScouting = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING));
+                    cst.UploadStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS));
                 }
             }
 
@@ -301,6 +304,7 @@ class CyberScouterTeams {
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING, 0);
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS, 0);
 
                 long newRowId = db.insertWithOnConflict(CyberScouterContract.Teams.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
             }
@@ -316,15 +320,23 @@ class CyberScouterTeams {
     static void updateTeamMetric(SQLiteDatabase db, String lcolumn, Integer lvalue, Integer currentTeam) throws Exception {
         ContentValues values = new ContentValues();
         values.put(lcolumn, lvalue);
+        updateTeamMetric(db, values, currentTeam);
+    }
 
+    static void updateTeamMetric(SQLiteDatabase db, String lcolumn, String lvalue, Integer currentTeam) throws Exception {
+        ContentValues values = new ContentValues();
+        values.put(lcolumn, lvalue);
+        updateTeamMetric(db, values, currentTeam);
+    }
+
+    static private void updateTeamMetric(SQLiteDatabase db, ContentValues cv, Integer currentTeam) throws Exception {
         String selection = CyberScouterContract.Teams.COLUMN_NAME_TEAM + " = ?";
         String[] selectionArgs = {
                 String.format(Locale.getDefault(), "%d", currentTeam)
         };
 
-        if (1 > updateTeam(db, values, selection, selectionArgs))
+        if (1 > updateTeam(db, cv, selection, selectionArgs))
             throw new Exception(String.format("An error occurred while updating the local teams table.\n\nNo rows were updated for Team=%d", currentTeam));
-
     }
 
     private static int updateTeam(SQLiteDatabase db, ContentValues values, String selection, String[] selectionArgs) {

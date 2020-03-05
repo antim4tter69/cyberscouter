@@ -70,6 +70,28 @@ public class PitScoutingActivity extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //do stuff here
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                // TODO 
+                List<Fragment> fragList = getSupportFragmentManager().getFragments();
+                Fragment f = fragList.get(tab.getPosition());
+                if(f instanceof IOnEditTextSaveListener) {
+                    IOnEditTextSaveListener ff = (IOnEditTextSaveListener) f;
+                    ff.saveTextValues();
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         FloatingActionButton fab = findViewById(R.id.fab);
     }
 

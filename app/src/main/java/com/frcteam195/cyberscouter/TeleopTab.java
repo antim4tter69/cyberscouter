@@ -1,6 +1,7 @@
 package com.frcteam195.cyberscouter;
 
 
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class TeleopTab extends Fragment {
@@ -19,8 +21,13 @@ public class TeleopTab extends Fragment {
     private final int[] COLOR_WHEELYN = {R.id.noButton1, R.id.yesButton1};
     private final int[] defenseYN = {R.id.noButton2, R.id.yesButton2};
     private final int[] evadeYN = {R.id.noButton3, R.id.yesButton3};
-    private int defaultButtonTextColor;
+    private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
+
+    private int currentTeam;
+    private CyberScouterDbHelper mDbHelper;
+    SQLiteDatabase _db;
+
 
 
     @Nullable
@@ -73,7 +80,6 @@ public class TeleopTab extends Fragment {
                 noButton1();
             }
         });
-        defaultButtonTextColor = Washington.getCurrentTextColor();
 
         Washington = view.findViewById(R.id.yesButton1);
         Washington.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +89,6 @@ public class TeleopTab extends Fragment {
                 yesButton1();
             }
         });
-        defaultButtonTextColor = Washington.getCurrentTextColor();
 
         Washington = view.findViewById(R.id.noButton2);
         Washington.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +98,6 @@ public class TeleopTab extends Fragment {
                 noButton2();
             }
         });
-        defaultButtonTextColor = Washington.getCurrentTextColor();
 
         Washington = view.findViewById(R.id.yesButton2);
         Washington.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +107,6 @@ public class TeleopTab extends Fragment {
                 yesButton2();
             }
         });
-        defaultButtonTextColor = Washington.getCurrentTextColor();
 
         Washington = view.findViewById(R.id.noButton3);
         Washington.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +116,6 @@ public class TeleopTab extends Fragment {
                 noButton3();
             }
         });
-        defaultButtonTextColor = Washington.getCurrentTextColor();
 
         Washington = view.findViewById(R.id.yesButton3);
         Washington.setOnClickListener(new View.OnClickListener() {
@@ -123,15 +125,66 @@ public class TeleopTab extends Fragment {
                 yesButton3();
             }
         });
-        defaultButtonTextColor = Washington.getCurrentTextColor();
 
         return (view);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        populateScreen();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser) {
+            populateScreen();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mDbHelper != null) {
+            mDbHelper.close();
+        }
+        super.onDestroy();
+    }
+
+    private void populateScreen() {
+        if (null == getActivity()) {
+            return;
+        }
+        mDbHelper = new CyberScouterDbHelper(getActivity());
+
+        _db = mDbHelper.getWritableDatabase();
+        currentTeam = PitScoutingActivity.getCurrentTeam();
+
+        CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, currentTeam);
+
+        if (null != cst) {
+//            EditText et = _view.findViewById(R.id.editText3);
+//            et.setText(String.valueOf(cst.getAutoSummary()));
+//
+//            button = _view.findViewById(R.id.button_PreloadCounter);
+//            button.setText(String.valueOf(cst.getNumPreload()));
+//            button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
+//            button.setText(String.valueOf(cst.getMaxBallCapacity()));
+
+//            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+//            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), pickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+        }
     }
 
     private void powerCellsPlus() {
         button = _view.findViewById(R.id.textButton1);
         Kennedy++;
         button.setText(String.valueOf(Kennedy));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS, 0, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void powerCellsMinus() {

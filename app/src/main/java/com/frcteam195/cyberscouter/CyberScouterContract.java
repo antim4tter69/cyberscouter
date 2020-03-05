@@ -140,5 +140,6 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_LOCKING_MECHANISM = "LockingMechanism";
         public static final String COLUMN_NAME_CLIMB_HEIGHT_ID = "ClimbHeightID";
         public static final String COLUMN_NAME_DONE_SCOUTING = "DoneScouting";
+        public static final String COLUMN_NAME_UPLOAD_STATUS = "UploadStatus";
     }
 }

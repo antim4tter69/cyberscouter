@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 public class FakeBluetoothServer {
 
-    final public static boolean bUseFakeBluetoothServer = true;
+    final public static boolean bUseFakeBluetoothServer = false;
     final public static String webServiceBaseUrl = "https://8zaof0vuah.execute-api.us-east-1.amazonaws.com";
 
     final public static String fakeBluetoothComputerName = "Team 195 Scout 1";
@@ -32,7 +32,15 @@ public class FakeBluetoothServer {
                 CyberScouterMatchScouting.getMatchesWebService(activity, eventId);
             } else if (cmd == "get-teams") {
                 CyberScouterTeams.getTeamsWebService(activity);
-            } // TODO add words and word-cloud
+            } else if( cmd == "get-words") {
+
+            } else if( cmd == "get-word-cloud") {
+
+            } else if( cmd == "put-match-scouting") {
+
+            } else if( cmd == "put-teams") {
+
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }

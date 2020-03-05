@@ -15,6 +15,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import java.io.OutputStream;
@@ -29,11 +30,13 @@ public class BackgroundUpdater extends Service {
     BluetoothDevice mmDevice;
     BluetoothSocket mmSocket;
     BluetoothAdapter _bluetoothAdapter;
+    private final AppCompatActivity activity;
 
     private final String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
     private final String _serviceName = "Team195Pi";
 
-    public BackgroundUpdater() {
+    public BackgroundUpdater(AppCompatActivity _acty) {
+        this.activity = _acty;
     }
 
     @Override
@@ -49,13 +52,13 @@ public class BackgroundUpdater extends Service {
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         _bluetoothAdapter = bluetoothManager.getAdapter();
 
-        if(null == thread) {
+        if (null == thread) {
             thread = new Thread(new updateRunner());
             thread.start();
         }
 
 
-        return(START_NOT_STICKY);
+        return (START_NOT_STICKY);
     }
 
     @Override
@@ -69,44 +72,59 @@ public class BackgroundUpdater extends Service {
         @Override
         public void run() {
             int cnt = 0;
-            while(keepRunning) {
+            while (keepRunning) {
                 cnt++;
                 try {
 //                    CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(getApplicationContext());
 //                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
 //                    CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 //
-//                    if(null != cfg) {
-//                        if(-1 != TeamMap.getNumberForTeam(cfg.getRole())) {
-//                            int l_allianceStationID = TeamMap.getNumberForTeam(cfg.getRole());
-//                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db, cfg.getEvent_id(), l_allianceStationID);
-//                            if(null != csmsa) {
+//                    if (null != cfg) {
+//                        try {
+//                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db,
+//                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
+//                            if (null != csmsa) {
 //                                for (CyberScouterMatchScouting csms : csmsa) {
-//                                    // Send record information to the SQL Server database
-//                                    // Set the status of the match locally
-//                                    CyberScouterMatchScouting.updateMatchUploadStatus(db, csms.getMatchScoutingID(), UploadStatus.UPLOADED);
-//                                    popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", csms.getMatchScoutingID()));
+//                                    String ret = csms.setMatchesRemote(activity);
+//                                    if (ret.equalsIgnoreCase("success")) {
+//                                        String[] l_column = {CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
+//                                        Integer[] l_value = {1};
+//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
+//                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", csms.getMatchScoutingID()));
+//                                    }
 //                                }
 //                            } else {
 //                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
 //                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+
+//                        try {
+//                            CyberScouterTeams[] csta = CyberScouterMatchScouting.getTeamsReadyToUpload(db,
+//                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
+//                            if (null != csta) {
+//                                for (CyberScouterTeams cst : csta) {
+//                                    String ret = cst.setMatchesRemote(activity);
+//                                    if (ret.equalsIgnoreCase("success")) {
+//                                        String[] l_column = {CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS};
+//                                        Integer[] l_value = {1};
+//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
+//                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", cst.getTeam()));
+//                                    }
+//                                }
+//                            } else {
+//                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
 //                        }
 //                    }
-//                    popToast(Settings.Secure.getString(getContentResolver(), "bluetooth_name"));
-//                    CyberScouterMatchScouting csms = new CyberScouterMatchScouting();
-//                    csms.setMatchScoutingID(11111);
-//                    csms.setEventID(22222);
-//                    csms.setMatchID(33333);
-//                    csms.setComputerID(44444);
-//                    csms.setScouterID(55555);
-//                    String jsonCsms = csms.toJSON();
-//
-//                    sendToRfcommServer(jsonCsms);
 
                     int color = Color.GREEN;
-                    if(FakeBluetoothServer.bUseFakeBluetoothServer)
+                    if (FakeBluetoothServer.bUseFakeBluetoothServer)
                         color = ContextCompat.getColor(getApplicationContext(), R.color.amber);
-                    if(BluetoothComm.bLastBTCommFailed())
+                    if (BluetoothComm.bLastBTCommFailed())
                         color = Color.RED;
                     Intent i = new Intent(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER);
                     i.putExtra("onlinestatus", color);
@@ -122,17 +140,17 @@ public class BackgroundUpdater extends Service {
             return;
         }
 
-        private void sendToRfcommServer(String msg){
+        private void sendToRfcommServer(String msg) {
             String deviceName = null;
             String deviceHardwareAddress = null;
             boolean found = false;
 
             Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
-            if(pairedDevices.size() > 0){
-                for(BluetoothDevice device : pairedDevices) {
+            if (pairedDevices.size() > 0) {
+                for (BluetoothDevice device : pairedDevices) {
                     deviceName = device.getName();
                     deviceHardwareAddress = device.getAddress();
-                    if(deviceName.equals(_serviceName)) {
+                    if (deviceName.equals(_serviceName)) {
                         found = true;
                         mmDevice = device;
                         break;
@@ -140,7 +158,7 @@ public class BackgroundUpdater extends Service {
                 }
             }
 
-            if(!found) {
+            if (!found) {
                 popToast(String.format("Scan failed to find device %s", _serviceName));
                 return;
             }
@@ -155,7 +173,7 @@ public class BackgroundUpdater extends Service {
                 mmOutputStream.write(etx);
                 Thread.sleep(100);
 //                mmOutputStream.close();
-            } catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

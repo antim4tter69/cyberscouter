@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 21;
+    private static final int DATABASE_VERSION = 22;
     private static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
@@ -151,6 +151,21 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_TEAMS =
             "DROP TABLE IF EXISTS " + CyberScouterContract.Teams.TABLE_NAME;
 
+    private static final String SQL_CREATE_WORDS =
+            "CREATE TABLE " + CyberScouterContract.Words.TABLE_NAME + " (" +
+                    CyberScouterContract.Words.COLUMN_NAME_WORD_ID + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_EVENT_ID + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_MATCH_ID + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_MATCH_SCOUTING_ID + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_TEAM + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_DONE_SCOUTING + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_UPLOAD_STATUS + " INTEGER)"
+            ;
+
+    private static final String SQL_DELETE_WORDS =
+            "DROP TABLE IF EXISTS " + CyberScouterContract.Words.TABLE_NAME;
+
+
     public CyberScouterDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -161,6 +176,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_USER_ENTRIES);
         db.execSQL(SQL_CREATE_QUESTIONS);
         db.execSQL(SQL_CREATE_TEAMS);
+        db.execSQL(SQL_CREATE_WORDS);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -171,6 +187,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_USER_ENTRIES);
         db.execSQL(SQL_DELETE_QUESTIONS);
         db.execSQL(SQL_DELETE_TEAMS);
+        db.execSQL(SQL_DELETE_WORDS);
         onCreate(db);
     }
 

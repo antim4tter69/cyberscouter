@@ -142,4 +142,15 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_DONE_SCOUTING = "DoneScouting";
         public static final String COLUMN_NAME_UPLOAD_STATUS = "UploadStatus";
     }
+
+    public static class Words implements BaseColumns {
+        public static final String TABLE_NAME = "Words";
+        public static final String COLUMN_NAME_WORD_ID = "WordID";
+        public static final String COLUMN_NAME_EVENT_ID = "EventID";
+        public static final String COLUMN_NAME_MATCH_ID = "MatchID";
+        public static final String COLUMN_NAME_MATCH_SCOUTING_ID = "MatchScoutingID";
+        public static final String COLUMN_NAME_TEAM = "Team";
+        public static final String COLUMN_NAME_DONE_SCOUTING = "DoneScouting";
+        public static final String COLUMN_NAME_UPLOAD_STATUS = "UploadStatus";
+    }
 }

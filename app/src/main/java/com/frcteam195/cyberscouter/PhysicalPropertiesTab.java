@@ -48,6 +48,8 @@ public class PhysicalPropertiesTab extends Fragment implements IOnEditTextSaveLi
         View view = inflater.inflate(R.layout.fragment_physical_properties, container, false);
         _view = view;
 
+        currentTeam = PitScoutingActivity.getCurrentTeam();
+
         Spinner driveType = view.findViewById(R.id.driveTypePicker);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_spinner_dropdown_item, driveTypes);
@@ -232,15 +234,25 @@ public class PhysicalPropertiesTab extends Fragment implements IOnEditTextSaveLi
             et.setText(String.valueOf(cst.getSpeed()));
             et.setSelectAllOnFocus(true);
             String gearRatio = cst.getGearRatio();
+            String[] aGearRatio;
             if (gearRatio.contains(":")) {
-                String[] aGearRatio = gearRatio.split(":");
-                et = _view.findViewById(R.id.gearRatio1);
-                et.setText(aGearRatio[0]);
-                et.setSelectAllOnFocus(true);
-                et = _view.findViewById(R.id.gearRatio2);
-                et.setText(aGearRatio[1]);
-                et.setSelectAllOnFocus(true);
+                aGearRatio = gearRatio.split(":");
+                if (2 > aGearRatio.length) {
+                    aGearRatio = new String[2];
+                    aGearRatio[0] = "";
+                    aGearRatio[1] = "";
+                }
+            } else {
+                aGearRatio = new String[2];
+                aGearRatio[0] = "";
+                aGearRatio[1] = "";
             }
+            et = _view.findViewById(R.id.gearRatio1);
+            et.setText(aGearRatio[0]);
+            et.setSelectAllOnFocus(true);
+            et = _view.findViewById(R.id.gearRatio2);
+            et.setText(aGearRatio[1]);
+            et.setSelectAllOnFocus(true);
 
 
             button = _view.findViewById(R.id.numberOfMotorsButton);
@@ -367,7 +379,7 @@ public class PhysicalPropertiesTab extends Fragment implements IOnEditTextSaveLi
                     Integer.parseInt(et.getText().toString()), currentTeam);
             et = _view.findViewById(R.id.gearRatio1);
             EditText et2 = _view.findViewById(R.id.gearRatio2);
-            String gr = String.format(Locale.getDefault(), "%d:%d", et.getText().toString(), et2.getText().toString());
+            String gr = String.format(Locale.getDefault(), "%s:%s", et.getText().toString(), et2.getText().toString());
             CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_GEAR_RATIO,
                     gr, currentTeam);
         } catch (Exception e) {

@@ -123,7 +123,6 @@ public class BluetoothComm {
     public String getUsers(AppCompatActivity activity, String last_hash) {
         String returnJson = _errorJson;
         try {
-            String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-users");
@@ -149,7 +148,6 @@ public class BluetoothComm {
     public String getMatches(AppCompatActivity activity, int eventId, String last_hash) {
         String returnJson = _errorJson;
         try {
-            String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
             JSONObject jr = new JSONObject();
             JSONObject j1 = new JSONObject();
 
@@ -175,10 +173,25 @@ public class BluetoothComm {
         return(returnJson);
     }
 
+    public String sendSetCommand(AppCompatActivity activity, JSONObject jo) {
+        String returnJson = _errorJson;
+        try {
+            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+                returnJson = null;
+            } else {
+                returnJson = sendCommand(activity, jo.toString());
+            }
+        } catch(Exception e) {
+            bLastBTCommFailed = true;
+            e.printStackTrace();
+        }
+        bLastBTCommFailed = false;
+        return(returnJson);
+    }
+
     public String getTeams(AppCompatActivity activity, String last_hash) {
         String returnJson = _errorJson;
         try {
-            String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-teams");

@@ -127,6 +127,64 @@ class CyberScouterMatchScouting {
         return ret;
     }
 
+    public String setMatchesRemote(AppCompatActivity activity) {
+        String ret = "failed";
+        try {
+            JSONObject jo = new JSONObject();
+            JSONObject jcmd = new JSONObject();
+            jcmd.put("cmd", "put-match-scouting");
+            JSONObject payload = new JSONObject();
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, matchScoutingID);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, autoStartPos);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, autoDidNotShow);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, autoMoveBonus);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, autoBallLow);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER, autoBallOuter);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER, autoBallInner);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, autoPenalty);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1, teleBallLowZone1);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1, teleBallOuterZone1);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1, teleBallInnerZone1);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2, teleBallOuterZone2);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2, teleBallInnerZone2);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3, teleBallOuterZone3);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3, teleBallInnerZone3);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4, teleBallOuterZone4);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4, teleBallInnerZone4);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5, teleBallOuterZone5);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5, teleBallInnerZone5);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME, teleWheelStage2Time);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS, teleWheelStage2Status);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS, teleWheelStage2Attempts);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME, teleWheelStage3Time);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS, teleWheelStage3Status);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS, teleWheelStage3Attempts);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, climbStatus);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, climbHeight);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION, climbPosition);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR, climbMoveOnBar);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS, climbLevelStatus);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, summBrokeDown);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, summLostComm);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, summSubsystemBroke);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, summGroundPickup);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD, summHopperLoad);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, summPlayedDefense);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, summDefPlayedAgainst);
+
+            BluetoothComm btcomm = new BluetoothComm();
+            String response = btcomm.sendSetCommand(activity, jo);
+            if (null != response) {
+                JSONObject jresp = new JSONObject(response);
+                ret = jo.getString("result");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ret;
+    }
+
     // Gets the next sequential un-scouted match for the current scouter station
     static CyberScouterMatchScouting getCurrentMatch(SQLiteDatabase db, int l_allianceStationID) {
         String selection = CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " = ? AND " +

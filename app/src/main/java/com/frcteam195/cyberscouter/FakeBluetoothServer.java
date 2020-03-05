@@ -32,7 +32,15 @@ public class FakeBluetoothServer {
                 CyberScouterMatchScouting.getMatchesWebService(activity, eventId);
             } else if (cmd == "get-teams") {
                 CyberScouterTeams.getTeamsWebService(activity);
-            } // TODO add words and word-cloud
+            } else if( cmd == "get-words") {
+
+            } else if( cmd == "get-word-cloud") {
+
+            } else if( cmd == "put-match-scouting") {
+
+            } else if( cmd == "put-teams") {
+
+            }
         } catch(Exception e) {
             e.printStackTrace();
         }

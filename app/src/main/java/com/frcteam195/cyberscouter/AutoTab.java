@@ -1,21 +1,21 @@
 package com.frcteam195.cyberscouter;
 
+import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class AutoTab extends Fragment {
+public class AutoTab extends Fragment implements IOnEditTextSaveListener {
     private Button button;
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
     private final int[] pickupButtons = {R.id.button_PickupNo, R.id.button_PickupYes};
@@ -26,9 +26,6 @@ public class AutoTab extends Fragment {
     private int TypicalCellsStoredCount = 0;
     private String[] SpinnerItems = {"Starting Position", "1", "2", "3", "4", "5", "6"};
     private int currentTeam;
-    //private Button findViewById(int button_PreloadCounter) {
-    //  return null;
-    //}
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
 
@@ -40,9 +37,22 @@ public class AutoTab extends Fragment {
         _view = view;
 
         Spinner dropdown = view.findViewById(R.id.spinner_StartPosition);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, SpinnerItems);
-        dropdown.setAdapter(adapter);
+        Activity acty = getActivity();
+        if(null != acty) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(acty, android.R.layout.simple_spinner_dropdown_item, SpinnerItems);
+            dropdown.setAdapter(adapter);
+            dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    updateSpinnerValue(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID, i);
+                }
 
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        }
 
         button = view.findViewById(R.id.button_moveBonusNo);
         button.setOnClickListener(new View.OnClickListener() {
@@ -154,16 +164,23 @@ public class AutoTab extends Fragment {
         CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, currentTeam);
 
         if (null != cst) {
-            EditText et = _view.findViewById(R.id.editText3);
+            EditText et = _view.findViewById(R.id.editText_autoSummary);
             et.setText(String.valueOf(cst.getAutoSummary()));
+            et.setSelectAllOnFocus(true);
 
             button = _view.findViewById(R.id.button_PreloadCounter);
             button.setText(String.valueOf(cst.getNumPreload()));
+            NumberOfPreloadCount = cst.getNumPreload();
             button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
-            button.setText(String.valueOf(cst.getMaxBallCapacity()));
+            button.setText(String.valueOf(cst.getAutoBallsScored()));
+            TypicalCellsStoredCount = cst.getAutoBallsScored();
 
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), pickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+
+            Spinner sp = _view.findViewById(R.id.spinner_StartPosition);
+            sp.setSelection(cst.getAutoStartPosID());
+
         }
     }
 
@@ -233,7 +250,7 @@ public class AutoTab extends Fragment {
             TypicalCellsStoredCount--;
         button.setText(String.valueOf(TypicalCellsStoredCount));
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, TypicalCellsStoredCount, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED, TypicalCellsStoredCount, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -244,7 +261,26 @@ public class AutoTab extends Fragment {
         TypicalCellsStoredCount++;
         button.setText(String.valueOf(TypicalCellsStoredCount));
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, TypicalCellsStoredCount, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED, TypicalCellsStoredCount, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveTextValues() {
+        try {
+            EditText et = _view.findViewById(R.id.editText_autoSummary);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY,
+                    et.getText().toString(), currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void updateSpinnerValue(String col, int val) {
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, col, val, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }

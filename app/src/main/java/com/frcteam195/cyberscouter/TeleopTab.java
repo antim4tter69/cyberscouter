@@ -13,22 +13,20 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class TeleopTab extends Fragment {
+public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
     private Button button;
     private View _view;
     int Kennedy = 0;
     int Lincoln = 0;
-    private final int[] COLOR_WHEELYN = {R.id.noButton1, R.id.yesButton1};
+    private final int[] colorWheelYN = {R.id.noButton1, R.id.yesButton1};
     private final int[] defenseYN = {R.id.noButton2, R.id.yesButton2};
     private final int[] evadeYN = {R.id.noButton3, R.id.yesButton3};
-    private int defaultButtonTextColor = Color.LTGRAY;
+    private int defaultButtonBackgroundColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
 
     private int currentTeam;
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
-
-
 
     @Nullable
     @Override
@@ -163,83 +161,143 @@ public class TeleopTab extends Fragment {
         CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, currentTeam);
 
         if (null != cst) {
-//            EditText et = _view.findViewById(R.id.editText3);
-//            et.setText(String.valueOf(cst.getAutoSummary()));
-//
-//            button = _view.findViewById(R.id.button_PreloadCounter);
-//            button.setText(String.valueOf(cst.getNumPreload()));
-//            button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
-//            button.setText(String.valueOf(cst.getMaxBallCapacity()));
+            EditText et = _view.findViewById(R.id.editText_teleopStrat);
+            et.setText(String.valueOf(cst.getTeleStrategy()));
+            et.setSelectAllOnFocus(true);
 
-//            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-//            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), pickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            button = _view.findViewById(R.id.textButton_ballsScored);
+            button.setText(String.valueOf(cst.getTeleBallsScored()));
+            Kennedy = cst.getTeleBallsScored();
+            button = _view.findViewById(R.id.textButton_maxCapacity);
+            button.setText(String.valueOf(cst.getMaxBallCapacity()));
+            Lincoln = cst.getMaxBallCapacity();
+
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getColorWheel(), colorWheelYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getTeleDefense(), defenseYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getTeleDefenseEvade(), evadeYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         }
     }
 
     private void powerCellsPlus() {
-        button = _view.findViewById(R.id.textButton1);
+        button = _view.findViewById(R.id.textButton_ballsScored);
         Kennedy++;
         button.setText(String.valueOf(Kennedy));
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS, 0, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED, Kennedy, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void powerCellsMinus() {
-        button = _view.findViewById(R.id.textButton1);
+        button = _view.findViewById(R.id.textButton_ballsScored);
         if (Kennedy > 0)
             Kennedy--;
         button.setText(String.valueOf(Kennedy));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED, Kennedy, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void maxCapacityPlus() {
-        button = _view.findViewById(R.id.textButton2);
+        button = _view.findViewById(R.id.textButton_maxCapacity);
         Lincoln++;
         button.setText(String.valueOf(Lincoln));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, Lincoln, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void maxCapacityMinus() {
-        button = _view.findViewById(R.id.textButton2);
+        button = _view.findViewById(R.id.textButton_maxCapacity);
         if (Lincoln > 0)
             Lincoln--;
         button.setText(String.valueOf(Lincoln));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, Lincoln, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void noButton1() {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, COLOR_WHEELYN,
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, colorWheelYN,
                 CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, 0, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void yesButton1() {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, COLOR_WHEELYN,
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, colorWheelYN,
                 CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, 1, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void noButton2() {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 0, defenseYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE, SELECTED_BUTTON_TEXT_COLOR,
+                defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE, 0, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void yesButton2() {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 1, defenseYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE, SELECTED_BUTTON_TEXT_COLOR,
+                defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE, 1, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void noButton3() {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 0, evadeYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE, SELECTED_BUTTON_TEXT_COLOR,
+                defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE, 0, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void yesButton3() {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 1, evadeYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
-                defaultButtonTextColor);
+                CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE, SELECTED_BUTTON_TEXT_COLOR,
+                defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE, 1, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
+    public void saveTextValues() {
+        try {
+            EditText et = _view.findViewById(R.id.editText_teleopStrat);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY,
+                    et.getText().toString(), currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

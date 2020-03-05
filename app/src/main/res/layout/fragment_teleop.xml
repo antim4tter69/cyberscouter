@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/textButton2"
+        android:id="@+id/textButton_maxCapacity"
         android:layout_width="79dp"
         android:layout_height="82dp"
         android:layout_marginTop="32dp"
@@ -103,10 +103,10 @@
         android:text="Max Capacity of Power Cells"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textButton1" />
+        app:layout_constraintTop_toBottomOf="@+id/textButton_ballsScored" />
 
     <Button
-        android:id="@+id/textButton1"
+        android:id="@+id/textButton_ballsScored"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="32dp"
@@ -195,6 +195,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
+        android:id="@+id/editText_teleopStrat"
         android:layout_width="275dp"
         android:layout_height="50dp"
         android:layout_marginTop="32dp"

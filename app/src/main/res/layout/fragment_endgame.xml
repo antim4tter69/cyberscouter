@@ -152,7 +152,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/climbHeight"
+        android:id="@+id/editText_climbHeight"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="30dp"
@@ -168,6 +168,6 @@
         android:layout_marginStart="25dp"
         android:text="@string/Inches"
         android:textSize="40sp"
-        app:layout_constraintStart_toEndOf="@+id/climbHeight"
-        app:layout_constraintTop_toTopOf="@+id/climbHeight" />
+        app:layout_constraintStart_toEndOf="@+id/editText_climbHeight"
+        app:layout_constraintTop_toTopOf="@+id/editText_climbHeight" />
 </android.support.constraint.ConstraintLayout>

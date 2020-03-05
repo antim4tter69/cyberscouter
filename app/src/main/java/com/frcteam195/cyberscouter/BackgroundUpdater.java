@@ -75,30 +75,30 @@ public class BackgroundUpdater extends Service {
             while (keepRunning) {
                 cnt++;
                 try {
-                    CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(getApplicationContext());
-                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-                    CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-                    if (null != cfg) {
-                        try {
-                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db,
-                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
-                            if (null != csmsa) {
-                                for (CyberScouterMatchScouting csms : csmsa) {
-                                    String ret = csms.setMatchesRemote(activity);
-                                    if (ret.equalsIgnoreCase("success")) {
-                                        String[] l_column = {CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
-                                        Integer[] l_value = {1};
-                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
-                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", csms.getMatchScoutingID()));
-                                    }
-                                }
-                            } else {
-                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//                    CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(getApplicationContext());
+//                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
+//                    CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+//
+//                    if (null != cfg) {
+//                        try {
+//                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db,
+//                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
+//                            if (null != csmsa) {
+//                                for (CyberScouterMatchScouting csms : csmsa) {
+//                                    String ret = csms.setMatchesRemote(activity);
+//                                    if (ret.equalsIgnoreCase("success")) {
+//                                        String[] l_column = {CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
+//                                        Integer[] l_value = {1};
+//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
+//                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", csms.getMatchScoutingID()));
+//                                    }
+//                                }
+//                            } else {
+//                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
 
 //                        try {
 //                            CyberScouterTeams[] csta = CyberScouterMatchScouting.getTeamsReadyToUpload(db,
@@ -119,7 +119,7 @@ public class BackgroundUpdater extends Service {
 //                        } catch (Exception e) {
 //                            e.printStackTrace();
 //                        }
-                    }
+//                    }
 
                     int color = Color.GREEN;
                     if (FakeBluetoothServer.bUseFakeBluetoothServer)

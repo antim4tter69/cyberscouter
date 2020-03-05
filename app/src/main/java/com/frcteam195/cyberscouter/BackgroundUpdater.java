@@ -30,13 +30,16 @@ public class BackgroundUpdater extends Service {
     BluetoothDevice mmDevice;
     BluetoothSocket mmSocket;
     BluetoothAdapter _bluetoothAdapter;
-    private final AppCompatActivity activity;
+    private AppCompatActivity activity;
 
     private final String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
     private final String _serviceName = "Team195Pi";
 
-    public BackgroundUpdater(AppCompatActivity _acty) {
-        this.activity = _acty;
+//    public BackgroundUpdater(AppCompatActivity _acty) {
+//        this.activity = _acty;
+//    }
+    public BackgroundUpdater() {
+
     }
 
     @Override

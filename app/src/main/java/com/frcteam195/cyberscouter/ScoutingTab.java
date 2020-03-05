@@ -142,6 +142,7 @@ public class ScoutingTab extends Fragment {
                     return true;
                 }
             });
+            PitScoutingActivity.setCurrentTeam(Integer.parseInt(team_array[teams_spinner.getSelectedItemPosition()]));
 
 //        Spinner names = view.findViewById(R.id.spinner_fragmentScoutingNames);
 //        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(),

@@ -78,12 +78,12 @@ public class PitScoutingActivity extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                // TODO 
                 List<Fragment> fragList = getSupportFragmentManager().getFragments();
-                Fragment f = fragList.get(tab.getPosition());
-                if(f instanceof IOnEditTextSaveListener) {
-                    IOnEditTextSaveListener ff = (IOnEditTextSaveListener) f;
-                    ff.saveTextValues();
+                for(Fragment f : fragList) {
+                    if(f instanceof IOnEditTextSaveListener) {
+                        IOnEditTextSaveListener ff = (IOnEditTextSaveListener) f;
+                        ff.saveTextValues();
+                    }
                 }
             }
 

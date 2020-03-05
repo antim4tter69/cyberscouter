@@ -206,7 +206,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_StartPosition" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/editText_autoSummary"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"

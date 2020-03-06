@@ -30,14 +30,10 @@ public class BackgroundUpdater extends Service {
     BluetoothDevice mmDevice;
     BluetoothSocket mmSocket;
     BluetoothAdapter _bluetoothAdapter;
-    private AppCompatActivity activity;
 
     private final String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
     private final String _serviceName = "Team195Pi";
 
-//    public BackgroundUpdater(AppCompatActivity _acty) {
-//        this.activity = _acty;
-//    }
     public BackgroundUpdater() {
 
     }
@@ -54,6 +50,8 @@ public class BackgroundUpdater extends Service {
 
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
         _bluetoothAdapter = bluetoothManager.getAdapter();
+
+
 
         if (null == thread) {
             thread = new Thread(new updateRunner());
@@ -78,51 +76,54 @@ public class BackgroundUpdater extends Service {
             while (keepRunning) {
                 cnt++;
                 try {
-//                    CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(getApplicationContext());
-//                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
-//                    CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-//
-//                    if (null != cfg) {
-//                        try {
-//                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db,
-//                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
-//                            if (null != csmsa) {
-//                                for (CyberScouterMatchScouting csms : csmsa) {
-//                                    String ret = csms.setMatchesRemote(activity);
-//                                    if (ret.equalsIgnoreCase("success")) {
-//                                        String[] l_column = {CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
-//                                        Integer[] l_value = {1};
-//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
-//                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", csms.getMatchScoutingID()));
-//                                    }
-//                                }
-//                            } else {
-//                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
-//                            }
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
+                    CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(getApplicationContext());
+                    SQLiteDatabase db = mDbHelper.getWritableDatabase();
+                    CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-//                        try {
-//                            CyberScouterTeams[] csta = CyberScouterMatchScouting.getTeamsReadyToUpload(db,
-//                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
-//                            if (null != csta) {
-//                                for (CyberScouterTeams cst : csta) {
-//                                    String ret = cst.setMatchesRemote(activity);
-//                                    if (ret.equalsIgnoreCase("success")) {
-//                                        String[] l_column = {CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS};
-//                                        Integer[] l_value = {1};
+                    if (null != cfg) {
+                        try {
+                            CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db,
+                                    cfg.getEvent_id(), cfg.getAlliance_station_id());
+                            if (null != csmsa) {
+                                for (CyberScouterMatchScouting csms : csmsa) {
+                                    String ret = csms.setMatchesRemote(MainActivity._activity);
+//                                    String ret = "success";
+                                    if (ret.equalsIgnoreCase("success")) {
+                                        String[] l_column = {CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
+                                        Integer[] l_value = {1};
 //                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
-//                                        popToast(String.format(Locale.getDefault(), "Match %d was uploaded successfully.", cst.getTeam()));
-//                                    }
-//                                }
-//                            } else {
-//                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
-//                            }
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                                        popToast(String.format(Locale.getDefault(), "Match %d, Team %s was uploaded successfully.", csms.getMatchNo(), csms.getTeam()));
+                                    } else {
+                                        popToast(String.format(Locale.getDefault(), "Loop #%d failed to upload a match.", cnt));
+                                    }
+                                }
+                            } else {
+                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        try {
+                            CyberScouterTeams[] csta = CyberScouterTeams.getTeamsReadyToUpload(db);
+                            if (null != csta) {
+                                for (CyberScouterTeams cst : csta) {
+//                                    String ret = cst.setTeamsRemote();
+                                    String ret = "success";
+                                    if (ret.equalsIgnoreCase("success")) {
+                                        String[] l_column = {CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS};
+                                        Integer[] l_value = {1};
+//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
+                                        popToast(String.format(Locale.getDefault(), "Team %d was uploaded successfully.", cst.getTeam()));
+                                    }
+                                }
+                            } else {
+//                                popToast(String.format(Locale.getDefault(), "Loop #%d no teams to upload.", cnt));
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
 
                     int color = Color.GREEN;
                     if (FakeBluetoothServer.bUseFakeBluetoothServer)

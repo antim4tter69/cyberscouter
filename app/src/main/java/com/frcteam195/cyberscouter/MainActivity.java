@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private uploadMatchScoutingResultsTask g_backgroundUpdater;
     private static Integer g_backgroundProgress;
+
+    public static AppCompatActivity _activity;
 
     BroadcastReceiver mConfigReceiver = new BroadcastReceiver() {
         @Override
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ProgressBar pb = findViewById(R.id.progressBar_mainDataAccess);
+        pb.setVisibility(View.INVISIBLE);
 
         _db = mDbHelper.getWritableDatabase();
 
@@ -118,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        ProgressBar pb = findViewById(R.id.progressBar_mainDataAccess);
+        pb.setVisibility(View.INVISIBLE);
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         mDbHelper.close();
         unregisterReceiver(mConfigReceiver);
@@ -132,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             if (null != config_json) {
                 JSONObject jo = new JSONObject(config_json);
                 textView = findViewById(R.id.textView_eventString);
-                textView.setText(jo.getString("EventName") + ", " + jo.getString("EventLocation"));
+                textView.setText(jo.getString("EventName") + "\n" + jo.getString("EventLocation"));
                 textView = findViewById(R.id.textView_roleString);
                 String allianceStation = jo.getString("AllianceStation");
                 if (allianceStation.startsWith("Blu"))
@@ -148,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 button.setEnabled(true);
             }
             try {
+                _activity = this;
                 Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
                 ComponentName cn = startService(backgroundIntent);
                 if (null == cn) {
@@ -157,52 +171,6 @@ public class MainActivity extends AppCompatActivity {
                 MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
                         "The error is:\n" + e.getMessage());
             }
-
-            if (0 == 0) return;
-
-            /* if there's no existing local configuration, we're going to assume the tablet
-            is "online", meaning that it can talk to the SQL Server database.  If there is a
-            configuration record, we'll use the offline setting from that to determine whether we
-            should query the SQL Server database for the current event.
-             */
-//            if ((null == cfg) || (!cfg.isOffline())) {
-//                getEventTask eventTask = new getEventTask(new IOnEventListener<CyberScouterEvent>() {
-//                    @Override
-//                    public void onSuccess(CyberScouterEvent result) {
-//                        CyberScouterConfig cfg2 = cfg;
-//                        if (null != cfg) {
-//                            if (null != result && (result.getEventID() != cfg.getEvent_id())) {
-//                                setEvent(result);
-//                                cfg2 = CyberScouterConfig.getConfig(db);
-//                            }
-//                            setFieldsFromConfig(cfg2);
-//                        } else {
-//                            setFieldsToDefaults(db, result.getEventName());
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Exception e) {
-//                        if (null == e) {
-//                            if (null == cfg || null == cfg.getEvent()) {
-//                                button = findViewById(R.id.button_scouting);
-//                                button.setEnabled(false);
-//                                MessageBox.showMessageBox(MainActivity.this, "Event Not Found Alert", "processConfig", "No current event found!  Cannot continue.");
-//                            }
-//                        } else {
-//                            setFieldsFromConfig(cfg);
-//                            MessageBox.showMessageBox(MainActivity.this, "Fetch Event Failed Alert", "getEventTask", "Fetch of Current Event information failed!\n\n" +
-//                                    "You may want to consider working offline.\n\n" + "The error is:\n" + e.getMessage());
-//
-//                        }
-//                    }
-//                });
-//
-//                eventTask.execute();
-//            } else {
-//                setFieldsFromConfig(cfg);
-//            }
         } catch (Exception e) {
             MessageBox.showMessageBox(this, "Exception Caught", "processConfig", "An exception occurred: \n" + e.getMessage());
             e.printStackTrace();
@@ -254,6 +222,9 @@ public class MainActivity extends AppCompatActivity {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
+
+        ProgressBar pb = findViewById(R.id.progressBar_mainDataAccess);
+        pb.setVisibility(View.VISIBLE);
 
         Class nextIntent = null;
         switch (cfg.getComputer_type_id()) {

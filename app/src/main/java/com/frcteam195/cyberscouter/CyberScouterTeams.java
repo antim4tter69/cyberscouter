@@ -95,7 +95,7 @@ class CyberScouterTeams {
         return (ret);
     }
 
-    public String setMatchesRemote(AppCompatActivity activity) {
+    public String setTeamsRemote(AppCompatActivity activity) {
         String ret = "failed";
         try {
             JSONObject jo = new JSONObject();
@@ -140,6 +140,7 @@ class CyberScouterTeams {
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.sendSetCommand(activity, jo);
             if (null != response) {
+                response = response.replace("x03", "");
                 JSONObject jresp = new JSONObject(response);
                 ret = jresp.getString("result");
             }
@@ -411,6 +412,26 @@ class CyberScouterTeams {
                 selectionArgs);
     }
 
+    static CyberScouterTeams[] getTeamsReadyToUpload(SQLiteDatabase db) {
+
+        String selection =
+                CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING + " = ? AND " +
+                CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS + " = ?";
+
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", 1),
+                String.format(Locale.getDefault(), "%d", 0)
+        };
+
+        String sortOrder =
+                CyberScouterContract.Teams.COLUMN_NAME_TEAM + " ASC";
+
+        return (getLocalTeams(db, selection, selectionArgs, sortOrder));
+    }
+
+    static CyberScouterTeams[] getLocalTeams(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
+        return(null);
+    }
 
     int getTeam() {
         return team;

@@ -180,6 +180,7 @@ class CyberScouterMatchScouting {
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.sendSetCommand(activity, jo);
             if (null != response) {
+                response = response.replace("x03", "");
                 JSONObject jresp = new JSONObject(response);
                 ret = jresp.getString("result");
             }

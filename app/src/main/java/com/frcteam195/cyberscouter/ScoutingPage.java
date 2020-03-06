@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
     private int FIELD_ORIENTATION_RIGHT = 0;
     private int FIELD_ORIENTATION_LEFT = 1;
@@ -250,6 +252,9 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         try {
             CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
             if(!json.equalsIgnoreCase("skip")) {
+                if(json.equalsIgnoreCase("fetch")) {
+                    json = CyberScouterMatchScouting.getWebResponse();
+                }
                 CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
                 CyberScouterMatchScouting.mergeMatches(_db, json);
             }

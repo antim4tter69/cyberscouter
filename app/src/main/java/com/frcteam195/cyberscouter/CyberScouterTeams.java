@@ -16,6 +16,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.security.cert.PolicyNode;
 import java.util.Locale;
 import java.util.Vector;
 
@@ -23,6 +24,12 @@ class CyberScouterTeams {
     public final static String TEAMS_UPDATED_FILTER = "frcteam195_cyberscouterteams_teams_updated_intent_filter";
 
     private static String last_hash = null;
+
+    private static String webResponse;
+    static String getWebResponse() {
+        return(webResponse);
+    }
+
 
     private int teamID;
     private int team;
@@ -88,6 +95,62 @@ class CyberScouterTeams {
         return (ret);
     }
 
+    public String setMatchesRemote(AppCompatActivity activity) {
+        String ret = "failed";
+        try {
+            JSONObject jo = new JSONObject();
+            jo.put("cmd", "put-teams");
+            jo.put("key", team);
+            JSONObject payload = new JSONObject();
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, AutoStartPosID);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS, NumWheels);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, NumDriveMotors);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_WHEEL_TYPE_ID, WheelTypeID);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_DRIVE_TYPE_ID, DriveTypeID);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_MOTOR_TYPE_ID, MotorTypeID);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_LANGUAGE_ID, LanguageID);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_SPEED, Speed);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_GEAR_RATIO, GearRatio);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_NUM_GEAR_SPEED, NumGearSpeed);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_LENGTH, RobotLength);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WIDTH, RobotWidth);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT, RobotHeight);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT, RobotWeight);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS, Pneumatics);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, NumPreload);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED, AutoBallsScored);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS, MoveBonus);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP, AutoPickUp);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID, AutoStartPosID);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY, AutoSummary);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED, TeleBallsScored);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, MaxBallCapacity);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, ColorWheel);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE, TeleDefense);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE, TeleDefenseEvade);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY, TeleStrategy);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB, CanClimb);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB, CenterClimb);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR, CanMoveOnBar);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, LockingMechanism);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID, ClimbHeightID);
+
+            jo.put("payload", payload);
+
+            BluetoothComm btcomm = new BluetoothComm();
+            String response = btcomm.sendSetCommand(activity, jo);
+            if (null != response) {
+                JSONObject jresp = new JSONObject(response);
+                ret = jresp.getString("result");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return(ret);
+    }
+
+
     static public void getTeamsWebService(final AppCompatActivity activity) {
         RequestQueue rq = Volley.newRequestQueue(activity);
         String url = String.format("%s/teams", FakeBluetoothServer.webServiceBaseUrl);
@@ -98,7 +161,8 @@ class CyberScouterTeams {
                     public void onResponse(String response) {
                         try {
                             Intent i = new Intent(TEAMS_UPDATED_FILTER);
-                            i.putExtra("cyberscouterteams", response);
+                            webResponse = response;
+                            i.putExtra("cyberscouterteams", "fetch");
                             activity.sendBroadcast(i);
                         } catch (Exception e) {
                             e.printStackTrace();

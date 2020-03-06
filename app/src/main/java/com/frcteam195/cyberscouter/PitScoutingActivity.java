@@ -128,6 +128,9 @@ public class PitScoutingActivity extends AppCompatActivity {
 
     private void updateTeams(String teams) {
         SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
+        if(teams.equalsIgnoreCase("fetch")) {
+            teams = CyberScouterTeams.getWebResponse();
+        }
         CyberScouterTeams.setTeams(_db, teams);
 
         FragmentManager supportFragmentManager = getSupportFragmentManager();

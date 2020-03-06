@@ -209,18 +209,18 @@ public class CyberScouterConfig {
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID, jo.getString("ComputerTypeID"));
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATION_ID, jo.getInt("AllianceStationID"));
 
-        if(null != cfg) {
-            db.update(
-                    CyberScouterContract.ConfigEntry.TABLE_NAME,
-                    values,
-                    null,
-                    null);
-        } else {
+//        if(null != cfg) {
+//            db.update(
+//                    CyberScouterContract.ConfigEntry.TABLE_NAME,
+//                    values,
+//                    null,
+//                    null);
+//        } else {
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID, jo.getString("EventID"));
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, "");
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, UNKNOWN_USER_IDX);
             db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
-        }
+//        }
 
     }
 }

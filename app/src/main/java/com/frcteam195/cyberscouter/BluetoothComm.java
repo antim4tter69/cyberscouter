@@ -61,21 +61,23 @@ public class BluetoothComm {
                         mmInputStream.read(ibytes);
                         resp = new String(ibytes);
                         if(0x03 != ibytes[ibytes.length - 1]) {
-                            for(int i=0; i<20; ++i) {
-                                Thread.sleep(100);
+                            for(int i=0; i<50; ++i) {
+                                Thread.sleep(90);
                                 ibytes = new byte[mmInputStream.available()];
                                 if(0 < ibytes.length) {
-                                    System.out.println(String.format("2. Bytes available: %d", ibytes.length));
+                                    System.out.println(String.format("%d. Bytes available: %d", i, ibytes.length));
                                     mmInputStream.read(ibytes);
                                     resp = resp.concat(new String(ibytes));
-                                    System.out.println(String.format("2a. Return string length = %d", resp.length()));
+                                    System.out.println(String.format("%da. Return string length = %d", i, resp.length()));
                                     if(0x03 == ibytes[ibytes.length -1]) {
+                                        System.out.println("EOF character received!");
                                         break;
                                     }
                                 }
                             }
                         }
-
+                        mmOutputStream.close();
+                        mmInputStream.close();
                         mmSocket.close();
 
                         break;

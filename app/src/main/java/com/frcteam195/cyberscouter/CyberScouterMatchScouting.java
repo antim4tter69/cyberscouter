@@ -26,6 +26,11 @@ class CyberScouterMatchScouting {
     private static boolean webQueryInProgress = false;
     private static String last_hash;
 
+    private static String webResponse;
+    static String getWebResponse() {
+        return(webResponse);
+    }
+
     private int matchScoutingID;
     private int eventID;
     private int matchID;
@@ -131,10 +136,9 @@ class CyberScouterMatchScouting {
         String ret = "failed";
         try {
             JSONObject jo = new JSONObject();
-            JSONObject jcmd = new JSONObject();
-            jcmd.put("cmd", "put-match-scouting");
+            jo.put("cmd", "put-match-scouting");
+            jo.put("key", matchScoutingID);
             JSONObject payload = new JSONObject();
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, matchScoutingID);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, autoStartPos);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, autoDidNotShow);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, autoMoveBonus);
@@ -171,12 +175,13 @@ class CyberScouterMatchScouting {
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD, summHopperLoad);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, summPlayedDefense);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, summDefPlayedAgainst);
+            jo.put("payload", payload);
 
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.sendSetCommand(activity, jo);
             if (null != response) {
                 JSONObject jresp = new JSONObject(response);
-                ret = jo.getString("result");
+                ret = jresp.getString("result");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -606,7 +611,8 @@ class CyberScouterMatchScouting {
                         webQueryInProgress = false;
                         try {
                             Intent i = new Intent(MATCH_SCOUTING_UPDATED_FILTER);
-                            i.putExtra("cyberscoutermatches", response);
+                            webResponse = response;
+                            i.putExtra("cyberscoutermatches", "fetch");
                             activity.sendBroadcast(i);
                         } catch (Exception e) {
                             e.printStackTrace();

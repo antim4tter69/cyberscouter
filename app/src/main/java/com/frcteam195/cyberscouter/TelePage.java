@@ -453,6 +453,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     }
 
     private void zone_Clicked(int i) {
+        if (running){
+            return;
+        }
         FragmentManager fm = getSupportFragmentManager();
         TelePopUpPage tpp = new TelePopUpPage();
         tpp.setValues(values[i-1]);

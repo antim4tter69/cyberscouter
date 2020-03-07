@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +12,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Locale;
 
 public class ScoutingTab extends Fragment {
     private View _view;
-//    private String[] user_array;
+    //    private String[] user_array;
     private String[] team_array;
     private String[] team_scouted_array;
 
@@ -58,6 +53,24 @@ public class ScoutingTab extends Fragment {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if (isVisibleToUser) {
+            if(_view == null)
+                return;
+            GridView gv = _view.findViewById(R.id.gridView_scoutedTeams);
+            gv.removeAllViewsInLayout();
+            Button button = _view.findViewById(R.id.button_scoutingTabCommit);
+            team_array = CyberScouterTeams.getTeamNumbers(_db, 0);
+            team_scouted_array = CyberScouterTeams.getTeamNumbers(_db, 1);
+            if (null != team_array) {
+                populateView();
+            } else {
+                button.setEnabled(false);
+            }
+        }
+    }
+
+    @Override
     public void onDestroy() {
         if (mDbHelper != null) {
             mDbHelper.close();
@@ -70,6 +83,10 @@ public class ScoutingTab extends Fragment {
         try {
             CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING,
                     _val, team);
+            if(0 == _val) {
+                CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS,
+                        UploadStatus.NOT_UPLOADED, team);
+            }
         } catch (Exception e) {
             MessageBox.showMessageBox(getActivity(), "Pit Scouting Commit Failed", "ScoutingTab.commitTeam",
                     String.format(Locale.getDefault(), "Attempt to commit pit scouting statistics for team %d failed!", PitScoutingActivity.getCurrentTeam()));

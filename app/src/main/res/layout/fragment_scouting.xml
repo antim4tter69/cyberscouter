@@ -74,4 +74,23 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_teams" />
+
+    <GridView
+        android:id="@+id/gridView_scoutedTeams"
+        android:layout_width="108dp"
+        android:layout_height="455dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_scoutedHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/text_Scouted"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/gridView_scoutedTeams"
+        app:layout_constraintStart_toStartOf="@+id/gridView_scoutedTeams" />
 </android.support.constraint.ConstraintLayout>

@@ -181,7 +181,7 @@ class CyberScouterTeams {
 
     }
 
-    static String[] getTeamNumbers(SQLiteDatabase db) {
+    static String[] getTeamNumbers(SQLiteDatabase db, int wasScouted) {
         Vector<String> teamVector = new Vector<>();
         Cursor cursor;
         try {
@@ -189,11 +189,17 @@ class CyberScouterTeams {
                     CyberScouterContract.Teams.COLUMN_NAME_TEAM,
             };
 
+            String selection = CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING + " = ?";
+            String[] selectionArgs = {
+                    String.format(Locale.getDefault(), "%d", wasScouted)
+            };
+
+
             cursor = db.query(
                     CyberScouterContract.Teams.TABLE_NAME,   // The table to query
                     projection,             // The array of columns to return (pass null to get all)
-                    null,              // The columns for the WHERE clause
-                    null,          // The values for the WHERE clause
+                    selection,              // The columns for the WHERE clause
+                    selectionArgs,          // The values for the WHERE clause
                     null,                   // don't group the rows
                     null,                   // don't filter by row groups
                     CyberScouterContract.Teams.COLUMN_NAME_TEAM + " ASC"               // The sort order

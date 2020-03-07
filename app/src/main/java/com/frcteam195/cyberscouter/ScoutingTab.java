@@ -13,8 +13,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -22,6 +25,7 @@ public class ScoutingTab extends Fragment {
     private View _view;
 //    private String[] user_array;
     private String[] team_array;
+    private String[] team_scouted_array;
 
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
@@ -35,17 +39,22 @@ public class ScoutingTab extends Fragment {
         mDbHelper = new CyberScouterDbHelper(getActivity());
         _db = mDbHelper.getWritableDatabase();
 
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         Button button = _view.findViewById(R.id.button_scoutingTabCommit);
         //        user_array = CyberScouterUsers.getUserNames(_db);
 
-        team_array = CyberScouterTeams.getTeamNumbers(_db);
+        team_array = CyberScouterTeams.getTeamNumbers(_db, 0);
+        team_scouted_array = CyberScouterTeams.getTeamNumbers(_db, 1);
         if (null != team_array) {
             populateView();
         } else {
             button.setEnabled(false);
         }
-
-        return view;
     }
 
     @Override
@@ -57,50 +66,21 @@ public class ScoutingTab extends Fragment {
     }
 
 
-    private void commitTeam(int _val) {
+    private void commitTeam(int _val, int team) {
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING, _val, PitScoutingActivity.getCurrentTeam());
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING,
+                    _val, team);
         } catch (Exception e) {
             MessageBox.showMessageBox(getActivity(), "Pit Scouting Commit Failed", "ScoutingTab.commitTeam",
                     String.format(Locale.getDefault(), "Attempt to commit pit scouting statistics for team %d failed!", PitScoutingActivity.getCurrentTeam()));
             e.printStackTrace();
         }
-
-        Button button = _view.findViewById(R.id.button_scoutingTabCommit);
-        switch (_val) {
-            case 0:
-                button.setEnabled(true);
-                Activity acty = getActivity();
-                if(null != acty) {
-                    TabLayout tabs = acty.findViewById(R.id.tabs);
-                    LinearLayout tabstrip = ((LinearLayout) tabs.getChildAt(0));
-                    if (tabstrip != null) {
-                        for (int i = 1; i < tabstrip.getChildCount(); ++i) {
-                            tabstrip.getChildAt(i).setEnabled(true);
-                        }
-                    }
-                }
-                break;
-            case 1:
-                button.setEnabled(false);
-                acty = getActivity();
-                if(null != acty) {
-                    TabLayout tabs = acty.findViewById(R.id.tabs);
-                    LinearLayout tabstrip = ((LinearLayout) tabs.getChildAt(0));
-                    if (tabstrip != null) {
-                        for (int i = 1; i < tabstrip.getChildCount(); ++i) {
-                            tabstrip.getChildAt(i).setEnabled(false);
-                        }
-                    }
-                }
-                break;
-            default:
-                button.setEnabled(true);
-        }
+        teamFetchCompleted();
     }
 
     public void teamFetchCompleted() {
-        team_array = CyberScouterTeams.getTeamNumbers(_db);
+        team_array = CyberScouterTeams.getTeamNumbers(_db, 0);
+        team_scouted_array = CyberScouterTeams.getTeamNumbers(_db, 1);
         if (null != team_array) {
             populateView();
         }
@@ -119,14 +99,6 @@ public class ScoutingTab extends Fragment {
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                     PitScoutingActivity.setCurrentTeam(Integer.parseInt(team_array[position]));
                     CyberScouterTeams cst = CyberScouterTeams.getCurrentTeam(_db, PitScoutingActivity.getCurrentTeam());
-                    Button button = _view.findViewById(R.id.button_scoutingTabCommit);
-                    if (0 == cst.getDoneScouting()) {
-                        button.setEnabled(true);
-                        PitScoutingActivity.setCommitDisabled(false);
-                    } else {
-                        button.setEnabled(false);
-                        PitScoutingActivity.setCommitDisabled(true);
-                    }
                 }
 
                 @Override
@@ -135,26 +107,39 @@ public class ScoutingTab extends Fragment {
                 }
 
             });
-            teams_spinner.setOnLongClickListener(new Spinner.OnLongClickListener() {
+            PitScoutingActivity.setCurrentTeam(Integer.parseInt(team_array[teams_spinner.getSelectedItemPosition()]));
+            button.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public boolean onLongClick(View view) {
-                    commitTeam(0);
-                    return true;
+                public void onClick(View view) {
+                    commitTeam(1, PitScoutingActivity.getCurrentTeam());
                 }
             });
-            PitScoutingActivity.setCurrentTeam(Integer.parseInt(team_array[teams_spinner.getSelectedItemPosition()]));
+            button.setEnabled(true);
 
 //        Spinner names = view.findViewById(R.id.spinner_fragmentScoutingNames);
 //        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(getActivity(),
 //                R.layout.spinner_text_items, user_array);
 //        names.setAdapter(adapter2);
 
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    commitTeam(1);
-                }
-            });
+            GridView gv = _view.findViewById(R.id.gridView_scoutedTeams);
+            gv.removeAllViewsInLayout();
+            if(null != team_scouted_array) {
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(acty, R.layout.spinner_text_items, team_scouted_array);
+                gv.setNumColumns(1);
+
+                gv.setAdapter(adapter);
+
+                gv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        if(null != team_scouted_array) {
+                            int t = Integer.parseInt(team_scouted_array[i]);
+                            commitTeam(0, t);
+                        }
+                        return (true);
+                    }
+                });
+            }
         }
     }
 }

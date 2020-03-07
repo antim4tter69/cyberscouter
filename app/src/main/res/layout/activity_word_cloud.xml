@@ -40,11 +40,32 @@
             android:id="@+id/gridView_words"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:columnWidth="300dp"
+            android:gravity="center"
             android:horizontalSpacing="30dp"
             android:stretchMode="columnWidth"
             android:verticalSpacing="50dp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView_btIndicator"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@color/ic_launcher_background" />
+
+    <Button
+        android:id="@+id/button_wcSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="152dp"
+        android:layout_marginEnd="112dp"
+        android:text="@string/SubmitButton"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

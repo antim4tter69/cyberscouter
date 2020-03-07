@@ -375,7 +375,7 @@ class CyberScouterTeams {
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING, 0);
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS, 0);
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS, com.frcteam195.cyberscouter.UploadStatus.NOT_UPLOADED);
 
                 long newRowId = db.insertWithOnConflict(CyberScouterContract.Teams.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
             }

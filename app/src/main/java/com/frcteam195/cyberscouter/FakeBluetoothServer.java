@@ -10,7 +10,7 @@ public class FakeBluetoothServer {
     final public static boolean bUseFakeBluetoothServer = true;
     final public static String webServiceBaseUrl = "https://8zaof0vuah.execute-api.us-east-1.amazonaws.com";
 
-    final public static String fakeBluetoothComputerName = "Team 195 Scout 10";
+    final public static String fakeBluetoothComputerName = "Team 195 Scout 1";
 
 
 
@@ -33,7 +33,7 @@ public class FakeBluetoothServer {
             } else if (cmd == "get-teams") {
                 CyberScouterTeams.getTeamsWebService(activity);
             } else if( cmd == "get-words") {
-
+                CyberScouterWordCloud.getWordsWebService(activity);
             } else if( cmd == "get-word-cloud") {
 
             } else if( cmd == "put-match-scouting") {

@@ -216,6 +216,31 @@ public class BluetoothComm {
         return(returnJson);
     }
 
+    public String getWords(AppCompatActivity activity, String last_hash) {
+        String returnJson = _errorJson;
+        try {
+            JSONObject jr = new JSONObject();
+
+            jr.put("cmd", "get-words");
+            if(null != last_hash) {
+                jr.put("last_hash", last_hash);
+            }
+
+            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+                FakeBluetoothServer fbts = new FakeBluetoothServer();
+                fbts.getResponse(activity, jr);
+                returnJson = null;
+            } else {
+                returnJson = sendCommand(activity, jr.toString());
+            }
+        } catch(Exception e) {
+            bLastBTCommFailed = true;
+            e.printStackTrace();
+        }
+        bLastBTCommFailed = false;
+        return(returnJson);
+    }
+
     public static void updateStatusIndicator(ImageView iv, int color) {
         Bitmap bitmap = Bitmap.createBitmap(32, 32, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);

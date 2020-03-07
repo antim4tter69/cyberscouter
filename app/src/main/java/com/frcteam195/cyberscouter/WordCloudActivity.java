@@ -134,7 +134,7 @@ public class WordCloudActivity extends AppCompatActivity {
 
     private void populatePage() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, cfg.getAlliance_station_id());
         if (null != csm) {
             TextView tv = findViewById(R.id.textView_wcMatch);
             tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));

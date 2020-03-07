@@ -420,7 +420,7 @@ class CyberScouterTeams {
 
         String[] selectionArgs = {
                 String.format(Locale.getDefault(), "%d", 1),
-                String.format(Locale.getDefault(), "%d", 0)
+                String.format(Locale.getDefault(), "%d", com.frcteam195.cyberscouter.UploadStatus.NOT_UPLOADED)
         };
 
         String sortOrder =

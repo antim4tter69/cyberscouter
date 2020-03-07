@@ -35,6 +35,12 @@ public class TelePopUpPage extends DialogFragment implements View.OnClickListene
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getDialog().setCanceledOnTouchOutside(false);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_tele_pop_up_page, container, false);

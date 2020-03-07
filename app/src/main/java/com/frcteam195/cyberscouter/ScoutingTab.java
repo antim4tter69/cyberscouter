@@ -55,10 +55,8 @@ public class ScoutingTab extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if (isVisibleToUser) {
-            if(_view == null)
+            if (_view == null)
                 return;
-            GridView gv = _view.findViewById(R.id.gridView_scoutedTeams);
-            gv.removeAllViewsInLayout();
             Button button = _view.findViewById(R.id.button_scoutingTabCommit);
             team_array = CyberScouterTeams.getTeamNumbers(_db, 0);
             team_scouted_array = CyberScouterTeams.getTeamNumbers(_db, 1);
@@ -83,7 +81,7 @@ public class ScoutingTab extends Fragment {
         try {
             CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING,
                     _val, team);
-            if(0 == _val) {
+            if (0 == _val) {
                 CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS,
                         UploadStatus.NOT_UPLOADED, team);
             }
@@ -107,7 +105,7 @@ public class ScoutingTab extends Fragment {
         Button button = _view.findViewById(R.id.button_scoutingTabCommit);
         Spinner teams_spinner = _view.findViewById(R.id.spinner_teams);
         Activity acty = getActivity();
-        if(null != acty) {
+        if (null != acty) {
             ArrayAdapter<String> adapter1 = new ArrayAdapter<>(acty,
                     R.layout.spinner_text_items, team_array);
             teams_spinner.setAdapter(adapter1);
@@ -140,7 +138,9 @@ public class ScoutingTab extends Fragment {
 
             GridView gv = _view.findViewById(R.id.gridView_scoutedTeams);
             gv.removeAllViewsInLayout();
-            if(null != team_scouted_array) {
+            if (null == team_scouted_array) {
+                gv.setAdapter(null);
+            } else {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(acty, R.layout.spinner_text_items, team_scouted_array);
                 gv.setNumColumns(1);
 
@@ -149,7 +149,7 @@ public class ScoutingTab extends Fragment {
                 gv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        if(null != team_scouted_array) {
+                        if (null != team_scouted_array) {
                             int t = Integer.parseInt(team_scouted_array[i]);
                             commitTeam(0, t);
                         }

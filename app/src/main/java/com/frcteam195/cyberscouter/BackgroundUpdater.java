@@ -116,7 +116,7 @@ public class BackgroundUpdater extends Service {
                                     }
                                 }
                             } else {
-  //                              popToast(String.format(Locale.getDefault(), "Loop #%d no teams to upload.", cnt));
+                                //                              popToast(String.format(Locale.getDefault(), "Loop #%d no teams to upload.", cnt));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

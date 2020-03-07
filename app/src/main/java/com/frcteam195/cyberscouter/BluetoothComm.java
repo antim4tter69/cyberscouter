@@ -119,7 +119,7 @@ public class BluetoothComm {
             e.printStackTrace();
         }
         bLastBTCommFailed = false;
-     return(returnJson);
+        return(returnJson);
     }
 
     public String getUsers(AppCompatActivity activity, String last_hash) {

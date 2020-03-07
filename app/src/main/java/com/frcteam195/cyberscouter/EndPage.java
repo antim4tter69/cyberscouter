@@ -23,7 +23,7 @@ public class EndPage extends AppCompatActivity {
     private final int[] levelButtons = {R.id.button_LevelNo, R.id.button_LevelYes};
     private final int[] movedOnBarButtons = {R.id.button_MovedOnBarNo, R.id.button_MovedOnBarYes};
     private final int[] playedDefenseButtons = {R.id.button_PlayedDefenseNo, R.id.button_PlayedDefenseYes};
-    private final int[] climbStatusButtons = {R.id.button_Climbed, R.id.button_AttemptedClimb, R.id.button_BusyClimb, R.id.button_ParkedClimb};
+    private final int[] climbStatusButtons = {R.id.button_noAttemptClimb,R.id.button_Climbed, R.id.button_AttemptedClimb, R.id.button_BusyClimb, R.id.button_ParkedClimb};
 
     String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM,
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN,
@@ -223,6 +223,13 @@ public class EndPage extends AppCompatActivity {
 
             }
         });
+        button = findViewById(R.id.button_noAttemptClimb);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noAttemptClimb();
+            }
+        });
         button = findViewById(R.id.button_Climbed);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -292,7 +299,7 @@ public class EndPage extends AppCompatActivity {
             movedOnBar = csm.getClimbMoveOnBar();
             FakeRadioGroup.buttonDisplay(this, csm.getSummPlayedDefense(), playedDefenseButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
             playedDefense = csm.getSummPlayedDefense();
-            FakeRadioGroup.buttonDisplay(this, csm.getClimbStatus(), climbStatusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            FakeRadioGroup.buttonDisplay(this, csm.getClimbStatus() - 1, climbStatusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
             climbStatus = csm.getClimbStatus();
         }
     }
@@ -386,21 +393,25 @@ public class EndPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 1, playedDefenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         playedDefense = 1;
     }
-    public void climbed() {
+    public void noAttemptClimb() {
         FakeRadioGroup.buttonPressed(this, 0, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        climbStatus = 0;
-    }
-    public void attemptedClimb() {
-        FakeRadioGroup.buttonPressed(this, 1, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         climbStatus = 1;
     }
-    public void busyClimb() {
-        FakeRadioGroup.buttonPressed(this, 2, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    public void climbed() {
+        FakeRadioGroup.buttonPressed(this, 1, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         climbStatus = 2;
     }
-    public void parkedClimb() {
-        FakeRadioGroup.buttonPressed(this, 3, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    public void attemptedClimb() {
+        FakeRadioGroup.buttonPressed(this, 2, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         climbStatus = 3;
+    }
+    public void busyClimb() {
+        FakeRadioGroup.buttonPressed(this, 3, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        climbStatus = 4;
+    }
+    public void parkedClimb() {
+        FakeRadioGroup.buttonPressed(this, 4, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        climbStatus = 5;
     }
 
     private void updateStatusIndicator(int color) {

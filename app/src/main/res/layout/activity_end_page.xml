@@ -480,4 +480,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_endgameMatch" />
 
+    <Button
+        android:id="@+id/button_noAttemptClimb"
+        android:layout_width="128dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="76dp"
+        android:text="NO ATTEMPT"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_DefenseText"
+        app:layout_constraintEnd_toStartOf="@+id/button_Climbed" />
+
 </android.support.constraint.ConstraintLayout>

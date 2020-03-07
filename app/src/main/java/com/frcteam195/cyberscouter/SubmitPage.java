@@ -32,7 +32,7 @@ public class SubmitPage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                returnToSummaryQuestions();
+                returnToPrevious();
 
             }
         });
@@ -43,6 +43,14 @@ public class SubmitPage extends AppCompatActivity {
             public void onClick(View v) {
                 submitMatch();
 
+            }
+        });
+
+        button = findViewById(R.id.Button_Review);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitMatchForReview();
             }
         });
     }
@@ -75,7 +83,7 @@ public class SubmitPage extends AppCompatActivity {
         }
     }
 
-    public void returnToSummaryQuestions() {
+    public void returnToPrevious() {
         this.finish();
     }
 
@@ -90,8 +98,6 @@ public class SubmitPage extends AppCompatActivity {
                     "Update of UploadStatus and ScoutingStatus failed!\n\n" +
                             "The error is:\n" + e.getMessage());
         }
-        returnToScoutingPage();
-
     }
 
     public void submitMatchForReview() {

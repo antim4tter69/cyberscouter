@@ -179,7 +179,7 @@ public class BluetoothComm {
         String returnJson = _errorJson;
         try {
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
-                returnJson = null;
+                returnJson = "success";
             } else {
                 returnJson = sendCommand(activity, jo.toString());
             }

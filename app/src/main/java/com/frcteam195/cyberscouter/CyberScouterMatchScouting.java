@@ -139,6 +139,7 @@ class CyberScouterMatchScouting {
             jo.put("cmd", "put-match-scouting");
             jo.put("key", matchScoutingID);
             JSONObject payload = new JSONObject();
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, ScoutingStatus.FINISHED_SUCCESSFULLY);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, autoStartPos);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, autoDidNotShow);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, autoMoveBonus);
@@ -473,7 +474,8 @@ class CyberScouterMatchScouting {
 
         String[] whereArgs = {String.format(Locale.getDefault(), "%d", l_eventID)};
 
-        db.delete(CyberScouterContract.MatchScouting.TABLE_NAME, CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " <> ?", whereArgs);
+        db.delete(CyberScouterContract.MatchScouting.TABLE_NAME,
+                CyberScouterContract.MatchScouting.COLUMN_NAME_EVENTID + " <> ?", whereArgs);
     }
 
     private static void updateMatchTeamAndScoutingStatus(SQLiteDatabase db, JSONObject rmatch, CyberScouterMatchScouting lmatch) throws Exception {

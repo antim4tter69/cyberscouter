@@ -87,38 +87,36 @@ public class BackgroundUpdater extends Service {
                             if (null != csmsa) {
                                 for (CyberScouterMatchScouting csms : csmsa) {
                                     String ret = csms.setMatchesRemote(MainActivity._activity);
-//                                    String ret = "success";
                                     if (ret.equalsIgnoreCase("success")) {
-                                        String[] l_column = {CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
-                                        Integer[] l_value = {1};
-//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
+                                        CyberScouterMatchScouting.updateMatchUploadStatus(db, csms.getMatchScoutingID(), UploadStatus.UPLOADED);
                                         popToast(String.format(Locale.getDefault(), "Match %d, Team %s was uploaded successfully.", csms.getMatchNo(), csms.getTeam()));
                                     } else {
                                         popToast(String.format(Locale.getDefault(), "Loop #%d failed to upload a match.", cnt));
                                     }
                                 }
                             } else {
-                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
+//                                popToast(String.format(Locale.getDefault(), "Loop #%d no matches to upload.", cnt));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
+                        Thread.sleep(10);
                         try {
                             CyberScouterTeams[] csta = CyberScouterTeams.getTeamsReadyToUpload(db);
                             if (null != csta) {
                                 for (CyberScouterTeams cst : csta) {
-//                                    String ret = cst.setTeamsRemote();
-                                    String ret = "success";
+                                    String ret = cst.setTeamsRemote(MainActivity._activity);
                                     if (ret.equalsIgnoreCase("success")) {
-                                        String[] l_column = {CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS};
-                                        Integer[] l_value = {1};
-//                                        CyberScouterMatchScouting.updateMatchMetric(db, l_column, l_value, cfg);
+                                        String l_column = CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS;
+                                        Integer l_value = UploadStatus.UPLOADED;
+                                        CyberScouterTeams.updateTeamMetric(db, l_column, l_value, cst.getTeam());
                                         popToast(String.format(Locale.getDefault(), "Team %d was uploaded successfully.", cst.getTeam()));
+                                    } else {
+                                        popToast(String.format(Locale.getDefault(), "Loop #%d failed to upload a team.", cnt));
                                     }
                                 }
                             } else {
-//                                popToast(String.format(Locale.getDefault(), "Loop #%d no teams to upload.", cnt));
+  //                              popToast(String.format(Locale.getDefault(), "Loop #%d no teams to upload.", cnt));
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

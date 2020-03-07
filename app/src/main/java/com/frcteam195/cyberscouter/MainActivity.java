@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private final int PERMISSION_REQUEST_FINE_LOCATION = 319;
     private BluetoothAdapter _bluetoothAdapter;
 
+    private ComponentName _serviceComponentName = null;
+
     private Button button;
     private TextView textView;
 
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 //        registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
 //        registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
         String cfg_str = CyberScouterConfig.getConfigRemote(this);
-        if(null != cfg_str) {
+        if (null != cfg_str) {
             processConfig(cfg_str);
         }
     }
@@ -157,19 +159,23 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText(allianceStation);
                 int eventId = jo.getInt("EventID");
                 CyberScouterConfig.setConfigLocal(_db, jo);
+                CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+                CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
                 button = findViewById(R.id.button_scouting);
                 button.setEnabled(true);
-            }
-            try {
-                _activity = this;
-                Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
-                ComponentName cn = startService(backgroundIntent);
-                if (null == cn) {
-                    MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!");
+                try {
+                    if (null == _serviceComponentName) {
+                        _activity = this;
+                        Intent backgroundIntent = new Intent(getApplicationContext(), BackgroundUpdater.class);
+                        _serviceComponentName = startService(backgroundIntent);
+                        if (null == _serviceComponentName) {
+                            MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!");
+                        }
+                    }
+                } catch (Exception e) {
+                    MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
+                            "The error is:\n" + e.getMessage());
                 }
-            } catch (Exception e) {
-                MessageBox.showMessageBox(MainActivity.this, "Start Service Failed Alert", "processConfig", "Attempt to start background update service failed!\n\n" +
-                        "The error is:\n" + e.getMessage());
             }
         } catch (Exception e) {
             MessageBox.showMessageBox(this, "Exception Caught", "processConfig", "An exception occurred: \n" + e.getMessage());

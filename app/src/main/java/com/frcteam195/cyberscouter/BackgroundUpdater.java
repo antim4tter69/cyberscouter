@@ -1,34 +1,30 @@
 package com.frcteam195.cyberscouter;
 
-        import android.app.Service;
-        import android.bluetooth.BluetoothAdapter;
-        import android.bluetooth.BluetoothDevice;
-        import android.bluetooth.BluetoothManager;
-        import android.bluetooth.BluetoothSocket;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.database.sqlite.SQLiteDatabase;
-        import android.graphics.Color;
-        import android.os.Handler;
-        import android.os.IBinder;
-        import android.os.Looper;
-        import android.support.v4.content.ContextCompat;
-        import android.widget.Toast;
-        import java.util.Locale;
+import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Looper;
+import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
+import java.util.Locale;
 
 public class BackgroundUpdater extends Service {
     boolean keepRunning;
     Thread updaterThread;
     Thread pingerThread;
-    BluetoothDevice mmDevice;
-    BluetoothSocket mmSocket;
     BluetoothAdapter _bluetoothAdapter;
 
     private static final int _updaterInterval = 20000;
     private static final int _pingerInterval = 1000;
-
-    private final String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
-    private final String _serviceName = "Team195Pi";
 
     public BackgroundUpdater() {
 
@@ -121,12 +117,10 @@ public class BackgroundUpdater extends Service {
                             e.printStackTrace();
                         }
                     }
-                    sendCommStatusIndicatorUpdate();
 
                     Thread.sleep(_updaterInterval);
 
                 } catch (InterruptedException ie) {
-//                } catch (ClosedByInterruptException cbie) {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -148,12 +142,13 @@ public class BackgroundUpdater extends Service {
     }
 
     private class commStatusRunner implements Runnable {
+
         @Override
         public void run() {
             while (keepRunning) {
                 try {
                     Thread.yield();
-                    if( FakeBluetoothServer.bUseFakeBluetoothServer) {
+                    if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                         BluetoothComm.setLastBTCommSucceeded();
                     } else {
                         if (BluetoothComm.pingServer(MainActivity._activity)) {

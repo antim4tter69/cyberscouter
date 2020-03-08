@@ -215,20 +215,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         } else {
             iv.setImageResource(R.drawable.field_2020_flipped);
         }
-
-//        try {
-//            ContentValues values = new ContentValues();
-//            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, val);
-//            int count = db.update(
-//                    CyberScouterContract.ConfigEntry.TABLE_NAME,
-//                    values,
-//                    null,
-//                    null);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw (e);
-//        }
-
     }
 
     @Override

@@ -33,8 +33,14 @@ public class BluetoothComm {
     public static boolean bLastBTCommFailed() {
         return bLastBTCommFailed;
     }
-    public static void setLastBTCommFailed() { bLastBTCommFailed = true;}
-    public static void setLastBTCommSucceeded() { bLastBTCommFailed = false;}
+
+    public static void setLastBTCommFailed() {
+        bLastBTCommFailed = true;
+    }
+
+    public static void setLastBTCommSucceeded() {
+        bLastBTCommFailed = false;
+    }
 
     private String sendCommand(Activity activity, String json) {
         String resp = _errorJson;
@@ -43,7 +49,7 @@ public class BluetoothComm {
             final BluetoothManager bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
 
-            if (null != _bluetoothAdapter) {
+            if (null != _bluetoothAdapter && !bLastBTCommFailed) {
                 Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
                 if (pairedDevices.size() > 0) {
                     for (BluetoothDevice device : pairedDevices) {
@@ -89,9 +95,9 @@ public class BluetoothComm {
                     }
                 }
             }
-        } catch(Exception e){
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         return resp;
@@ -107,12 +113,12 @@ public class BluetoothComm {
             j1.put("computerName", btname);
             jr.put("cmd", "get-config");
             jr.put("payload", j1);
-            if(null != last_hash) {
+            if (null != last_hash) {
                 jr.put("last_hash", last_hash);
             }
 
-            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
-                if(!bLastBTCommFailed) {
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
+                if (!bLastBTCommFailed) {
                     FakeBluetoothServer fbts = new FakeBluetoothServer();
                     fbts.getResponse(activity, jr);
                     returnJson = null;
@@ -120,10 +126,10 @@ public class BluetoothComm {
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return(returnJson);
+        return (returnJson);
     }
 
     public String getUsers(AppCompatActivity activity, String last_hash) {
@@ -132,21 +138,21 @@ public class BluetoothComm {
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-users");
-            if(null != last_hash) {
+            if (null != last_hash) {
                 jr.put("last_hash", last_hash);
             }
 
-            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
                 returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return(returnJson);
+        return (returnJson);
     }
 
     public String getMatches(AppCompatActivity activity, int eventId, String last_hash) {
@@ -158,35 +164,35 @@ public class BluetoothComm {
             j1.put("eventId", eventId);
             jr.put("cmd", "get-matches");
             jr.put("payload", j1);
-            if(null != last_hash) {
+            if (null != last_hash) {
                 jr.put("last_hash", last_hash);
             }
 
-            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
                 returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return(returnJson);
+        return (returnJson);
     }
 
     public String sendSetCommand(AppCompatActivity activity, JSONObject jo) {
         String returnJson = _errorJson;
         try {
-            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 returnJson = "{'result': 'success'}";
             } else {
                 returnJson = sendCommand(activity, jo.toString());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return(returnJson);
+        return (returnJson);
     }
 
     public String getTeams(AppCompatActivity activity, String last_hash) {
@@ -195,21 +201,21 @@ public class BluetoothComm {
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-teams");
-            if(null != last_hash) {
+            if (null != last_hash) {
                 jr.put("last_hash", last_hash);
             }
 
-            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
                 returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return(returnJson);
+        return (returnJson);
     }
 
     public String getWords(AppCompatActivity activity, String last_hash) {
@@ -218,21 +224,21 @@ public class BluetoothComm {
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-words");
-            if(null != last_hash) {
+            if (null != last_hash) {
                 jr.put("last_hash", last_hash);
             }
 
-            if(FakeBluetoothServer.bUseFakeBluetoothServer) {
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
                 fbts.getResponse(activity, jr);
                 returnJson = null;
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return(returnJson);
+        return (returnJson);
     }
 
     public static void updateStatusIndicator(ImageView iv, int color) {
@@ -251,16 +257,18 @@ public class BluetoothComm {
                     (BluetoothManager) MainActivity._activity.getSystemService(Context.BLUETOOTH_SERVICE);
             BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
 
-            Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
-            if (pairedDevices.size() > 0) {
-                for (BluetoothDevice device : pairedDevices) {
-                    String deviceName = device.getName();
-                    String deviceHardwareAddress = device.getAddress();
-                    if (deviceName.equals(_serviceName)) {
-                        BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
-                        mmSocket.connect();
-                        bCommGood = true;
-                        break;
+            if(null != _bluetoothAdapter) {
+                Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
+                if (pairedDevices.size() > 0) {
+                    for (BluetoothDevice device : pairedDevices) {
+                        String deviceName = device.getName();
+                        String deviceHardwareAddress = device.getAddress();
+                        if (deviceName.equals(_serviceName)) {
+                            BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
+                            mmSocket.connect();
+                            bCommGood = true;
+                            break;
+                        }
                     }
                 }
             }
@@ -269,7 +277,7 @@ public class BluetoothComm {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            return(bCommGood);
+            return (bCommGood);
         }
     }
 }

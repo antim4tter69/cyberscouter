@@ -8,8 +8,8 @@ import java.net.Socket;
 
 public class FakeBluetoothServer {
 
-    final public static boolean bUseFakeBluetoothServer = false;
-    final private static String _webHost = "8zaof0vuah.execute-api.us-east-1.amazonaws.com";
+    final public static boolean bUseFakeBluetoothServer = true;
+    final private static String _webHost = "x-8zaof0vuah.execute-api.us-east-1.amazonaws.com";
     final public static String webServiceBaseUrl = String.format("https://%s", _webHost);
 
     final public static String fakeBluetoothComputerName = "Team 195 Scout 1";

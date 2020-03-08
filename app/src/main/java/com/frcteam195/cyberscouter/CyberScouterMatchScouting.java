@@ -27,8 +27,9 @@ class CyberScouterMatchScouting {
     private static String last_hash;
 
     private static String webResponse;
+
     static String getWebResponse() {
-        return(webResponse);
+        return (webResponse);
     }
 
     private int matchScoutingID;
@@ -112,17 +113,18 @@ class CyberScouterMatchScouting {
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.getMatches(activity, eventId, last_hash);
             if (null != response) {
-                    JSONObject jo = new JSONObject(response);
-                    String result = jo.getString("result");
-                    if (!result.equalsIgnoreCase("failed")) {
-                        if(result.equalsIgnoreCase("skip")) {
-                            ret = "skip";
-                        } else {
-                            JSONArray payload = jo.getJSONArray("payload");
-                            ret = payload.toString();
-                            last_hash = jo.getString("hash");
-                        }
-                        return ret;
+                JSONObject jo = new JSONObject(response);
+                String result = jo.getString("result");
+                if (!result.equalsIgnoreCase("failure")) {
+                    if (result.equalsIgnoreCase("skip")) {
+                        ret = "skip";
+                    } else {
+                        JSONArray payload = jo.getJSONArray("payload");
+                        ret = payload.toString();
+                        last_hash = jo.getString("hash");
+                    }
+                } else {
+                    ret = "skip";
                 }
             }
         } catch (Exception e) {

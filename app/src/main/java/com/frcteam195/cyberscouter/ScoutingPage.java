@@ -51,8 +51,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         }
     };
 
-    private int currentCommStatusColor = Color.LTGRAY;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Button button;
@@ -91,6 +89,13 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
         _db = mDbHelper.getWritableDatabase();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Button npbutton = findViewById(R.id.Button_NamePicker);
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (CyberScouterConfig.UNKNOWN_USER_IDX != cfg.getUser_id()) {
             npbutton.setText(cfg.getUsername());
@@ -106,22 +111,12 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             }
         });
         iv.setEnabled(true);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-//        Intent intent = getIntent();
-//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-//        updateStatusIndicator(currentCommStatusColor);
 
         String csu_str = CyberScouterUsers.getUsersRemote(this);
         if(null != csu_str) {
             updateUsers(csu_str);
         }
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg) {
             String csms_str = CyberScouterMatchScouting.getMatchesRemote(this, cfg.getEvent_id());
             if(null != csms_str) {

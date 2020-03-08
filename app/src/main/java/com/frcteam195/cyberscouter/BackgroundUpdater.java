@@ -1,35 +1,31 @@
 package com.frcteam195.cyberscouter;
 
-import android.app.NotificationManager;
-import android.app.Service;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothSocket;
-import android.content.Context;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.os.Handler;
-import android.os.IBinder;
-import android.os.Looper;
-import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
-
-import java.io.OutputStream;
-import java.nio.channels.ClosedByInterruptException;
-import java.util.Locale;
-import java.util.Set;
-import java.util.UUID;
+        import android.app.Service;
+        import android.bluetooth.BluetoothAdapter;
+        import android.bluetooth.BluetoothDevice;
+        import android.bluetooth.BluetoothManager;
+        import android.bluetooth.BluetoothSocket;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.database.sqlite.SQLiteDatabase;
+        import android.graphics.Color;
+        import android.os.Handler;
+        import android.os.IBinder;
+        import android.os.Looper;
+        import android.support.v4.content.ContextCompat;
+        import android.widget.Toast;
+        import java.util.Locale;
 
 public class BackgroundUpdater extends Service {
     boolean keepRunning;
-    Thread thread;
+    Thread updaterThread;
+    Thread pingerThread;
     BluetoothDevice mmDevice;
     BluetoothSocket mmSocket;
     BluetoothAdapter _bluetoothAdapter;
+
+    private static final int _updaterInterval = 20000;
+    private static final int _pingerInterval = 1000;
 
     private final String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
     private final String _serviceName = "Team195Pi";
@@ -52,12 +48,15 @@ public class BackgroundUpdater extends Service {
         _bluetoothAdapter = bluetoothManager.getAdapter();
 
 
-
-        if (null == thread) {
-            thread = new Thread(new updateRunner());
-            thread.start();
+        if (null == updaterThread) {
+            updaterThread = new Thread(new updateRunner());
+            updaterThread.start();
         }
 
+        if (null == pingerThread) {
+            pingerThread = new Thread(new commStatusRunner());
+            pingerThread.start();
+        }
 
         return (START_NOT_STICKY);
     }
@@ -65,7 +64,7 @@ public class BackgroundUpdater extends Service {
     @Override
     public void onDestroy() {
         keepRunning = false;
-        thread.interrupt();
+        updaterThread.interrupt();
     }
 
     private class updateRunner implements Runnable {
@@ -122,17 +121,10 @@ public class BackgroundUpdater extends Service {
                             e.printStackTrace();
                         }
                     }
+                    sendCommStatusIndicatorUpdate();
 
-                    int color = Color.GREEN;
-                    if (FakeBluetoothServer.bUseFakeBluetoothServer)
-                        color = ContextCompat.getColor(getApplicationContext(), R.color.amber);
-                    if (BluetoothComm.bLastBTCommFailed())
-                        color = Color.RED;
-                    Intent i = new Intent(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER);
-                    i.putExtra("onlinestatus", color);
-                    getApplicationContext().sendBroadcast(i);
+                    Thread.sleep(_updaterInterval);
 
-                    Thread.sleep(20000);
                 } catch (InterruptedException ie) {
 //                } catch (ClosedByInterruptException cbie) {
                 } catch (Exception e) {
@@ -140,44 +132,6 @@ public class BackgroundUpdater extends Service {
                 }
             }
             return;
-        }
-
-        private void sendToRfcommServer(String msg) {
-            String deviceName = null;
-            String deviceHardwareAddress = null;
-            boolean found = false;
-
-            Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
-            if (pairedDevices.size() > 0) {
-                for (BluetoothDevice device : pairedDevices) {
-                    deviceName = device.getName();
-                    deviceHardwareAddress = device.getAddress();
-                    if (deviceName.equals(_serviceName)) {
-                        found = true;
-                        mmDevice = device;
-                        break;
-                    }
-                }
-            }
-
-            if (!found) {
-                popToast(String.format("Scan failed to find device %s", _serviceName));
-                return;
-            }
-
-            byte etx = 0x03;
-            try {
-                mmSocket = mmDevice.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
-                mmSocket.connect();
-                OutputStream mmOutputStream = mmSocket.getOutputStream();
-                mmOutputStream.write(msg.getBytes());
-                Thread.sleep(1);
-                mmOutputStream.write(etx);
-                Thread.sleep(100);
-//                mmOutputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
     }
@@ -191,6 +145,47 @@ public class BackgroundUpdater extends Service {
                 Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private class commStatusRunner implements Runnable {
+        @Override
+        public void run() {
+            while (keepRunning) {
+                try {
+                    Thread.yield();
+                    if( FakeBluetoothServer.bUseFakeBluetoothServer) {
+                        BluetoothComm.setLastBTCommSucceeded();
+                    } else {
+                        if (BluetoothComm.pingServer(MainActivity._activity)) {
+                            BluetoothComm.setLastBTCommSucceeded();
+                        } else {
+                            BluetoothComm.setLastBTCommFailed();
+                        }
+                    }
+
+                    Thread.yield();
+                    sendCommStatusIndicatorUpdate();
+
+                    Thread.sleep(_pingerInterval);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    BluetoothComm.setLastBTCommFailed();
+                    sendCommStatusIndicatorUpdate();
+                }
+            }
+        }
+    }
+
+    protected void sendCommStatusIndicatorUpdate() {
+        int color = Color.GREEN;
+        if (FakeBluetoothServer.bUseFakeBluetoothServer)
+            color = ContextCompat.getColor(getApplicationContext(), R.color.amber);
+        if (BluetoothComm.bLastBTCommFailed())
+            color = Color.RED;
+        Intent i = new Intent(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER);
+        i.putExtra("onlinestatus", color);
+        getApplicationContext().sendBroadcast(i);
     }
 
 }

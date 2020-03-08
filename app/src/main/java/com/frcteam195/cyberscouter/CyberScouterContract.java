@@ -11,6 +11,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_ALLIANCE_STATIOM = "alliance_station";
         public static final String COLUMN_NAME_ALLIANCE_STATION_ID = "alliance_station_id";
         public static final String COLUMN_NAME_EVENT = "event";
+        public static final String COLUMN_NAME_EVENT_LOCATION = "event_location";
         public static final String COLUMN_NAME_EVENT_ID = "event_id";
         public static final String COLUMN_NAME_TABLET_NUM = "tablet_num";
         public static final String COLUMN_NAME_OFFLINE = "offline";

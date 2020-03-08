@@ -112,9 +112,9 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     protected void onResume() {
         super.onResume();
 
-        Intent intent = getIntent();
-        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-        updateStatusIndicator(currentCommStatusColor);
+//        Intent intent = getIntent();
+//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+//        updateStatusIndicator(currentCommStatusColor);
 
         String csu_str = CyberScouterUsers.getUsersRemote(this);
         if(null != csu_str) {
@@ -159,7 +159,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         } else {
             Intent intent = new Intent(this, PreAutoPage.class);
             intent.putExtra("field_orientation", field_orientation);
-            intent.putExtra("commstatuscolor", currentCommStatusColor);
+//            intent.putExtra("commstatuscolor", currentCommStatusColor);
             startActivity(intent);
 
         }

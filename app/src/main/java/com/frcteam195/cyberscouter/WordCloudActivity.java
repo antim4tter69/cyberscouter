@@ -84,9 +84,9 @@ public class WordCloudActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Intent intent = getIntent();
-        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-        updateStatusIndicator(currentCommStatusColor);
+//        Intent intent = getIntent();
+//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+//        updateStatusIndicator(currentCommStatusColor);
 
         String cswc_str = CyberScouterWordCloud.getWordsRemote(this);
         if(null != cswc_str) {

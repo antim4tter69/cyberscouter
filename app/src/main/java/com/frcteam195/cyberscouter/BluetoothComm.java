@@ -112,9 +112,11 @@ public class BluetoothComm {
             }
 
             if(FakeBluetoothServer.bUseFakeBluetoothServer) {
-                FakeBluetoothServer fbts = new FakeBluetoothServer();
-                fbts.getResponse(activity, jr);
-                returnJson = null;
+                if(!bLastBTCommFailed) {
+                    FakeBluetoothServer fbts = new FakeBluetoothServer();
+                    fbts.getResponse(activity, jr);
+                    returnJson = null;
+                }
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }

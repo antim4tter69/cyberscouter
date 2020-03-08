@@ -1,21 +1,16 @@
 package com.frcteam195.cyberscouter;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONObject;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class FakeBluetoothServer {
 
     final public static boolean bUseFakeBluetoothServer = false;
-    final public static String webServiceBaseUrl = "https://8zaof0vuah.execute-api.us-east-1.amazonaws.com";
+    final private static String _webHost = "8zaof0vuah.execute-api.us-east-1.amazonaws.com";
+    final public static String webServiceBaseUrl = String.format("https://%s", _webHost);
 
     final public static String fakeBluetoothComputerName = "Team 195 Scout 1";
 
@@ -25,7 +20,6 @@ public class FakeBluetoothServer {
     public void getResponse(AppCompatActivity activity, JSONObject obj) {
 
         try {
-
             String cmd = obj.getString("cmd");
             if (cmd == "get-config") {
                 CyberScouterConfig.getConfigWebService(activity, fakeBluetoothComputerName);
@@ -53,32 +47,21 @@ public class FakeBluetoothServer {
         return;
     }
 
-    public void pingServer(AppCompatActivity activity) {
-        RequestQueue rq = Volley.newRequestQueue(activity);
-        String url = String.format("%s/ping", FakeBluetoothServer.webServiceBaseUrl);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            Intent i = new Intent(CONFIG_UPDATED_FILTER);
-                            i.putExtra("cyberscouterconfig", response);
-                            activity.sendBroadcast(i);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+    public static boolean pingWebHost() {
+        try {
+            InetAddress addr = InetAddress.getByName(_webHost);
+            Socket sock = new Socket();
+            sock.connect(new InetSocketAddress(_webHost, 443), 500);
+            if(sock.isConnected()) {
+                sock.close();
+                return (true);
+            } else {
+                return(false);
             }
-        });
-
-        rq.add(stringRequest);
-        return;
-
+        } catch(Exception e) {
+            return(false);
+        }
     }
+
 }
 

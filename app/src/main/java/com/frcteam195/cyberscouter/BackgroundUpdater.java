@@ -149,7 +149,11 @@ public class BackgroundUpdater extends Service {
                 try {
                     Thread.yield();
                     if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                        BluetoothComm.setLastBTCommSucceeded();
+                        if(FakeBluetoothServer.pingWebHost()) {
+                            BluetoothComm.setLastBTCommSucceeded();
+                        } else {
+                            BluetoothComm.setLastBTCommFailed();
+                        }
                     } else {
                         if (BluetoothComm.pingServer(MainActivity._activity)) {
                             BluetoothComm.setLastBTCommSucceeded();

@@ -62,6 +62,7 @@ public class PitScoutingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pit_scouting);
 
+        registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
 //        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
 
@@ -116,6 +117,7 @@ public class PitScoutingActivity extends AppCompatActivity {
             mDbHelper.close();
         }
         unregisterReceiver(mTeamsReceiver);
+        unregisterReceiver(mOnlineStatusReceiver);
 //        unregisterReceiver(mUsersReceiver);
 
         super.onDestroy();
@@ -151,4 +153,5 @@ public class PitScoutingActivity extends AppCompatActivity {
             CyberScouterUsers.setUsers(_db, json);
         }
     }
+
 }

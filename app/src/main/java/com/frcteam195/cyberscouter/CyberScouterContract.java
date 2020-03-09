@@ -11,6 +11,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_ALLIANCE_STATIOM = "alliance_station";
         public static final String COLUMN_NAME_ALLIANCE_STATION_ID = "alliance_station_id";
         public static final String COLUMN_NAME_EVENT = "event";
+        public static final String COLUMN_NAME_EVENT_LOCATION = "event_location";
         public static final String COLUMN_NAME_EVENT_ID = "event_id";
         public static final String COLUMN_NAME_TABLET_NUM = "tablet_num";
         public static final String COLUMN_NAME_OFFLINE = "offline";
@@ -40,7 +41,7 @@ public class CyberScouterContract {
     }
 
     public static class MatchScouting implements BaseColumns {
-        public static final String TABLE_NAME = "[Match Scouting]";
+        public static final String TABLE_NAME = "MatchScouting";
         public static final String COLUMN_NAME_MATCHSCOUTINGID = "MatchScoutingID";
         public static final String COLUMN_NAME_EVENTID = "EventID";
         public static final String COLUMN_NAME_MATCHID = "MatchID";
@@ -94,6 +95,28 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_UPLOADSTATUS = "UploadStatus";
     }
 
+    public static class MatchScoutingL2 implements BaseColumns {
+        public static final String TABLE_NAME = "MatchScoutingL2";
+        public static final String COLUMN_NAME_MATCHSCOUTINGL2ID = "MatchScoutingL2ID";
+        public static final String COLUMN_NAME_EVENTID = "EventID";
+        public static final String COLUMN_NAME_MATCHID = "MatchID";
+        public static final String COLUMN_NAME_MATCH_NUMBER = "MatchNo";
+        public static final String COLUMN_NAME_COMPUTERID = "ComputerID";
+        public static final String COLUMN_NAME_SCOUTERID = "ScouterID";
+        public static final String COLUMN_NAME_REVIEWERID = "ReviewerID";
+        public static final String COLUMN_NAME_SCOUTINGSTATUS = "ScoutingStatus";
+        public static final String COLUMN_NAME_TEAM_RED = "TeamRed";
+        public static final String COLUMN_NAME_TEAM_BLUE = "TeamBlue";
+        public static final String COLUMN_NAME_MATCHSCOUTINGIDRED = "MatchScoutingIDRed";
+        public static final String COLUMN_NAME_MATCHSCOUTINGIDBLUE = "MatchScoutingIDBlue";
+        public static final String COLUMN_NAME_COMMENT_RED = "CommentRed";
+        public static final String COLUMN_NAME_COMMENT_BLUE = "CommentBlue";
+        public static final String COLUMN_NAME_ALLIANCESTATIONID = "AllianceStationID";
+        public static final String COLUMN_NAME_MATCHENDED = "MatchEnded";
+        public static final String COLUMN_NAME_COMPLETE = "Complete";
+        public static final String COLUMN_NAME_UPLOADSTATUS = "UploadStatus";
+    }
+
     public static class Questions implements BaseColumns {
         public static final String TABLE_NAME = "Questions";
         public static final String COLUMN_NAME_QUESTIONID = "QuestionId";
@@ -143,8 +166,8 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_UPLOAD_STATUS = "UploadStatus";
     }
 
-    public static class Words implements BaseColumns {
-        public static final String TABLE_NAME = "Words";
+    public static class WordCloud implements BaseColumns {
+        public static final String TABLE_NAME = "WordCloud";
         public static final String COLUMN_NAME_EVENT_ID = "EventID";
         public static final String COLUMN_NAME_MATCH_ID = "MatchID";
         public static final String COLUMN_NAME_MATCH_SCOUTING_ID = "MatchScoutingID";
@@ -154,4 +177,12 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_DONE_SCOUTING = "DoneScouting";
         public static final String COLUMN_NAME_UPLOAD_STATUS = "UploadStatus";
     }
+
+    public static class Words implements BaseColumns {
+        public static final String TABLE_NAME = "Words";
+        public static final String COLUMN_NAME_WORD_ID = "WordID";
+        public static final String COLUMN_NAME_WORD = "Word";
+        public static final String COLUMN_NAME_DISPLAY_WORD_ORDER = "DisplayWordOrder";
+    }
+
 }

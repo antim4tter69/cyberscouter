@@ -80,8 +80,8 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         if (FIELD_ORIENTATION_RIGHT == field_orientation) {
             iv.setImageResource(R.drawable.field_2020_flipped);
         }
-        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-        updateStatusIndicator(currentCommStatusColor);
+//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+//        updateStatusIndicator(currentCommStatusColor);
 
 
         TextView tv = findViewById(R.id.textView_roleTag);
@@ -484,6 +484,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     }
 
     private void zone_Clicked(int i) {
+        if (running){
+            return;
+        }
         FragmentManager fm = getSupportFragmentManager();
         TelePopUpPage tpp = new TelePopUpPage();
         tpp.setValues(values[i-1]);
@@ -539,7 +542,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     public void EndGamePage() {
         setMetricValues();
         Intent intent = new Intent(this, EndPage.class);
-        intent.putExtra("commstatuscolor", currentCommStatusColor);
+//        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 

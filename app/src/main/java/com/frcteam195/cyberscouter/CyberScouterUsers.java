@@ -51,7 +51,8 @@ public class CyberScouterUsers {
                         ret = payload.toString();
                         last_hash = jo.getString("hash");
                     }
-                    return ret;
+                } else {
+                    ret = "skip";
                 }
             }
         } catch (Exception e) {

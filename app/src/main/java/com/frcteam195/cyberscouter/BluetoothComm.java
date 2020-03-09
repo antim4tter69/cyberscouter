@@ -26,7 +26,7 @@ public class BluetoothComm {
     private final static String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
     private final static String _serviceName = "Team195Pi";
     private final static String _errorJson = "{'result': 'failure', 'msg': 'bluetooth command failed!'}";
-    private static boolean bLastBTCommFailed;
+    private static boolean bLastBTCommFailed = true;
 
     public final static String ONLINE_STATUS_UPDATED_FILTER = "frcteam195_bluetoothcomm_online_status_updated_intent_filter";
 
@@ -143,9 +143,11 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                FakeBluetoothServer fbts = new FakeBluetoothServer();
-                fbts.getResponse(activity, jr);
-                returnJson = null;
+                if(!bLastBTCommFailed) {
+                    FakeBluetoothServer fbts = new FakeBluetoothServer();
+                    fbts.getResponse(activity, jr);
+                    returnJson = null;
+                }
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
@@ -169,9 +171,11 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                FakeBluetoothServer fbts = new FakeBluetoothServer();
-                fbts.getResponse(activity, jr);
-                returnJson = null;
+                if(!bLastBTCommFailed) {
+                    FakeBluetoothServer fbts = new FakeBluetoothServer();
+                    fbts.getResponse(activity, jr);
+                    returnJson = null;
+                }
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }
@@ -206,9 +210,11 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                FakeBluetoothServer fbts = new FakeBluetoothServer();
-                fbts.getResponse(activity, jr);
-                returnJson = null;
+                if(!bLastBTCommFailed) {
+                    FakeBluetoothServer fbts = new FakeBluetoothServer();
+                    fbts.getResponse(activity, jr);
+                    returnJson = null;
+                }
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }

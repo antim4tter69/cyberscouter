@@ -78,7 +78,7 @@ class CyberScouterTeams {
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");
-                if ("failure" != result) {
+                if (!result.equalsIgnoreCase("failure")) {
                     if(result.equalsIgnoreCase("skip")) {
                         ret = "skip";
                     } else {
@@ -86,6 +86,8 @@ class CyberScouterTeams {
                         ret = payload.toString();
                         last_hash = jo.getString("hash");
                     }
+                } else {
+                    ret = "skip";
                 }
             }
         } catch (Exception e) {

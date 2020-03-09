@@ -41,9 +41,6 @@ public class AutoPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         field_orientation = intent.getIntExtra("field_orientation", 0);
-//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-//        updateStatusIndicator(currentCommStatusColor);
-
 
         button = findViewById(R.id.button_startMatch);
         button.setOnClickListener(new View.OnClickListener() {

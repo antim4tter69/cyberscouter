@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragmentInteractionListener {
-    private static final int SELECTED_BUTTON_TEXT_COLOR = ;
+    private static final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private Button button;
     private Button zone_1L;
     private Button zone_2L;
@@ -622,7 +622,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     }
 
     public void StageButtons() {
-        int defaultButtonTextColor;
+        int defaultButtonTextColor = Color.BLACK;
         FakeRadioGroup.buttonPressed(this, 4, StageButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 }

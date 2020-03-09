@@ -32,11 +32,16 @@ public class FakeBluetoothServer {
                     int eventId = payload.getInt("eventId");
                     CyberScouterMatchScouting.getMatchesWebService(activity, eventId);
                     break;
+                case "get-matches-l2":
+                    payload = obj.getJSONObject("payload");
+                    eventId = payload.getInt("eventId");
+                    CyberScouterMatchScoutingL2.getMatchesL2WebService(activity, eventId);
+                    break;
                 case "get-teams":
                     CyberScouterTeams.getTeamsWebService(activity);
                     break;
                 case "get-words":
-                    CyberScouterWordCloud.getWordCloudWebService(activity);
+                    CyberScouterWords.getWordsWebService(activity);
                     break;
                 case "put-match-scouting":
                 case "put-teams":
@@ -50,15 +55,17 @@ public class FakeBluetoothServer {
     public static boolean pingWebHost() {
         try {
             Socket sock = new Socket();
-            sock.connect(new InetSocketAddress(_webHost, 443), 500);
+            sock.connect(new InetSocketAddress(_webHost, 443), 900);
             if(sock.isConnected()) {
                 sock.close();
                 return (true);
             } else {
-                return(false);
+//                return(false);
+                return(true);
             }
         } catch(Exception e) {
-            return(false);
+//            return(false);
+            return(true);
         }
     }
 

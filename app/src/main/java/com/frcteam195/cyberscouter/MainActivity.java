@@ -79,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        button = findViewById(R.id.button_mainForceResync);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onResume();
+
+            }
+        });
+
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
 
         BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
@@ -159,11 +168,20 @@ public class MainActivity extends AppCompatActivity {
             else
                 textView.setTextColor(Color.BLACK);
             textView.setText(allianceStation);
+
             button.setEnabled(true);
+
+            button = findViewById(R.id.button_mainForceResync);
+            button.setEnabled(false);
+            button.setVisibility(View.INVISIBLE);
         } else {
             MessageBox.showMessageBox(this, "No Event Information", "MainActivity.populateView",
                     "No Event information is available.  You need to sync with the server, and you are either not close enough or the server is not running.  Ask a mentor for assistance.");
             button.setEnabled(false);
+
+            button = findViewById(R.id.button_mainForceResync);
+            button.setEnabled(true);
+            button.setVisibility(View.VISIBLE);
         }
     }
 

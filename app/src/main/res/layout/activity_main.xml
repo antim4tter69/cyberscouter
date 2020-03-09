@@ -132,4 +132,16 @@
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
 
+    <Button
+        android:id="@+id/button_mainForceResync"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:enabled="false"
+        android:text="@string/resync"
+        android:textSize="36sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/button_scouting"
+        app:layout_constraintStart_toStartOf="@+id/button_scouting" />
+
 </android.support.constraint.ConstraintLayout>

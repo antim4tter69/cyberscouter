@@ -185,6 +185,34 @@ public class BluetoothComm {
         return (returnJson);
     }
 
+    public String getMatchesL2(AppCompatActivity activity, int eventId, String last_hash) {
+        String returnJson = _errorJson;
+        try {
+            JSONObject jr = new JSONObject();
+            JSONObject j1 = new JSONObject();
+
+            j1.put("eventId", eventId);
+            jr.put("cmd", "get-matches-l2");
+            jr.put("payload", j1);
+            if (null != last_hash) {
+                jr.put("last_hash", last_hash);
+            }
+
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
+                if(!bLastBTCommFailed) {
+                    FakeBluetoothServer fbts = new FakeBluetoothServer();
+                    fbts.getResponse(activity, jr);
+                    returnJson = null;
+                }
+            } else {
+                returnJson = sendCommand(activity, jr.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return (returnJson);
+    }
+
     public String sendSetCommand(AppCompatActivity activity, JSONObject jo) {
         String returnJson = _errorJson;
         try {

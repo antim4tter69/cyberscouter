@@ -37,6 +37,25 @@ public class CyberScouterWords {
         }
     }
 
+    void setWordsLocal(SQLiteDatabase db, String words_json) {
+        try {
+            JSONArray ja = new JSONArray(words_json);
+            for(int i=0 ; i<ja.length(); ++i) {
+                JSONObject jo = ja.getJSONObject(i);
+                ContentValues values = new ContentValues();
+
+                values.put(CyberScouterContract.Words.COLUMN_NAME_WORD_ID, WordID);
+                values.put(CyberScouterContract.Words.COLUMN_NAME_WORD, Word);
+                values.put(CyberScouterContract.Words.COLUMN_NAME_DISPLAY_WORD_ORDER, DisplayWordOrder);
+
+                long newRowId = db.insertWithOnConflict(CyberScouterContract.Words.TABLE_NAME,
+                        null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     static String getWordsRemote(AppCompatActivity activity) {
         String ret = null;
 

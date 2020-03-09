@@ -117,6 +117,7 @@ public class PitScoutingActivity extends AppCompatActivity {
             mDbHelper.close();
         }
         unregisterReceiver(mTeamsReceiver);
+        unregisterReceiver(mOnlineStatusReceiver);
 //        unregisterReceiver(mUsersReceiver);
 
         super.onDestroy();

@@ -41,7 +41,7 @@ public class CyberScouterContract {
     }
 
     public static class MatchScouting implements BaseColumns {
-        public static final String TABLE_NAME = "[Match Scouting]";
+        public static final String TABLE_NAME = "MatchScouting";
         public static final String COLUMN_NAME_MATCHSCOUTINGID = "MatchScoutingID";
         public static final String COLUMN_NAME_EVENTID = "EventID";
         public static final String COLUMN_NAME_MATCHID = "MatchID";
@@ -92,6 +92,28 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_SUMMHOPPERLOAD = "SummHopperLoad";
         public static final String COLUMN_NAME_SUMMPLAYEDDEFENSE = "SummPlayedDefense";
         public static final String COLUMN_NAME_SUMMDEFPLAYEDAGAINST = "SummDefPlayedAgainst";
+        public static final String COLUMN_NAME_UPLOADSTATUS = "UploadStatus";
+    }
+
+    public static class MatchScoutingL2 implements BaseColumns {
+        public static final String TABLE_NAME = "MatchScoutingL2";
+        public static final String COLUMN_NAME_MATCHSCOUTINGL2ID = "MatchScoutingL2ID";
+        public static final String COLUMN_NAME_EVENTID = "EventID";
+        public static final String COLUMN_NAME_MATCHID = "MatchID";
+        public static final String COLUMN_NAME_MATCH_NUMBER = "MatchNo";
+        public static final String COLUMN_NAME_COMPUTERID = "ComputerID";
+        public static final String COLUMN_NAME_SCOUTERID = "ScouterID";
+        public static final String COLUMN_NAME_REVIEWERID = "ReviewerID";
+        public static final String COLUMN_NAME_SCOUTINGSTATUS = "ScoutingStatus";
+        public static final String COLUMN_NAME_TEAM_RED = "TeamRed";
+        public static final String COLUMN_NAME_TEAM_BLUE = "TeamBlue";
+        public static final String COLUMN_NAME_MATCHSCOUTINGIDRED = "MatchScoutingIDRed";
+        public static final String COLUMN_NAME_MATCHSCOUTINGIDBLUE = "MatchScoutingIDBlue";
+        public static final String COLUMN_NAME_COMMENT_RED = "CommentRed";
+        public static final String COLUMN_NAME_COMMENT_BLUE = "CommentBlue";
+        public static final String COLUMN_NAME_ALLIANCESTATIONID = "AllianceStationID";
+        public static final String COLUMN_NAME_MATCHENDED = "MatchEnded";
+        public static final String COLUMN_NAME_COMPLETE = "Complete";
         public static final String COLUMN_NAME_UPLOADSTATUS = "UploadStatus";
     }
 

@@ -31,6 +31,9 @@ public class PreAutoPage extends AppCompatActivity {
     private int[] _lValues;
     private int _didNotShow = 0;
     private int _startPos = 0;
+    private int FIELD_ORIENTATION_RIGHT = 0;
+    private int FIELD_ORIENTATION_LEFT = 1;
+
 
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
@@ -42,16 +45,20 @@ public class PreAutoPage extends AppCompatActivity {
     };
 
 
+
     @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_auto_page);
 
+
         Intent intent = getIntent();
-        field_orientation = intent.getIntExtra("field_orientation", 0);
-//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-//        updateStatusIndicator(currentCommStatusColor);
+        field_orientation = intent.getIntExtra("field_orientation", field_orientation);
+        ImageView iv = findViewById(R.id.imageView6);
+        if (FIELD_ORIENTATION_RIGHT == field_orientation) {
+            iv.setImageResource(R.drawable.field_2020_flipped);
+        }
 
         _db = mDbHelper.getWritableDatabase();
 

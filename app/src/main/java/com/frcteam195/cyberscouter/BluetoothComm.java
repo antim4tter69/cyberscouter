@@ -224,6 +224,29 @@ public class BluetoothComm {
         return (returnJson);
     }
 
+    public String getWordCloud(AppCompatActivity activity, String last_hash) {
+        String returnJson = _errorJson;
+        try {
+            JSONObject jr = new JSONObject();
+
+            jr.put("cmd", "get-word-cloud");
+            if (null != last_hash) {
+                jr.put("last_hash", last_hash);
+            }
+
+            if (FakeBluetoothServer.bUseFakeBluetoothServer) {
+                FakeBluetoothServer fbts = new FakeBluetoothServer();
+                fbts.getResponse(activity, jr);
+                returnJson = null;
+            } else {
+                returnJson = sendCommand(activity, jr.toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return (returnJson);
+    }
+
     public String getWords(AppCompatActivity activity, String last_hash) {
         String returnJson = _errorJson;
         try {
@@ -235,9 +258,11 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                FakeBluetoothServer fbts = new FakeBluetoothServer();
-                fbts.getResponse(activity, jr);
-                returnJson = null;
+                if(!bLastBTCommFailed) {
+                    FakeBluetoothServer fbts = new FakeBluetoothServer();
+                    fbts.getResponse(activity, jr);
+                    returnJson = null;
+                }
             } else {
                 returnJson = sendCommand(activity, jr.toString());
             }

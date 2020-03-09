@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -65,7 +64,7 @@ public class WordCloudActivity extends AppCompatActivity {
         setContentView(R.layout.activity_word_cloud);
 
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
-        registerReceiver(mWordsReceiver, new IntentFilter(CyberScouterWordCloud.WORDS_UPDATED_FILTER));
+        registerReceiver(mWordsReceiver, new IntentFilter(CyberScouterWordCloud.WORD_CLOUD_UPDATED_FILTER));
         registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
 
         _db = mDbHelper.getWritableDatabase();
@@ -84,11 +83,7 @@ public class WordCloudActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-//        Intent intent = getIntent();
-//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-//        updateStatusIndicator(currentCommStatusColor);
-
-        String cswc_str = CyberScouterWordCloud.getWordsRemote(this);
+        String cswc_str = CyberScouterWordCloud.getWordCloudRemote(this);
         if(null != cswc_str) {
             updateWords(cswc_str);
         }
@@ -161,7 +156,7 @@ public class WordCloudActivity extends AppCompatActivity {
                             cswc.setSeq(0);
                             cswc.setTeam(csm.getTeam());
                             cswc.setWordID(_wordIDs[i]);
-                            cswc.putWord(_db);
+                            cswc.putWordCloud(_db);
                         }
                     }
                     view.setBackgroundColor(Color.GREEN);

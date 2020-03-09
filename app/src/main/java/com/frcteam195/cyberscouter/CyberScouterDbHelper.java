@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 31;
+    private static final int DATABASE_VERSION = 32;
     private static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
@@ -152,21 +152,30 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_TEAMS =
             "DROP TABLE IF EXISTS " + CyberScouterContract.Teams.TABLE_NAME;
 
+    private static final String SQL_CREATE_WORD_CLOUD =
+            "CREATE TABLE " + CyberScouterContract.WordCloud.TABLE_NAME + " (" +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_EVENT_ID + " INTEGER," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_ID + " INTEGER," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID + " INTEGER," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_SEQ + " INTEGER," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_TEAM + " TEXT," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID + " INTEGER," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_DONE_SCOUTING + " INTEGER," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_UPLOAD_STATUS + " INTEGER)"
+            ;
+
+    private static final String SQL_DELETE_WORD_CLOUD =
+            "DROP TABLE IF EXISTS " + CyberScouterContract.Words.TABLE_NAME;
+
     private static final String SQL_CREATE_WORDS =
             "CREATE TABLE " + CyberScouterContract.Words.TABLE_NAME + " (" +
-                    CyberScouterContract.Words.COLUMN_NAME_EVENT_ID + " INTEGER," +
-                    CyberScouterContract.Words.COLUMN_NAME_MATCH_ID + " INTEGER," +
-                    CyberScouterContract.Words.COLUMN_NAME_MATCH_SCOUTING_ID + " INTEGER," +
-                    CyberScouterContract.Words.COLUMN_NAME_SEQ + " INTEGER," +
-                    CyberScouterContract.Words.COLUMN_NAME_TEAM + " TEXT," +
                     CyberScouterContract.Words.COLUMN_NAME_WORD_ID + " INTEGER," +
-                    CyberScouterContract.Words.COLUMN_NAME_DONE_SCOUTING + " INTEGER," +
-                    CyberScouterContract.Words.COLUMN_NAME_UPLOAD_STATUS + " INTEGER)"
+                    CyberScouterContract.Words.COLUMN_NAME_WORD + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_DISPLAY_WORD_ORDER + " INTEGER)"
             ;
 
     private static final String SQL_DELETE_WORDS =
             "DROP TABLE IF EXISTS " + CyberScouterContract.Words.TABLE_NAME;
-
 
     public CyberScouterDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -178,6 +187,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_USER_ENTRIES);
         db.execSQL(SQL_CREATE_QUESTIONS);
         db.execSQL(SQL_CREATE_TEAMS);
+        db.execSQL(SQL_CREATE_WORD_CLOUD);
         db.execSQL(SQL_CREATE_WORDS);
     }
 
@@ -189,6 +199,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_USER_ENTRIES);
         db.execSQL(SQL_DELETE_QUESTIONS);
         db.execSQL(SQL_DELETE_TEAMS);
+        db.execSQL(SQL_DELETE_WORD_CLOUD);
         db.execSQL(SQL_DELETE_WORDS);
         onCreate(db);
     }

@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         Class nextIntent;
         switch (cfg.getComputer_type_id()) {
             case (CyberScouterConfig.CONFIG_COMPUTER_TYPE_LEVEL_2_SCOUTER):
-                nextIntent = WordCloudActivity.class;
+                nextIntent = WordCloudFragment.class;
                 break;
             case (CyberScouterConfig.CONFIG_COMPUTER_TYPE_LEVEL_PIT_SCOUTER):
                 nextIntent = PitScoutingActivity.class;

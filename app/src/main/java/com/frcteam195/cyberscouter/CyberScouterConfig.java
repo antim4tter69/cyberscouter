@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class CyberScouterConfig {
@@ -31,6 +28,7 @@ public class CyberScouterConfig {
     private String alliance_station;
     private int alliance_station_id;
     private String event;
+    private String event_location;
     private int event_id;
     private int tablet_num;
     private boolean offline;
@@ -42,64 +40,26 @@ public class CyberScouterConfig {
     public CyberScouterConfig() {
     }
 
-    public String getAlliance_station() {
-        return alliance_station;
-    }
-
-    public int getAlliance_station_id() {
-        return alliance_station_id;
-    }
-
-    public String getEvent() {
-        return event;
-    }
-
-    public int getEvent_id() {
-        return event_id;
-    }
-
-    public int getTablet_num() {
-        return tablet_num;
-    }
-
-    public boolean isOffline() {
-        return offline;
-    }
-
-    public boolean isFieldRedLeft() {
-        return field_red_left;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public int getComputer_type_id() {
-        return computer_type_id;
-    }
-
     static public String getConfigRemote(AppCompatActivity activity) {
         String ret = null;
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.getConfig(activity, null);
-            if(null != response) {
+            if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");
-                if(result != "failure") {
+                if (!result.equalsIgnoreCase("failure")) {
                     JSONObject jop = (JSONObject) jo.get("payload");
                     ret = jop.toString();
+                } else {
+                    ret = "skip";
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return(ret);
+        return (ret);
     }
 
     static public CyberScouterConfig getConfig(SQLiteDatabase db) {
@@ -111,6 +71,7 @@ public class CyberScouterConfig {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATION_ID,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT,
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_LOCATION,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM,
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE,
@@ -140,6 +101,7 @@ public class CyberScouterConfig {
                 ret.alliance_station = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM));
                 ret.alliance_station_id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATION_ID));
                 ret.event = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT));
+                ret.event_location = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_LOCATION));
                 ret.event_id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID));
                 ret.tablet_num = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_TABLET_NUM));
                 ret.offline = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_OFFLINE)) == 1);
@@ -204,23 +166,43 @@ public class CyberScouterConfig {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID, jo.getString("EventID"));
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT, jo.getString("EventName"));
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_LOCATION, jo.getString("EventLocation"));
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM, jo.getString("AllianceStation"));
-        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID, jo.getString("ComputerTypeID"));
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATION_ID, jo.getInt("AllianceStationID"));
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID, jo.getString("ComputerTypeID"));
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, "");
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, UNKNOWN_USER_IDX);
+        db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
 
-//        if(null != cfg) {
-//            db.update(
-//                    CyberScouterContract.ConfigEntry.TABLE_NAME,
-//                    values,
-//                    null,
-//                    null);
-//        } else {
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID, jo.getString("EventID"));
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, "");
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, UNKNOWN_USER_IDX);
-            db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
-//        }
+    }
 
+    public String getAlliance_station() { return alliance_station; }
+    public int getAlliance_station_id() { return alliance_station_id; }
+    public String getEvent() {
+        return event;
+    }
+    public String getEvent_location() { return event_location; }
+    public int getEvent_id() {
+        return event_id;
+    }
+    public int getTablet_num() {
+        return tablet_num;
+    }
+    public boolean isOffline() {
+        return offline;
+    }
+    public boolean isFieldRedLeft() {
+        return field_red_left;
+    }
+    public String getUsername() {
+        return username;
+    }
+    public int getUser_id() {
+        return user_id;
+    }
+    public int getComputer_type_id() {
+        return computer_type_id;
     }
 }

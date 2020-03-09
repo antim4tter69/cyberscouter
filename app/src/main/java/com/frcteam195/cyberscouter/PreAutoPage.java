@@ -50,8 +50,8 @@ public class PreAutoPage extends AppCompatActivity {
 
         Intent intent = getIntent();
         field_orientation = intent.getIntExtra("field_orientation", 0);
-        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-        updateStatusIndicator(currentCommStatusColor);
+//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+//        updateStatusIndicator(currentCommStatusColor);
 
         _db = mDbHelper.getWritableDatabase();
 
@@ -178,7 +178,7 @@ public class PreAutoPage extends AppCompatActivity {
         updatePreAutoData();
         Intent intent = new Intent(this, SubmitPage.class);
         intent.putExtra("field_orientation", field_orientation);
-        intent.putExtra("commstatuscolor", currentCommStatusColor);
+//        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 
@@ -211,7 +211,7 @@ public class PreAutoPage extends AppCompatActivity {
 
         Intent intent = new Intent(this, AutoPage.class);
         intent.putExtra("field_orientation", field_orientation);
-        intent.putExtra("commstatuscolor", currentCommStatusColor);
+//        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 

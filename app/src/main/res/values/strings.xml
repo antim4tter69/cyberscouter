@@ -204,4 +204,5 @@
     <string name="fragmentScoutingTeamText">Select a Team</string>
     <string name="fragmentScoutingUser">Select Your Name</string>
     <string name="text_Scouted">Scouted</string>
+    <string name="resync">Sync</string>
 </resources>

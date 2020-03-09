@@ -15,42 +15,53 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class CyberScouterWordCloud {
-    final static String WORD_CLOUD_UPDATED_FILTER = "frcteam195_cyberscouterwordcloud_word_cloud_updated_intent_filter";
+public class CyberScouterWords {
+    final static String WORDS_UPDATED_FILTER = "frcteam195_cyberscouterwords_words_updated_intent_filter";
 
-    private int EventID;
-    private int MatchID;
-    private int MatchScoutingID;
-    private int Seq;
-    private String Team;
     private int WordID;
+    private String Word;
+    private int DisplayWordOrder;
 
-    void putWordCloud(SQLiteDatabase db) {
+    void putWord(SQLiteDatabase db) {
         try {
             ContentValues values = new ContentValues();
 
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_EVENT_ID, EventID);
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_ID, MatchID);
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID, MatchScoutingID);
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_SEQ, Seq);
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_TEAM, Team);
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID, WordID);
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_DONE_SCOUTING, 0);
-            values.put(CyberScouterContract.WordCloud.COLUMN_NAME_UPLOAD_STATUS, UploadStatus.NOT_UPLOADED);
+            values.put(CyberScouterContract.Words.COLUMN_NAME_WORD_ID, WordID);
+            values.put(CyberScouterContract.Words.COLUMN_NAME_WORD, Word);
+            values.put(CyberScouterContract.Words.COLUMN_NAME_DISPLAY_WORD_ORDER, DisplayWordOrder);
 
-            long newRowId = db.insertWithOnConflict(CyberScouterContract.WordCloud.TABLE_NAME,
-                    null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            long newRowId = db.insert(CyberScouterContract.Words.TABLE_NAME,
+                    null, values);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    static String getWordCloudRemote(AppCompatActivity activity) {
+    void setWordsLocal(SQLiteDatabase db, String words_json) {
+        try {
+            JSONArray ja = new JSONArray(words_json);
+            for(int i=0 ; i<ja.length(); ++i) {
+                JSONObject jo = ja.getJSONObject(i);
+                ContentValues values = new ContentValues();
+
+                values.put(CyberScouterContract.Words.COLUMN_NAME_WORD_ID, WordID);
+                values.put(CyberScouterContract.Words.COLUMN_NAME_WORD, Word);
+                values.put(CyberScouterContract.Words.COLUMN_NAME_DISPLAY_WORD_ORDER, DisplayWordOrder);
+
+                long newRowId = db.insertWithOnConflict(CyberScouterContract.Words.TABLE_NAME,
+                        null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static String getWordsRemote(AppCompatActivity activity) {
         String ret = null;
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getWordCloud(activity, null);
+            String response = btcomm.getWords(activity, null);
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");
@@ -72,16 +83,16 @@ public class CyberScouterWordCloud {
         return (ret);
     }
 
-    static public void getWordCloudWebService(final AppCompatActivity activity) {
+    static public void getWordsWebService(final AppCompatActivity activity) {
         RequestQueue rq = Volley.newRequestQueue(activity);
-        String url = String.format("%s/word-cloud", FakeBluetoothServer.webServiceBaseUrl);
+        String url = String.format("%s/words", FakeBluetoothServer.webServiceBaseUrl);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
-                            Intent i = new Intent(WORD_CLOUD_UPDATED_FILTER);
+                            Intent i = new Intent(WORDS_UPDATED_FILTER);
                             i.putExtra("cyberscouterwords", response);
                             activity.sendBroadcast(i);
                         } catch (Exception e) {
@@ -114,51 +125,15 @@ public class CyberScouterWordCloud {
 
     }
 
-    public int getEventID() {
-        return EventID;
-    }
-
-    public int getMatchID() {
-        return MatchID;
-    }
-
-    public int getMatchScoutingID() {
-        return MatchScoutingID;
-    }
-
-    public int getSeq() {
-        return Seq;
-    }
-
-    public String getTeam() {
-        return Team;
-    }
-
     public int getWordID() {
         return WordID;
     }
 
-    public void setEventID(int eventID) {
-        EventID = eventID;
+    public String getWord() {
+        return Word;
     }
 
-    public void setMatchID(int matchID) {
-        MatchID = matchID;
-    }
-
-    public void setMatchScoutingID(int matchScoutingID) {
-        MatchScoutingID = matchScoutingID;
-    }
-
-    public void setSeq(int seq) {
-        Seq = seq;
-    }
-
-    public void setTeam(String team) {
-        Team = team;
-    }
-
-    public void setWordID(int wordID) {
-        WordID = wordID;
+    public int getDisplayWordOrder() {
+        return DisplayWordOrder;
     }
 }

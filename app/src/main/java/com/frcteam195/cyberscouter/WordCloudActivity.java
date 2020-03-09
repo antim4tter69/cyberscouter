@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -50,11 +49,11 @@ public class WordCloudActivity extends AppCompatActivity {
         }
     };
 
-    BroadcastReceiver mMatchesReceiver = new BroadcastReceiver() {
+    BroadcastReceiver mMatchesL2Receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String ret = intent.getStringExtra("cyberscoutermatches");
-            updateMatchesLocal(ret);
+            String ret = intent.getStringExtra("cyberscoutermatchesl2");
+            updateMatchesL2Local(ret);
         }
     };
 
@@ -65,8 +64,8 @@ public class WordCloudActivity extends AppCompatActivity {
         setContentView(R.layout.activity_word_cloud);
 
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
-        registerReceiver(mWordsReceiver, new IntentFilter(CyberScouterWordCloud.WORDS_UPDATED_FILTER));
-        registerReceiver(mMatchesReceiver, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
+        registerReceiver(mWordsReceiver, new IntentFilter(CyberScouterWords.WORDS_UPDATED_FILTER));
+        registerReceiver(mMatchesL2Receiver, new IntentFilter(CyberScouterMatchScoutingL2.MATCH_SCOUTING_L2_UPDATED_FILTER));
 
         _db = mDbHelper.getWritableDatabase();
 
@@ -78,26 +77,23 @@ public class WordCloudActivity extends AppCompatActivity {
                 view.setEnabled(false);
             }
         });
+        button.setEnabled(false);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Intent intent = getIntent();
-        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-        updateStatusIndicator(currentCommStatusColor);
-
-        String cswc_str = CyberScouterWordCloud.getWordsRemote(this);
-        if(null != cswc_str) {
-            updateWords(cswc_str);
+        String csw_str = CyberScouterWords.getWordsRemote(this);
+        if (null != csw_str) {
+            updateWords(csw_str);
         }
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg) {
-            String csms_str = CyberScouterMatchScouting.getMatchesRemote(this, cfg.getEvent_id());
-            if(null != csms_str) {
-                updateMatchesLocal(csms_str);
+            String csms_str = CyberScouterMatchScoutingL2.getMatchesL2Remote(this, cfg.getEvent_id());
+            if (null != csms_str) {
+                updateMatchesL2Local(csms_str);
             }
         }
 
@@ -109,23 +105,23 @@ public class WordCloudActivity extends AppCompatActivity {
         mDbHelper.close();
         unregisterReceiver(mOnlineStatusReceiver);
         unregisterReceiver(mWordsReceiver);
-        unregisterReceiver(mMatchesReceiver);
+        unregisterReceiver(mMatchesL2Receiver);
         super.onDestroy();
     }
 
-    protected void updateMatchesLocal(String json) {
+    protected void updateMatchesL2Local(String json) {
         try {
             CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-            if(!json.equalsIgnoreCase("skip")) {
-                if(json.equalsIgnoreCase("fetch")) {
-                    json = CyberScouterMatchScouting.getWebResponse();
+            if (!json.equalsIgnoreCase("skip")) {
+                if (json.equalsIgnoreCase("fetch")) {
+                    json = CyberScouterMatchScoutingL2.getWebResponse();
                 }
-                CyberScouterMatchScouting.deleteOldMatches(_db, cfg.getEvent_id());
-                CyberScouterMatchScouting.mergeMatches(_db, json);
+                CyberScouterMatchScoutingL2.deleteOldMatches(_db, cfg.getEvent_id());
+                CyberScouterMatchScoutingL2.mergeMatches(_db, json);
             }
             populatePage();
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",
                     String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));
             e.printStackTrace();
@@ -134,15 +130,15 @@ public class WordCloudActivity extends AppCompatActivity {
 
     private void populatePage() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+        CyberScouterMatchScoutingL2 csm = CyberScouterMatchScoutingL2.getCurrentMatch(_db, cfg.getAlliance_station_id());
         if (null != csm) {
             TextView tv = findViewById(R.id.textView_wcMatch);
             tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
             tv = findViewById(R.id.textView_wcTeam);
-            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+            tv.setText(getString(R.string.tagTeam, csm.getTeamRed()));
         }
 
-        if( null != _words) {
+        if (null != _words) {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.word_cloud_text_items, _words);
             GridView gv = findViewById(R.id.gridView_words);
             gv.setNumColumns(4);
@@ -151,17 +147,17 @@ public class WordCloudActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-                    if(null != cfg) {
-                        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+                    if (null != cfg) {
+                        CyberScouterMatchScoutingL2 csm = CyberScouterMatchScoutingL2.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
                         if (null != csm) {
                             CyberScouterWordCloud cswc = new CyberScouterWordCloud();
                             cswc.setEventID(cfg.getEvent_id());
                             cswc.setMatchID(csm.getMatchID());
-                            cswc.setMatchScoutingID(csm.getMatchScoutingID());
+                            cswc.setMatchScoutingID(csm.getMatchScoutingL2ID());
                             cswc.setSeq(0);
-                            cswc.setTeam(csm.getTeam());
+                            cswc.setTeam(csm.getTeamRed());
                             cswc.setWordID(_wordIDs[i]);
-                            cswc.putWord(_db);
+                            cswc.putWordCloud(_db);
                         }
                     }
                     view.setBackgroundColor(Color.GREEN);
@@ -175,9 +171,9 @@ public class WordCloudActivity extends AppCompatActivity {
         BluetoothComm.updateStatusIndicator(iv, color);
     }
 
-    private void updateWords(String json){
+    private void updateWords(String json) {
         try {
-            if(2 < json.length()) {
+            if (2 < json.length()) {
                 JSONArray ja = new JSONArray(json);
                 _words = new String[ja.length()];
                 _wordIDs = new Integer[ja.length()];
@@ -186,16 +182,12 @@ public class WordCloudActivity extends AppCompatActivity {
                     _words[i] = jo.getString("Word");
                     _wordIDs[i] = jo.getInt("WordID");
                 }
+                Button button = findViewById(R.id.button_wcSubmit);
+                button.setEnabled(true);
+                populatePage();
             }
-
-            } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }
-
-
-
-
-

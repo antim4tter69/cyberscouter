@@ -24,8 +24,8 @@ public class SubmitPage extends AppCompatActivity {
         setContentView(R.layout.activity_submit_page);
 
         Intent intent = getIntent();
-        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-        updateStatusIndicator(currentCommStatusColor);
+//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+//        updateStatusIndicator(currentCommStatusColor);
 
 
         button = findViewById(R.id.Button_Previous);

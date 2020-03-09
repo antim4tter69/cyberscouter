@@ -50,8 +50,8 @@ public class EndPage extends AppCompatActivity {
         setContentView(R.layout.activity_end_page);
 
         Intent intent = getIntent();
-        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-        updateStatusIndicator(currentCommStatusColor);
+//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+//        updateStatusIndicator(currentCommStatusColor);
 
 
         button = findViewById(R.id.button_Previous);
@@ -312,7 +312,7 @@ public class EndPage extends AppCompatActivity {
     public void submitPage(){
         updateEndPageData();
         Intent intent = new Intent(this, SubmitPage.class);
-        intent.putExtra("commstatuscolor", currentCommStatusColor);
+//        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
 
     }

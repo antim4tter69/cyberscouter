@@ -185,4 +185,8 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_DISPLAY_WORD_ORDER = "DisplayWordOrder";
     }
 
+    public static class TimeCode implements BaseColumns {
+        public static final String TABLE_NAME = "TimeCode";
+        public static final String COLUMN_NAME_LAST_UPDATE = "LastUpdate";
+    }
 }

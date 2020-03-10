@@ -202,6 +202,14 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
     private static final String SQL_DELETE_WORDS =
             "DROP TABLE IF EXISTS " + CyberScouterContract.Words.TABLE_NAME;
 
+    private static final String SQL_CREATE_TIME_CODE =
+            "CREATE TABLE " + CyberScouterContract.TimeCode.TABLE_NAME + " (" +
+                    CyberScouterContract.TimeCode.COLUMN_NAME_LAST_UPDATE + " TEXT)"
+            ;
+
+    private static final String SQL_DELETE_TIME_CODE =
+            "DROP TABLE IF EXISTS " + CyberScouterContract.TimeCode.TABLE_NAME;
+
     public CyberScouterDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -215,6 +223,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TEAMS);
         db.execSQL(SQL_CREATE_WORD_CLOUD);
         db.execSQL(SQL_CREATE_WORDS);
+        db.execSQL(SQL_CREATE_TIME_CODE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -228,6 +237,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_TEAMS);
         db.execSQL(SQL_DELETE_WORD_CLOUD);
         db.execSQL(SQL_DELETE_WORDS);
+//        db.execSQL(SQL_DELETE_TIME_CODE);
         onCreate(db);
     }
 

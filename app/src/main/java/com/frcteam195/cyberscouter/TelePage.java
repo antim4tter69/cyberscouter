@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragmentInteractionListener {
+    private static final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private Button button;
     private Button zone_1L;
     private Button zone_2L;
@@ -29,6 +30,8 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private Button zone_4R;
     private Button zone_5R;
     private Button Reset_button;
+    private Button StageTwoButton;
+    private Button StageThreeButton;
     private ImageView imageView8;
     private ImageView imageView9;
     private int FIELD_ORIENTATION_RIGHT = 0;
@@ -38,6 +41,8 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private long pauseOffset;
     private boolean running;
     private int currentCommStatusColor;
+
+    private final int[] StageButtons = {R.id.StageTwoButton, R.id.StageThreeButton};
 
     private Integer[][] values = new Integer[5][4];
     private int _stage2Attempts = 0, _stage2Time = 0, _stage2Status = 0, _stage3Attempts = 0, _stage3Time = 0, _stage3Status = 0;
@@ -209,6 +214,25 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
 
             }
         });
+
+        button = findViewById(R.id.StageTwoButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+        button = findViewById(R.id.StageThreeButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
 
         if (csm.getAllianceStationID() < 4) {
             if (field_orientation == FIELD_ORIENTATION_LEFT) {
@@ -395,6 +419,13 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             @Override
             public void onClick(View v) {
                 pauseStage_2(v);
+            }
+        });
+        button = findViewById(R.id.StageThreeButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetStage_2(v);
             }
         });
 
@@ -591,5 +622,10 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         for(int i = 1; i<fragmentValues.length ; ++i) {
             values[fragmentValues[0] - 1][i] = fragmentValues[i];
         }
+    }
+
+    public void StageButtons() {
+        int defaultButtonTextColor = Color.BLACK;
+        FakeRadioGroup.buttonPressed(this, 4, StageButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
     }
 }

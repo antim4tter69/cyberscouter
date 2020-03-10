@@ -397,7 +397,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="@+id/gearRatio"
         app:layout_constraintTop_toBottomOf="@+id/gearRatio" />
 
@@ -407,7 +407,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/colon"
         app:layout_constraintTop_toTopOf="@+id/colon" />
 

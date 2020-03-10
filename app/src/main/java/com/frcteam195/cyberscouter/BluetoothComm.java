@@ -20,13 +20,16 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.locks.Lock;
 
 
 public class BluetoothComm {
     private final static String _serviceUuid = "c3252081-b20b-46df-a9f8-1c3722eadbef";
     private final static String _serviceName = "Team195Pi";
     private final static String _errorJson = "{'result': 'failure', 'msg': 'bluetooth command failed!'}";
+    private final static String _successJson = "{'result': 'success', 'msg': 'ping succeeded'}";
     private static boolean bLastBTCommFailed = true;
+    private final static Integer OneNineFive = new Integer(195);
 
     public final static String ONLINE_STATUS_UPDATED_FILTER = "frcteam195_bluetoothcomm_online_status_updated_intent_filter";
 
@@ -45,60 +48,63 @@ public class BluetoothComm {
     private String sendCommand(Activity activity, String json) {
         String resp = _errorJson;
 
-        try {
-            final BluetoothManager bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
-            BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
+        synchronized (OneNineFive) {
 
-            if (null != _bluetoothAdapter && !bLastBTCommFailed) {
-                Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
-                if (pairedDevices.size() > 0) {
-                    for (BluetoothDevice device : pairedDevices) {
-                        String deviceName = device.getName();
-                        String deviceHardwareAddress = device.getAddress();
-                        if (deviceName.equals(_serviceName)) {
-                            BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
-                            mmSocket.connect();
-                            OutputStream mmOutputStream = mmSocket.getOutputStream();
-                            InputStream mmInputStream = mmSocket.getInputStream();
-                            mmOutputStream.write(json.getBytes());
-                            Thread.sleep(1);
-                            byte[] ibytes = new byte[mmInputStream.available()];
-                            while (ibytes.length == 0) {
-                                Thread.sleep(10);
-                                ibytes = new byte[mmInputStream.available()];
-                            }
-                            System.out.println(String.format("1. Bytes available: %d", ibytes.length));
-                            mmInputStream.read(ibytes);
-                            resp = new String(ibytes);
-                            if (0x03 != ibytes[ibytes.length - 1]) {
-                                for (int i = 0; i < 50; ++i) {
-                                    Thread.sleep(90);
+            try {
+                final BluetoothManager bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
+                BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
+
+                if (null != _bluetoothAdapter && !bLastBTCommFailed) {
+                    Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
+                    if (pairedDevices.size() > 0) {
+                        for (BluetoothDevice device : pairedDevices) {
+                            String deviceName = device.getName();
+                            String deviceHardwareAddress = device.getAddress();
+                            if (deviceName.equals(_serviceName)) {
+                                BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
+                                mmSocket.connect();
+                                OutputStream mmOutputStream = mmSocket.getOutputStream();
+                                InputStream mmInputStream = mmSocket.getInputStream();
+                                mmOutputStream.write(json.getBytes());
+                                Thread.sleep(1);
+                                byte[] ibytes = new byte[mmInputStream.available()];
+                                while (ibytes.length == 0) {
+                                    Thread.sleep(10);
                                     ibytes = new byte[mmInputStream.available()];
-                                    if (0 < ibytes.length) {
-                                        System.out.println(String.format("%d. Bytes available: %d", i, ibytes.length));
-                                        mmInputStream.read(ibytes);
-                                        resp = resp.concat(new String(ibytes));
-                                        System.out.println(String.format("%da. Return string length = %d", i, resp.length()));
-                                        if (0x03 == ibytes[ibytes.length - 1]) {
-                                            System.out.println("EOF character received!");
-                                            break;
+                                }
+                                System.out.println(String.format("1. Bytes available: %d", ibytes.length));
+                                mmInputStream.read(ibytes);
+                                resp = new String(ibytes);
+                                if (0x03 != ibytes[ibytes.length - 1]) {
+                                    for (int i = 0; i < 500; ++i) {
+                                        Thread.sleep(500);
+                                        ibytes = new byte[mmInputStream.available()];
+                                        if (0 < ibytes.length) {
+                                            System.out.println(String.format("%d. Bytes available: %d", i, ibytes.length));
+                                            mmInputStream.read(ibytes);
+                                            resp = resp.concat(new String(ibytes));
+                                            System.out.println(String.format("%da. Return string length = %d", i, resp.length()));
+                                            if (0x03 == ibytes[ibytes.length - 1]) {
+                                                System.out.println("EOF character received!");
+                                                break;
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            mmOutputStream.close();
-                            mmInputStream.close();
-                            mmSocket.close();
+                                mmOutputStream.close();
+                                mmInputStream.close();
+                                mmSocket.close();
 
-                            break;
+                                break;
+                            }
                         }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
 
         return resp;
     }
@@ -143,7 +149,7 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                if(!bLastBTCommFailed) {
+                if (!bLastBTCommFailed) {
                     FakeBluetoothServer fbts = new FakeBluetoothServer();
                     fbts.getResponse(activity, jr);
                     returnJson = null;
@@ -171,7 +177,7 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                if(!bLastBTCommFailed) {
+                if (!bLastBTCommFailed) {
                     FakeBluetoothServer fbts = new FakeBluetoothServer();
                     fbts.getResponse(activity, jr);
                     returnJson = null;
@@ -199,7 +205,7 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                if(!bLastBTCommFailed) {
+                if (!bLastBTCommFailed) {
                     FakeBluetoothServer fbts = new FakeBluetoothServer();
                     fbts.getResponse(activity, jr);
                     returnJson = null;
@@ -238,7 +244,7 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                if(!bLastBTCommFailed) {
+                if (!bLastBTCommFailed) {
                     FakeBluetoothServer fbts = new FakeBluetoothServer();
                     fbts.getResponse(activity, jr);
                     returnJson = null;
@@ -286,7 +292,7 @@ public class BluetoothComm {
             }
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                if(!bLastBTCommFailed) {
+                if (!bLastBTCommFailed) {
                     FakeBluetoothServer fbts = new FakeBluetoothServer();
                     fbts.getResponse(activity, jr);
                     returnJson = null;
@@ -311,32 +317,36 @@ public class BluetoothComm {
 
     public static boolean pingServer(AppCompatActivity activity) {
         boolean bCommGood = false;
-        try {
-            final BluetoothManager bluetoothManager =
-                    (BluetoothManager) MainActivity._activity.getSystemService(Context.BLUETOOTH_SERVICE);
-            BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
 
-            if(null != _bluetoothAdapter) {
-                Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
-                if (pairedDevices.size() > 0) {
-                    for (BluetoothDevice device : pairedDevices) {
-                        String deviceName = device.getName();
-                        String deviceHardwareAddress = device.getAddress();
-                        if (deviceName.equals(_serviceName)) {
-                            BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
-                            mmSocket.connect();
-                            bCommGood = true;
-                            break;
+        synchronized (OneNineFive) {
+
+            try {
+                final BluetoothManager bluetoothManager = (BluetoothManager) activity.getSystemService(Context.BLUETOOTH_SERVICE);
+                BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
+
+                if (null != _bluetoothAdapter) {
+                    Set<BluetoothDevice> pairedDevices = _bluetoothAdapter.getBondedDevices();
+                    if (pairedDevices.size() > 0) {
+                        for (BluetoothDevice device : pairedDevices) {
+                            String deviceName = device.getName();
+                            String deviceHardwareAddress = device.getAddress();
+                            if (deviceName.equals(_serviceName)) {
+                                BluetoothSocket mmSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(_serviceUuid));
+                                mmSocket.connect();
+                                bCommGood = true;
+                                OutputStream mmOutputStream = mmSocket.getOutputStream();
+                                mmOutputStream.write(0x03);
+                                mmOutputStream.close();
+                                mmSocket.close();
+                            }
                         }
                     }
                 }
+            } catch (Exception e) {
+//                e.printStackTrace();
             }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            return (bCommGood);
         }
+
+        return (bCommGood);
     }
 }

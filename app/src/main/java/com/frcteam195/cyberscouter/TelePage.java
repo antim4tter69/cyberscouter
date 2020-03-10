@@ -520,8 +520,6 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         if(0 == _stage2Time) {
             _stage2Time = ltime;
             _stage2Status = 1;
-            TextView tv = findViewById(R.id.textView_stage);
-            tv.setText(getString(R.string.teleStage3));
         } else {
             _stage3Time = ltime;
             _stage3Status = 1;
@@ -576,21 +574,19 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     }
 
     private void setTimer(){
-        TextView tv = findViewById(R.id.textView_stage);
-        tv = findViewById(R.id.textView_stage);
-        if(0 == _stage2Time) {
-            tv.setText(getString(R.string.teleStage2));
-        } else if(0 == _stage3Time){
-            tv.setText(getString(R.string.teleStage3));
-        } else {
-            tv.setText(getString(R.string.completed));
-            button = findViewById(R.id.button_teleStartChron);
-            button.setEnabled(false);
-            button = findViewById(R.id.button_teleFailureChron);
-            button.setEnabled(false);
-            button = findViewById(R.id.button_teleSuccessChron);
-            button.setEnabled(false);
-        }
+//        if(0 == _stage2Time) {
+//            tv.setText(getString(R.string.teleStage2));
+//        } else if(0 == _stage3Time){
+//            tv.setText(getString(R.string.teleStage3));
+//        } else {
+//            tv.setText(getString(R.string.completed));
+//            button = findViewById(R.id.button_teleStartChron);
+//            button.setEnabled(false);
+//            button = findViewById(R.id.button_teleFailureChron);
+//            button.setEnabled(false);
+//            button = findViewById(R.id.button_teleSuccessChron);
+//            button.setEnabled(false);
+//        }
     }
 
     private void resetTimer(){
@@ -600,8 +596,8 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         _stage3Time = 0 ;
         _stage3Attempts = 0;
         _stage3Status = 0;
-        TextView tv = findViewById(R.id.textView_stage);
-        tv.setText(getString(R.string.teleStage2));
+//        TextView tv = findViewById(R.id.textView_stage);
+//        tv.setText(getString(R.string.teleStage2));
         button = findViewById(R.id.button_teleStartChron);
         button.setEnabled(true);
         button = findViewById(R.id.button_teleFailureChron);

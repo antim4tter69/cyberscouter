@@ -296,5 +296,32 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
+    <Button
+        android:id="@+id/StageTwoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="39dp"
+        android:backgroundTint="#08FF12"
+        android:text="@string/teleStage2"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/StageThreeButton"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView_teleMatch" />
+
+    <Button
+        android:id="@+id/StageThreeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="149dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="39dp"
+        android:text="@string/teleStage3"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_teamNumber" />
+
 </android.support.constraint.ConstraintLayout>
 

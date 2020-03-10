@@ -20,6 +20,7 @@ public class PreAutoPage extends AppCompatActivity {
     private final int[] startPositionButtons = {R.id.startbutton1, R.id.startbutton2, R.id.startbutton3, R.id.startbutton4, R.id.startbutton5, R.id.startbutton6};
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
+    private Button didnotshowyesbutton;
 
     private int field_orientation;
     private int currentCommStatusColor;
@@ -162,6 +163,14 @@ public class PreAutoPage extends AppCompatActivity {
             tv = findViewById(R.id.textView_preAutoTeam);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
+            String[] lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW};
+            Integer[] lval = {0};
+            try {
+                CyberScouterMatchScouting.updateMatchMetric(_db, lColumns, lval, cfg);
+                csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
             _startPos = csm.getAutoStartPos();
             button = findViewById(R.id.PreAutoContinueButton);
             if(0 < _startPos) {
@@ -181,7 +190,6 @@ public class PreAutoPage extends AppCompatActivity {
 
     private void didNotShow() {
         _didNotShow = 1;
-        _startPos = 0;
         updatePreAutoData();
         Intent intent = new Intent(this, SubmitPage.class);
         intent.putExtra("field_orientation", field_orientation);

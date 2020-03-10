@@ -36,13 +36,14 @@ public class CyberScouterTimeCode {
     }
 
     public static void setLast_update(SQLiteDatabase db, int lastUpdate) {
+        System.out.println(String.format(">>>>>>>>>>>>>>>>>>>>>>>Setting LastUpdate to %d", lastUpdate));
         try {
             ContentValues values = new ContentValues();
 
             values.put(CyberScouterContract.TimeCode.COLUMN_NAME_LAST_UPDATE, lastUpdate);
 
-            long newRowId = db.insert(CyberScouterContract.TimeCode.TABLE_NAME,
-                    null, values);
+            long newRowId = db.update(CyberScouterContract.TimeCode.TABLE_NAME,
+                    values,null,null);
 
         } catch (Exception e) {
             e.printStackTrace();

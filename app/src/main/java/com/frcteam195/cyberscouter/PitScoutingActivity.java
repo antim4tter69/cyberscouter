@@ -100,7 +100,8 @@ public class PitScoutingActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        String teams_str = CyberScouterTeams.getTeamsRemote(this);
+        SQLiteDatabase _db =  mDbHelper.getWritableDatabase();
+        String teams_str = CyberScouterTeams.getTeamsRemote(this, _db);
         if(null != teams_str && !teams_str.equalsIgnoreCase("skip")) {
             updateTeams(teams_str);
         }

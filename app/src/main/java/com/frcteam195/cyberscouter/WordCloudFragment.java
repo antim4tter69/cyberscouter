@@ -31,7 +31,7 @@ public class WordCloudFragment extends Fragment {
     private String[] _words;
     private Integer[] _wordIDs;
 
-    private CyberScouterWordCloud[] _wordCloudTeams;
+    private CyberScouterMatchScoutingL2 _csmsl2;
     private int _pagePosition;
 
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(WordCloudActivity.getActivity());
@@ -39,9 +39,7 @@ public class WordCloudFragment extends Fragment {
 
     private View _view;
 
-    public WordCloudFragment(CyberScouterWordCloud[] _awc, int _position) {
-        _wordCloudTeams = _awc;
-        _pagePosition = _position;
+    public WordCloudFragment() {
     }
 
     @Override
@@ -81,7 +79,7 @@ public class WordCloudFragment extends Fragment {
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg) {
-            String csms_str = CyberScouterMatchScoutingL2.getMatchesL2Remote(WordCloudActivity.getActivity(), cfg.getEvent_id());
+            String csms_str = CyberScouterMatchScoutingL2.getMatchesL2Remote(WordCloudActivity.getActivity(), _db, cfg.getEvent_id());
             if (null != csms_str) {
                 updateMatchesL2Local(csms_str);
             }

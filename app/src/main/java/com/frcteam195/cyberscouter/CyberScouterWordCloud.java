@@ -50,7 +50,7 @@ public class CyberScouterWordCloud {
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getWordCloud(activity, null);
+            String response = btcomm.getWordCloud(activity, 0);
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");

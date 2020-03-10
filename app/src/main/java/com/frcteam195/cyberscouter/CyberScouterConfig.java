@@ -45,7 +45,7 @@ public class CyberScouterConfig {
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getConfig(activity, null);
+            String response = btcomm.getConfig(activity, 0);
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");

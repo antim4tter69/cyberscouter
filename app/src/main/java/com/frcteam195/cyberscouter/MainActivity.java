@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         _db = mDbHelper.getWritableDatabase();
+        CyberScouterTimeCode.setLast_update(_db, 0);
+        System.out.println(String.format(">>>>>>>>>>>>>>>>>>>>>>>Reseting LastUpdate to %d", 0));
+
 
         registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
@@ -94,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-
         BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
 
         fetcherThread = new Thread(new ConfigFetcher());
@@ -126,7 +128,12 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        fetcherThread.start();
+        if(null == fetcherThread) {
+            fetcherThread = new Thread(new ConfigFetcher());
+        }
+        if(!fetcherThread.isAlive()) {
+            fetcherThread.start();
+        }
     }
 
     private class ConfigFetcher implements Runnable {
@@ -171,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        fetcherThread = null;
     }
 
     @Override

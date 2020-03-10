@@ -9,23 +9,32 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
 public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
-    private int FIELD_ORIENTATION_RIGHT = 0;
-    private int FIELD_ORIENTATION_LEFT = 1;
+    final private int FIELD_ORIENTATION_RIGHT = 0;
+    final private int FIELD_ORIENTATION_LEFT = 1;
     private int field_orientation = FIELD_ORIENTATION_LEFT;
 
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db = null;
+
+    private Handler mFetchHandler;
+    private Thread fetcherThread;
+    private final int START_PROGRESS = 0;
+    private final int FETCH_USERS = 1;
+    private final int FETCH_MATCHES = 2;
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override
@@ -89,19 +98,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
         _db = mDbHelper.getWritableDatabase();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Button npbutton = findViewById(R.id.Button_NamePicker);
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        if (CyberScouterConfig.UNKNOWN_USER_IDX != cfg.getUser_id()) {
-            npbutton.setText(cfg.getUsername());
-        } else {
-            npbutton.setText("Select your name");
-        }
+        fetcherThread = new Thread(new RemoteFetcher());
 
         ImageView iv = findViewById(R.id.imageView2);
         iv.setOnClickListener(new View.OnClickListener() {
@@ -111,14 +108,77 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             }
         });
         iv.setEnabled(true);
+    }
 
-        String csu_str = CyberScouterUsers.getUsersRemote(this);
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mFetchHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch(msg.what) {
+                    case START_PROGRESS:
+                        showProgress();
+                        break;
+                    case FETCH_USERS:
+                        fetchUsers();
+                        break;
+                    case FETCH_MATCHES:
+                        fetchMatches();
+                        break;
+                }
+            }
+        };
+
+        if(null == fetcherThread) {
+            fetcherThread = new Thread(new RemoteFetcher());
+        }
+        if(!fetcherThread.isAlive()) {
+            fetcherThread.start();
+        }
+    }
+
+    private class RemoteFetcher implements Runnable {
+
+        @Override
+        public void run() {
+            Message msg = new Message();
+            msg.what = START_PROGRESS;
+            mFetchHandler.sendMessage(msg);
+            try{ Thread.sleep(500); } catch(Exception e) {}
+            Message msg2 = new Message();
+            msg2.what = FETCH_USERS;
+            mFetchHandler.sendMessage(msg2);
+            Message msg3 = new Message();
+            msg3.what = FETCH_MATCHES;
+            mFetchHandler.sendMessage(msg3);
+        }
+    }
+
+    private void showProgress() {
+        ProgressBar pb = findViewById(R.id.progressBar_scoutingDataAccess);
+        pb.setVisibility(View.VISIBLE);
+    }
+
+    private void fetchUsers() {
+        Button npbutton = findViewById(R.id.Button_NamePicker);
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        if (CyberScouterConfig.UNKNOWN_USER_IDX != cfg.getUser_id()) {
+            npbutton.setText(cfg.getUsername());
+        } else {
+            npbutton.setText("Select your name");
+        }
+        String csu_str = CyberScouterUsers.getUsersRemote(this, _db);
         if(null != csu_str) {
             updateUsers(csu_str);
         }
+    }
 
+    private void fetchMatches() {
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg) {
-            String csms_str = CyberScouterMatchScouting.getMatchesRemote(this, cfg.getEvent_id());
+            String csms_str = CyberScouterMatchScouting.getMatchesRemote(this, _db, cfg.getEvent_id());
             if(null != csms_str) {
                 updateMatchesLocal(csms_str);
             }
@@ -131,6 +191,12 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fetcherThread = null;
     }
 
     @Override
@@ -286,6 +352,9 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             MessageBox.showMessageBox(this, "Fetch Match Information Failed", "updateMatchesLocal",
                     String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));
             e.printStackTrace();
+        } finally {
+            ProgressBar pb = findViewById(R.id.progressBar_scoutingDataAccess);
+            pb.setVisibility(View.INVISIBLE);
         }
     }
 

@@ -19,7 +19,7 @@ public class WordCloudFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int i) {
-        return new WordCloudFragment(wordCloudTeams, i);
+        return new WordCloudFragment();
     }
 
     @Override

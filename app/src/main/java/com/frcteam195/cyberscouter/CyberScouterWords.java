@@ -61,7 +61,7 @@ public class CyberScouterWords {
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getWords(activity, null);
+            String response = btcomm.getWords(activity, 0);
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");

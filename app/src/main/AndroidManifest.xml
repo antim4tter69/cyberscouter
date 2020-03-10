@@ -59,6 +59,7 @@
         <activity
             android:name=".PreAutoPage"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Reset"></activity>
     </application>
 
 </manifest>

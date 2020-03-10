@@ -28,6 +28,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private Button zone_3R;
     private Button zone_4R;
     private Button zone_5R;
+    private Button Reset_button;
     private ImageView imageView8;
     private ImageView imageView9;
     private int FIELD_ORIENTATION_RIGHT = 0;
@@ -69,6 +70,14 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
 
+        Button Reset_button = (Button) findViewById(R.id.Reset_button);
+            Reset_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(TelePage.this,Reset.class));
+                }
+            });
+
         Intent intent = getIntent();
         field_orientation = intent.getIntExtra("field_orientation", field_orientation);
         ImageView iv = findViewById(R.id.imageView8);
@@ -96,15 +105,6 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             @Override
             public void onClick(View v) {
                 EndGamePage();
-
-            }
-        });
-
-        button = findViewById(R.id.Reset_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                resetTimer();
 
             }
         });

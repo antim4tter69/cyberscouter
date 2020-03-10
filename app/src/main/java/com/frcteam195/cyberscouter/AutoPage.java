@@ -39,9 +39,6 @@ public class AutoPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_page);
 
-        Intent intent = getIntent();
-        field_orientation = intent.getIntExtra("field_orientation", 0);
-
         button = findViewById(R.id.button_startMatch);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -186,8 +183,6 @@ public class AutoPage extends AppCompatActivity {
     public void StartMatch() {
         updateAutoData();
         Intent intent = new Intent(this, TelePage.class);
-        intent.putExtra("field_orientation", field_orientation);
-//        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 

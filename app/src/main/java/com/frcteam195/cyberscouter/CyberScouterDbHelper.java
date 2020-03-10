@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 43;
+    private static final int DATABASE_VERSION = 44;
     private static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
@@ -22,7 +22,12 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT + " INTEGER," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME + " TEXT," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID + " INTEGER," +
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID + " INTEGER)";
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID + " INTEGER, " +
+                    "UNIQUE(" +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID + "," +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATION_ID + "," +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID +
+                    "))";
 
     private static final String SQL_DELETE_CONFIG_ENTRIES =
             "DROP TABLE IF EXISTS " + CyberScouterContract.ConfigEntry.TABLE_NAME;

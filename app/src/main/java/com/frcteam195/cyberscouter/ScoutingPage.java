@@ -219,8 +219,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             npd.show(fm, "namepicker");
         } else {
             Intent intent = new Intent(this, PreAutoPage.class);
-            intent.putExtra("field_orientation", field_orientation);
-//            intent.putExtra("commstatuscolor", currentCommStatusColor);
             startActivity(intent);
 
         }
@@ -270,6 +268,8 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         ImageView iv = findViewById(R.id.imageView2);
 
         field_orientation = field_orientation == FIELD_ORIENTATION_LEFT ? FIELD_ORIENTATION_RIGHT : FIELD_ORIENTATION_LEFT;
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        cfg.setFieldOrientation(_db, field_orientation);
 
         if(FIELD_ORIENTATION_LEFT == field_orientation) {
             iv.setImageResource(R.drawable.field_2020);

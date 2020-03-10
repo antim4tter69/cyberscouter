@@ -6,14 +6,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragmentInteractionListener {
@@ -36,11 +33,10 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private ImageView imageView9;
     private int FIELD_ORIENTATION_RIGHT = 0;
     private int FIELD_ORIENTATION_LEFT = 1;
-    private int field_orientation;
+    private int field_orientation = FIELD_ORIENTATION_RIGHT;
     private Chronometer Stage_2;
     private long pauseOffset;
     private boolean running;
-    private int currentCommStatusColor;
 
     private final int[] StageButtons = {R.id.StageTwoButton, R.id.StageThreeButton};
 
@@ -75,6 +71,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tele_page);
 
+        mDbHelper = new CyberScouterDbHelper(this);
+        _db = mDbHelper.getWritableDatabase();
+
         Button Reset_button = (Button) findViewById(R.id.Reset_button);
             Reset_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -83,8 +82,12 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
                 }
             });
 
-        Intent intent = getIntent();
-        field_orientation = intent.getIntExtra("field_orientation", field_orientation);
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        if(null != cfg) {
+            field_orientation = cfg.isFieldRedLeft() ? FIELD_ORIENTATION_LEFT : FIELD_ORIENTATION_LEFT;
+        }
+
+
         ImageView iv = findViewById(R.id.imageView8);
         if (FIELD_ORIENTATION_RIGHT == field_orientation) {
             iv.setImageResource(R.drawable.field_2020_flipped);
@@ -118,12 +121,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         Stage_2.setFormat("Time: %s");
         Stage_2.setBase(SystemClock.elapsedRealtime());
 
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
-
-        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
+        CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         button = findViewById(R.id.zone_1L);
         button.setOnClickListener(new View.OnClickListener() {
@@ -435,7 +433,6 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     protected void onResume() {
         super.onResume();
 
-        _db = mDbHelper.getWritableDatabase();
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg) {
             CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));

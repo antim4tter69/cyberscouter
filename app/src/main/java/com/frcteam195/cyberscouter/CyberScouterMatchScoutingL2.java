@@ -137,7 +137,7 @@ public class CyberScouterMatchScoutingL2 {
         String sortOrder =
                 CyberScouterContract.MatchScoutingL2.COLUMN_NAME_MATCH_NUMBER + " ASC";
 
-        CyberScouterMatchScoutingL2[] csmv = getLocalMatches(db, selection, selectionArgs, sortOrder);
+        CyberScouterMatchScoutingL2[] csmv = getLocalMatchesL2(db, selection, selectionArgs, sortOrder);
         if (null != csmv && 0 < csmv.length) {
             return (csmv[0]);
         } else
@@ -154,7 +154,7 @@ public class CyberScouterMatchScoutingL2 {
         String sortOrder =
                 CyberScouterContract.MatchScoutingL2.COLUMN_NAME_ALLIANCESTATIONID + " ASC";
 
-        return (getLocalMatches(db, selection, selectionArgs, sortOrder));
+        return (getLocalMatchesL2(db, selection, selectionArgs, sortOrder));
     }
 
     // Returns only the matches that are unscouted
@@ -169,7 +169,7 @@ public class CyberScouterMatchScoutingL2 {
                 String.format(Locale.getDefault(), "%d", l_allianceStationID)
         };
 
-        CyberScouterMatchScoutingL2[] csmv = getLocalMatches(db, selection, selectionArgs, null);
+        CyberScouterMatchScoutingL2[] csmv = getLocalMatchesL2(db, selection, selectionArgs, null);
 
         if (null != csmv) {
             if (1 < csmv.length) {
@@ -197,10 +197,10 @@ public class CyberScouterMatchScoutingL2 {
         String sortOrder =
                 CyberScouterContract.MatchScoutingL2.COLUMN_NAME_MATCH_NUMBER + " ASC";
 
-        return (getLocalMatches(db, selection, selectionArgs, sortOrder));
+        return (getLocalMatchesL2(db, selection, selectionArgs, sortOrder));
     }
 
-    private static CyberScouterMatchScoutingL2[] getLocalMatches(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
+    private static CyberScouterMatchScoutingL2[] getLocalMatchesL2(SQLiteDatabase db, String selection, String[] selectionArgs, String sortOrder) {
         CyberScouterMatchScoutingL2 csm;
         Vector<CyberScouterMatchScoutingL2> csmv = new Vector<>();
 

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 44;
+    private static final int DATABASE_VERSION = 46;
     private static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
@@ -191,15 +191,19 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.WordCloud.COLUMN_NAME_TEAM + " TEXT," +
                     CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID + " INTEGER," +
                     CyberScouterContract.WordCloud.COLUMN_NAME_DONE_SCOUTING + " INTEGER," +
-                    CyberScouterContract.WordCloud.COLUMN_NAME_UPLOAD_STATUS + " INTEGER)"
-            ;
+                    CyberScouterContract.WordCloud.COLUMN_NAME_UPLOAD_STATUS + " INTEGER, " +
+                    "UNIQUE(" +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID + "," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID + "," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_TEAM +
+                    "))";
 
     private static final String SQL_DELETE_WORD_CLOUD =
             "DROP TABLE IF EXISTS " + CyberScouterContract.WordCloud.TABLE_NAME;
 
     private static final String SQL_CREATE_WORDS =
             "CREATE TABLE " + CyberScouterContract.Words.TABLE_NAME + " (" +
-                    CyberScouterContract.Words.COLUMN_NAME_WORD_ID + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_WORD_ID + " INTEGER PRIMARY KEY," +
                     CyberScouterContract.Words.COLUMN_NAME_WORD + " INTEGER," +
                     CyberScouterContract.Words.COLUMN_NAME_DISPLAY_WORD_ORDER + " INTEGER)"
             ;

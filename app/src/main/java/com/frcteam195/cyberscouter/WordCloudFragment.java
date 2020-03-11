@@ -30,32 +30,35 @@ public class WordCloudFragment extends Fragment {
 
     private String[] _words;
     private Integer[] _wordIDs;
+    private boolean[] _wordSelected;
 
-    private CyberScouterWordCloud[] _wordCloudTeams;
+    private CyberScouterMatchScoutingL2 _csmsl2;
     private int _pagePosition;
+    private String _team;
 
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(WordCloudActivity.getActivity());
     private SQLiteDatabase _db = null;
 
     private View _view;
 
-    public WordCloudFragment(CyberScouterWordCloud[] _awc, int _position) {
-        _wordCloudTeams = _awc;
-        _pagePosition = _position;
+    BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int color = intent.getIntExtra("onlinestatus", Color.RED);
+            updateStatusIndicator(color);
+        }
+    };
+
+    public WordCloudFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_word_cloud, container, false);
-        _view = view;
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_word_cloud, container, false);
+        _view = rootView;
 
-        return(view);
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        _pagePosition = bundle.getInt("position");
 
         _db = mDbHelper.getWritableDatabase();
 
@@ -68,54 +71,24 @@ public class WordCloudFragment extends Fragment {
             }
         });
         button.setEnabled(false);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        getActivity().registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
 
-        String csw_str = CyberScouterWords.getWordsRemote(WordCloudActivity.getActivity());
-        if (null != csw_str) {
-            updateWords(csw_str);
+        CyberScouterWords[] cswa = CyberScouterWords.getLocalWords(_db);
+        if (null != cswa) {
+            updateWords(cswa);
         }
 
-        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        if (null != cfg) {
-            String csms_str = CyberScouterMatchScoutingL2.getMatchesL2Remote(WordCloudActivity.getActivity(), cfg.getEvent_id());
-            if (null != csms_str) {
-                updateMatchesL2Local(csms_str);
-            }
-        }
-
+        return (rootView);
     }
 
     @Override
     public void onDestroy() {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(WordCloudActivity.getActivity());
-        mDbHelper.close();
-//        unregisterReceiver(mOnlineStatusReceiver);
-//        unregisterReceiver(mWordsReceiver);
-//        unregisterReceiver(mMatchesL2Receiver);
-        super.onDestroy();
-    }
-
-    protected void updateMatchesL2Local(String json) {
-        try {
-            CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-            if (!json.equalsIgnoreCase("skip")) {
-                if (json.equalsIgnoreCase("fetch")) {
-                    json = CyberScouterMatchScoutingL2.getWebResponse();
-                }
-                CyberScouterMatchScoutingL2.deleteOldMatches(_db, cfg.getEvent_id());
-                CyberScouterMatchScoutingL2.mergeMatches(_db, json);
-            }
-            populatePage();
-
-        } catch (Exception e) {
-            MessageBox.showMessageBox(WordCloudActivity.getActivity(), "Fetch Match Information Failed", "updateMatchesLocal",
-                    String.format("Attempt to fetch match info and merge locally failed!\n%s", e.getMessage()));
-            e.printStackTrace();
+        getActivity().unregisterReceiver(mOnlineStatusReceiver);
+        if (null != mDbHelper) {
+            mDbHelper.close();
         }
+        super.onDestroy();
     }
 
     private void populatePage() {
@@ -125,11 +98,38 @@ public class WordCloudFragment extends Fragment {
             TextView tv = _view.findViewById(R.id.textView_wcMatch);
             tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
             tv = _view.findViewById(R.id.textView_wcTeam);
-            tv.setText(getString(R.string.tagTeam, csm.getTeamRed()));
+            switch (_pagePosition) {
+                case 0:
+                    _team = csm.getTeamRed();
+                    tv.setTextColor(Color.RED);
+                    break;
+                case 1:
+                    _team = csm.getTeamBlue();
+                    tv.setTextColor(Color.BLUE);
+            }
+            tv.setText(getString(R.string.tagTeam, _team));
         }
 
         if (null != _words) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(WordCloudActivity.getActivity(), R.layout.word_cloud_text_items, _words);
+            for (int i = 0; i < _wordIDs.length; ++i) {
+                if (null != CyberScouterWordCloud.getLocalWordCloud(_db, csm.getMatchScoutingL2ID(), _team, _wordIDs[i])) {
+                    _wordSelected[i] = true;
+                } else {
+                    _wordSelected[i] = false;
+                }
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(WordCloudActivity.getActivity(), R.layout.word_cloud_text_items, _words) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    if(_wordSelected[position]) {
+                        view.setBackgroundColor(Color.GREEN);
+                    } else {
+                        view.setBackgroundColor(Color.LTGRAY);
+                    }
+                    return(view);
+                }
+            };
             GridView gv = _view.findViewById(R.id.gridView_words);
             gv.setNumColumns(4);
             gv.setAdapter(adapter);
@@ -138,39 +138,41 @@ public class WordCloudFragment extends Fragment {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
                     if (null != cfg) {
-                        CyberScouterMatchScoutingL2 csm = CyberScouterMatchScoutingL2.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
-                        if (null != csm) {
+                        CyberScouterMatchScoutingL2 csm = CyberScouterMatchScoutingL2.getCurrentMatch(_db, cfg.getAlliance_station_id());
+                        if (_wordSelected[i]) {
+                            int deleted = CyberScouterWordCloud.deleteLocalWordCloud(_db, csm.getMatchScoutingL2ID(), _team, _wordIDs[i]);
+                            System.out.println(String.format("WordCloud rows deleted %d", deleted));
+                            _wordSelected[i] = false;
+                            view.setBackgroundColor(Color.LTGRAY);
+                        } else {
                             CyberScouterWordCloud cswc = new CyberScouterWordCloud();
                             cswc.setEventID(cfg.getEvent_id());
                             cswc.setMatchID(csm.getMatchID());
                             cswc.setMatchScoutingID(csm.getMatchScoutingL2ID());
                             cswc.setSeq(0);
-                            cswc.setTeam(csm.getTeamRed());
+                            cswc.setTeam(_team);
                             cswc.setWordID(_wordIDs[i]);
                             cswc.putWordCloud(_db);
+                            _wordSelected[i] = true;
+                            view.setBackgroundColor(Color.GREEN);
                         }
                     }
-                    view.setBackgroundColor(Color.GREEN);
                 }
             });
         }
+
     }
 
-    private void updateStatusIndicator(int color) {
-        ImageView iv = _view.findViewById(R.id.imageView_btIndicator);
-        BluetoothComm.updateStatusIndicator(iv, color);
-    }
-
-    private void updateWords(String json) {
+    private void updateWords(CyberScouterWords[] cswa) {
         try {
-            if (2 < json.length()) {
-                JSONArray ja = new JSONArray(json);
-                _words = new String[ja.length()];
-                _wordIDs = new Integer[ja.length()];
-                for (int i = 0; i < ja.length(); ++i) {
-                    JSONObject jo = ja.getJSONObject(i);
-                    _words[i] = jo.getString("Word");
-                    _wordIDs[i] = jo.getInt("WordID");
+            if (null != cswa) {
+                _words = new String[cswa.length];
+                _wordIDs = new Integer[cswa.length];
+                _wordSelected = new boolean[cswa.length];
+                for (int i = 0; i < cswa.length; ++i) {
+                    _words[i] = cswa[i].getWord();
+                    _wordIDs[i] = cswa[i].getWordID();
+                    _wordSelected[i] = false;
                 }
                 Button button = _view.findViewById(R.id.button_wcSubmit);
                 button.setEnabled(true);
@@ -180,4 +182,10 @@ public class WordCloudFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
+    private void updateStatusIndicator(int color) {
+        ImageView iv = _view.findViewById(R.id.imageView_btIndicator);
+        BluetoothComm.updateStatusIndicator(iv, color);
+    }
+
 }

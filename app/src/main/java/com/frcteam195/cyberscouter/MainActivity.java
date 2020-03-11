@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static AppCompatActivity _activity;
 
+    private Thread fetcherThread;
     final private static int START_PROGRESS = 0;
     final private static int UPDATE_CONFIG = 1;
 
@@ -70,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         _db = mDbHelper.getWritableDatabase();
+        CyberScouterTimeCode.setLast_update(_db, 0);
+        System.out.println(String.format(">>>>>>>>>>>>>>>>>>>>>>>Reseting LastUpdate to %d", 0));
+
 
         registerReceiver(mConfigReceiver, new IntentFilter(CyberScouterConfig.CONFIG_UPDATED_FILTER));
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
@@ -93,8 +97,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-
         BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
+
+        fetcherThread = new Thread(new ConfigFetcher());
 
         // Ensures Bluetooth is available on the device and it is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
@@ -109,9 +114,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Thread fetcherThread = new Thread(new ConfigFetcher());
-        fetcherThread.start();
-
         mConfigHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -125,6 +127,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        if(null == fetcherThread) {
+            fetcherThread = new Thread(new ConfigFetcher());
+        }
+        if(!fetcherThread.isAlive()) {
+            fetcherThread.start();
+        }
     }
 
     private class ConfigFetcher implements Runnable {
@@ -154,8 +163,6 @@ public class MainActivity extends AppCompatActivity {
         String cfg_str = CyberScouterConfig.getConfigRemote(this);
         if (null != cfg_str) {
             processConfig(cfg_str);
-            ProgressBar pb = findViewById(R.id.progressBar_mainDataAccess);
-            pb.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -171,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        fetcherThread = null;
     }
 
     @Override
@@ -219,6 +227,9 @@ public class MainActivity extends AppCompatActivity {
             button = findViewById(R.id.button_mainForceResync);
             button.setEnabled(false);
             button.setVisibility(View.INVISIBLE);
+
+            ProgressBar pb = findViewById(R.id.progressBar_mainDataAccess);
+            pb.setVisibility(View.INVISIBLE);
         } else {
             MessageBox.showMessageBox(this, "No Event Information", "MainActivity.populateView",
                     "No Event information is available.  You need to sync with the server, and you are either not close enough or the server is not running.  Ask a mentor for assistance.");
@@ -238,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
         Class nextIntent;
         switch (cfg.getComputer_type_id()) {
             case (CyberScouterConfig.CONFIG_COMPUTER_TYPE_LEVEL_2_SCOUTER):
-                nextIntent = WordCloudFragment.class;
+                nextIntent = WordCloudActivity.class;
                 break;
             case (CyberScouterConfig.CONFIG_COMPUTER_TYPE_LEVEL_PIT_SCOUTER):
                 nextIntent = PitScoutingActivity.class;

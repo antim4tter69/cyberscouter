@@ -14,6 +14,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 public class CyberScouterConfig {
     public final static String CONFIG_UPDATED_FILTER = "frcteam195_cyberscouterconfig_config_updated_intent_filter";
 
@@ -25,6 +27,7 @@ public class CyberScouterConfig {
     public static final int CONFIG_COMPUTER_TYPE_LEVEL_2_SCOUTER = 1;
     public static final int CONFIG_COMPUTER_TYPE_LEVEL_PIT_SCOUTER = 2;
 
+    private int id;
     private String alliance_station;
     private int alliance_station_id;
     private String event;
@@ -45,7 +48,7 @@ public class CyberScouterConfig {
 
         try {
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getConfig(activity, null);
+            String response = btcomm.getConfig(activity, 0);
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");
@@ -98,6 +101,7 @@ public class CyberScouterConfig {
             if (0 < cursor.getCount() && cursor.moveToFirst()) {
                 ret = new CyberScouterConfig();
                 /* Read the config values from SQLite */
+                ret.id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry._ID));
                 ret.alliance_station = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATIOM));
                 ret.alliance_station_id = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATION_ID));
                 ret.event = cursor.getString(cursor.getColumnIndex(CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT));
@@ -174,8 +178,23 @@ public class CyberScouterConfig {
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID, jo.getString("ComputerTypeID"));
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, "");
         values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, UNKNOWN_USER_IDX);
-        db.insert(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values);
+        db.insertWithOnConflict(CyberScouterContract.ConfigEntry.TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_IGNORE);
 
+    }
+
+    public void setFieldOrientation(SQLiteDatabase db, int orientation) {
+        ContentValues values = new ContentValues();
+        values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT, orientation);
+        String selection = CyberScouterContract.ConfigEntry._ID + " = ?";
+        String[] selectionArgs = {
+                String.format(Locale.getDefault(), "%d", id)
+        };
+
+        db.update(
+                CyberScouterContract.ConfigEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
     }
 
     public String getAlliance_station() { return alliance_station; }

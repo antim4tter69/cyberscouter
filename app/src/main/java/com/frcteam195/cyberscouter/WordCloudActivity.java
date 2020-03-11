@@ -5,45 +5,33 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class WordCloudActivity extends AppCompatActivity {
     static private AppCompatActivity _activity;
-    static protected AppCompatActivity getActivity() { return(_activity);}
 
-    private String[] _words;
-    private Integer[] _wordIDs;
+    static protected AppCompatActivity getActivity() {
+        return (_activity);
+    }
 
-    private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(WordCloudActivity.getActivity());
+    private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db = null;
 
     private ViewPager mPager;
-    private PagerAdapter _pagerAdapter;
-    private WordCloudFragmentAdapter _wcfAdapter;
+
+    private Handler mFetchHandler;
+    private Thread fetcherThread;
+    private final int START_PROGRESS = 0;
+    private final int FETCH_WORDS = 1;
+    private final int FETCH_MATCHES = 2;
+
 
     private int _currentPos;
-
-    BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int color = intent.getIntExtra("onlinestatus", Color.RED);
-            updateStatusIndicator(color);
-        }
-    };
 
     BroadcastReceiver mWordsReceiver = new BroadcastReceiver() {
         @Override
@@ -68,29 +56,103 @@ public class WordCloudActivity extends AppCompatActivity {
 
         _activity = this;
 
-        registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mWordsReceiver, new IntentFilter(CyberScouterWords.WORDS_UPDATED_FILTER));
         registerReceiver(mMatchesL2Receiver, new IntentFilter(CyberScouterMatchScoutingL2.MATCH_SCOUTING_L2_UPDATED_FILTER));
 
-        mPager = (ViewPager) findViewById(R.id.viewPager_wcPager);
+        mPager = findViewById(R.id.viewPager_wcPager);
+
+        _db = mDbHelper.getWritableDatabase();
+
+        fetcherThread = new Thread(new RemoteFetcher());
+
+
+        mFetchHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case START_PROGRESS:
+                        showProgress();
+                        break;
+                    case FETCH_WORDS:
+                        fetchWords();
+                        break;
+                    case FETCH_MATCHES:
+                        fetchMatches();
+                        break;
+                }
+            }
+        };
+
+        if (null == fetcherThread) {
+            fetcherThread = new Thread(new RemoteFetcher());
+        }
+        if (!fetcherThread.isAlive()) {
+            fetcherThread.start();
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+    }
 
-        _wcfAdapter = new WordCloudFragmentAdapter(getSupportFragmentManager());
-        _wcfAdapter.setItems(null);
-        _pagerAdapter = _wcfAdapter;
-        mPager.setAdapter(_pagerAdapter);
-        mPager.setCurrentItem(_currentPos);
+    private class RemoteFetcher implements Runnable {
+
+        @Override
+        public void run() {
+            Message msg = new Message();
+            msg.what = START_PROGRESS;
+            mFetchHandler.sendMessage(msg);
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+            }
+            Message msg2 = new Message();
+            msg2.what = FETCH_WORDS;
+            mFetchHandler.sendMessage(msg2);
+            try {
+                Thread.sleep(500);
+            } catch (Exception e) {
+            }
+            Message msg3 = new Message();
+            msg3.what = FETCH_MATCHES;
+            mFetchHandler.sendMessage(msg3);
+        }
+    }
+
+    private void showProgress() {
+//        ProgressBar pb = findViewById(R.id.progressBar_scoutingDataAccess);
+//        pb.setVisibility(View.VISIBLE);
+    }
+
+    private void fetchWords() {
+        String csw_str = CyberScouterWords.getWordsRemote(this);
+        if (null != csw_str) {
+            updateWords(csw_str);
+        }
+    }
+
+    private void fetchMatches() {
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        if (null != cfg) {
+            String csms_str = CyberScouterMatchScoutingL2.getMatchesL2Remote(this, _db, cfg.getEvent_id());
+            if (null != csms_str) {
+                updateMatchesL2Local(csms_str);
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        fetcherThread = null;
     }
 
     @Override
     protected void onDestroy() {
-        CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(WordCloudActivity.getActivity());
-        mDbHelper.close();
-        unregisterReceiver(mOnlineStatusReceiver);
+        if(null != mDbHelper) {
+            mDbHelper.close();
+        }
         unregisterReceiver(mWordsReceiver);
         unregisterReceiver(mMatchesL2Receiver);
         super.onDestroy();
@@ -106,6 +168,10 @@ public class WordCloudActivity extends AppCompatActivity {
                 }
                 CyberScouterMatchScoutingL2.deleteOldMatches(_db, cfg.getEvent_id());
                 CyberScouterMatchScoutingL2.mergeMatches(_db, json);
+                WordCloudFragmentAdapter _wcfAdapter = new WordCloudFragmentAdapter(getSupportFragmentManager());
+                PagerAdapter _pagerAdapter = _wcfAdapter;
+                mPager.setAdapter(_pagerAdapter);
+                mPager.setCurrentItem(_currentPos);
             }
 
         } catch (Exception e) {
@@ -115,24 +181,10 @@ public class WordCloudActivity extends AppCompatActivity {
         }
     }
 
-    private void updateStatusIndicator(int color) {
-        ImageView iv = findViewById(R.id.imageView_btIndicator);
-        BluetoothComm.updateStatusIndicator(iv, color);
-    }
-
     private void updateWords(String json) {
         try {
             if (2 < json.length()) {
-                JSONArray ja = new JSONArray(json);
-                _words = new String[ja.length()];
-                _wordIDs = new Integer[ja.length()];
-                for (int i = 0; i < ja.length(); ++i) {
-                    JSONObject jo = ja.getJSONObject(i);
-                    _words[i] = jo.getString("Word");
-                    _wordIDs[i] = jo.getInt("WordID");
-                }
-                Button button = findViewById(R.id.button_wcSubmit);
-                button.setEnabled(true);
+                CyberScouterWords.setWordsLocal(_db, json);
             }
         } catch (Exception e) {
             e.printStackTrace();

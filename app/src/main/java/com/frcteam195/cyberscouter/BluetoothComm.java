@@ -109,7 +109,7 @@ public class BluetoothComm {
         return resp;
     }
 
-    public String getConfig(AppCompatActivity activity, String last_hash) {
+    public String getConfig(AppCompatActivity activity, int last_hash) {
         String returnJson = _errorJson;
         try {
             String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
@@ -119,9 +119,7 @@ public class BluetoothComm {
             j1.put("computerName", btname);
             jr.put("cmd", "get-config");
             jr.put("payload", j1);
-            if (null != last_hash) {
-                jr.put("last_hash", last_hash);
-            }
+            jr.put("last_hash", last_hash);
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 if (!bLastBTCommFailed) {
@@ -138,15 +136,13 @@ public class BluetoothComm {
         return (returnJson);
     }
 
-    public String getUsers(AppCompatActivity activity, String last_hash) {
+    public String getUsers(AppCompatActivity activity, int last_hash) {
         String returnJson = _errorJson;
         try {
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-users");
-            if (null != last_hash) {
-                jr.put("last_hash", last_hash);
-            }
+            jr.put("last_hash", last_hash);
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 if (!bLastBTCommFailed) {
@@ -163,7 +159,7 @@ public class BluetoothComm {
         return (returnJson);
     }
 
-    public String getMatches(AppCompatActivity activity, int eventId, String last_hash) {
+    public String getMatches(AppCompatActivity activity, int eventId, int last_hash) {
         String returnJson = _errorJson;
         try {
             JSONObject jr = new JSONObject();
@@ -172,9 +168,7 @@ public class BluetoothComm {
             j1.put("eventId", eventId);
             jr.put("cmd", "get-matches");
             jr.put("payload", j1);
-            if (null != last_hash) {
-                jr.put("last_hash", last_hash);
-            }
+            jr.put("last_hash", last_hash);
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 if (!bLastBTCommFailed) {
@@ -191,7 +185,7 @@ public class BluetoothComm {
         return (returnJson);
     }
 
-    public String getMatchesL2(AppCompatActivity activity, int eventId, String last_hash) {
+    public String getMatchesL2(AppCompatActivity activity, int eventId, int last_hash) {
         String returnJson = _errorJson;
         try {
             JSONObject jr = new JSONObject();
@@ -200,9 +194,7 @@ public class BluetoothComm {
             j1.put("eventId", eventId);
             jr.put("cmd", "get-matches-l2");
             jr.put("payload", j1);
-            if (null != last_hash) {
-                jr.put("last_hash", last_hash);
-            }
+            jr.put("last_hash", last_hash);
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 if (!bLastBTCommFailed) {
@@ -233,15 +225,13 @@ public class BluetoothComm {
         return (returnJson);
     }
 
-    public String getTeams(AppCompatActivity activity, String last_hash) {
+    public String getTeams(AppCompatActivity activity, int last_hash) {
         String returnJson = _errorJson;
         try {
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-teams");
-            if (null != last_hash) {
-                jr.put("last_hash", last_hash);
-            }
+            jr.put("last_hash", last_hash);
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 if (!bLastBTCommFailed) {
@@ -258,15 +248,13 @@ public class BluetoothComm {
         return (returnJson);
     }
 
-    public String getWordCloud(AppCompatActivity activity, String last_hash) {
+    public String getWordCloud(AppCompatActivity activity, int last_hash) {
         String returnJson = _errorJson;
         try {
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-word-cloud");
-            if (null != last_hash) {
-                jr.put("last_hash", last_hash);
-            }
+            jr.put("last_hash", last_hash);
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 FakeBluetoothServer fbts = new FakeBluetoothServer();
@@ -281,15 +269,13 @@ public class BluetoothComm {
         return (returnJson);
     }
 
-    public String getWords(AppCompatActivity activity, String last_hash) {
+    public String getWords(AppCompatActivity activity, int last_hash) {
         String returnJson = _errorJson;
         try {
             JSONObject jr = new JSONObject();
 
             jr.put("cmd", "get-words");
-            if (null != last_hash) {
-                jr.put("last_hash", last_hash);
-            }
+            jr.put("last_hash", last_hash);
 
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
                 if (!bLastBTCommFailed) {

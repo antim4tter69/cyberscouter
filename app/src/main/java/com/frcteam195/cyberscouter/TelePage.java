@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragmentInteractionListener {
     private static final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
+    private final int defaultButtonTextColor = Color.LTGRAY;
+
     private Button button;
     private Button zone_1L;
     private Button zone_2L;
@@ -34,9 +36,10 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private int FIELD_ORIENTATION_RIGHT = 0;
     private int FIELD_ORIENTATION_LEFT = 1;
     private int field_orientation = FIELD_ORIENTATION_RIGHT;
-    private Chronometer Stage_2;
+    private Chronometer StageChronometer;
     private long pauseOffset;
     private boolean running;
+    private int currentTimerStage=2;
 
     private final int[] StageButtons = {R.id.StageTwoButton, R.id.StageThreeButton};
 
@@ -117,9 +120,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        Stage_2 = findViewById(R.id.Stage_2);
-        Stage_2.setFormat("Time: %s");
-        Stage_2.setBase(SystemClock.elapsedRealtime());
+        StageChronometer = findViewById(R.id.Stage_2);
+        StageChronometer.setFormat("Time: %s");
+        StageChronometer.setBase(SystemClock.elapsedRealtime());
 
         CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
@@ -402,31 +405,38 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startStage_2(v);
+                startChronometer(v);
             }
         });
         button = findViewById(R.id.button_teleSuccessChron);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetStage_2(v);
+                resetChronometer(v);
             }
         });
         button = findViewById(R.id.button_teleFailureChron);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pauseStage_2(v);
+                pauseChronometer(v);
+            }
+        });
+
+        button = findViewById(R.id.StageTwoButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StageButtons(0);
             }
         });
         button = findViewById(R.id.StageThreeButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetStage_2(v);
+                StageButtons(1);
             }
         });
-
     }
 
     @Override
@@ -472,10 +482,19 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
                 _stage2Status = csm.getTeleWheelStage2Status();
                 _stage2Time = csm.getTeleWheelStage2Time();
                 _stage2Attempts = csm.getTeleWheelStage2Attempts();
+                if(0 != _stage2Status) {
+                    button = findViewById(R.id.StageTwoButton);
+                    button.setEnabled(false);
+                }
                 _stage3Time = csm.getTeleWheelStage3Time();
                 _stage3Attempts = csm.getTeleWheelStage3Attempts();
                 _stage3Status = csm.getTeleWheelStage3Status();
+                if(0 != _stage3Status) {
+                    button = findViewById(R.id.StageThreeButton);
+                    button.setEnabled(false);
+                }
                 setTimer();
+                FakeRadioGroup.buttonDisplay(this, 0, StageButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
             }
         }
     }
@@ -490,42 +509,71 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         tpp.show(fm, "telepopup");
     }
 
-    public void startStage_2(View V) {
+    public void startChronometer(View V) {
         if (!running) {
-            Stage_2.setBase(SystemClock.elapsedRealtime() - pauseOffset);
-            Stage_2.start();
-            running = true;
-        }
-    }
-
-    private void pauseStage_2(View V) {
-        if (running) {
-            Stage_2.stop();
-            pauseOffset = SystemClock.elapsedRealtime() - Stage_2.getBase();
-            running = false;
             if(0 == _stage2Time) {
                 _stage2Attempts++;
             } else {
                 _stage3Attempts++;
             }
+            button = findViewById(R.id.button_Previous);
+            button.setEnabled(false);
+            button = findViewById(R.id.button_next);
+            button.setEnabled(false);
+            button = findViewById(R.id.StageTwoButton);
+            button.setEnabled(false);
+            button = findViewById(R.id.StageThreeButton);
+            button.setEnabled(false);
+            StageChronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
+            StageChronometer.start();
+            running = true;
         }
     }
 
-    private void resetStage_2(View V) {
-        if(running) {
-            Stage_2.stop();
+    private void pauseChronometer(View V) {
+        if (running) {
+            StageChronometer.stop();
+            pauseOffset = SystemClock.elapsedRealtime() - StageChronometer.getBase();
             running = false;
+            button = findViewById(R.id.button_Previous);
+            button.setEnabled(true);
+            button = findViewById(R.id.button_next);
+            button.setEnabled(true);
+            button = findViewById(R.id.StageTwoButton);
+            button.setEnabled(true);
+            button = findViewById(R.id.StageThreeButton);
+            button.setEnabled(true);
         }
-        int ltime = (int)(SystemClock.elapsedRealtime() - Stage_2.getBase()) / 1000;
-        if(0 == _stage2Time) {
+    }
+
+    private void resetChronometer(View V) {
+        if(running) {
+            StageChronometer.stop();
+            running = false;
+            button = findViewById(R.id.button_Previous);
+            button.setEnabled(true);
+            button = findViewById(R.id.button_next);
+            button.setEnabled(true);
+            button = findViewById(R.id.StageTwoButton);
+            button.setEnabled(true);
+            button = findViewById(R.id.StageThreeButton);
+            button.setEnabled(true);
+        }
+        int ltime = (int)(SystemClock.elapsedRealtime() - StageChronometer.getBase()) / 1000;
+        if(2 == currentTimerStage) {
             _stage2Time = ltime;
             _stage2Status = 1;
+            button = findViewById(R.id.StageTwoButton);
+            button.setEnabled(false);
+            StageButtons(1);
         } else {
             _stage3Time = ltime;
             _stage3Status = 1;
+            button = findViewById(R.id.StageThreeButton);
+            button.setEnabled(false);
         }
         pauseOffset = 0;
-        Stage_2.setBase(SystemClock.elapsedRealtime());
+        StageChronometer.setBase(SystemClock.elapsedRealtime());
         setTimer();
     }
 
@@ -617,8 +665,10 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         }
     }
 
-    public void StageButtons() {
-        int defaultButtonTextColor = Color.BLACK;
-        FakeRadioGroup.buttonPressed(this, 4, StageButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    public void StageButtons(int val) {
+        FakeRadioGroup.buttonPressed(this, val, StageButtons,
+                "",
+                SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        currentTimerStage = val + 2;
     }
 }

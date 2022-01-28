@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/tele_page_relative_layout"
+    android:id="@+id/TeleUpperCounter"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TelePage">
@@ -13,7 +13,7 @@
         android:layout_height="95dp"
         android:layout_marginBottom="16dp"
         android:text="@string/PreviousButton"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.038"
@@ -25,7 +25,7 @@
         android:layout_height="95dp"
         android:layout_marginBottom="16dp"
         android:text="@string/NextButton"
-        android:textSize="20sp"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.961"
@@ -67,145 +67,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/Reset_button"
-        android:layout_width="173dp"
-        android:layout_height="95dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/ResetButton"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_next"
-        app:layout_constraintStart_toEndOf="@+id/button_Previous" />
-
-    <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="1031dp"
-        android:layout_height="503dp"
-        android:contentDescription="@string/logo_description"
-        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/field_2020" />
-
-    <Button
-        android:id="@+id/zone_3L"
-        android:layout_width="400dp"
-        android:layout_height="468dp"
-        android:alpha=".5"
-        android:background="#8B4513"
-        android:fromDegrees="10"
-        android:text="@string/three"
-        app:layout_constraintBottom_toTopOf="@+id/zone_5L"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.202"
-        app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/zone_1L"
-        android:layout_width="84dp"
-        android:layout_height="114dp"
-        android:layout_weight="1"
-        android:alpha=".5"
-        android:background="#FFFF00"
-        android:text="@string/one"
-        app:layout_constraintBottom_toBottomOf="@id/imageView8"
-        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.124"
-        app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@id/imageView8"
-        app:layout_constraintVertical_bias="0.266" />
-
-    <Button
-        android:id="@+id/zone_5L"
-        android:layout_width="373dp"
-        android:layout_height="234dp"
-        android:alpha=".5"
-        android:background="#00ff00"
-        android:rotation="45"
-        android:text="@string/five"
-        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.069"
-        app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toBottomOf="@+id/zone_1L"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/zone_4L"
-        android:layout_width="342dp"
-        android:layout_height="448dp"
-        android:layout_marginBottom="44dp"
-        android:alpha=".5"
-        android:background="#AFEEEE"
-        android:text="@string/four"
-        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8"
-        app:layout_constraintHorizontal_bias="0.402"
-        app:layout_constraintStart_toEndOf="@+id/zone_5L"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/zone_2L"
-        android:layout_width="161dp"
-        android:layout_height="92dp"
-        android:alpha=".5"
-        android:background="#FFc0cb"
-        android:text="@string/two"
-        app:layout_constraintBottom_toBottomOf="@+id/zone_3L"
-        app:layout_constraintEnd_toEndOf="@+id/zone_4L"
-        app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toEndOf="@+id/zone_1L"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="0.039" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="250dp"
-        android:layout_height="275dp"
-        android:layout_marginBottom="32dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/button_next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.978"
-        app:layout_constraintStart_toEndOf="@+id/textView_roleTag">
-
-        <Chronometer
-            android:id="@+id/Stage_2"
-            android:layout_width="227dp"
-            android:layout_height="68dp"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/button_teleStartChron"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/StartMatch" />
-
-        <Button
-            android:id="@+id/button_teleSuccessChron"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/success" />
-
-        <Button
-            android:id="@+id/button_teleFailureChron"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/failure" />
-
-    </LinearLayout>
-
     <ImageView
         android:id="@+id/imageView_btIndicator"
         android:layout_width="32dp"
@@ -217,96 +78,94 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/background_light" />
 
-    <Button
-        android:id="@+id/zone_3R"
-        android:layout_width="379dp"
-        android:layout_height="468dp"
-        android:alpha=".5"
-        android:background="#8B4513"
-        android:text="@string/three"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/zone_4R"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/zone_2R"
-        android:layout_width="151dp"
-        android:layout_height="78dp"
-        android:layout_marginTop="396dp"
-        android:alpha=".5"
-        android:background="#FFc0cb"
-        android:text="@string/two"
-        app:layout_constraintBottom_toTopOf="@+id/Reset_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.457"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88" />
-
-    <Button
-        android:id="@+id/zone_4R"
-        android:layout_width="405dp"
-        android:layout_height="474dp"
-        android:alpha=".5"
-        android:background="#AFEEEE"
-        android:text="@string/four"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/zone_3L"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.472" />
-
-    <Button
-        android:id="@+id/zone_5R"
-        android:layout_width="302dp"
-        android:layout_height="208dp"
-        android:layout_marginEnd="12dp"
-        android:alpha=".5"
-        android:background="#00ff00"
-        android:rotation="45"
-        android:text="@string/five"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-        app:layout_constraintHorizontal_bias="0.757"
-        app:layout_constraintStart_toEndOf="@+id/zone_2L"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
-
-    <Button
-        android:id="@+id/zone_1R"
-        android:layout_width="78dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginBottom="100dp"
-        android:alpha=".5"
-        android:background="#FFFF00"
-        android:text="@string/one"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintEnd_toEndOf="@+id/imageView8" />
-
-    <Button
-        android:id="@+id/StageTwoButton"
-        style="@style/Widget.AppCompat.Button"
+    <TextView
+        android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="@string/teleStage2"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/StageThreeButton" />
+        android:layout_marginEnd="32dp"
+        android:text="@string/upper_text"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="@+id/button3"
+        app:layout_constraintHorizontal_bias="0.566"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <Button
-        android:id="@+id/StageThreeButton"
+        android:id="@+id/button"
+        android:layout_width="71dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/MinusButton"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toStartOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="81dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="80dp"
+        android:text="@string/PlusButton"
+        android:textSize="60sp"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toTopOf="@+id/textView25" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="106dp"
+        android:layout_height="136dp"
+        android:layout_marginStart="28dp"
+        android:text="@string/ZeroText"
+        android:textSize="60sp"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <Button
+        android:id="@+id/TeleLowerCounter"
+        android:layout_width="98dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="84dp"
+        android:text="@string/ZeroText"
+        android:textSize="60sp"
+        app:layout_constraintStart_toEndOf="@+id/button_Previous"
+        app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="81dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="84dp"
+        android:text="@string/PlusButton"
+        android:textSize="60sp"
+        app:layout_constraintStart_toEndOf="@+id/TeleLowerCounter"
+        app:layout_constraintTop_toTopOf="@+id/textView16" />
+
+    <TextView
+        android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="96dp"
-        android:text="@string/teleStage3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/StageTwoButton"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/lower_text"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="@+id/button4"
+        app:layout_constraintHorizontal_bias="0.445"
+        app:layout_constraintStart_toStartOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="71dp"
+        android:layout_height="98dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="28dp"
+        android:text="@string/MinusButton"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toStartOf="@+id/TeleLowerCounter"
+        app:layout_constraintTop_toTopOf="@+id/textView16" />
 
 </android.support.constraint.ConstraintLayout>
 

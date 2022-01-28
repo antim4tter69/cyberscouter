@@ -41,7 +41,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     private boolean running;
     private int currentTimerStage=2;
 
-    private final int[] StageButtons = {R.id.StageTwoButton, R.id.StageThreeButton};
+    //private final int[] StageButtons = {R.id.StageTwoButton, R.id.StageThreeButton};
 
     private Integer[][] values = new Integer[5][4];
     private int _stage2Attempts = 0, _stage2Time = 0, _stage2Status = 0, _stage3Attempts = 0, _stage3Time = 0, _stage3Status = 0;
@@ -91,9 +91,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         }
 
 
-        ImageView iv = findViewById(R.id.imageView8);
+        //ImageView iv = findViewById(R.id.imageView8);
         if (FIELD_ORIENTATION_RIGHT == field_orientation) {
-            iv.setImageResource(R.drawable.field_2020_flipped);
+            //iv.setImageResource(R.drawable.field_2020_flipped);
         }
 //        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
 //        updateStatusIndicator(currentCommStatusColor);
@@ -120,13 +120,13 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        StageChronometer = findViewById(R.id.Stage_2);
+        //StageChronometer = findViewById(R.id.Stage_2);
         StageChronometer.setFormat("Time: %s");
         StageChronometer.setBase(SystemClock.elapsedRealtime());
 
         CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
-        button = findViewById(R.id.zone_1L);
+       // button = findViewById(R.id.zone_1L);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +135,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_1R);
+       // button = findViewById(R.id.zone_1R);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +144,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_2L);
+        // button = findViewById(R.id.zone_2L);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +153,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_2R);
+       // button = findViewById(R.id.zone_2R);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +162,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_3L);
+       // button = findViewById(R.id.zone_3L);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,7 +171,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_3R);
+       // button = findViewById(R.id.zone_3R);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,7 +180,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_4L);
+       // button = findViewById(R.id.zone_4L);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +189,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_4R);
+       // button = findViewById(R.id.zone_4R);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,7 +198,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_5L);
+       // button = findViewById(R.id.zone_5L);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -207,7 +207,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.zone_5R);
+       // button = findViewById(R.id.zone_5R);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,7 +216,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.StageTwoButton);
+       // button = findViewById(R.id.StageTwoButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,7 +225,7 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.StageThreeButton);
+       // button = findViewById(R.id.StageThreeButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -237,185 +237,185 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
 
         if (csm.getAllianceStationID() < 4) {
             if (field_orientation == FIELD_ORIENTATION_LEFT) {
-                button = findViewById(R.id.zone_1L);
+               // button = findViewById(R.id.zone_1L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_2L);
+              //  button = findViewById(R.id.zone_2L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_3L);
+               // button = findViewById(R.id.zone_3L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_4L);
+                //button = findViewById(R.id.zone_4L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_5L);
+               // button = findViewById(R.id.zone_5L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_1R);
+              //  button = findViewById(R.id.zone_1R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_2R);
+              //  button = findViewById(R.id.zone_2R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_3R);
+              //  button = findViewById(R.id.zone_3R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_4R);
+               // button = findViewById(R.id.zone_4R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_5R);
+               // button = findViewById(R.id.zone_5R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
             } else {
-                button = findViewById(R.id.zone_1L);
+              //  button = findViewById(R.id.zone_1L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_2L);
+               // button = findViewById(R.id.zone_2L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_3L);
+               // button = findViewById(R.id.zone_3L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_4L);
+              //  button = findViewById(R.id.zone_4L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_5L);
+              //  button = findViewById(R.id.zone_5L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_1R);
+              //  button = findViewById(R.id.zone_1R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_2R);
+                // button = findViewById(R.id.zone_2R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_3R);
+              //  button = findViewById(R.id.zone_3R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_4R);
+             //   button = findViewById(R.id.zone_4R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_5R);
+              //  button = findViewById(R.id.zone_5R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
             }
         } else {
             if (field_orientation == FIELD_ORIENTATION_LEFT) {
-                button = findViewById(R.id.zone_1L);
+                //button = findViewById(R.id.zone_1L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_2L);
+                //button = findViewById(R.id.zone_2L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_3L);
+                //button = findViewById(R.id.zone_3L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_4L);
+                //button = findViewById(R.id.zone_4L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_5L);
+                //button = findViewById(R.id.zone_5L);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_1R);
+                //button = findViewById(R.id.zone_1R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_2R);
+                //button = findViewById(R.id.zone_2R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_3R);
+                //button = findViewById(R.id.zone_3R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_4R);
+                //button = findViewById(R.id.zone_4R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_5R);
+                //button = findViewById(R.id.zone_5R);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
             } else {
-                button = findViewById(R.id.zone_1L);
+                //button = findViewById(R.id.zone_1L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_2L);
+                //button = findViewById(R.id.zone_2L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_3L);
+                //button = findViewById(R.id.zone_3L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_4L);
+                //button = findViewById(R.id.zone_4L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_5L);
+                //button = findViewById(R.id.zone_5L);
                 button.setEnabled(true);
                 button.setVisibility(View.VISIBLE);
 
-                button = findViewById(R.id.zone_1R);
+                //button = findViewById(R.id.zone_1R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_2R);
+                //button = findViewById(R.id.zone_2R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_3R);
+                //button = findViewById(R.id.zone_3R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_4R);
+                //button = findViewById(R.id.zone_4R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
 
-                button = findViewById(R.id.zone_5R);
+                //button = findViewById(R.id.zone_5R);
                 button.setEnabled(false);
                 button.setVisibility(View.INVISIBLE);
             }
         }
 
-        button = findViewById(R.id.button_teleStartChron);
+        //button = findViewById(R.id.button_teleStartChron);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startChronometer(v);
             }
         });
-        button = findViewById(R.id.button_teleSuccessChron);
+        //button = findViewById(R.id.button_teleSuccessChron);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetChronometer(v);
             }
         });
-        button = findViewById(R.id.button_teleFailureChron);
+        //button = findViewById(R.id.button_teleFailureChron);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -423,14 +423,14 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             }
         });
 
-        button = findViewById(R.id.StageTwoButton);
+        //button = findViewById(R.id.StageTwoButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 StageButtons(0);
             }
         });
-        button = findViewById(R.id.StageThreeButton);
+        //button = findViewById(R.id.StageThreeButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -483,18 +483,18 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
                 _stage2Time = csm.getTeleWheelStage2Time();
                 _stage2Attempts = csm.getTeleWheelStage2Attempts();
                 if(0 != _stage2Status) {
-                    button = findViewById(R.id.StageTwoButton);
+                    //button = findViewById(R.id.StageTwoButton);
                     button.setEnabled(false);
                 }
                 _stage3Time = csm.getTeleWheelStage3Time();
                 _stage3Attempts = csm.getTeleWheelStage3Attempts();
                 _stage3Status = csm.getTeleWheelStage3Status();
                 if(0 != _stage3Status) {
-                    button = findViewById(R.id.StageThreeButton);
+                    //button = findViewById(R.id.StageThreeButton);
                     button.setEnabled(false);
                 }
                 setTimer();
-                FakeRadioGroup.buttonDisplay(this, 0, StageButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+                //FakeRadioGroup.buttonDisplay(this, 0, StageButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
             }
         }
     }
@@ -520,9 +520,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             button.setEnabled(false);
             button = findViewById(R.id.button_next);
             button.setEnabled(false);
-            button = findViewById(R.id.StageTwoButton);
+            //button = findViewById(R.id.StageTwoButton);
             button.setEnabled(false);
-            button = findViewById(R.id.StageThreeButton);
+           // button = findViewById(R.id.StageThreeButton);
             button.setEnabled(false);
             StageChronometer.setBase(SystemClock.elapsedRealtime() - pauseOffset);
             StageChronometer.start();
@@ -539,9 +539,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             button.setEnabled(true);
             button = findViewById(R.id.button_next);
             button.setEnabled(true);
-            button = findViewById(R.id.StageTwoButton);
+            //button = findViewById(R.id.StageTwoButton);
             button.setEnabled(true);
-            button = findViewById(R.id.StageThreeButton);
+            //button = findViewById(R.id.StageThreeButton);
             button.setEnabled(true);
         }
     }
@@ -554,22 +554,22 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
             button.setEnabled(true);
             button = findViewById(R.id.button_next);
             button.setEnabled(true);
-            button = findViewById(R.id.StageTwoButton);
+            //button = findViewById(R.id.StageTwoButton);
             button.setEnabled(true);
-            button = findViewById(R.id.StageThreeButton);
+            //button = findViewById(R.id.StageThreeButton);
             button.setEnabled(true);
         }
         int ltime = (int)(SystemClock.elapsedRealtime() - StageChronometer.getBase()) / 1000;
         if(2 == currentTimerStage) {
             _stage2Time = ltime;
             _stage2Status = 1;
-            button = findViewById(R.id.StageTwoButton);
+            //button = findViewById(R.id.StageTwoButton);
             button.setEnabled(false);
             StageButtons(1);
         } else {
             _stage3Time = ltime;
             _stage3Status = 1;
-            button = findViewById(R.id.StageThreeButton);
+            //button = findViewById(R.id.StageThreeButton);
             button.setEnabled(false);
         }
         pauseOffset = 0;
@@ -646,11 +646,11 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
         _stage3Status = 0;
 //        TextView tv = findViewById(R.id.textView_stage);
 //        tv.setText(getString(R.string.teleStage2));
-        button = findViewById(R.id.button_teleStartChron);
+        //button = findViewById(R.id.button_teleStartChron);
         button.setEnabled(true);
-        button = findViewById(R.id.button_teleFailureChron);
+        //button = findViewById(R.id.button_teleFailureChron);
         button.setEnabled(true);
-        button = findViewById(R.id.button_teleSuccessChron);
+        //button = findViewById(R.id.button_teleSuccessChron);
         button.setEnabled(true);
     }
 
@@ -666,9 +666,9 @@ public class TelePage extends AppCompatActivity implements TelePopUpPage.OnFragm
     }
 
     public void StageButtons(int val) {
-        FakeRadioGroup.buttonPressed(this, val, StageButtons,
-                "",
-                SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        currentTimerStage = val + 2;
+        //FakeRadioGroup.buttonPressed(this, val, StageButtons,
+                //"",
+               // SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //currentTimerStage = val + 2;
     }
 }

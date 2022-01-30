@@ -24,7 +24,7 @@ public class BackgroundUpdater extends Service {
     BluetoothAdapter _bluetoothAdapter;
 
     private static final int _updaterInterval = 20000;
-    private static final int _pingerInterval = 1000;
+    private static final int _pingerInterval = 5000;
 
     public BackgroundUpdater() {
 
@@ -75,7 +75,7 @@ public class BackgroundUpdater extends Service {
                     SQLiteDatabase db = mDbHelper.getWritableDatabase();
                     CyberScouterConfig cfg = CyberScouterConfig.getConfig(db);
 
-                    if (null != cfg) {
+                    if (null != cfg && !BluetoothComm.bLastBTCommFailed()) {
                         try {
                             CyberScouterMatchScouting[] csmsa = CyberScouterMatchScouting.getMatchesReadyToUpload(db,
                                     cfg.getEvent_id(), cfg.getAlliance_station_id());
@@ -98,7 +98,7 @@ public class BackgroundUpdater extends Service {
                         Thread.sleep(10);
                         try {
                             CyberScouterTeams[] csta = CyberScouterTeams.getTeamsReadyToUpload(db);
-                            if (null != csta) {
+                            if (null != csta && !BluetoothComm.bLastBTCommFailed()) {
                                 for (CyberScouterTeams cst : csta) {
                                     String ret = cst.setTeamsRemote(MainActivity._activity);
                                     if (ret.equalsIgnoreCase("success")) {

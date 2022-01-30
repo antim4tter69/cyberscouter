@@ -7,13 +7,17 @@ import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.frcteam195.cyberscouter.ui.main.SectionsPagerAdapter;
 
@@ -32,6 +36,8 @@ public class PitScoutingActivity extends AppCompatActivity {
 
     private static ScoutingTab scoutingTabFragment;
     public void setScoutingTab(ScoutingTab st) { scoutingTabFragment = st;}
+
+    private SQLiteDatabase _db;
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override
@@ -97,18 +103,26 @@ public class PitScoutingActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
 
-        String teams_str = CyberScouterTeams.getTeamsRemote(this);
-        if(null != teams_str && !teams_str.equalsIgnoreCase("skip")) {
-            updateTeams(teams_str);
-        }
+        _db = mDbHelper.getWritableDatabase();
 
 //        String users_str = CyberScouterUsers.getUsersRemote(this);
 //        if(null != users_str && !users_str.equalsIgnoreCase("skip")) {
 //            updateUsers(users_str);
 //        }
+
+        String teams_str = CyberScouterTeams.getTeamsRemote(this, _db);
+        if (null != teams_str && !teams_str.equalsIgnoreCase("skip")) {
+            updateTeams(teams_str);
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override

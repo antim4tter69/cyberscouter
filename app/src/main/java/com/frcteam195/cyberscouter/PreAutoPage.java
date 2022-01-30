@@ -22,8 +22,6 @@ public class PreAutoPage extends AppCompatActivity {
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private Button didnotshowyesbutton;
 
-    private int field_orientation;
-    private int currentCommStatusColor;
     private final CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
 
@@ -32,7 +30,6 @@ public class PreAutoPage extends AppCompatActivity {
     private int[] _lValues;
     private int _didNotShow = 0;
     private int _startPos = 0;
-
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override
@@ -43,18 +40,21 @@ public class PreAutoPage extends AppCompatActivity {
     };
 
 
+
     @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_auto_page);
 
-        Intent intent = getIntent();
-        field_orientation = intent.getIntExtra("field_orientation", 0);
-//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-//        updateStatusIndicator(currentCommStatusColor);
-
         _db = mDbHelper.getWritableDatabase();
+
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+
+        ImageView iv = findViewById(R.id.imageView6);
+        if (null != cfg && !cfg.isFieldRedLeft()) {
+            iv.setImageResource(R.drawable.field_2020_flipped);
+        }
 
         button = findViewById(R.id.startbutton1);
         button.setOnClickListener(new View.OnClickListener() {
@@ -185,8 +185,6 @@ public class PreAutoPage extends AppCompatActivity {
         _didNotShow = 1;
         updatePreAutoData();
         Intent intent = new Intent(this, SubmitPage.class);
-        intent.putExtra("field_orientation", field_orientation);
-//        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 
@@ -218,8 +216,6 @@ public class PreAutoPage extends AppCompatActivity {
         updatePreAutoData();
 
         Intent intent = new Intent(this, AutoPage.class);
-        intent.putExtra("field_orientation", field_orientation);
-//        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 

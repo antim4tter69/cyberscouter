@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class CyberScouterDbHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 35;
+    private static final int DATABASE_VERSION = 47;
     private static final String DATABASE_NAME = "CyberScouter.db";
 
     private static final String SQL_CREATE_CONFIG_ENTRIES =
@@ -22,7 +22,12 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_FIELD_REDLEFT + " INTEGER," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME + " TEXT," +
                     CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID + " INTEGER," +
-                    CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID + " INTEGER)";
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID + " INTEGER, " +
+                    "UNIQUE(" +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_EVENT_ID + "," +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_ALLIANCE_STATION_ID + "," +
+                    CyberScouterContract.ConfigEntry.COLUMN_NAME_COMPUTER_TYPE_ID +
+                    "))";
 
     private static final String SQL_DELETE_CONFIG_ENTRIES =
             "DROP TABLE IF EXISTS " + CyberScouterContract.ConfigEntry.TABLE_NAME;
@@ -186,21 +191,33 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.WordCloud.COLUMN_NAME_TEAM + " TEXT," +
                     CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID + " INTEGER," +
                     CyberScouterContract.WordCloud.COLUMN_NAME_DONE_SCOUTING + " INTEGER," +
-                    CyberScouterContract.WordCloud.COLUMN_NAME_UPLOAD_STATUS + " INTEGER)"
-            ;
+                    CyberScouterContract.WordCloud.COLUMN_NAME_UPLOAD_STATUS + " INTEGER, " +
+                    "UNIQUE(" +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID + "," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID + "," +
+                    CyberScouterContract.WordCloud.COLUMN_NAME_TEAM +
+                    "))";
 
     private static final String SQL_DELETE_WORD_CLOUD =
             "DROP TABLE IF EXISTS " + CyberScouterContract.WordCloud.TABLE_NAME;
 
     private static final String SQL_CREATE_WORDS =
             "CREATE TABLE " + CyberScouterContract.Words.TABLE_NAME + " (" +
-                    CyberScouterContract.Words.COLUMN_NAME_WORD_ID + " INTEGER," +
+                    CyberScouterContract.Words.COLUMN_NAME_WORD_ID + " INTEGER PRIMARY KEY," +
                     CyberScouterContract.Words.COLUMN_NAME_WORD + " INTEGER," +
                     CyberScouterContract.Words.COLUMN_NAME_DISPLAY_WORD_ORDER + " INTEGER)"
             ;
 
     private static final String SQL_DELETE_WORDS =
             "DROP TABLE IF EXISTS " + CyberScouterContract.Words.TABLE_NAME;
+
+    private static final String SQL_CREATE_TIME_CODE =
+            "CREATE TABLE " + CyberScouterContract.TimeCode.TABLE_NAME + " (" +
+                    CyberScouterContract.TimeCode.COLUMN_NAME_LAST_UPDATE + " TEXT)"
+            ;
+
+    private static final String SQL_DELETE_TIME_CODE =
+            "DROP TABLE IF EXISTS " + CyberScouterContract.TimeCode.TABLE_NAME;
 
     public CyberScouterDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -215,6 +232,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TEAMS);
         db.execSQL(SQL_CREATE_WORD_CLOUD);
         db.execSQL(SQL_CREATE_WORDS);
+        db.execSQL(SQL_CREATE_TIME_CODE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -228,6 +246,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_TEAMS);
         db.execSQL(SQL_DELETE_WORD_CLOUD);
         db.execSQL(SQL_DELETE_WORDS);
+        db.execSQL(SQL_DELETE_TIME_CODE);
         onCreate(db);
     }
 

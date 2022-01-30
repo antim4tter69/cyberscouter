@@ -120,7 +120,8 @@
 
     <string name="logo_description">Team Logo</string>
     <string name="zone_text">Zone %d</string>
-    <string name="outer_text">Outer</string>
+    <string name="outer_text">Outer %d</string>
+    <string name="upper_text">Upper</string>
     <string name="inner_text">Inner</string>
     <string name="lower_text">Lower</string>
     <string name="back_text">Back</string>
@@ -207,4 +208,5 @@
     <string name="fragmentScoutingUser">Select Your Name</string>
     <string name="text_Scouted">Scouted</string>
     <string name="resync">Sync</string>
+    <string name="stage">Stage</string>
 </resources>

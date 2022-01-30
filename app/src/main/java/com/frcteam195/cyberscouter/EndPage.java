@@ -32,7 +32,7 @@ public class EndPage extends AppCompatActivity {
             CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS
     };
 
-    private int lostComm, brokeDown, subSystemBroke, groudPickup, hopperLoad, defense, level, movedOnBar, playedDefense, climbStatus = 0;
+    private int lostComm, brokeDown, subSystemBroke, groudPickup, hopperLoad, defense, level, movedOnBar, playedDefense = 0, climbStatus = 1;
 
     private int currentCommStatusColor;
 
@@ -204,7 +204,8 @@ public class EndPage extends AppCompatActivity {
             movedOnBar = csm.getClimbMoveOnBar();
             FakeRadioGroup.buttonDisplay(this, csm.getSummPlayedDefense(), playedDefenseButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
             playedDefense = csm.getSummPlayedDefense();
-            FakeRadioGroup.buttonDisplay(this, csm.getClimbStatus() - 1, climbStatusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            int tval = csm.getClimbStatus() == 0 ? 0 : csm.getClimbStatus() - 1;
+            FakeRadioGroup.buttonDisplay(this, tval, climbStatusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
             climbStatus = csm.getClimbStatus();
         }
     }

@@ -23,8 +23,6 @@ import java.util.Vector;
 class CyberScouterTeams {
     public final static String TEAMS_UPDATED_FILTER = "frcteam195_cyberscouterteams_teams_updated_intent_filter";
 
-    private static String last_hash = null;
-
     private static String webResponse;
     static String getWebResponse() {
         return(webResponse);
@@ -69,10 +67,12 @@ class CyberScouterTeams {
     private int DoneScouting;
     private int UploadStatus;
 
-    static String getTeamsRemote(AppCompatActivity activity) {
+    static String getTeamsRemote(AppCompatActivity activity, SQLiteDatabase db) {
         String ret = null;
+        int last_hash = 0;
 
         try {
+            last_hash = CyberScouterTimeCode.getLast_update(db);
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.getTeams(activity, last_hash);
             if (null != response) {
@@ -84,7 +84,8 @@ class CyberScouterTeams {
                     } else {
                         JSONArray payload = jo.getJSONArray("payload");
                         ret = payload.toString();
-                        last_hash = jo.getString("hash");
+                        last_hash = jo.getInt("hash");
+                        CyberScouterTimeCode.setLast_update(db, last_hash);
                     }
                 } else {
                     ret = "skip";

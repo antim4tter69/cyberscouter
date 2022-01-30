@@ -130,7 +130,7 @@ public class TelePage extends AppCompatActivity {
 
         button = findViewById(R.id.btnTeleUpperCounter);
         upperCounter = 0;
-        button.setText(upperCounter);
+        button.setText(String.valueOf(upperCounter));
 
         button = findViewById(R.id.btnTeleLowerAdd);
         button.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +150,7 @@ public class TelePage extends AppCompatActivity {
 
         button = findViewById(R.id.btnTeleLowerCounter);
         lowerCounter = 0;
-        button.setText(lowerCounter);
+        button.setText(String.valueOf(lowerCounter));
     }
 
     @Override

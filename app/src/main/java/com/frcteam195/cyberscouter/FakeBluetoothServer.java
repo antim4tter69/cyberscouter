@@ -11,6 +11,7 @@ public class FakeBluetoothServer {
     final private static String _webHost = "8zaof0vuah.execute-api.us-east-1.amazonaws.com";
     final public static String webServiceBaseUrl = String.format("https://%s", _webHost);
 
+    // Change the computer name to get a different view of the scouting program
     final public static String fakeBluetoothComputerName = "Team 195 Scout 1";
 
     public FakeBluetoothServer() {

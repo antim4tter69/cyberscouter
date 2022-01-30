@@ -8,19 +8,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_auto_page.xml" value="0.3104956268221574" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_end_page.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_pit_scouting.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_pre_auto_page.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_scouting_page.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_setup_sync.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_submit_page.xml" value="0.172265625" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_summary_questions_page.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_tele_page.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/activity_word_cloud.xml" value="0.172265625" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/fragment_endgame.xml" value="0.172265625" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/fragment_physical_properties.xml" value="0.264" />
-        <entry key="..\:/Users/jonp9/StudioProjects/cyberscouter/app/src/main/res/layout/fragment_teleop.xml" value="0.172265625" />
+        <entry key="..\:/Users/logan/AndroidStudioProjects/cyberscouter/app/src/main/res/drawable/ic_launcher_background.xml" value="0.252" />
+        <entry key="..\:/Users/logan/AndroidStudioProjects/cyberscouter/app/src/main/res/layout/activity_admin1.xml" value="0.18688423645320196" />
+        <entry key="..\:/Users/logan/AndroidStudioProjects/cyberscouter/app/src/main/res/layout/activity_auto_page.xml" value="0.18688423645320196" />
+        <entry key="..\:/Users/logan/AndroidStudioProjects/cyberscouter/app/src/main/res/layout/activity_end_page.xml" value="0.25" />
+        <entry key="..\:/Users/logan/AndroidStudioProjects/cyberscouter/app/src/main/res/layout/activity_pre_auto_page.xml" value="0.18688423645320196" />
       </map>
     </option>
   </component>
@@ -65,7 +57,7 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8 (2)" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

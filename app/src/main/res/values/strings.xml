@@ -148,13 +148,15 @@
     <string name="DidDefendText">Did They Play Defense</string>
     <string name="MovedOnBar">Moved On Bar </string>
     <string name="LevelText">Level</string>
-    <string name="ClimbStatus">Climb Status</string>
-    <string name="ParkedText">Parked</string>
-    <string name="BusyText">Busy</string>
-    <string name="AttemptedText">Attempted</string>
-    <string name="ClimbedText">Climbed</string>
-    <string name="ClimbPosition">Climb Position</string>
+    <string name="InsteadOfClimb">What Did They Do Instead Of Climb</string>
+    <string name="NoAttempt">No Attempt</string>
+    <string name="LowClimb">Low</string>
+    <string name="MiddleClimb">Middle</string>
+    <string name="HighClimb">High</string>
+    <string name="TraversalClimb">Traversal</string>
+    <string name="ClimbPosition">Can They Climb?</string>
     <string name="AutoSummary">Auto Summary</string>
+    <string name="HighestRungClimbed">Highest Rung Climbed</string>
     <string name="connection_indicator_desc">Green=Bluetooth Connected, Yellow=Network Connected, Red=Not Connected</string>
 
     <string name="Size">Size</string>

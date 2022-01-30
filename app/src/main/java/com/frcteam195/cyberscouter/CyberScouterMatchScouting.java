@@ -685,9 +685,7 @@ class CyberScouterMatchScouting {
         return allianceStationID;
     }
 
-    int getAutoStartPos() {
-        return autoStartPos;
-    }
+    int getAutoStartPos() {return autoStartPos; }
 
     int getAutoDidNotShow() {
         return autoDidNotShow;

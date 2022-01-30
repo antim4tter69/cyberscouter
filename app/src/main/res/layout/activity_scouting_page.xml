@@ -190,7 +190,7 @@
         android:contentDescription="@string/logo_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButton"
-        app:srcCompat="@drawable/field_2020" />
+        app:srcCompat="@drawable/field2022" />
 
     <ImageView
         android:id="@+id/imageView_btIndicator"

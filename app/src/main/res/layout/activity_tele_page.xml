@@ -8,7 +8,7 @@
     tools:context=".TelePage">
 
     <Button
-        android:id="@+id/button_Previous"
+        android:id="@+id/btnTelePrevious"
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:layout_marginBottom="16dp"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button_next"
+        android:id="@+id/btnTeleNext"
         android:layout_width="173dp"
         android:layout_height="95dp"
         android:layout_marginBottom="16dp"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView_btIndicator"
+        android:id="@+id/imageView_teleBtIndicator"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
@@ -85,13 +85,13 @@
         android:layout_marginEnd="32dp"
         android:text="@string/upper_text"
         android:textSize="60sp"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="@+id/btnTeleUpperAdd"
         app:layout_constraintHorizontal_bias="0.566"
-        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintStart_toStartOf="@+id/btnTeleUpperSubtract"
         app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnTeleUpperSubtract"
         android:layout_width="71dp"
         android:layout_height="85dp"
         android:layout_marginTop="80dp"
@@ -101,45 +101,45 @@
         app:layout_constraintTop_toTopOf="@+id/textView25" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnTeleUpperAdd"
         android:layout_width="81dp"
         android:layout_height="102dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="80dp"
         android:text="@string/PlusButton"
         android:textSize="60sp"
-        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintStart_toEndOf="@+id/btnTeleUpperCounter"
         app:layout_constraintTop_toTopOf="@+id/textView25" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/btnTeleUpperCounter"
         android:layout_width="106dp"
         android:layout_height="136dp"
         android:layout_marginStart="28dp"
         android:text="@string/ZeroText"
         android:textSize="60sp"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/btnTeleUpperSubtract"
         app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
     <Button
-        android:id="@+id/TeleLowerCounter"
+        android:id="@+id/btnTeleLowerCounter"
         android:layout_width="98dp"
         android:layout_height="131dp"
         android:layout_marginTop="84dp"
         android:text="@string/ZeroText"
         android:textSize="60sp"
-        app:layout_constraintStart_toEndOf="@+id/button_Previous"
+        app:layout_constraintStart_toEndOf="@+id/btnTelePrevious"
         app:layout_constraintTop_toTopOf="@+id/textView16" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btnTeleLowerAdd"
         android:layout_width="81dp"
         android:layout_height="106dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="84dp"
         android:text="@string/PlusButton"
         android:textSize="60sp"
-        app:layout_constraintStart_toEndOf="@+id/TeleLowerCounter"
+        app:layout_constraintStart_toEndOf="@+id/btnTeleLowerCounter"
         app:layout_constraintTop_toTopOf="@+id/textView16" />
 
     <TextView
@@ -151,20 +151,20 @@
         android:layout_marginEnd="32dp"
         android:text="@string/lower_text"
         android:textSize="60sp"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
+        app:layout_constraintEnd_toEndOf="@+id/btnTeleLowerAdd"
         app:layout_constraintHorizontal_bias="0.445"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+        app:layout_constraintStart_toStartOf="@+id/btnTeleLowerSubtract"
+        app:layout_constraintTop_toBottomOf="@+id/btnTeleUpperCounter" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnTeleLowerSubtract"
         android:layout_width="71dp"
         android:layout_height="98dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="28dp"
         android:text="@string/MinusButton"
         android:textSize="60sp"
-        app:layout_constraintEnd_toStartOf="@+id/TeleLowerCounter"
+        app:layout_constraintEnd_toStartOf="@+id/btnTeleLowerCounter"
         app:layout_constraintTop_toTopOf="@+id/textView16" />
 
 </android.support.constraint.ConstraintLayout>

@@ -103,6 +103,7 @@
     <string name="PickupText">Pick Up</string>
     <string name="NumberOfPreloads">Number of Preloads</string>
     <string name="TypicalCellsStored">Typical Scored Power Cells</string>
+    <string name="AttemptedText">Attempted</string>
 
     <string name="tagTeam">Team %s</string>
     <string name="tagEvent">Event %s</string>

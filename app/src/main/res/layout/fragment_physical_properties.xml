@@ -9,14 +9,34 @@
 
     <TextView
         android:id="@+id/size"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="@string/Size"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/size2"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="50dp"
+        android:text="@string/Drive"
+        android:textSize="35sp"
+        app:layout_constraintStart_toEndOf="@+id/size"
+        app:layout_constraintTop_toTopOf="@+id/size" />
+
+    <TextView
+        android:id="@+id/size3"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="650dp"
+        android:text="@string/Other"
+        android:textSize="35sp"
+        app:layout_constraintStart_toEndOf="@+id/size"
+        app:layout_constraintTop_toTopOf="@+id/size2" />
 
     <TextView
         android:id="@+id/length"
@@ -36,7 +56,8 @@
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="@+id/length"
-        app:layout_constraintTop_toBottomOf="@+id/length" />
+        app:layout_constraintTop_toBottomOf="@+id/length"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/inches1"
@@ -66,7 +87,8 @@
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintStart_toStartOf="@+id/width"
-        app:layout_constraintTop_toBottomOf="@+id/width" />
+        app:layout_constraintTop_toBottomOf="@+id/width"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/inches2"
@@ -142,11 +164,10 @@
         android:id="@+id/driveType"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginStart="195dp"
         android:text="@string/DriveType"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/size"
-        app:layout_constraintTop_toTopOf="@+id/size" />
+        app:layout_constraintStart_toStartOf="@+id/size2"
+        app:layout_constraintTop_toTopOf="@+id/length" />
 
     <Spinner
         android:id="@+id/driveTypePicker"
@@ -160,10 +181,11 @@
         android:id="@+id/motor"
         android:layout_width="200dp"
         android:layout_height="50dp"
+        android:layout_marginTop="32dp"
         android:text="@string/Motor"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/driveTypePicker"
-        app:layout_constraintTop_toBottomOf="@+id/length" />
+        app:layout_constraintTop_toBottomOf="@+id/driveTypePicker" />
 
     <Spinner
         android:id="@+id/motorTypePicker"
@@ -210,20 +232,21 @@
         android:id="@+id/numberOfMotor"
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/DriveMotors"
         android:textSize="25sp"
         app:layout_constraintStart_toStartOf="@+id/motorTypePicker"
-        app:layout_constraintTop_toBottomOf="@+id/width" />
+        app:layout_constraintTop_toBottomOf="@+id/motorTypePicker" />
 
     <TextView
         android:id="@+id/numberOfWheels"
         android:layout_width="250dp"
         android:layout_height="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:text="@string/NumberWheels"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/motorMinusButton"
-        app:layout_constraintTop_toBottomOf="@+id/motorMinusButton" />
+        app:layout_constraintStart_toStartOf="@+id/editText_topSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/motorTypePicker" />
 
     <Button
         android:id="@+id/wheelsMinusButton"
@@ -262,7 +285,7 @@
         android:id="@+id/wheelType"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_marginStart="125dp"
+        android:layout_marginStart="75dp"
         android:text="@string/Wheel"
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/driveType"
@@ -272,17 +295,19 @@
         android:id="@+id/wheelTypePicker"
         android:layout_width="200dp"
         android:layout_height="25dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="@+id/wheelType"
-        app:layout_constraintTop_toTopOf="@+id/driveTypePicker" />
+        app:layout_constraintTop_toBottomOf="@+id/wheelType" />
 
     <TextView
         android:id="@+id/topSpeed"
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:layout_marginTop="32dp"
         android:text="@string/TopSpeed"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="@+id/wheelTypePicker"
-        app:layout_constraintTop_toTopOf="@+id/motor" />
+        app:layout_constraintTop_toBottomOf="@+id/wheelTypePicker" />
 
     <EditText
         android:id="@+id/editText_topSpeed"
@@ -298,59 +323,59 @@
         android:id="@+id/gearRatio"
         android:layout_width="200dp"
         android:layout_height="40dp"
+        android:layout_marginTop="20dp"
         android:text="@string/GearRatio"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/editText_topSpeed"
-        app:layout_constraintTop_toTopOf="@+id/numberOfMotor" />
+        app:layout_constraintStart_toStartOf="@+id/gearSpeed1"
+        app:layout_constraintTop_toBottomOf="@+id/gearSpeed2" />
 
     <TextView
         android:id="@+id/gearSpeeds"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginStart="125dp"
         android:text="@string/GearSpeeds"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/wheelType"
+        app:layout_constraintStart_toStartOf="@+id/size3"
         app:layout_constraintTop_toTopOf="@+id/wheelType" />
 
     <Button
         android:id="@+id/gearSpeed1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
         android:text="@string/one"
-        android:textSize="30sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/gearSpeeds"
-        app:layout_constraintTop_toTopOf="@+id/wheelTypePicker" />
+        app:layout_constraintTop_toBottomOf="@+id/gearSpeeds" />
 
     <Button
         android:id="@+id/gearSpeed2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="40dp"
         android:text="@string/two"
-        android:textSize="30sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/gearSpeed1"
         app:layout_constraintTop_toTopOf="@+id/gearSpeed1" />
 
     <Button
         android:id="@+id/gearSpeed3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:text="@string/three"
-        android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/gearSpeed2"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="@+id/gearSpeeds"
         app:layout_constraintTop_toTopOf="@+id/gearSpeed2" />
 
     <TextView
         android:id="@+id/progLang"
         android:layout_width="325dp"
         android:layout_height="40dp"
-        android:layout_marginStart="125dp"
+        android:layout_marginTop="20dp"
         android:text="@string/ProgLang"
         android:textSize="25sp"
-        app:layout_constraintStart_toEndOf="@+id/editText_topSpeed"
-        app:layout_constraintTop_toTopOf="@+id/editText_topSpeed" />
+        app:layout_constraintStart_toStartOf="@+id/gearRatio1"
+        app:layout_constraintTop_toBottomOf="@+id/gearRatio1" />
 
     <Spinner
         android:id="@+id/progLangPicker"
@@ -364,7 +389,6 @@
         android:id="@+id/pneumatics"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="25dp"
         android:text="@string/Pneumatics"
         android:textSize="30sp"
@@ -373,21 +397,22 @@
 
     <Button
         android:id="@+id/pneumaticsYes"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
         android:text="@string/YesButton"
-        android:textSize="30sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/pneumatics"
         app:layout_constraintTop_toBottomOf="@+id/pneumatics" />
 
     <Button
         android:id="@+id/pneumaticsNo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="80dp"
         android:text="@string/NoButton"
-        android:textSize="30sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="@+id/pneumatics"
         app:layout_constraintTop_toBottomOf="@+id/pneumatics" />
 
@@ -420,5 +445,23 @@
         android:textSize="30sp"
         app:layout_constraintStart_toEndOf="@+id/gearRatio1"
         app:layout_constraintTop_toTopOf="@+id/gearRatio1" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="5dp"
+        android:layout_height="798dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/numberOfMotor"
+        app:layout_constraintStart_toEndOf="@+id/size"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="5dp"
+        android:layout_height="798dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/progLang"
+        app:layout_constraintStart_toEndOf="@+id/numberOfWheels"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

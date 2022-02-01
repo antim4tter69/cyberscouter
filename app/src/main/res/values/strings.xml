@@ -181,6 +181,8 @@
     <string name="ProgLang">Programming Language</string>
     <string name="Pneumatics">Pneumatics</string>
     <string name="Colon">:</string>
+    <string name="Drive">Drive</string>
+    <string name="Other">Other</string>
 
 
     <string name="oneOne">1</string>

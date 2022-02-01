@@ -53,7 +53,8 @@ public class PreAutoPage extends AppCompatActivity {
 
         ImageView iv = findViewById(R.id.imageView6);
         if (null != cfg && !cfg.isFieldRedLeft()) {
-            iv.setImageResource(R.drawable.field_2020_flipped);
+            iv.setImageResource(R.drawable.bluefield);
+            iv.setRotation(180);
         }
 
         button = findViewById(R.id.startbutton1);

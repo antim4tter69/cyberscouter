@@ -65,72 +65,6 @@
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <Button
-        android:id="@+id/button_PlayedDefenseNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="38dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_Next"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button_MovedOnBarNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_PlayedDefenseNo"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button_LevelNo"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_MovedOnBarNo"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button_PlayedDefenseYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="38dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_Next"
-        app:layout_constraintEnd_toStartOf="@+id/button_PlayedDefenseNo" />
-
-    <Button
-        android:id="@+id/button_MovedOnBarYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_PlayedDefenseYes"
-        app:layout_constraintEnd_toStartOf="@+id/button_PlayedDefenseNo" />
-
-    <Button
-        android:id="@+id/button_LevelYes"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_MovedOnBarYes"
-        app:layout_constraintEnd_toStartOf="@+id/button_PlayedDefenseNo" />
-
-    <Button
         android:id="@+id/button_Previous"
         android:layout_width="226dp"
         android:layout_height="80dp"
@@ -183,85 +117,50 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_DefenseText"
-        android:layout_width="350dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="576dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="128dp"
-        android:text="@string/DefenseText"
+        android:id="@+id/textView_RungPosition"
+        android:layout_width="408dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="44dp"
+        android:text="@string/PositionOnTheRungs"
+        android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_Previous"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_Traversal"
-        app:layout_constraintVertical_bias="0.155" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button4" />
 
     <Button
         android:id="@+id/button_DefenseWeak"
-        android:layout_width="100dp"
+        android:layout_width="132dp"
         android:layout_height="48dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/WeakDefenseText"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="6dp"
+        android:text="@string/PositionCenter"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/button_DefenseNone"
-        app:layout_constraintTop_toBottomOf="@+id/textView_DefenseText" />
-
-    <Button
-        android:id="@+id/button_DefenseStrong"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/StrongDefenseText"
-        android:textSize="17sp"
-        app:layout_constraintStart_toEndOf="@+id/button_DefenseWeak"
-        app:layout_constraintTop_toBottomOf="@+id/textView_DefenseText" />
+        app:layout_constraintEnd_toStartOf="@+id/button_DefenseStrong"
+        app:layout_constraintTop_toBottomOf="@+id/textView_RungPosition" />
 
     <Button
         android:id="@+id/button_DefenseNone"
-        android:layout_width="100dp"
+        android:layout_width="132dp"
         android:layout_height="48dp"
-        android:layout_marginStart="568dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/PreloadNoneButton"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="6dp"
+        android:text="@string/PositionLeft"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_DefenseText" />
+        app:layout_constraintEnd_toStartOf="@+id/button_DefenseWeak"
+        app:layout_constraintTop_toBottomOf="@+id/textView_RungPosition" />
 
-    <TextView
-        android:id="@+id/textView_PlayedDefense"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button_DefenseStrong"
+        android:layout_width="132dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="38dp"
-        android:text="@string/DidDefendText"
-        android:textSize="28sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_Next"
-        app:layout_constraintEnd_toStartOf="@+id/button_PlayedDefenseYes" />
-
-    <TextView
-        android:id="@+id/textView_MovedOnBar"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/MovedOnBar"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_PlayedDefense"
-        app:layout_constraintEnd_toStartOf="@+id/button_MovedOnBarYes" />
-
-    <TextView
-        android:id="@+id/textView_Level"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/LevelText"
-        android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_MovedOnBar"
-        app:layout_constraintEnd_toStartOf="@+id/button_LevelYes" />
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="44dp"
+        android:text="@string/PositionRight"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_RungPosition" />
 
     <Button
         android:id="@+id/button_Low"

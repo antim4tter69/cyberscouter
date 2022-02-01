@@ -55,7 +55,7 @@
     <string name="PreloadText">Preload</string>
     <string name="PreloadCargoButton">Cargo</string>
     <string name="PreloadPanelButton">Panel</string>
-    <string name="PreloadNoneButton">None</string>
+    <string name="PositionLeft">Left</string>
     <string name="TeamText">Team</string>
     <string name="StartMatchButton">Start Match</string>
     <string name="PlusButton">+</string>
@@ -141,11 +141,11 @@
     <string name="LowerText">Lower</string>
     <string name="AutoLabel">Auto</string>
     <string name="PowerPortContent">PowerPort</string>
-    <string name="DefenseText">Defense Played Against Robot</string>
+    <string name="PositionOnTheRungs">Position on the Rungs</string>
     <string name="SubSystemText">Sub System Broke</string>
     <string name="HopperLoadText">Hopper Load</string>
-    <string name="WeakDefenseText">Weak</string>
-    <string name="StrongDefenseText">Strong</string>
+    <string name="PositionCenter">Center</string>
+    <string name="PositionRight">Right</string>
     <string name="DidDefendText">Did They Play Defense</string>
     <string name="MovedOnBar">Moved On Bar </string>
     <string name="LevelText">Level</string>

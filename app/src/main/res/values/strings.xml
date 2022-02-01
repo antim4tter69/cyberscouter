@@ -55,7 +55,7 @@
     <string name="PreloadText">Preload</string>
     <string name="PreloadCargoButton">Cargo</string>
     <string name="PreloadPanelButton">Panel</string>
-    <string name="PreloadNoneButton">None</string>
+    <string name="PositionLeft">Left</string>
     <string name="TeamText">Team</string>
     <string name="StartMatchButton">Start Match</string>
     <string name="PlusButton">+</string>
@@ -120,7 +120,8 @@
 
     <string name="logo_description">Team Logo</string>
     <string name="zone_text">Zone %d</string>
-    <string name="outer_text">Outer</string>
+    <string name="outer_text">Outer %d</string>
+    <string name="upper_text">Upper</string>
     <string name="inner_text">Inner</string>
     <string name="lower_text">Lower</string>
     <string name="back_text">Back</string>
@@ -140,21 +141,23 @@
     <string name="LowerText">Lower</string>
     <string name="AutoLabel">Auto</string>
     <string name="PowerPortContent">PowerPort</string>
-    <string name="DefenseText">Defense Played Against Robot</string>
+    <string name="PositionOnTheRungs">Position on the Rungs</string>
     <string name="SubSystemText">Sub System Broke</string>
     <string name="HopperLoadText">Hopper Load</string>
-    <string name="WeakDefenseText">Weak</string>
-    <string name="StrongDefenseText">Strong</string>
+    <string name="PositionCenter">Center</string>
+    <string name="PositionRight">Right</string>
     <string name="DidDefendText">Did They Play Defense</string>
     <string name="MovedOnBar">Moved On Bar </string>
     <string name="LevelText">Level</string>
-    <string name="ClimbStatus">Climb Status</string>
-    <string name="ParkedText">Parked</string>
-    <string name="BusyText">Busy</string>
-    <string name="AttemptedText">Attempted</string>
-    <string name="ClimbedText">Climbed</string>
-    <string name="ClimbPosition">Climb Position</string>
+    <string name="InsteadOfClimb">What Did They Do Instead Of Climb</string>
+    <string name="NoAttempt">No Attempt</string>
+    <string name="LowClimb">Low</string>
+    <string name="MiddleClimb">Middle</string>
+    <string name="HighClimb">High</string>
+    <string name="TraversalClimb">Traversal</string>
+    <string name="ClimbPosition">Can They Climb?</string>
     <string name="AutoSummary">Auto Summary</string>
+    <string name="HighestRungClimbed">Highest Rung Climbed</string>
     <string name="connection_indicator_desc">Green=Bluetooth Connected, Yellow=Network Connected, Red=Not Connected</string>
 
     <string name="Size">Size</string>
@@ -207,4 +210,5 @@
     <string name="fragmentScoutingUser">Select Your Name</string>
     <string name="text_Scouted">Scouted</string>
     <string name="resync">Sync</string>
+    <string name="stage">Stage</string>
 </resources>

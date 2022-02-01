@@ -24,7 +24,6 @@ class CyberScouterMatchScouting {
     final static String MATCH_SCOUTING_UPDATED_FILTER = "frcteam195_cyberscoutermatchscouting_match_scouting_updated_intent_filter";
 
     private static boolean webQueryInProgress = false;
-    private static String last_hash;
 
     private static String webResponse;
 
@@ -107,9 +106,11 @@ class CyberScouterMatchScouting {
         return json;
     }
 
-    static String getMatchesRemote(AppCompatActivity activity, int eventId) {
+    static String getMatchesRemote(AppCompatActivity activity, SQLiteDatabase db, int eventId) {
         String ret = null;
         try {
+            int last_hash = CyberScouterTimeCode.getLast_update(db);
+            System.out.println(String.format(">>>>>>>>>>>>>>>>>>>>>>>LastUpdate=%d", last_hash));
             BluetoothComm btcomm = new BluetoothComm();
             String response = btcomm.getMatches(activity, eventId, last_hash);
             if (null != response) {
@@ -121,7 +122,8 @@ class CyberScouterMatchScouting {
                     } else {
                         JSONArray payload = jo.getJSONArray("payload");
                         ret = payload.toString();
-                        last_hash = jo.getString("hash");
+                        last_hash = jo.getInt("hash");
+                        CyberScouterTimeCode.setLast_update(db, last_hash);
                     }
                 } else {
                     ret = "skip";
@@ -683,9 +685,7 @@ class CyberScouterMatchScouting {
         return allianceStationID;
     }
 
-    int getAutoStartPos() {
-        return autoStartPos;
-    }
+    int getAutoStartPos() {return autoStartPos; }
 
     int getAutoDidNotShow() {
         return autoDidNotShow;

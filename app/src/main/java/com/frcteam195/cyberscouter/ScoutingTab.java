@@ -3,6 +3,8 @@ package com.frcteam195.cyberscouter;
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import java.util.Locale;
@@ -40,6 +43,7 @@ public class ScoutingTab extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
         Button button = _view.findViewById(R.id.button_scoutingTabCommit);
         //        user_array = CyberScouterUsers.getUserNames(_db);
 

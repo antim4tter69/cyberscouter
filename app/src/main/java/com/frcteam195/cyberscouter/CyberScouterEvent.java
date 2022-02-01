@@ -3,7 +3,6 @@ package com.frcteam195.cyberscouter;
 import android.os.AsyncTask;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 

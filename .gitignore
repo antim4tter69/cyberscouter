@@ -12,3 +12,5 @@
 .externalNativeBuild
 /jtds-1.3.1/build/.transforms/0456dca1232ca93df6b909c650f80d56/jtds-1.3.1/classes.dex
 /jtds-1.3.1/build/
+/gradle/wrapper/gradle-wrapper.properties
+/.idea/git.xml

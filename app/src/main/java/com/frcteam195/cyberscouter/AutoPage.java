@@ -15,7 +15,6 @@ public class AutoPage extends AppCompatActivity {
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-    private final int[] penaltyButtons = {R.id.button_PenaltiesNo, R.id.button_PenaltiesYes};
     private int innerGoalCount = 0;
     private int outerGoalCount = 0;
     private int lowerGoalCount = 0;
@@ -75,21 +74,19 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_PenaltiesYes);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                penaltiesYes();
+           //     penaltiesYes();
             }
         });
 
-        button = findViewById(R.id.button_PenaltiesNo);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                penaltiesNo();
+           //     penaltiesNo();
             }
         });
 
@@ -158,14 +155,13 @@ public class AutoPage extends AppCompatActivity {
         CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
-            TextView tv = findViewById(R.id.textView_Match);
-            tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
-            tv = findViewById(R.id.textView_Team);
-            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
+           // TextView tv = findViewById(R.id.textView_Match);
+          //  tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
+         //   tv = findViewById(R.id.textView_Team);
+           // tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
             FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-            FakeRadioGroup.buttonDisplay(this, csm.getAutoPenalty(), penaltyButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-            button = findViewById(R.id.InnerCounter);
+        //    button = findViewById(R.id.InnerCounter);
             button.setText(String.valueOf(csm.getAutoBallInner()));
             button = findViewById(R.id.OuterCounter);
             button.setText(String.valueOf(csm.getAutoBallOuter()));
@@ -228,25 +224,18 @@ public class AutoPage extends AppCompatActivity {
     }
 
 
-    public void penaltiesYes() {
-        FakeRadioGroup.buttonPressed(this, 1, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        penalties = 1;
-    }
 
-    public void penaltiesNo() {
-        FakeRadioGroup.buttonPressed(this, 0, penaltyButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        penalties = 0;
 
-    }
+
 
     public void innerGoalMinus() {
-        button = findViewById(R.id.InnerCounter);
+  //      button = findViewById(R.id.InnerCounter);
         if (innerGoalCount > 0)
             innerGoalCount --;
         button.setText(String.valueOf(innerGoalCount));
     }
     public void innerGoalPlus() {
-        button = findViewById(R.id.InnerCounter);
+    //    button = findViewById(R.id.InnerCounter);
         innerGoalCount ++;
         button.setText(String.valueOf(innerGoalCount));
 

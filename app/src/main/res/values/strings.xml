@@ -100,10 +100,15 @@
     <string name="TippedOverText">Tipped Over</string>
     <string name="GroundPickupText">Ground Pick Up</string>
     <string name="NamePickerTitle">Select Your Name</string>
-    <string name="PickupText">Pick Up</string>
-    <string name="NumberOfPreloads">Number of Preloads</string>
-    <string name="TypicalCellsStored">Typical Scored Power Cells</string>
+    <string name="PickupText">Pick Up Cargo</string>
+    <string name="NumberOfPreloads">Preload</string>
+    <string name="TypicalCargoStoredHigh">High Hub</string>
+    <string name="TypicalCargoStoredLow">Low Hub</string>
     <string name="AttemptedText">Attempted</string>
+    <string name="WorkingAuto">Working Auto</string>
+    <string name="AvgCargoScored">Average Cargo Scored</string>
+    <string name="StartPositionPit">Starting Position</string>
+    <string name="HumanPlayer">Human Player</string>
 
     <string name="tagTeam">Team %s</string>
     <string name="tagEvent">Event %s</string>

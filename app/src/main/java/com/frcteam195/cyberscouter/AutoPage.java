@@ -267,6 +267,10 @@ public class AutoPage extends AppCompatActivity {
         ImageView iv = findViewById(R.id.imageView_btIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
     }
+    public void parkedClimb() {
+ //       FakeRadioGroup.buttonPressed(this, 4, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+ //       climbStatus = 5;
+    }
 
     private void updateAutoData() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);

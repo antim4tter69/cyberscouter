@@ -36,6 +36,8 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     private final int FETCH_USERS = 1;
     private final int FETCH_MATCHES = 2;
 
+    public int getFieldOrientation(){return field_orientation;}
+
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {

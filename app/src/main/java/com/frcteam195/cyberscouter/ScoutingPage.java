@@ -272,9 +272,9 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         cfg.setFieldOrientation(_db, field_orientation);
 
         if(FIELD_ORIENTATION_LEFT == field_orientation) {
-            iv.setImageResource(R.drawable.field2022);
+            iv.setRotation(0);
         } else {
-            iv.setImageResource(R.drawable.field2022_flipped);
+            iv.setRotation(180);
         }
     }
 

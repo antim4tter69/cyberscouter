@@ -39,6 +39,20 @@ public class PreAutoPage extends AppCompatActivity {
         }
     };
 
+    public void moveStartButtons()
+    {
+        //move button 6
+        button = findViewById(R.id.startbutton6);
+        button.setX(-960); button.setY(-320);
+
+        //move button 5
+        button = findViewById(R.id.startbutton5);
+        button.setX(-780); button.setY(-280); button.setRotation(-55);
+
+        //move button 4
+        button = findViewById(R.id.startbutton4);
+        button.setX(-620);button.setY(-200); button.setRotation(-35);
+    }
 
 
     @Nullable
@@ -53,8 +67,11 @@ public class PreAutoPage extends AppCompatActivity {
 
         ImageView iv = findViewById(R.id.imageView6);
         if (null != cfg && !cfg.isFieldRedLeft()) {
-            iv.setImageResource(R.drawable.bluefield);
+            iv.setImageResource(R.drawable.betterbluefield2022);
             iv.setRotation(180);
+            moveStartButtons();
+
+
         }
 
         button = findViewById(R.id.startbutton1);

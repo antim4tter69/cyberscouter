@@ -7,62 +7,143 @@
     tools:context=".EndPage">
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/CASuccess"
         android:layout_width="408dp"
         android:layout_height="48dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="22dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_CanClimbNo"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="408dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="22dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_CanClimbNo"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="408dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="22dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_CanClimbNo"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
-    <Button
-        android:id="@+id/button_CanClimbNo"
-        android:layout_width="116dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="520dp"
-        android:text="@string/NoButton"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <Button
-        android:id="@+id/button_CanClimbYes"
-        android:layout_width="116dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="520dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="144dp"
-        android:text="@string/YesButton"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_CanClimbNo"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="@string/CASuccess"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/CAFailed" />
+
+    <Button
+        android:id="@+id/NABrokeDown"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/NABrokeDown"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_InsteadOfClimb2" />
+
+    <Button
+        android:id="@+id/CAFailed"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/CAFailed"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NAScoredCargo" />
+
+    <Button
+        android:id="@+id/NAPlayedDefense"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/NAPlayedDefense"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NABrokeDown" />
+
+    <Button
+        android:id="@+id/NAScoredCargo"
+        android:layout_width="408dp"
+        android:layout_height="0dp"
+        android:text="@string/NAScoredCargo"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NAPlayedDefense" />
+
+    <Button
+        android:id="@+id/climbFailedbutton"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/ClimbFailed"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton"
+        tools:ignore="DuplicateClickableBoundsCheck,DuplicateClickableBoundsCheck" />
+
+    <Button
+        android:id="@+id/playedDefenseButton"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/PlayedDefense"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView_InsteadOfClimb"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+
+    <Button
+        android:id="@+id/brokeDownButton"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/BrokeDown"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+
+    <Button
+        android:id="@+id/scoredCargoButton"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/ScoredCargo"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/PlayedDefenseButton"
+        tools:ignore="DuplicateClickableBoundsCheck" />
+
+    <TextView
+        android:id="@+id/textView_InsteadOfClimb2"
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="192dp"
+        android:text="@string/ClimbStatus"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ClimbFailedbutton"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/ClimbFailed"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
+
+    <Button
+        android:id="@+id/BrokeDownButton"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/BrokeDown"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
+
+    <Button
+        android:id="@+id/ScoredCargoButton"
+        android:layout_width="408dp"
+        android:layout_height="48dp"
+        android:text="@string/ScoredCargo"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/PlayedDefenseButton" />
 
     <Button
         android:id="@+id/button_Previous"
@@ -92,8 +173,8 @@
         android:id="@+id/textView_roleTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/EndPageText"
+        android:layout_marginTop="32dp"
+        android:text="@string/ClimbPageText"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="40sp"
@@ -102,38 +183,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_RobotProblem"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="92dp"
-        android:text="@string/HighestRungClimbed"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="28sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_CanClimbYes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView_RungPosition"
         android:layout_width="408dp"
         android:layout_height="32dp"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="44dp"
         android:text="@string/PositionOnTheRungs"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/ClimbFailedbutton" />
 
     <Button
         android:id="@+id/button_DefenseWeak"
         android:layout_width="132dp"
         android:layout_height="48dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="6dp"
         android:text="@string/PositionCenter"
         android:textSize="18sp"
@@ -144,8 +210,8 @@
         android:id="@+id/button_DefenseNone"
         android:layout_width="132dp"
         android:layout_height="48dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/PositionLeft"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/button_DefenseWeak"
@@ -155,31 +221,42 @@
         android:id="@+id/button_DefenseStrong"
         android:layout_width="132dp"
         android:layout_height="48dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="44dp"
         android:text="@string/PositionRight"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_RungPosition" />
 
-    <Button
-        android:id="@+id/button_Low"
-        android:layout_width="140dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="322dp"
-        android:layout_marginTop="36dp"
-        android:rotation="90"
-        android:text="@string/LowClimb"
-        android:textSize="20sp"
+    <TextView
+        android:id="@+id/textView_InsteadOfClimb"
+        android:layout_width="408dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="192dp"
+        android:text="@string/InsteadOfClimb"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView_RobotProblem"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="280dp"
+        android:layout_height="244dp"
+        android:layout_marginStart="500dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_RobotProblem"
+        app:srcCompat="@drawable/climbrungs_2022" />
 
     <Button
         android:id="@+id/button_Middle"
         android:layout_width="140dp"
         android:layout_height="70dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="604dp"
+        android:layout_marginTop="44dp"
         android:rotation="90"
         android:text="@string/MiddleClimb"
         android:textSize="20sp"
@@ -190,8 +267,8 @@
         android:id="@+id/button_High"
         android:layout_width="140dp"
         android:layout_height="70dp"
-        android:layout_marginStart="182dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="532dp"
+        android:layout_marginTop="44dp"
         android:rotation="90"
         android:text="@string/HighClimb"
         android:textSize="20sp"
@@ -202,8 +279,8 @@
         android:id="@+id/button_Traversal"
         android:layout_width="140dp"
         android:layout_height="70dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="464dp"
+        android:layout_marginTop="44dp"
         android:rotation="90"
         android:text="@string/TraversalClimb"
         android:textAlignment="center"
@@ -211,55 +288,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
-    <TextView
-        android:id="@+id/textView_InsteadOfClimb"
-        android:layout_width="408dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="22dp"
-        android:text="@string/InsteadOfClimb"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="26sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_CanClimbNo"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="240dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="88dp"
-        android:text="@string/ClimbPosition"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/button_noAttemptClimb"
+        android:id="@+id/button_Low"
         android:layout_width="140dp"
         android:layout_height="70dp"
-        android:layout_marginStart="392dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="672dp"
+        android:layout_marginTop="44dp"
         android:rotation="90"
-        android:text="@string/NoAttempt"
+        android:text="@string/LowClimb"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <TextView
+        android:id="@+id/textView_RobotProblem"
         android:layout_width="280dp"
-        android:layout_height="244dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="500dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="500dp"
+        android:text="@string/HighestRungClimbed"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_RobotProblem"
-        app:srcCompat="@drawable/climbrungs_2022" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_roleTag" />
 
     <TextView
         android:id="@+id/textView_endgameMatch"
@@ -278,15 +332,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/PlayedDefenseButton"
         android:layout_width="408dp"
         android:layout_height="48dp"
-        android:layout_marginStart="46dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="22dp"
-        android:text="Button"
+        android:text="@string/PlayedDefense"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_CanClimbNo"
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/textView_InsteadOfClimb" />
 
 </android.support.constraint.ConstraintLayout>

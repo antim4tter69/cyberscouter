@@ -17,37 +17,12 @@ public class TelePage extends AppCompatActivity {
 
     Integer upperCounter, lowerCounter;
 
-    private Button Reset_button;
-    private Button StageTwoButton;
-    private Button StageThreeButton;
     private ImageView imageView8;
     private ImageView imageView9;
     private int currentCommStatusColor;
 
-
-    //private final int[] StageButtons = {R.id.StageTwoButton, R.id.StageThreeButton};
-
     private Integer[][] values = new Integer[5][4];
 
-    String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS
-    };
-    Integer[] _lValues = new Integer[_lColumns.length];
 
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
@@ -62,7 +37,7 @@ public class TelePage extends AppCompatActivity {
 
         Button button;
 
-/*
+
         Button Reset_button = (Button) findViewById(R.id.Reset_button);
         Reset_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,20 +45,10 @@ public class TelePage extends AppCompatActivity {
                 startActivity(new Intent(TelePage.this, Reset.class));
             }
         });
-*/
+
 
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-/*
-        if(null != cfg) {
-            field_orientation = cfg.isFieldRedLeft() ? FIELD_ORIENTATION_LEFT : FIELD_ORIENTATION_LEFT;
-        }
-
-
-        if (FIELD_ORIENTATION_RIGHT == field_orientation) {
-            //iv.setImageResource(R.drawable.field_2020_flipped);
-        }
-*/
 
         ImageView iv = findViewById(R.id.imageView_teleBtIndicator);
         Intent intent = getIntent();
@@ -167,35 +132,10 @@ public class TelePage extends AppCompatActivity {
                 tv = findViewById(R.id.textView_teamNumber);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-                for(int i=0; i<5 ; ++i) {
-                    values[i][0] = i+1;
-                    switch(i) {
-                        case 0:
-                            values[i][1] = csm.getTeleBallInnerZone1();
-                            values[i][2] = csm.getTeleBallOuterZone1();
-                            values[i][3] = csm.getTeleBallLowZone1();
-                            break;
-                        case 1:
-                            values[i][1] = csm.getTeleBallInnerZone2();
-                            values[i][2] = csm.getTeleBallOuterZone2();
-                            break;
-                        case 2:
-                            values[i][1] = csm.getTeleBallInnerZone3();
-                            values[i][2] = csm.getTeleBallOuterZone3();
-                            break;
-                        case 3:
-                            values[i][1] = csm.getTeleBallInnerZone4();
-                            values[i][2] = csm.getTeleBallOuterZone4();
-                            break;
-                        case 4:
-                            values[i][1] = csm.getTeleBallInnerZone5();
-                            values[i][2] = csm.getTeleBallOuterZone5();
-                            break;
-                    }
+
                 }
             }
         }
-    }
 
     public void returnToAutoPage() {
         setMetricValues();
@@ -212,22 +152,11 @@ public class TelePage extends AppCompatActivity {
     void setMetricValues() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
 
-        _lValues[0] = values[0][1];
-        _lValues[1] = values[0][2];
-        _lValues[2] = values[0][3];
-        _lValues[3] = values[1][1];
-        _lValues[4] = values[1][2];
-        _lValues[5] = values[2][1];
-        _lValues[6] = values[2][2];
-        _lValues[7] = values[3][1];
-        _lValues[8] = values[3][2];
-        _lValues[9] = values[4][1];
-        _lValues[10] = values[4][2];
-
         if (null != cfg) {
             try {
-                CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
-            } catch (Exception e) {
+
+            }
+            catch (Exception e) {
                 MessageBox.showMessageBox(this, "Metric Update Failed Alert", "setMetricValue", "An error occurred trying to update metric.\n\nError is:\n" + e.getMessage());
             }
         } else {

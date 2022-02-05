@@ -15,14 +15,14 @@ public class TelePage extends AppCompatActivity {
     private static final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int defaultButtonTextColor = Color.LTGRAY;
 
-    Integer upperCounter, lowerCounter;
-
     private ImageView imageView8;
     private ImageView imageView9;
     private int currentCommStatusColor;
 
-    private Integer[][] values = new Integer[5][4];
-
+    private Integer highCount, lowCount, missCount;
+    String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS};
 
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
@@ -37,24 +37,12 @@ public class TelePage extends AppCompatActivity {
 
         Button button;
 
-
-        Button Reset_button = (Button) findViewById(R.id.Reset_button);
-        Reset_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TelePage.this, Reset.class));
-            }
-        });
-
-
-
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
 
         ImageView iv = findViewById(R.id.imageView_teleBtIndicator);
         Intent intent = getIntent();
         currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
         updateStatusIndicator(currentCommStatusColor);
-
 
         TextView tv = findViewById(R.id.textView_roleTag);
         tv.setText(R.string.teleopTitle);
@@ -93,10 +81,6 @@ public class TelePage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.btnTeleUpperCounter);
-        upperCounter = 0;
-        button.setText(String.valueOf(upperCounter));
-
         button = findViewById(R.id.btnTeleLowerAdd);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,15 +96,13 @@ public class TelePage extends AppCompatActivity {
                 lowerSubtractClicked();
             }
         });
-
-        button = findViewById(R.id.btnTeleLowerCounter);
-        lowerCounter = 0;
-        button.setText(String.valueOf(lowerCounter));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        Button button;
 
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         if (null != cfg) {
@@ -132,10 +114,17 @@ public class TelePage extends AppCompatActivity {
                 tv = findViewById(R.id.textView_teamNumber);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
+                button = findViewById(R.id.btnTeleUpperCounter);
+                highCount = csm.getTeleBallHigh();
+                button.setText(String.valueOf(highCount));
 
-                }
+                button = findViewById(R.id.btnTeleLowerCounter);
+                lowCount = csm.getTeleBallLow();
+                button.setText(String.valueOf(lowCount));
+
             }
         }
+    }
 
     public void returnToAutoPage() {
         setMetricValues();
@@ -154,7 +143,8 @@ public class TelePage extends AppCompatActivity {
 
         if (null != cfg) {
             try {
-
+                Integer[] _values = {highCount, lowCount, missCount};
+                CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _values, cfg);
             }
             catch (Exception e) {
                 MessageBox.showMessageBox(this, "Metric Update Failed Alert", "setMetricValue", "An error occurred trying to update metric.\n\nError is:\n" + e.getMessage());
@@ -170,30 +160,30 @@ public class TelePage extends AppCompatActivity {
     }
 
     private void upperAddClicked() {
-        upperCounter++;
+        highCount++;
         Button button = findViewById(R.id.btnTeleUpperCounter);
-        button.setText(upperCounter.toString());
+        button.setText(highCount.toString());
     }
 
     private void upperSubtractClicked() {
-        if(0 < upperCounter) {
-            upperCounter--;
+        if(0 < highCount) {
+            highCount--;
             Button button = findViewById(R.id.btnTeleUpperCounter);
-            button.setText(upperCounter.toString());
+            button.setText(highCount.toString());
         }
     }
 
     private void lowerAddClicked() {
-        lowerCounter++;
+        lowCount++;
         Button button = findViewById(R.id.btnTeleLowerCounter);
-        button.setText(lowerCounter.toString());
+        button.setText(lowCount.toString());
     }
 
     private void lowerSubtractClicked() {
-        if(0 < lowerCounter) {
-            lowerCounter--;
+        if(0 < lowCount) {
+            lowCount--;
             Button button = findViewById(R.id.btnTeleLowerCounter);
-            button.setText(lowerCounter.toString());
+            button.setText(lowCount.toString());
         }
     }
 

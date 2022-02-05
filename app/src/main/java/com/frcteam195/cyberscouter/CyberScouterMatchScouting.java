@@ -46,38 +46,35 @@ class CyberScouterMatchScouting {
     private int autoDidNotShow;
     private int autoMoveBonus;
     private int autoBallLow;
-    private int autoBallOuter;
-    private int autoBallInner;
-    private int autoPenalty;
+    private int autoBallHigh;
+    private int autoBallMiss;
+    private int autoBallPos1;
+    private int autoBallPos2;
+    private int autoBallPos3;
+    private int autoBallPos4;
+    private int autoBallPos5;
+    private int autoBallPos6;
+    private int autoBallPos7;
+    private int autoBallPos8;
+    private int autoBallPos9;
+    private int autoBallPos10;
 
-    private int teleBallLowZone1;
-    private int teleBallOuterZone1;
-    private int teleBallInnerZone1;
-    private int teleBallOuterZone2;
-    private int teleBallInnerZone2;
-    private int teleBallOuterZone3;
-    private int teleBallInnerZone3;
-    private int teleBallOuterZone4;
-    private int teleBallInnerZone4;
-    private int teleBallOuterZone5;
-    private int teleBallInnerZone5;
-    private int teleWheelStage2Time;
-    private int teleWheelStage2Status;
-    private int teleWheelStage2Attempts;
-    private int teleWheelStage3Time;
-    private int teleWheelStage3Status;
-    private int teleWheelStage3Attempts;
+    private int teleBallLow;
+    private int teleBallHigh;
+    private int teleBallMiss;
 
     private int climbStatus;
     private int climbHeight;
     private int climbPosition;
-    private int climbMoveOnBar;
-    private int climbLevelStatus;
 
+    private int summLaunchPad;
+    private int summSortCargo;
+    private int summShootDriving;
     private int summBrokeDown;
     private int summLostComm;
     private int summSubsystemBroke;
     private int summGroundPickup;
+    private int summTerminalPickup;
     private int summHopperLoad;
     private int summPlayedDefense;
     private int summDefPlayedAgainst;
@@ -148,36 +145,32 @@ class CyberScouterMatchScouting {
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, autoDidNotShow);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, autoMoveBonus);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, autoBallLow);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER, autoBallOuter);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER, autoBallInner);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, autoPenalty);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1, teleBallLowZone1);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1, teleBallOuterZone1);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1, teleBallInnerZone1);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2, teleBallOuterZone2);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2, teleBallInnerZone2);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3, teleBallOuterZone3);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3, teleBallInnerZone3);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4, teleBallOuterZone4);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4, teleBallInnerZone4);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5, teleBallOuterZone5);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5, teleBallInnerZone5);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME, teleWheelStage2Time);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS, teleWheelStage2Status);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS, teleWheelStage2Attempts);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME, teleWheelStage3Time);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS, teleWheelStage3Status);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS, teleWheelStage3Attempts);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH, autoBallHigh);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS, autoBallMiss);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS1, autoBallPos1);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS2, autoBallPos2);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS3, autoBallPos3);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS4, autoBallPos4);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS5, autoBallPos5);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS6, autoBallPos6);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS7, autoBallPos7);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS8, autoBallPos8);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS9, autoBallPos9);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS10, autoBallPos10);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW, teleBallLow);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH, teleBallHigh);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS, teleBallMiss);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, climbStatus);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, climbHeight);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION, climbPosition);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR, climbMoveOnBar);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS, climbLevelStatus);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD, summLaunchPad);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO, summSortCargo);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING, summShootDriving);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, summBrokeDown);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, summLostComm);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, summSubsystemBroke);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, summGroundPickup);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD, summHopperLoad);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, summTerminalPickup);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, summPlayedDefense);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, summDefPlayedAgainst);
             jo.put("payload", payload);
@@ -297,36 +290,32 @@ class CyberScouterMatchScouting {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS1,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS2,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS3,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS4,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS5,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS6,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS7,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS8,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS9,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS10,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP,
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
@@ -363,36 +352,32 @@ class CyberScouterMatchScouting {
                     csm.autoDidNotShow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
                     csm.autoMoveBonus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
                     csm.autoBallLow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW));
-                    csm.autoBallOuter = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER));
-                    csm.autoBallInner = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER));
-                    csm.autoPenalty = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY));
-                    csm.teleBallLowZone1 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1));
-                    csm.teleBallOuterZone1 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1));
-                    csm.teleBallInnerZone1 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1));
-                    csm.teleBallOuterZone2 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2));
-                    csm.teleBallInnerZone2 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2));
-                    csm.teleBallOuterZone3 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3));
-                    csm.teleBallInnerZone3 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3));
-                    csm.teleBallOuterZone4 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4));
-                    csm.teleBallInnerZone4 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4));
-                    csm.teleBallOuterZone5 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5));
-                    csm.teleBallInnerZone5 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5));
-                    csm.teleWheelStage2Time = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME));
-                    csm.teleWheelStage2Status = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS));
-                    csm.teleWheelStage2Attempts = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS));
-                    csm.teleWheelStage3Time = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME));
-                    csm.teleWheelStage3Status = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS));
-                    csm.teleWheelStage3Attempts = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS));
+                    csm.autoBallHigh = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH));
+                    csm.autoBallMiss = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS));
+                    csm.autoBallPos1 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS1));
+                    csm.autoBallPos2 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS2));
+                    csm.autoBallPos3 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS3));
+                    csm.autoBallPos4 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS4));
+                    csm.autoBallPos5 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS5));
+                    csm.autoBallPos6 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS6));
+                    csm.autoBallPos7 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS7));
+                    csm.autoBallPos8 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS8));
+                    csm.autoBallPos9 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS9));
+                    csm.autoBallPos10 = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS10));
+                    csm.teleBallHigh = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH));
+                    csm.teleBallLow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW));
+                    csm.teleBallMiss = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS));
                     csm.climbStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS));
                     csm.climbHeight = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT));
                     csm.climbPosition = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION));
-                    csm.climbMoveOnBar = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR));
-                    csm.climbLevelStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS));
-                    csm.summLostComm = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
+                    csm.summLaunchPad = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD));
+                    csm.summSortCargo = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO));
+                    csm.summShootDriving = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING));
                     csm.summBrokeDown = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN));
+                    csm.summLostComm = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
                     csm.summSubsystemBroke = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE));
                     csm.summGroundPickup = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP));
-                    csm.summHopperLoad = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD));
+                    csm.summTerminalPickup = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP));
                     csm.summPlayedDefense = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE));
                     csm.summDefPlayedAgainst = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST));
                     csm.uploadStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS));
@@ -434,36 +419,32 @@ class CyberScouterMatchScouting {
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOWZONE1));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE1));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE1));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE2));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE2));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE3));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE3));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE4));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE4));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLOUTERZONE5));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLINNERZONE5));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2TIME));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2STATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE2ATTEMPTS));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3TIME));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3STATUS));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEWHEELSTAGE3ATTEMPTS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS1));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS2, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS2));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS3, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS3));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS4, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS4));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS5, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS5));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS6, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS6));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS7, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS7));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS8, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS8));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS9, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS9));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS10, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS10));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
@@ -699,84 +680,64 @@ class CyberScouterMatchScouting {
         return autoBallLow;
     }
 
-    int getAutoBallOuter() {
-        return autoBallOuter;
+    int getAutoBallHigh() {
+        return autoBallHigh;
     }
 
-    int getAutoBallInner() {
-        return autoBallInner;
+    int getAutoBallMiss() {
+        return autoBallMiss;
     }
 
-    int getAutoPenalty() {
-        return autoPenalty;
+    int getAutoBallPos1() {
+        return autoBallPos1;
     }
 
-    int getTeleBallLowZone1() {
-        return teleBallLowZone1;
+    int getAutoBallPos2() {
+        return autoBallPos2;
     }
 
-    int getTeleBallOuterZone1() {
-        return teleBallOuterZone1;
+    int getAutoBallPos3() {
+        return autoBallPos3;
     }
 
-    int getTeleBallInnerZone1() {
-        return teleBallInnerZone1;
+    int getAutoBallPos4() {
+        return autoBallPos4;
     }
 
-    int getTeleBallOuterZone2() {
-        return teleBallOuterZone2;
+    int getAutoBallPos5() {
+        return autoBallPos5;
     }
 
-    int getTeleBallInnerZone2() {
-        return teleBallInnerZone2;
+    int getAutoBallPos6() {
+        return autoBallPos6;
     }
 
-    int getTeleBallOuterZone3() {
-        return teleBallOuterZone3;
+    int getAutoBallPos7() {
+        return autoBallPos7;
     }
 
-    int getTeleBallInnerZone3() {
-        return teleBallInnerZone3;
+    int getAutoBallPos8() {
+        return autoBallPos8;
     }
 
-    int getTeleBallOuterZone4() {
-        return teleBallOuterZone4;
+    int getAutoBallPos9() {
+        return autoBallPos9;
     }
 
-    int getTeleBallInnerZone4() {
-        return teleBallInnerZone4;
+    int getAutoBallPos10() {
+        return autoBallPos10;
     }
 
-    int getTeleBallOuterZone5() {
-        return teleBallOuterZone5;
+    int getTeleBallLow() {
+        return teleBallLow;
     }
 
-    int getTeleBallInnerZone5() {
-        return teleBallInnerZone5;
+    int getTeleBallHigh() {
+        return teleBallHigh;
     }
 
-    int getTeleWheelStage2Time() {
-        return teleWheelStage2Time;
-    }
-
-    int getTeleWheelStage2Status() {
-        return teleWheelStage2Status;
-    }
-
-    int getTeleWheelStage2Attempts() {
-        return teleWheelStage2Attempts;
-    }
-
-    int getTeleWheelStage3Time() {
-        return teleWheelStage3Time;
-    }
-
-    int getTeleWheelStage3Status() {
-        return teleWheelStage3Status;
-    }
-
-    int getTeleWheelStage3Attempts() {
-        return teleWheelStage3Attempts;
+    int getTeleBallMiss() {
+        return teleBallMiss;
     }
 
     int getClimbStatus() {
@@ -791,20 +752,22 @@ class CyberScouterMatchScouting {
         return climbPosition;
     }
 
-    int getClimbMoveOnBar() {
-        return climbMoveOnBar;
+    int getSummLaunchPad() {
+        return summLaunchPad;
     }
 
-    int getClimbLevelStatus() {
-        return climbLevelStatus;
+    int getSummSortCargo() {
+        return summSortCargo;
+    }
+
+    int getSummShootDriving() { return summShootDriving; }
+
+    int getSummBrokeDown() {
+        return summBrokeDown;
     }
 
     int getSummLostComm() {
         return summLostComm;
-    }
-
-    int getSummBrokeDown() {
-        return summBrokeDown;
     }
 
     int getSummSubsystemBroke() {
@@ -815,8 +778,8 @@ class CyberScouterMatchScouting {
         return summGroundPickup;
     }
 
-    int getSummHopperLoad() {
-        return summHopperLoad;
+    int getSummTerminalPickup() {
+        return summTerminalPickup;
     }
 
     int getSummPlayedDefense() {

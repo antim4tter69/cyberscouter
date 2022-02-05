@@ -21,6 +21,7 @@ public class PreAutoPage extends AppCompatActivity {
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private Button didnotshowyesbutton;
+    private int currentCommStatusColor;
 
     private final CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
@@ -211,12 +212,14 @@ public class PreAutoPage extends AppCompatActivity {
     private void updateStatusIndicator(int color) {
         ImageView iv = findViewById(R.id.imageView_btIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
+        currentCommStatusColor = color;
     }
 
     private void openAutoPage() {
         updatePreAutoData();
 
         Intent intent = new Intent(this, AutoPage.class);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 

@@ -8,16 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 public class AutoPage extends AppCompatActivity {
     private Button button;
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
-    private int innerGoalCount = 0;
-    private int outerGoalCount = 0;
+    private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_moveBonusYes};
+    private int upperGoalCount = 0;
     private int lowerGoalCount = 0;
+    private int missedGoalCount = 0;
     private int moveBonus = 0;
     private int penalties = 0;
 
@@ -27,9 +26,8 @@ public class AutoPage extends AppCompatActivity {
     private SQLiteDatabase _db;
 
     String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
-        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPENALTY,
-        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLINNER,
-        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLOUTER,
+        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS,
+        CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH,
         CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW};
 
 
@@ -65,7 +63,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.button_moveBonusNo);
+        button = findViewById(R.id.button_didNotMove);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -74,59 +72,25 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
+        button = findViewById(R.id.button_upperGoalMinus);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-           //     penaltiesYes();
+                upperGoalMinus();
             }
         });
 
+        button = findViewById(R.id.button_upperGoalPlus);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-           //     penaltiesNo();
+                upperGoalPlus();
             }
         });
 
-        button = findViewById(R.id.InnerGoalMinus_button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                innerGoalMinus();
-            }
-        });
-
-        button = findViewById(R.id.InnerGoalPlus_button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                innerGoalPlus();
-            }
-        });
-
-        button = findViewById(R.id.OuterGoalMinus_button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                outerGoalMinus();
-            }
-        });
-
-        button = findViewById(R.id.OuterGoalPlus_button);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                outerGoalPlus();
-            }
-        });
-
-        button = findViewById(R.id.LowerGoalMinus_button);
+        button = findViewById(R.id.button_LowerGoalMinus);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -135,7 +99,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        button = findViewById(R.id.LowerGoalPlus_button);
+        button = findViewById(R.id.button_LowerGoalPlus);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -143,6 +107,28 @@ public class AutoPage extends AppCompatActivity {
                 lowerGoalPlus();
             }
         });
+
+        button = findViewById(R.id.button_missedGoalMinus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                missedGoalMinus();
+            }
+        });
+
+        button = findViewById(R.id.button_missedGoalPlus);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                missedGoalPlus();
+            }
+        });
+
+        ImageView iv = findViewById(R.id.imageView_teleBtIndicator);
+        Intent intent = getIntent();
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
     }
 
     @Override
@@ -160,25 +146,25 @@ public class AutoPage extends AppCompatActivity {
          //   tv = findViewById(R.id.textView_Team);
            // tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        //    button = findViewById(R.id.InnerCounter);
-            button.setText(String.valueOf(csm.getAutoBallInner()));
-            button = findViewById(R.id.OuterCounter);
-            button.setText(String.valueOf(csm.getAutoBallOuter()));
-            button = findViewById(R.id.LowerCounter);
+//            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            button = findViewById(R.id.upperCounter);
+            button.setText(String.valueOf(csm.getAutoBallHigh()));
+            button = findViewById(R.id.lowerCounter);
             button.setText(String.valueOf(csm.getAutoBallLow()));
+            button = findViewById(R.id.missedCounter);
+            button.setText(String.valueOf(csm.getAutoBallMiss()));
 
             moveBonus = csm.getAutoMoveBonus();
-            penalties = csm.getAutoPenalty();
-            innerGoalCount = csm.getAutoBallInner();
-            outerGoalCount = csm.getAutoBallOuter();
+            upperGoalCount = csm.getAutoBallHigh();
             lowerGoalCount = csm.getAutoBallLow();
+            missedGoalCount = csm.getAutoBallMiss();
         }
     }
 
     public void StartMatch() {
         updateAutoData();
         Intent intent = new Intent(this, TelePage.class);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 
@@ -223,44 +209,39 @@ public class AutoPage extends AppCompatActivity {
         moveBonus = 0;
     }
 
-
-
-
-
-
-    public void innerGoalMinus() {
-  //      button = findViewById(R.id.InnerCounter);
-        if (innerGoalCount > 0)
-            innerGoalCount --;
-        button.setText(String.valueOf(innerGoalCount));
+    public void upperGoalMinus() {
+        button = findViewById(R.id.upperCounter);
+        if (upperGoalCount > 0)
+            upperGoalCount--;
+        button.setText(String.valueOf(upperGoalCount));
     }
-    public void innerGoalPlus() {
-    //    button = findViewById(R.id.InnerCounter);
-        innerGoalCount ++;
-        button.setText(String.valueOf(innerGoalCount));
+    public void upperGoalPlus() {
+        button = findViewById(R.id.upperCounter);
+        upperGoalCount++;
+        button.setText(String.valueOf(upperGoalCount));
 
-    }
-    public void outerGoalMinus() {
-        button = findViewById(R.id.OuterCounter);
-        if (outerGoalCount > 0)
-            outerGoalCount --;
-        button.setText(String.valueOf(outerGoalCount));
-    }
-    public void outerGoalPlus() {
-        button = findViewById(R.id.OuterCounter);
-        outerGoalCount ++;
-        button.setText(String.valueOf(outerGoalCount));
     }
     public void lowerGoalMinus() {
-        button = findViewById(R.id.LowerCounter);
+        button = findViewById(R.id.lowerCounter);
         if (lowerGoalCount > 0)
-            lowerGoalCount --;
+            lowerGoalCount--;
         button.setText(String.valueOf(lowerGoalCount));
     }
     public void lowerGoalPlus() {
-        button = findViewById(R.id.LowerCounter);
-        lowerGoalCount ++;
+        button = findViewById(R.id.lowerCounter);
+        lowerGoalCount++;
         button.setText(String.valueOf(lowerGoalCount));
+    }
+    public void missedGoalMinus() {
+        button = findViewById(R.id.missedCounter);
+        if (missedGoalCount > 0)
+            missedGoalCount--;
+        button.setText(String.valueOf(missedGoalCount));
+    }
+    public void missedGoalPlus() {
+        button = findViewById(R.id.missedCounter);
+        missedGoalCount++;
+        button.setText(String.valueOf(missedGoalCount));
     }
 
     private void updateStatusIndicator(int color) {
@@ -271,7 +252,7 @@ public class AutoPage extends AppCompatActivity {
     private void updateAutoData() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         try {
-            Integer[] _lValues = {moveBonus, penalties, innerGoalCount, outerGoalCount, lowerGoalCount};
+            Integer[] _lValues = {moveBonus, missedGoalCount, upperGoalCount, lowerGoalCount};
             CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
         } catch(Exception e) {
             e.printStackTrace();

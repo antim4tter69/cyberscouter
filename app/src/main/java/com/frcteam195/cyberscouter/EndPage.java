@@ -21,10 +21,8 @@ public class EndPage extends AppCompatActivity {
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN,
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE,
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMHOPPERLOAD,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD,
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBLEVELSTATUS,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBMOVEONBAR,
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE,
             CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS
     };

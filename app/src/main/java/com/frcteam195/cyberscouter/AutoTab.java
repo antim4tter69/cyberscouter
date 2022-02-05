@@ -17,7 +17,7 @@ import android.widget.Spinner;
 
 public class AutoTab extends Fragment implements IOnEditTextSaveListener {
     private Button button;
-    private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
+    private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_moveBonusYes};
     private final int[] pickupButtons = {R.id.button_PickupNo, R.id.button_PickupYes};
     private final int[] preloadButtons = {R.id.button_PreloadNo, R.id.button_PreloadYes};
     private View _view;
@@ -54,7 +54,7 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
             });
         }
 
-        button = view.findViewById(R.id.button_moveBonusNo);
+        button = view.findViewById(R.id.button_didNotMove);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override

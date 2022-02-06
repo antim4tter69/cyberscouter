@@ -14,20 +14,18 @@ public class EndPage extends AppCompatActivity {
     private Button button;
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private final int[] defenseButtons = {R.id.button_DefenseNone, R.id.button_DefenseWeak, R.id.button_DefenseStrong};
-    private final int[] climbStatusButtons = {R.id.button_Traversal, R.id.button_High, R.id.button_Middle, R.id.button_Low};
+    private final int[] climbPositionButtons = {R.id.button_positionLeft, R.id.button_positionCenter, R.id.button_positionRight};
+    private final int[] rungClimbedButtons = {R.id.button_Traversal, R.id.button_High, R.id.button_Middle, R.id.button_Low};
+    private final int[] climbStatusButtons = {R.id.button_NABrokeDown, R.id.button_NAPlayedDefense, R.id.button_NAScoredCargo, R.id.button_CAFailed, R.id.button_CASuccess};
+    private final int[] insteadOfClimbButtons = {R.id.button_PlayedDefense, R.id.button_ScoredCargo, R.id.button_BrokeDown, R.id.button_ClimbFailed};
 
-    String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS
+    String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_INSTEADOFCLIMB,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION
     };
 
-    private int lostComm, brokeDown, subSystemBroke, groudPickup, hopperLoad, defense, level, movedOnBar, playedDefense = 0, climbStatus = 1;
+    private int climbPosition, rungClimbed, climbStatus, insteadOfClimb;
 
     private int currentCommStatusColor;
 
@@ -40,8 +38,8 @@ public class EndPage extends AppCompatActivity {
         setContentView(R.layout.activity_end_page);
 
         Intent intent = getIntent();
-//        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
-//        updateStatusIndicator(currentCommStatusColor);
+        currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
+        updateStatusIndicator(currentCommStatusColor);
 
 
         button = findViewById(R.id.button_Previous);
@@ -49,7 +47,6 @@ public class EndPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 returnToTelePage();
-
             }
         });
 
@@ -58,67 +55,121 @@ public class EndPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 submitPage();
-
             }
         });
 
-        button = findViewById(R.id.button_DefenseNone);
+        button = findViewById(R.id.button_positionLeft);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                defenseNone();
-
+                positionLeft();
             }
         });
-        button = findViewById(R.id.button_DefenseWeak);
+        button = findViewById(R.id.button_positionCenter);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                defenseWeak();
-
+                positionCenter();
             }
         });
-        button = findViewById(R.id.button_DefenseStrong);
+        button = findViewById(R.id.button_positionRight);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                defenseStrong();
-            }
-        });
-        button = findViewById(R.id.button_Traversal);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                climbed();
-            }
-        });
-        button = findViewById(R.id.button_High);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptedClimb();
-
-            }
-        });
-        button = findViewById(R.id.button_Middle);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                busyClimb();
-
+                positionRight();
             }
         });
         button = findViewById(R.id.button_Low);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                parkedClimb();
-
+                lowClimb();
             }
         });
-
-
-
+        button = findViewById(R.id.button_Middle);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                middleClimb();
+            }
+        });
+        button = findViewById(R.id.button_High);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                highClimb();
+            }
+        });
+        button = findViewById(R.id.button_Traversal);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                traversalClimb();
+            }
+        });
+        button = findViewById(R.id.button_NABrokeDown);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                naBrokeDown();
+            }
+        });
+        button = findViewById(R.id.button_NAPlayedDefense);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                naPlayedDefense();
+            }
+        });
+        button = findViewById(R.id.button_NAScoredCargo);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                naScoredCargo();
+            }
+        });
+        button = findViewById(R.id.button_CAFailed);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                caFailed();
+            }
+        });
+        button = findViewById(R.id.button_CASuccess);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                caSuccess();
+            }
+        });
+        button = findViewById(R.id.button_PlayedDefense);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playedDefense();
+            }
+        });
+        button = findViewById(R.id.button_ScoredCargo);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scoredCargo();
+            }
+        });
+        button = findViewById(R.id.button_BrokeDown);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                brokeDown();
+            }
+        });
+        button = findViewById(R.id.button_ClimbFailed);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                climbFailed();
+            }
+        });
     }
 
     @Override
@@ -135,11 +186,15 @@ public class EndPage extends AppCompatActivity {
             tv = findViewById(R.id.textView_endgameTeam);
             tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-            FakeRadioGroup.buttonDisplay(this, csm.getSummDefPlayedAgainst(), defenseButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-            defense = csm.getSummDefPlayedAgainst();
             int tval = csm.getClimbStatus() == 0 ? 0 : csm.getClimbStatus() - 1;
             FakeRadioGroup.buttonDisplay(this, tval, climbStatusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
             climbStatus = csm.getClimbStatus();
+            FakeRadioGroup.buttonDisplay(this, tval, rungClimbedButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            rungClimbed = csm.getClimbHeight();
+            FakeRadioGroup.buttonDisplay(this, tval, climbStatusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            climbStatus = csm.getClimbStatus();
+            FakeRadioGroup.buttonDisplay(this, tval, insteadOfClimbButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            insteadOfClimb = csm.getInsteadOfClimb();
         }
     }
 
@@ -156,37 +211,69 @@ public class EndPage extends AppCompatActivity {
 
     }
 
-    public void defenseNone() {
-        FakeRadioGroup.buttonPressed(this, 0, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        defense = 0;
+    public void positionLeft() {
+        FakeRadioGroup.buttonPressed(this, 0, climbPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        climbPosition = 0;
     }
-    public void defenseWeak() {
-        FakeRadioGroup.buttonPressed(this, 1, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        defense = 1;
+    public void positionCenter() {
+        FakeRadioGroup.buttonPressed(this, 1, climbPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        climbPosition = 1;
     }
-    public void defenseStrong() {
-        FakeRadioGroup.buttonPressed(this, 2, defenseButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        defense = 2;
+    public void positionRight() {
+        FakeRadioGroup.buttonPressed(this, 2, climbPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        climbPosition = 2;
     }
-    public void noAttemptClimb() {
+    public void naBrokeDown() {
         FakeRadioGroup.buttonPressed(this, 0, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        climbStatus = 0;
+    }
+    public void naPlayedDefense() {
+        FakeRadioGroup.buttonPressed(this, 1, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         climbStatus = 1;
     }
-    public void climbed() {
-        FakeRadioGroup.buttonPressed(this, 1, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    public void naScoredCargo() {
+        FakeRadioGroup.buttonPressed(this, 2, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         climbStatus = 2;
     }
-    public void attemptedClimb() {
-        FakeRadioGroup.buttonPressed(this, 2, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    public void caFailed() {
+        FakeRadioGroup.buttonPressed(this, 3, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         climbStatus = 3;
     }
-    public void busyClimb() {
-        FakeRadioGroup.buttonPressed(this, 3, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+    public void caSuccess() {
+        FakeRadioGroup.buttonPressed(this, 4, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         climbStatus = 4;
     }
-    public void parkedClimb() {
-        FakeRadioGroup.buttonPressed(this, 4, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        climbStatus = 5;
+    public void lowClimb() {
+        FakeRadioGroup.buttonPressed(this, 0,rungClimbedButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        rungClimbed = 0;
+    }
+    public void middleClimb() {
+        FakeRadioGroup.buttonPressed(this, 1,rungClimbedButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        rungClimbed = 1;
+    }
+    public void highClimb() {
+        FakeRadioGroup.buttonPressed(this, 2,rungClimbedButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        rungClimbed = 2;
+    }
+    public void traversalClimb() {
+        FakeRadioGroup.buttonPressed(this, 3, rungClimbedButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        rungClimbed = 3;
+    }
+    public void playedDefense() {
+        FakeRadioGroup.buttonPressed(this, 0, insteadOfClimbButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        insteadOfClimb = 0;
+    }
+    public void scoredCargo() {
+        FakeRadioGroup.buttonPressed(this, 1, insteadOfClimbButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        insteadOfClimb = 1;
+    }
+    public void brokeDown() {
+        FakeRadioGroup.buttonPressed(this, 2, insteadOfClimbButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        insteadOfClimb = 2;
+    }
+    public void climbFailed() {
+        FakeRadioGroup.buttonPressed(this, 3, insteadOfClimbButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        insteadOfClimb = 3;
     }
 
     private void updateStatusIndicator(int color) {
@@ -197,7 +284,7 @@ public class EndPage extends AppCompatActivity {
     private void updateEndPageData() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         try {
-            Integer[] _lValues = {lostComm, brokeDown, subSystemBroke, groudPickup, hopperLoad, defense, level, movedOnBar, playedDefense, climbStatus};
+            Integer[] _lValues = {climbPosition, rungClimbed, climbStatus, insteadOfClimb};
             CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
         } catch(Exception e) {
             e.printStackTrace();

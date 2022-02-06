@@ -7,17 +7,17 @@
     tools:context=".EndPage">
 
     <Button
-        android:id="@+id/CASuccess"
+        android:id="@+id/button_CASuccess"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:text="@string/CASuccess"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CAFailed" />
+        app:layout_constraintTop_toBottomOf="@+id/button_CAFailed" />
 
     <Button
-        android:id="@+id/NABrokeDown"
+        android:id="@+id/button_NABrokeDown"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
@@ -28,34 +28,34 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_InsteadOfClimb2" />
 
     <Button
-        android:id="@+id/CAFailed"
+        android:id="@+id/button_CAFailed"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:text="@string/CAFailed"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NAScoredCargo" />
+        app:layout_constraintTop_toBottomOf="@+id/button_NAScoredCargo" />
 
     <Button
-        android:id="@+id/NAPlayedDefense"
+        android:id="@+id/button_NAPlayedDefense"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:text="@string/NAPlayedDefense"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NABrokeDown" />
+        app:layout_constraintTop_toBottomOf="@+id/button_NABrokeDown" />
 
     <Button
-        android:id="@+id/NAScoredCargo"
+        android:id="@+id/button_NAScoredCargo"
         android:layout_width="408dp"
         android:layout_height="0dp"
         android:text="@string/NAScoredCargo"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NAPlayedDefense" />
+        app:layout_constraintTop_toBottomOf="@+id/button_NAPlayedDefense" />
 
     <Button
         android:id="@+id/climbFailedbutton"
@@ -65,7 +65,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton"
+        app:layout_constraintTop_toBottomOf="@+id/button_BrokeDown"
         tools:ignore="DuplicateClickableBoundsCheck,DuplicateClickableBoundsCheck" />
 
     <Button
@@ -88,7 +88,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton"
+        app:layout_constraintTop_toBottomOf="@+id/button_ScoredCargo"
         tools:ignore="DuplicateClickableBoundsCheck" />
 
     <Button
@@ -99,7 +99,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/PlayedDefenseButton"
+        app:layout_constraintTop_toBottomOf="@+id/button_PlayedDefense"
         tools:ignore="DuplicateClickableBoundsCheck" />
 
     <TextView
@@ -116,34 +116,34 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/ClimbFailedbutton"
+        android:id="@+id/button_ClimbFailed"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:text="@string/ClimbFailed"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
+        app:layout_constraintTop_toBottomOf="@+id/button_BrokeDown" />
 
     <Button
-        android:id="@+id/BrokeDownButton"
+        android:id="@+id/button_BrokeDown"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:text="@string/BrokeDown"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
+        app:layout_constraintTop_toBottomOf="@+id/button_ScoredCargo" />
 
     <Button
-        android:id="@+id/ScoredCargoButton"
+        android:id="@+id/button_ScoredCargo"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:text="@string/ScoredCargo"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/PlayedDefenseButton" />
+        app:layout_constraintTop_toBottomOf="@+id/button_PlayedDefense" />
 
     <Button
         android:id="@+id/button_Previous"
@@ -193,32 +193,32 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toBottomOf="@+id/ClimbFailedbutton" />
+        app:layout_constraintTop_toBottomOf="@+id/button_ClimbFailed" />
 
     <Button
-        android:id="@+id/button_DefenseWeak"
+        android:id="@+id/button_positionCenter"
         android:layout_width="132dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="6dp"
         android:text="@string/PositionCenter"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_DefenseStrong"
+        app:layout_constraintEnd_toStartOf="@+id/button_positionRight"
         app:layout_constraintTop_toBottomOf="@+id/textView_RungPosition" />
 
     <Button
-        android:id="@+id/button_DefenseNone"
+        android:id="@+id/button_positionLeft"
         android:layout_width="132dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/PositionLeft"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_DefenseWeak"
+        app:layout_constraintEnd_toStartOf="@+id/button_positionCenter"
         app:layout_constraintTop_toBottomOf="@+id/textView_RungPosition" />
 
     <Button
-        android:id="@+id/button_DefenseStrong"
+        android:id="@+id/button_positionRight"
         android:layout_width="132dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
@@ -332,7 +332,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/PlayedDefenseButton"
+        android:id="@+id/button_PlayedDefense"
         android:layout_width="408dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"

@@ -20,11 +20,14 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
     private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_moveBonusYes};
     private final int[] pickupButtons = {R.id.button_PickupNo, R.id.button_PickupYes};
     private final int[] preloadButtons = {R.id.button_PreloadNo, R.id.button_PreloadYes};
+    private final int[] workingAutoButtons = {R.id.button_WorkingAutoNo, R.id.button_WorkingAutoYes};
+    private int typicalLowCargo = 0;
+    private int typicalHighCargo = 0;
     private View _view;
     private int defaultButtonBackgroundColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private String[] SpinnerItems = {"Starting Position", "1", "2", "3", "4", "5", "6"};
-    private String[] HumanSpinnerItems = {"Human Player", "Accurate", "Partially Accurate", "Not Accurate", "Does Not Use"};
+    private String[] StartPosSpinner = {"Starting Position", "1", "2", "3", "4", "5", "6"};
+    private String[] HumanSpinner = {"Human Player", "Accurate", "Partially Accurate", "Not Accurate", "Does Not Use"};
     private int currentTeam;
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
@@ -36,12 +39,30 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
         View view = inflater.inflate(R.layout.fragment_auto, container, false);
         _view = view;
 
-        Spinner dropdown = view.findViewById(R.id.spinner_StartPosition);
-        Activity acty = getActivity();
-        if(null != acty) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(acty, android.R.layout.simple_spinner_dropdown_item, SpinnerItems);
-            dropdown.setAdapter(adapter);
-            dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner startPos = view.findViewById(R.id.spinner_StartPosition);
+        Activity startPosSpinner = getActivity();
+        if(null != startPosSpinner) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(startPosSpinner, android.R.layout.simple_spinner_dropdown_item, StartPosSpinner);
+            startPos.setAdapter(adapter);
+            startPos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    updateSpinnerValue(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID, i);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+        }
+
+        Spinner humanPlayer = view.findViewById(R.id.spinner_HumanPlayer);
+        Activity humanPlayerSpinner = getActivity();
+        if(null != humanPlayerSpinner) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(humanPlayerSpinner, android.R.layout.simple_spinner_dropdown_item, HumanSpinner);
+            humanPlayer.setAdapter(adapter);
+            humanPlayer.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     updateSpinnerValue(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID, i);
@@ -108,6 +129,60 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
+        button = view.findViewById(R.id.button_WorkingAutoYes);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                workingAutoYes();
+            }
+        });
+
+        button = view.findViewById(R.id.button_WorkingAutoNo);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                workingAutoNo();
+            }
+        });
+
+        button = view.findViewById(R.id.button_TypicalCellsStoredHighMinus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                typicalHighMinus();
+            }
+        });
+
+        button = view.findViewById(R.id.button_TypicalCellsStoredHighPlus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                typicalHighPlus();
+            }
+        });
+
+        button = view.findViewById(R.id.button_TypicalCellsStoredLowMinus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                typicalLowMinus();
+            }
+        });
+
+        button = view.findViewById(R.id.button_TypicalCellsStoredLowPlus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                typicalLowPlus();
+            }
+        });
+
         return view;
     }
 
@@ -153,7 +228,8 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
 
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), pickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getNumPreload(), preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), workingAutoButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
 
             Spinner sp = _view.findViewById(R.id.spinner_StartPosition);
             sp.setSelection(cst.getAutoStartPosID());
@@ -211,6 +287,70 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 1, preloadButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         try {
             CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 1, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void workingAutoYes() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, workingAutoButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 1, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void workingAutoNo() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, workingAutoButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 1, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void typicalHighPlus() {
+        button = _view.findViewById(R.id.button_TypicalCellsStoredHighCounter);
+        typicalHighCargo++;
+        button.setText(String.valueOf(typicalHighCargo));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, typicalHighCargo, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void typicalHighMinus() {
+        button = _view.findViewById(R.id.button_TypicalCellsStoredHighCounter);
+        if (typicalHighCargo > 0)
+            typicalHighCargo--;
+        button.setText(String.valueOf(typicalHighCargo));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, typicalHighCargo, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void typicalLowPlus() {
+        button = _view.findViewById(R.id.button_TypicalCellsStoredLowCounter);
+        typicalLowCargo++;
+        button.setText(String.valueOf(typicalLowCargo));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, typicalLowCargo, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void typicalLowMinus() {
+        button = _view.findViewById(R.id.button_TypicalCellsStoredLowCounter);
+        if (typicalLowCargo > 0)
+            typicalLowCargo--;
+        button.setText(String.valueOf(typicalLowCargo));
+        try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, typicalLowCargo, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }

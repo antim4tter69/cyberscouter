@@ -8,214 +8,321 @@
     tools:context=".ui.main.PlaceholderFragment">
 
     <Button
-        android:id="@+id/button_TypicalCellsStoredMinus"
+        android:id="@+id/button_TypicalCellsStoredHighMinus"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
-        app:layout_constraintStart_toEndOf="@+id/button_PreloadPlus" />
+        app:layout_constraintStart_toStartOf="@+id/textView_TypicalCellsStoredHigh"
+        app:layout_constraintTop_toBottomOf="@+id/textView_TypicalCellsStoredHigh" />
 
     <Button
-        android:id="@+id/button_PreloadPlus"
+        android:id="@+id/button_TypicalCellsStoredLowMinus"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="64dp"
-        android:text="@string/PlusButton"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
-        app:layout_constraintStart_toEndOf="@+id/button_PreloadCounter" />
-
-    <Button
-        android:id="@+id/button_TypicalCellsStoredPlus"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="64dp"
-        android:text="@string/PlusButton"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
-        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredCounter" />
-
-    <Button
-        android:id="@+id/button_PreloadMinus"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="8dp"
         android:text="@string/MinusButton"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textView_TypicalCellsStoredLow"
+        app:layout_constraintTop_toBottomOf="@+id/textView_TypicalCellsStoredLow" />
 
     <Button
-        android:id="@+id/button_PreloadCounter"
+        android:id="@+id/button_PreloadNo"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="64dp"
-        android:background="@android:color/transparent"
-        android:text="@string/ZeroText"
-        android:textColorLink="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
-        app:layout_constraintStart_toEndOf="@+id/button_PreloadMinus" />
-
-    <Button
-        android:id="@+id/button_TypicalCellsStoredCounter"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="64dp"
-        android:background="@android:color/transparent"
-        android:text="@string/ZeroText"
-        android:textColorLink="@android:color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_MoveBonus"
-        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredMinus" />
-
-    <Button
-        android:id="@+id/button_moveBonusNo"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="8dp"
         android:text="@string/NoButton"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_Pickup"
-        app:layout_constraintStart_toEndOf="@+id/button_moveBonusYes" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_NumberOfPreload"
+        app:layout_constraintTop_toBottomOf="@+id/textview_NumberOfPreload" />
+
+    <Button
+        android:id="@+id/button_TypicalCellsStoredHighPlus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/PlusButton"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_TypicalCellsStoredHigh"
+        app:layout_constraintTop_toBottomOf="@+id/textView_TypicalCellsStoredHigh" />
+
+    <Button
+        android:id="@+id/button_TypicalCellsStoredLowPlus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/PlusButton"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView_TypicalCellsStoredLow"
+        app:layout_constraintTop_toBottomOf="@+id/textView_TypicalCellsStoredLow" />
+
+    <Button
+        android:id="@+id/button_PreloadYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/YesButton"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textview_NumberOfPreload"
+        app:layout_constraintTop_toBottomOf="@+id/textview_NumberOfPreload" />
+
+    <Button
+        android:id="@+id/button_TypicalCellsStoredHighCounter"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:text="@string/ZeroText"
+        android:textColorLink="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_TypicalCellsStoredHighPlus"
+        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredHighMinus"
+        app:layout_constraintTop_toBottomOf="@+id/textView_TypicalCellsStoredHigh" />
+
+    <Button
+        android:id="@+id/button_TypicalCellsStoredLowCounter"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:text="@string/ZeroText"
+        android:textColorLink="@android:color/black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_TypicalCellsStoredLowPlus"
+        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredLowMinus"
+        app:layout_constraintTop_toBottomOf="@+id/textView_TypicalCellsStoredLow" />
+
+    <Button
+        android:id="@+id/button_didNotMove"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/NoButton"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/textview_MoveBonus"
+        app:layout_constraintTop_toBottomOf="@+id/textview_MoveBonus" />
 
     <Button
         android:id="@+id/button_PickupNo"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="8dp"
         android:text="@string/NoButton"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_PickupYes" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_Pickup"
+        app:layout_constraintTop_toBottomOf="@+id/textview_Pickup" />
+
+    <Button
+        android:id="@+id/button_WorkingAutoNo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/NoButton"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/workingAuto"
+        app:layout_constraintTop_toBottomOf="@+id/workingAuto" />
 
     <Button
         android:id="@+id/button_PickupYes"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="8dp"
         android:text="@string/YesButton"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textview_Pickup"
+        app:layout_constraintTop_toBottomOf="@+id/textview_Pickup" />
+
+    <Button
+        android:id="@+id/button_WorkingAutoYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/YesButton"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/workingAuto"
+        app:layout_constraintTop_toBottomOf="@+id/workingAuto" />
 
     <Button
         android:id="@+id/button_moveBonusYes"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginTop="8dp"
         android:text="@string/YesButton"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textview_Pickup"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textview_MoveBonus"
+        app:layout_constraintTop_toBottomOf="@+id/textview_MoveBonus" />
 
     <TextView
         android:id="@+id/textview_Pickup"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="56dp"
         android:text="@string/PickupText"
         android:textAlignment="center"
         android:textSize="32sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_PickupYes"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/button_PreloadYes"
+        app:layout_constraintTop_toBottomOf="@+id/button_PreloadYes" />
+
+    <TextView
+        android:id="@+id/workingAuto"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/WorkingAuto"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textview_MoveBonus"
         android:layout_width="144dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="300dp"
         android:text="@string/MoveBonusText"
         android:textAlignment="center"
-        android:textSize="26sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_moveBonusNo"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/workingAuto"
+        app:layout_constraintTop_toTopOf="@+id/workingAuto" />
 
     <TextView
         android:id="@+id/textview_NumberOfPreload"
-        android:layout_width="208dp"
+        android:layout_width="144dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="@string/NumberOfPreloads"
         android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_PreloadCounter"
-        app:layout_constraintEnd_toEndOf="@+id/button_PreloadCounter"
-        app:layout_constraintStart_toStartOf="@+id/button_PreloadCounter" />
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@+id/button_moveBonusYes"
+        app:layout_constraintTop_toTopOf="@+id/textview_StartPosition" />
+
+    <!--       android:src="@drawable/field_image_for_scouting" -->
 
     <TextView
-        android:id="@+id/textView_TypicalCellsStored"
+        android:id="@+id/textView_TypicalCellsStoredHigh"
         android:layout_width="208dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/TypicalCellsStored"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_TypicalCellsStoredCounter"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="200dp"
+        android:text="@string/TypicalCargoStoredHigh"
 
-        app:layout_constraintEnd_toEndOf="@id/button_TypicalCellsStoredCounter"
-        app:layout_constraintStart_toStartOf="@id/button_TypicalCellsStoredCounter" />
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="@+id/textview_avgCargoScored"
+        app:layout_constraintTop_toBottomOf="@+id/textview_avgCargoScored" />
+
+    <TextView
+        android:id="@+id/textView_TypicalCellsStoredLow"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+
+        android:text="@string/TypicalCargoStoredLow"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@+id/textview_avgCargoScored"
+        app:layout_constraintTop_toTopOf="@+id/textView_TypicalCellsStoredHigh" />
 
     <Spinner
         android:id="@+id/spinner_StartPosition"
         android:layout_width="208dp"
         android:layout_height="40dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="8dp"
         android:background="?attr/colorButtonNormal"
         android:spinnerMode="dropdown"
-        app:layout_constraintStart_toEndOf="@+id/button_PreloadPlus"
-        app:layout_constraintTop_toBottomOf="@+id/button_TypicalCellsStoredMinus" />
+        app:layout_constraintStart_toStartOf="@+id/textview_StartPosition"
+        app:layout_constraintTop_toBottomOf="@+id/textview_StartPosition" />
 
-    <!--       android:src="@drawable/field_image_for_scouting" -->
+    <Spinner
+        android:id="@+id/spinner_HumanPlayer"
+        android:layout_width="208dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="?attr/colorButtonNormal"
+        android:spinnerMode="dropdown"
+        app:layout_constraintStart_toStartOf="@+id/textview_HumanPlayer"
+        app:layout_constraintTop_toBottomOf="@+id/textview_HumanPlayer" />
 
     <TextView
         android:id="@+id/textView_AutoSummary"
-        android:layout_width="196dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="36dp"
         android:text="@string/AutoSummary"
         android:textAlignment="textStart"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_TypicalCellsStoredCounter"
-        app:layout_constraintStart_toEndOf="@+id/textView_TypicalCellsStored" />
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@+id/button_TypicalCellsStoredHighMinus"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_HumanPlayer" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="495dp"
-        android:layout_height="238dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="343dp"
+        android:layout_height="159dp"
+        android:layout_marginTop="44dp"
         android:src="@drawable/field_image_for_scouting"
-        app:layout_constraintStart_toEndOf="@+id/button_moveBonusNo"
+        app:layout_constraintStart_toStartOf="@+id/spinner_StartPosition"
         app:layout_constraintTop_toBottomOf="@+id/spinner_StartPosition" />
 
     <EditText
         android:id="@+id/editText_autoSummary"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Type Here"
         android:inputType="textMultiLine"
-        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredPlus"
+        app:layout_constraintStart_toStartOf="@+id/textView_AutoSummary"
         app:layout_constraintTop_toBottomOf="@+id/textView_AutoSummary" />
+
+    <TextView
+        android:id="@+id/textview_avgCargoScored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:text="@string/AvgCargoScored"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_MoveBonus"
+        app:layout_constraintTop_toTopOf="@+id/textview_MoveBonus" />
+
+    <TextView
+        android:id="@+id/textview_StartPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:text="@string/StartPositionPit"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="@+id/button_WorkingAutoYes"
+        app:layout_constraintTop_toBottomOf="@+id/button_WorkingAutoYes" />
+
+    <TextView
+        android:id="@+id/textview_HumanPlayer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/HumanPlayer"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_TypicalCellsStoredLowMinus"
+        app:layout_constraintStart_toEndOf="@+id/button_TypicalCellsStoredHighPlus"
+        app:layout_constraintTop_toBottomOf="@+id/button_TypicalCellsStoredHighCounter" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="5dp"
+        android:layout_height="798dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/button_PreloadYes"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="5dp"
+        android:layout_height="798dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/button_TypicalCellsStoredHighMinus"
+        app:layout_constraintStart_toEndOf="@+id/button_PreloadNo"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

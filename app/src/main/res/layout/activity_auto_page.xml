@@ -35,22 +35,24 @@
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="40sp"
-            app:layout_constraintBottom_toTopOf="@+id/button5"
-            app:layout_constraintEnd_toStartOf="@+id/button4"
+            app:layout_constraintBottom_toTopOf="@+id/button_didNotMove"
+            app:layout_constraintEnd_toStartOf="@+id/ClimbFailedbutton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.994" />
 
         <Button
-            android:id="@+id/button_moveBonusAttempted"
+            android:id="@+id/button_attempted"
             android:layout_width="263dp"
             android:layout_height="67dp"
+            android:layout_marginStart="124dp"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/CurrentTeamColor"
-            android:text="@string/AttemptedText"
+            android:text="Attempted"
             android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="@+id/button5"
-            app:layout_constraintStart_toStartOf="@+id/button5"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
+            app:layout_constraintEnd_toEndOf="@+id/button_didNotMove"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_didNotMove" />
 
         <TextView
             android:id="@+id/textViewAutoTitle"
@@ -88,7 +90,7 @@
             app:srcCompat="@android:color/background_light" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/button_didNotMove"
             android:layout_width="263dp"
             android:layout_height="57dp"
             android:layout_marginTop="96dp"
@@ -98,34 +100,35 @@
             app:layout_constraintEnd_toEndOf="@+id/textViewMoveBonus"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textViewMoveBonus"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/button_moveBonusYes"
             android:layout_width="260dp"
             android:layout_height="96dp"
             android:backgroundTint="@color/CurrentTeamColor"
             android:text="Achieved Move Bonus"
             android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="@+id/button_moveBonusAttempted"
-            app:layout_constraintStart_toStartOf="@+id/button_moveBonusAttempted"
-            app:layout_constraintTop_toBottomOf="@+id/button_moveBonusAttempted" />
+            app:layout_constraintEnd_toEndOf="@+id/button_attempted"
+            app:layout_constraintStart_toStartOf="@+id/button_attempted"
+            app:layout_constraintTop_toBottomOf="@+id/button_attempted" />
 
         <Button
-            android:id="@+id/outerCounter"
+            android:id="@+id/upperCounter"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:background="@android:color/transparent"
+            android:clickable="false"
             android:text="@string/ZeroText"
             android:textColorLink="@android:color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/InnerGoalPlus_button"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintEnd_toStartOf="@+id/button_upperGoalPlus"
+            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
 
         <Button
-            android:id="@+id/LowerCounter"
+            android:id="@+id/missedCounter"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="116dp"
@@ -134,11 +137,11 @@
             android:text="@string/ZeroText"
             android:textColorLink="@android:color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/LowerGoalPlus_button"
-            app:layout_constraintTop_toBottomOf="@+id/OuterCounter" />
+            app:layout_constraintEnd_toStartOf="@+id/button_missedGoalPlus"
+            app:layout_constraintTop_toBottomOf="@+id/lowerCounter" />
 
         <Button
-            android:id="@+id/OuterCounter"
+            android:id="@+id/lowerCounter"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="104dp"
@@ -147,11 +150,11 @@
             android:text="@string/ZeroText"
             android:textColorLink="@android:color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/OuterGoalPlus_button"
-            app:layout_constraintTop_toBottomOf="@+id/outerCounter" />
+            app:layout_constraintEnd_toStartOf="@+id/button_LowerGoalPlus"
+            app:layout_constraintTop_toBottomOf="@+id/upperCounter" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/ScoredCargoButton"
             android:layout_width="250dp"
             android:layout_height="74dp"
             android:layout_marginTop="24dp"
@@ -161,23 +164,23 @@
             android:textColor="#000000"
             android:textSize="45sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/button3"
+            app:layout_constraintStart_toStartOf="@+id/BrokeDownButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/BrokeDownButton"
             android:layout_width="249dp"
             android:layout_height="79dp"
             android:layout_marginTop="96dp"
             android:backgroundTint="@color/CurrentTeamColor"
             android:text="Lower"
             android:textSize="45sp"
-            app:layout_constraintEnd_toEndOf="@+id/OuterGoalPlus_button"
-            app:layout_constraintStart_toStartOf="@+id/OuterGoalMinus_button"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintEnd_toEndOf="@+id/button_LowerGoalPlus"
+            app:layout_constraintStart_toStartOf="@+id/button_LowerGoalMinus"
+            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
 
         <Button
-            android:id="@+id/InnerGoalPlus_button"
+            android:id="@+id/button_upperGoalPlus"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="16dp"
@@ -185,10 +188,10 @@
             android:text="@string/PlusButton"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
 
         <Button
-            android:id="@+id/OuterGoalPlus_button"
+            android:id="@+id/button_LowerGoalPlus"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="16dp"
@@ -196,21 +199,21 @@
             android:text="@string/PlusButton"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/ClimbFailedbutton"
             android:layout_width="251dp"
             android:layout_height="75dp"
             android:layout_marginTop="108dp"
             android:backgroundTint="@color/CurrentTeamColor"
             android:text="Missed"
             android:textSize="45sp"
-            app:layout_constraintEnd_toEndOf="@+id/LowerGoalPlus_button"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            app:layout_constraintEnd_toEndOf="@+id/button_missedGoalPlus"
+            app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
 
         <Button
-            android:id="@+id/LowerGoalPlus_button"
+            android:id="@+id/button_missedGoalPlus"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="116dp"
@@ -218,43 +221,43 @@
             android:text="@string/PlusButton"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/OuterGoalPlus_button" />
+            app:layout_constraintTop_toBottomOf="@+id/button_LowerGoalPlus" />
 
         <Button
-            android:id="@+id/LowerGoalMinus_button"
+            android:id="@+id/button_missedGoalMinus"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="116dp"
             android:layout_marginEnd="24dp"
             android:text="@string/MinusButton"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/LowerCounter"
-            app:layout_constraintStart_toStartOf="@+id/button4"
-            app:layout_constraintTop_toBottomOf="@+id/OuterCounter" />
+            app:layout_constraintEnd_toStartOf="@+id/missedCounter"
+            app:layout_constraintStart_toStartOf="@+id/ClimbFailedbutton"
+            app:layout_constraintTop_toBottomOf="@+id/lowerCounter" />
 
         <Button
-            android:id="@+id/OuterGoalMinus_button"
+            android:id="@+id/button_LowerGoalMinus"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:text="@string/MinusButton"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/OuterCounter"
+            app:layout_constraintEnd_toStartOf="@+id/lowerCounter"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/LowerGoalMinus_button"
-            app:layout_constraintTop_toBottomOf="@+id/button3" />
+            app:layout_constraintStart_toStartOf="@+id/button_missedGoalMinus"
+            app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
 
         <Button
-            android:id="@+id/InnerGoalMinus_button"
+            android:id="@+id/button_upperGoalMinus"
             android:layout_width="68dp"
             android:layout_height="68dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:text="@string/MinusButton"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/outerCounter"
-            app:layout_constraintTop_toBottomOf="@+id/button2" />
+            app:layout_constraintEnd_toStartOf="@+id/upperCounter"
+            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
 
         <ImageView
             android:id="@+id/imageView5"
@@ -265,6 +268,113 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/field" />
+
+        <Button
+            android:id="@+id/button11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="144dp"
+            android:layout_marginEnd="116dp"
+            android:backgroundTint="#FF0000"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/textViewMoveBonus"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="6" />
+
+        <Button
+            android:id="@+id/button13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="344dp"
+            android:layout_marginTop="152dp"
+            android:backgroundTint="#FF0000"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button12"
+            tools:text="4" />
+
+        <Button
+            android:id="@+id/button14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="128dp"
+            android:backgroundTint="#FF0000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button16"
+            tools:text="1" />
+
+        <Button
+            android:id="@+id/button12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="64dp"
+            android:backgroundTint="#000DFF"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="@+id/button11"
+            app:layout_constraintTop_toBottomOf="@+id/button11"
+            tools:text="5" />
+
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="108dp"
+            android:backgroundTint="#000DFF"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toStartOf="@+id/button16"
+            app:layout_constraintTop_toBottomOf="@+id/button13"
+            tools:text="3" />
+
+        <Button
+            android:id="@+id/button16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="344dp"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="#000DFF"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/buttonPrevious"
+            app:layout_constraintTop_toBottomOf="@+id/button15"
+            tools:text="2" />
+
+        <Button
+            android:id="@+id/button18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="96dp"
+            android:backgroundTint="#000DFF"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button15"
+            tools:text="7" />
+
+        <Button
+            android:id="@+id/button19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#000DFF"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button20"
+            tools:text="8" />
+
+        <Button
+            android:id="@+id/button20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="351dp"
+            android:backgroundTint="#000DFF"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView5"
+            tools:text="9" />
 
 
     </android.support.constraint.ConstraintLayout>

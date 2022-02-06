@@ -17,14 +17,14 @@ import android.widget.Spinner;
 
 public class AutoTab extends Fragment implements IOnEditTextSaveListener {
     private Button button;
-    private final int[] moveBonusButtons = {R.id.button_moveBonusNo, R.id.button_moveBonusYes};
+    private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_moveBonusYes};
     private final int[] pickupButtons = {R.id.button_PickupNo, R.id.button_PickupYes};
+    private final int[] preloadButtons = {R.id.button_PreloadNo, R.id.button_PreloadYes};
     private View _view;
     private int defaultButtonBackgroundColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private int NumberOfPreloadCount = 0;
-    private int TypicalCellsStoredCount = 0;
     private String[] SpinnerItems = {"Starting Position", "1", "2", "3", "4", "5", "6"};
+    private String[] HumanSpinnerItems = {"Human Player", "Accurate", "Partially Accurate", "Not Accurate", "Does Not Use"};
     private int currentTeam;
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
@@ -54,7 +54,7 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
             });
         }
 
-        button = view.findViewById(R.id.button_moveBonusNo);
+        button = view.findViewById(R.id.button_didNotMove);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -90,42 +90,23 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        button = view.findViewById(R.id.button_PreloadMinus);
+        button = view.findViewById(R.id.button_PreloadYes);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                numberOfPreloadMinus();
+                preloadYes();
             }
         });
 
-        button = view.findViewById(R.id.button_PreloadPlus);
+        button = view.findViewById(R.id.button_PreloadNo);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                numberOfPreloadPlus();
+                preloadNo();
             }
         });
-
-        button = view.findViewById(R.id.button_TypicalCellsStoredMinus);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                typicalCellsStoredMinus();
-            }
-        });
-
-        button = view.findViewById(R.id.button_TypicalCellsStoredPlus);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                typicalCellsStoredPlus();
-            }
-        });
-
 
         return view;
     }
@@ -168,15 +149,11 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
             et.setText(String.valueOf(cst.getAutoSummary()));
             et.setSelectAllOnFocus(true);
 
-            button = _view.findViewById(R.id.button_PreloadCounter);
-            button.setText(String.valueOf(cst.getNumPreload()));
-            NumberOfPreloadCount = cst.getNumPreload();
-            button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
-            button.setText(String.valueOf(cst.getAutoBallsScored()));
-            TypicalCellsStoredCount = cst.getAutoBallsScored();
+
 
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), pickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
 
             Spinner sp = _view.findViewById(R.id.spinner_StartPosition);
             sp.setSelection(cst.getAutoStartPosID());
@@ -221,47 +198,19 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
         }
     }
 
-    public void numberOfPreloadMinus() {
-        button = _view.findViewById(R.id.button_PreloadCounter);
-        if (NumberOfPreloadCount > 0)
-            NumberOfPreloadCount--;
-        button.setText(String.valueOf(NumberOfPreloadCount));
+    public void preloadNo() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, preloadButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, NumberOfPreloadCount, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 0, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void numberOfPreloadPlus() {
-        button = _view.findViewById(R.id.button_PreloadCounter);
-        NumberOfPreloadCount++;
-        button.setText(String.valueOf(NumberOfPreloadCount));
+    public void preloadYes() {
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, preloadButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, NumberOfPreloadCount, currentTeam);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void typicalCellsStoredMinus() {
-        button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
-        if (TypicalCellsStoredCount > 0)
-            TypicalCellsStoredCount--;
-        button.setText(String.valueOf(TypicalCellsStoredCount));
-        try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED, TypicalCellsStoredCount, currentTeam);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void typicalCellsStoredPlus() {
-        button = _view.findViewById(R.id.button_TypicalCellsStoredCounter);
-        TypicalCellsStoredCount++;
-        button.setText(String.valueOf(TypicalCellsStoredCount));
-        try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED, TypicalCellsStoredCount, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 1, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }

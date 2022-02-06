@@ -41,6 +41,16 @@
     <string name="NoButton">N</string>
     <string name="MoveBonusText">Move Bonus</string>
     <string name="GroundStartingPositionLeftButton">Ground left</string>
+    <string name="PlayedDefense">Played Defense</string>
+    <string name="ScoredCargo">Scored Cargo</string>
+    <string name="BrokeDown">Broke Down</string>
+    <string name="ClimbFailed">Climb Failed</string>
+    <string name="ClimbStatus">Climb Status</string>
+    <string name="NABrokeDown">No Attempt - Broke Down</string>
+    <string name="NAPlayedDefense">No Attempt - Played Defense</string>
+    <string name="NAScoredCargo">No Attempt - Scored Cargo</string>
+    <string name="CAFailed">Climb Attempted - Failed</string>
+    <string name="CASuccess">Climd Attempted - Success</string>
     <string name="GroundStartingPositionRightButton">Ground right</string>
     <string name="LevelOneStartingPositionLeftButton">Lvl 1 left</string>
     <string name="LevelTwoStartingPositionLeftButton">Lvl 2 left</string>
@@ -86,7 +96,7 @@
     <string name="ReturnToMainMenu">Return To Main Menu</string>
     <string name="ScoutingPage">Level One Scouting</string>
 
-    <string name="EndPageText">End Game</string>
+    <string name="ClimbPageText">Climb</string>
     <string name="ZeroText">0</string>
     <string name="NoAttemptButton">No Attempt</string>
     <string name="WasHelpedButton">Was Helped</string>
@@ -100,10 +110,15 @@
     <string name="TippedOverText">Tipped Over</string>
     <string name="GroundPickupText">Ground Pick Up</string>
     <string name="NamePickerTitle">Select Your Name</string>
-    <string name="PickupText">Pick Up</string>
-    <string name="NumberOfPreloads">Number of Preloads</string>
-    <string name="TypicalCellsStored">Typical Scored Power Cells</string>
+    <string name="PickupText">Pick Up Cargo</string>
+    <string name="NumberOfPreloads">Preload</string>
+    <string name="TypicalCargoStoredHigh">High Hub</string>
+    <string name="TypicalCargoStoredLow">Low Hub</string>
     <string name="AttemptedText">Attempted</string>
+    <string name="WorkingAuto">Working Auto</string>
+    <string name="AvgCargoScored">Average Cargo Scored</string>
+    <string name="StartPositionPit">Starting Position</string>
+    <string name="HumanPlayer">Human Player</string>
 
     <string name="tagTeam">Team %s</string>
     <string name="tagEvent">Event %s</string>

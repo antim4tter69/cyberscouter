@@ -7,199 +7,304 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.PlaceholderFragment">
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="240dp"
+    <EditText
+        android:id="@+id/editText_defenseStrat"
+        android:layout_width="688dp"
         android:layout_height="50dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="60dp"
-        android:text="Color Wheel?"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textview_teleopStrategy"
+        app:layout_constraintTop_toBottomOf="@+id/textview_defenseStrategy" />
 
     <TextView
-        android:id="@+id/textView14"
-        android:layout_width="275dp"
-        android:layout_height="50dp"
+        android:id="@+id/textview_sortCargo"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="64dp"
-        android:text="Teleop Strategy"
+        android:text="@string/SortCargo"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/textview_AverageScoredTeleop"
+        app:layout_constraintTop_toTopOf="@+id/textview_AverageScoredTeleop" />
+
+    <TextView
+        android:id="@+id/textview_teleopStrategy"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/TeleopStrategy"
+        android:textAlignment="viewStart"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textview_sortCargo"
+        app:layout_constraintTop_toBottomOf="@+id/button_sortCargoYes" />
+
+    <TextView
+        android:id="@+id/textview_defenseStrategy"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/DefenseStrategy"
+        android:textAlignment="viewStart"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textview_playDefense"
+        app:layout_constraintTop_toBottomOf="@+id/button_playDefenseYes" />
 
     <Button
         android:id="@+id/textButton_maxCapacity"
-        android:layout_width="79dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="32dp"
-        android:background="#FFFFFF"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@android:color/transparent"
         android:text="0"
         android:textAlignment="center"
         android:textSize="40sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_maxCapacityPlus"
-        app:layout_constraintStart_toEndOf="@+id/button_maxCapacityMinus"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        app:layout_constraintEnd_toStartOf="@+id/button_cargoScoredLowTelePlus"
+        app:layout_constraintStart_toEndOf="@+id/button_cargoScoredLowTeleMinus"
+        app:layout_constraintTop_toTopOf="@+id/button_cargoScoredLowTeleMinus" />
 
     <Button
-        android:id="@+id/button_maxCapacityPlus"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:text="+"
+        android:id="@+id/button_cargoScoredLowTelePlus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:text="@string/PlusButton"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_LowHubTele"
+        app:layout_constraintTop_toTopOf="@+id/button_cargoScoredLowTeleMinus" />
 
     <Button
-        android:id="@+id/button_maxCapacityMinus"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:text="-"
+        android:id="@+id/button_cargoScoredLowTeleMinus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/MinusButton"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textView23"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        app:layout_constraintStart_toStartOf="@+id/textview_LowHubTele"
+        app:layout_constraintTop_toBottomOf="@+id/textview_LowHubTele" />
 
     <Button
-        android:id="@+id/button_powerCellsMinus"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:text="-"
+        android:id="@+id/button_carryingCapacityMinus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/ZeroText"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintStart_toStartOf="@+id/textview_CarryingCapacity"
+        app:layout_constraintTop_toBottomOf="@+id/textview_CarryingCapacity" />
 
     <Button
-        android:id="@+id/button_powerCellsPlus"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="32dp"
-        android:text="+"
+        android:id="@+id/button_carryingCapacityPlus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:text="@string/two"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_CarryingCapacity"
+        app:layout_constraintTop_toTopOf="@+id/button_carryingCapacityMinus" />
+
+    <Button
+        android:id="@+id/button_carryingCapacityPlus2"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:text="@string/one"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/button_carryingCapacityPlus"
+        app:layout_constraintStart_toEndOf="@+id/button_carryingCapacityMinus"
+        app:layout_constraintTop_toTopOf="@+id/button_carryingCapacityMinus" />
+
+    <Button
+        android:id="@+id/button_cargoScoredHighTeleMinus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/MinusButton"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textview_HighHubTele"
+        app:layout_constraintTop_toBottomOf="@+id/textview_HighHubTele" />
+
+    <Button
+        android:id="@+id/button_cargoScoredHighTelePlus"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:text="@string/PlusButton"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/textview_HighHubTele"
+        app:layout_constraintTop_toTopOf="@+id/button_cargoScoredHighTeleMinus" />
 
     <TextView
-        android:id="@+id/textView19"
-        android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="60dp"
-        android:text="Average Power Cells Scored"
-        android:textSize="20sp"
+        android:id="@+id/textview_AverageScoredTeleop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/AvgCargoScored"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView23"
-        android:layout_width="275dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="100dp"
-        android:text="Max Capacity of Power Cells"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textView19"
-        app:layout_constraintTop_toBottomOf="@+id/textButton_ballsScored" />
+        android:id="@+id/textview_LowHubTele"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="@string/TypicalCargoStoredLow"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/button_cargoScoredHighTeleMinus"
+        app:layout_constraintTop_toBottomOf="@+id/button_cargoScoredHighTeleMinus" />
 
     <Button
-        android:id="@+id/textButton_ballsScored"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="32dp"
-        android:background="#FFFFFF"
+        android:id="@+id/textButton_cargoScoredHighTeleCounter"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:background="@android:color/transparent"
         android:text="0"
         android:textAlignment="center"
         android:textSize="40sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_powerCellsPlus"
-        app:layout_constraintStart_toEndOf="@+id/button_powerCellsMinus"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintEnd_toStartOf="@+id/button_cargoScoredHighTelePlus"
+        app:layout_constraintStart_toEndOf="@+id/button_cargoScoredHighTeleMinus"
+        app:layout_constraintTop_toTopOf="@+id/button_cargoScoredHighTeleMinus" />
 
     <Button
-        android:id="@+id/yesButton3"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:id="@+id/button_evadeDefenseYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/YesButton"
-        app:layout_constraintStart_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintStart_toStartOf="@+id/textview_evadeDefense"
+        app:layout_constraintTop_toBottomOf="@+id/textview_evadeDefense" />
 
     <Button
-        android:id="@+id/yesButton2"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:id="@+id/button_playDefenseYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/YesButton"
-        app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintStart_toStartOf="@+id/textview_playDefense"
+        app:layout_constraintTop_toBottomOf="@+id/textview_playDefense" />
 
     <Button
-        android:id="@+id/yesButton1"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:id="@+id/button_sortCargoYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="@string/YesButton"
-        app:layout_constraintStart_toStartOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintStart_toStartOf="@+id/textview_sortCargo"
+        app:layout_constraintTop_toBottomOf="@+id/textview_sortCargo" />
 
     <Button
-        android:id="@+id/noButton1"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+        android:id="@+id/button_shootWhileDrivingYes"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="20dp"
+        android:text="@string/YesButton"
+        app:layout_constraintStart_toStartOf="@+id/textview_shootWhileDriving"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shootWhileDriving" />
+
+    <Button
+        android:id="@+id/button_sortCargoNo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/NoButton"
-        app:layout_constraintEnd_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_sortCargo"
+        app:layout_constraintTop_toTopOf="@+id/button_sortCargoYes" />
 
     <Button
-        android:id="@+id/noButton2"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/button_shootWhileDrivingNo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/NoButton"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_shootWhileDriving"
+        app:layout_constraintTop_toTopOf="@+id/button_shootWhileDrivingYes" />
+
+    <Button
+        android:id="@+id/button_playDefenseNo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/NoButton"
+        app:layout_constraintEnd_toEndOf="@+id/textview_playDefense"
+        app:layout_constraintTop_toTopOf="@+id/button_playDefenseYes" />
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:text="Defense?"
+        android:id="@+id/textview_playDefense"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/PlayDefense"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/yesButton1"
-        app:layout_constraintTop_toBottomOf="@+id/yesButton1" />
+        app:layout_constraintStart_toStartOf="@+id/editText_teleopStrat"
+        app:layout_constraintTop_toBottomOf="@+id/editText_teleopStrat" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="240dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:text="Can They Evade Defense?"
+        android:id="@+id/textview_evadeDefense"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:text="@string/EvadeDefense"
         android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/yesButton2"
-        app:layout_constraintTop_toBottomOf="@+id/yesButton2" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_shootWhileDriving"
+        app:layout_constraintStart_toStartOf="@+id/textview_shootWhileDriving"
+        app:layout_constraintTop_toTopOf="@+id/textview_playDefense" />
+
+    <TextView
+        android:id="@+id/textview_shootWhileDriving"
+        android:layout_width="264dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="216dp"
+        android:text="@string/ShootWhileDriving"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintStart_toEndOf="@+id/textview_sortCargo"
+        app:layout_constraintTop_toTopOf="@+id/textview_sortCargo" />
 
     <Button
-        android:id="@+id/noButton3"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:id="@+id/button_evadeDefenseNo"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/NoButton"
-        app:layout_constraintEnd_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintEnd_toEndOf="@+id/textview_evadeDefense"
+        app:layout_constraintTop_toTopOf="@+id/button_evadeDefenseYes" />
 
     <EditText
         android:id="@+id/editText_teleopStrat"
-        android:layout_width="275dp"
+        android:layout_width="688dp"
         android:layout_height="50dp"
+        android:textAlignment="viewStart"
+        app:layout_constraintStart_toStartOf="@+id/textview_teleopStrategy"
+        app:layout_constraintTop_toBottomOf="@+id/textview_teleopStrategy" />
+
+    <TextView
+        android:id="@+id/textview_HighHubTele"
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+        android:text="@string/TypicalCargoStoredHigh"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textview_AverageScoredTeleop"
+        app:layout_constraintTop_toBottomOf="@+id/textview_AverageScoredTeleop" />
+
+    <TextView
+        android:id="@+id/textview_CarryingCapacity"
+        android:layout_width="238dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:text="@string/CarryingCapacity"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/button_cargoScoredLowTeleMinus"
+        app:layout_constraintTop_toBottomOf="@+id/button_cargoScoredLowTeleMinus" />
+
+    <View
+        android:id="@+id/divider5"
+        android:layout_width="1dp"
+        android:layout_height="798dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/textview_sortCargo"
+        app:layout_constraintStart_toEndOf="@+id/textview_AverageScoredTeleop"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

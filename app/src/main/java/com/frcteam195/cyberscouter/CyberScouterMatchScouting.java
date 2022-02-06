@@ -64,8 +64,9 @@ class CyberScouterMatchScouting {
     private int teleBallMiss;
 
     private int climbStatus;
-    private int climbHeight;
+    private int rungClimbed;
     private int climbPosition;
+    private int insteadOfClimb;
 
     private int summLaunchPad;
     private int summSortCargo;
@@ -161,7 +162,7 @@ class CyberScouterMatchScouting {
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH, teleBallHigh);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS, teleBallMiss);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, climbStatus);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, climbHeight);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, rungClimbed);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION, climbPosition);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD, summLaunchPad);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO, summSortCargo);
@@ -368,7 +369,7 @@ class CyberScouterMatchScouting {
                     csm.teleBallLow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW));
                     csm.teleBallMiss = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS));
                     csm.climbStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS));
-                    csm.climbHeight = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT));
+                    csm.rungClimbed = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT));
                     csm.climbPosition = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION));
                     csm.summLaunchPad = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD));
                     csm.summSortCargo = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO));
@@ -741,16 +742,16 @@ class CyberScouterMatchScouting {
     }
 
     int getClimbStatus() {
-        return climbStatus;
+        return rungClimbed;
     }
 
     int getClimbHeight() {
-        return climbHeight;
+        return rungClimbed;
     }
 
-    int getClimbPosition() {
-        return climbPosition;
-    }
+    int getInsteadOfClimb() {return insteadOfClimb;}
+
+    int getClimbPosition() {return climbPosition;}
 
     int getSummLaunchPad() {
         return summLaunchPad;

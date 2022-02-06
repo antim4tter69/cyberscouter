@@ -36,7 +36,7 @@
             android:textColor="#000000"
             android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/button_didNotMove"
-            app:layout_constraintEnd_toStartOf="@+id/ClimbFailedbutton"
+            app:layout_constraintEnd_toStartOf="@+id/button_ClimbFailed"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.994" />
 
@@ -100,7 +100,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textViewMoveBonus"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textViewMoveBonus"
-            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_ScoredCargo" />
 
         <Button
             android:id="@+id/button_moveBonusYes"
@@ -125,7 +125,7 @@
             android:textColorLink="@android:color/black"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/button_upperGoalPlus"
-            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_ScoredCargo" />
 
         <Button
             android:id="@+id/missedCounter"
@@ -154,7 +154,7 @@
             app:layout_constraintTop_toBottomOf="@+id/upperCounter" />
 
         <Button
-            android:id="@+id/ScoredCargoButton"
+            android:id="@+id/button_ScoredCargo"
             android:layout_width="250dp"
             android:layout_height="74dp"
             android:layout_marginTop="24dp"
@@ -164,11 +164,11 @@
             android:textColor="#000000"
             android:textSize="45sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/BrokeDownButton"
+            app:layout_constraintStart_toStartOf="@+id/button_BrokeDown"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/BrokeDownButton"
+            android:id="@+id/button_BrokeDown"
             android:layout_width="249dp"
             android:layout_height="79dp"
             android:layout_marginTop="96dp"
@@ -177,7 +177,7 @@
             android:textSize="45sp"
             app:layout_constraintEnd_toEndOf="@+id/button_LowerGoalPlus"
             app:layout_constraintStart_toStartOf="@+id/button_LowerGoalMinus"
-            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_ScoredCargo" />
 
         <Button
             android:id="@+id/button_upperGoalPlus"
@@ -188,7 +188,7 @@
             android:text="@string/PlusButton"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_ScoredCargo" />
 
         <Button
             android:id="@+id/button_LowerGoalPlus"
@@ -199,10 +199,10 @@
             android:text="@string/PlusButton"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_BrokeDown" />
 
         <Button
-            android:id="@+id/ClimbFailedbutton"
+            android:id="@+id/button_ClimbFailed"
             android:layout_width="251dp"
             android:layout_height="75dp"
             android:layout_marginTop="108dp"
@@ -210,7 +210,7 @@
             android:text="Missed"
             android:textSize="45sp"
             app:layout_constraintEnd_toEndOf="@+id/button_missedGoalPlus"
-            app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_BrokeDown" />
 
         <Button
             android:id="@+id/button_missedGoalPlus"
@@ -232,7 +232,7 @@
             android:text="@string/MinusButton"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/missedCounter"
-            app:layout_constraintStart_toStartOf="@+id/ClimbFailedbutton"
+            app:layout_constraintStart_toStartOf="@+id/button_ClimbFailed"
             app:layout_constraintTop_toBottomOf="@+id/lowerCounter" />
 
         <Button
@@ -246,7 +246,7 @@
             app:layout_constraintEnd_toStartOf="@+id/lowerCounter"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/button_missedGoalMinus"
-            app:layout_constraintTop_toBottomOf="@+id/BrokeDownButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_BrokeDown" />
 
         <Button
             android:id="@+id/button_upperGoalMinus"
@@ -257,7 +257,7 @@
             android:text="@string/MinusButton"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/upperCounter"
-            app:layout_constraintTop_toBottomOf="@+id/ScoredCargoButton" />
+            app:layout_constraintTop_toBottomOf="@+id/button_ScoredCargo" />
 
         <ImageView
             android:id="@+id/imageView5"

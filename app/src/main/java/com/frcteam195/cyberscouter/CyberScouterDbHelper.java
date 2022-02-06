@@ -69,6 +69,7 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT + " INTEGER," +
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_INSTEADOFCLIMB + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO + " INTEGER," +

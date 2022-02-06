@@ -229,7 +229,6 @@
         android:layout_width="208dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:background="?attr/colorButtonNormal"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="@+id/textview_StartPosition"
         app:layout_constraintTop_toBottomOf="@+id/textview_StartPosition" />
@@ -239,7 +238,6 @@
         android:layout_width="208dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
-        android:background="?attr/colorButtonNormal"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="@+id/textview_HumanPlayer"
         app:layout_constraintTop_toBottomOf="@+id/textview_HumanPlayer" />

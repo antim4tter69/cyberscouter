@@ -18,9 +18,9 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
     private View _view;
     int Kennedy = 0;
     int Lincoln = 0;
-    private final int[] colorWheelYN = {R.id.noButton1, R.id.yesButton1};
-    private final int[] defenseYN = {R.id.noButton2, R.id.yesButton2};
-    private final int[] evadeYN = {R.id.noButton3, R.id.yesButton3};
+    private final int[] colorWheelYN = {R.id.button_sortCargoNo, R.id.button_sortCargoYes};
+    private final int[] defenseYN = {R.id.button_playDefenseNo, R.id.button_playDefenseYes};
+    private final int[] evadeYN = {R.id.button_evadeDefenseNo, R.id.button_evadeDefenseYes};
     private int defaultButtonBackgroundColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
 
@@ -34,7 +34,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
         View view = inflater.inflate(R.layout.fragment_teleop, container, false);
         _view = view;
 
-        Button Washington = view.findViewById(R.id.button_powerCellsPlus);
+        Button Washington = view.findViewById(R.id.button_cargoScoredHighTelePlus);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -43,7 +43,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.button_powerCellsMinus);
+        Washington = view.findViewById(R.id.button_cargoScoredHighTeleMinus);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -52,7 +52,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.button_maxCapacityPlus);
+        Washington = view.findViewById(R.id.button_cargoScoredLowTelePlus);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -61,7 +61,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.button_maxCapacityMinus);
+        Washington = view.findViewById(R.id.button_cargoScoredLowTeleMinus);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -70,7 +70,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.noButton1);
+        Washington = view.findViewById(R.id.button_sortCargoNo);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -79,7 +79,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.yesButton1);
+        Washington = view.findViewById(R.id.button_sortCargoYes);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -88,7 +88,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.noButton2);
+        Washington = view.findViewById(R.id.button_playDefenseNo);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -97,7 +97,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.yesButton2);
+        Washington = view.findViewById(R.id.button_playDefenseYes);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -106,7 +106,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.noButton3);
+        Washington = view.findViewById(R.id.button_evadeDefenseNo);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -115,7 +115,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        Washington = view.findViewById(R.id.yesButton3);
+        Washington = view.findViewById(R.id.button_evadeDefenseYes);
         Washington.setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -165,7 +165,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             et.setText(String.valueOf(cst.getTeleStrategy()));
             et.setSelectAllOnFocus(true);
 
-            button = _view.findViewById(R.id.textButton_ballsScored);
+            button = _view.findViewById(R.id.textButton_cargoScoredHighTeleCounter);
             button.setText(String.valueOf(cst.getTeleBallsScored()));
             Kennedy = cst.getTeleBallsScored();
             button = _view.findViewById(R.id.textButton_maxCapacity);
@@ -179,7 +179,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
     }
 
     private void powerCellsPlus() {
-        button = _view.findViewById(R.id.textButton_ballsScored);
+        button = _view.findViewById(R.id.textButton_cargoScoredHighTeleCounter);
         Kennedy++;
         button.setText(String.valueOf(Kennedy));
         try {
@@ -190,7 +190,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
     }
 
     private void powerCellsMinus() {
-        button = _view.findViewById(R.id.textButton_ballsScored);
+        button = _view.findViewById(R.id.textButton_cargoScoredHighTeleCounter);
         if (Kennedy > 0)
             Kennedy--;
         button.setText(String.valueOf(Kennedy));

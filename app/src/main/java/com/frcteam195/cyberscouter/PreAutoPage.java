@@ -18,10 +18,13 @@ import android.widget.TextView;
 public class PreAutoPage extends AppCompatActivity {
     private Button button;
     private final int[] startPositionButtons = {R.id.startbutton1, R.id.startbutton2, R.id.startbutton3, R.id.startbutton4, R.id.startbutton5, R.id.startbutton6};
+    private final int[] preloadButtons = {R.id.preloadYesBtn, R.id.preloadNoBtn};
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private Button didnotshowyesbutton;
     private int currentCommStatusColor;
+    private int preload = 0;
+    private boolean[] compCheck = {false, false};
 
     private final CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db;
@@ -40,6 +43,32 @@ public class PreAutoPage extends AppCompatActivity {
         }
     };
 
+    public void moveStartButtons()
+    {
+        //move button 6
+        button = findViewById(R.id.startbutton6);
+        button.setX(-960); button.setY(-320);
+
+        //move button 5
+        button = findViewById(R.id.startbutton5);
+        button.setX(-780); button.setY(-280); button.setRotation(-55);
+
+        //move button 4
+        button = findViewById(R.id.startbutton4);
+        button.setX(-620);button.setY(-200); button.setRotation(-35);
+
+        //move button 3
+        button = findViewById(R.id.startbutton3);
+        button.setX(-510); button.setY(25);
+
+        //move button 2
+        button = findViewById(R.id.startbutton2);
+        button.setX(-550); button.setY(220);
+
+        //move button 1
+        button = findViewById(R.id.startbutton1);
+        button.setX(-670); button.setY(400);
+    }
 
 
     @Nullable
@@ -53,9 +82,15 @@ public class PreAutoPage extends AppCompatActivity {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
 
         ImageView iv = findViewById(R.id.imageView6);
+        if(BluetoothComm.getColor() == Color.RED){
+            iv.setImageResource(R.drawable.betterredfield2022);
+        }
+        else {
+            iv.setImageResource(R.drawable.betterbluefield2022);
+        }
         if (null != cfg && !cfg.isFieldRedLeft()) {
-            iv.setImageResource(R.drawable.bluefield);
             iv.setRotation(180);
+            moveStartButtons();
         }
 
         button = findViewById(R.id.startbutton1);
@@ -138,6 +173,25 @@ public class PreAutoPage extends AppCompatActivity {
                 previous();
             }
         });
+
+        button = findViewById(R.id.preloadYesBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                preloadYes();
+
+            }
+        });
+
+        button = findViewById(R.id.preloadNoBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                preloadNo();
+            }
+        });
     }
 
     @Override
@@ -170,9 +224,9 @@ public class PreAutoPage extends AppCompatActivity {
             button = findViewById(R.id.PreAutoContinueButton);
             if(0 < _startPos) {
                 FakeRadioGroup.buttonDisplay(this, _startPos - 1, startPositionButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-                button.setEnabled(true);
+                compCheck[0] = true;
             } else {
-                button.setEnabled(false);
+                compCheck[0] = false;
             }
         }
     }
@@ -205,8 +259,35 @@ public class PreAutoPage extends AppCompatActivity {
     public void startPosition(int val) {
         FakeRadioGroup.buttonPressed(this, val - 1, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         _startPos = val;
-        button = findViewById(R.id.PreAutoContinueButton);
-        button.setEnabled(true);
+        compCheck[0] = true;
+        if(compCheck[0] && compCheck[1]) {
+            button = findViewById(R.id.PreAutoContinueButton);
+            button.setEnabled(true);
+        }
+    }
+
+    private void preloadYes()
+    {
+        FakeRadioGroup.buttonPressed(this, 0, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        compCheck[1] = true;
+        preload = 1;
+        if(compCheck[0] && compCheck[1])
+        {
+            button = findViewById(R.id.PreAutoContinueButton);
+            button.setEnabled(true);
+        }
+    }
+
+    private void preloadNo()
+    {
+        FakeRadioGroup.buttonPressed(this, 1, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        preload = 0;
+        compCheck[1] = true;
+        if(compCheck[0] && compCheck[1])
+        {
+            button = findViewById(R.id.PreAutoContinueButton);
+            button.setEnabled(true);
+        }
     }
 
     private void updateStatusIndicator(int color) {

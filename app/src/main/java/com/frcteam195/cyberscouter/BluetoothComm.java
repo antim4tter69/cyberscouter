@@ -8,6 +8,7 @@ import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +31,7 @@ public class BluetoothComm {
     private final static String _successJson = "{'result': 'success', 'msg': 'ping succeeded'}";
     private static boolean bLastBTCommFailed = true;
     private final static Integer OneNineFive = new Integer(195);
+    private static int fieldColor = Color.BLUE;
 
     public final static String ONLINE_STATUS_UPDATED_FILTER = "frcteam195_bluetoothcomm_online_status_updated_intent_filter";
 
@@ -297,8 +299,14 @@ public class BluetoothComm {
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(color);
+        fieldColor = color;
         canvas.drawCircle(16, 16, 12, paint);
         iv.setImageBitmap(bitmap);
+    }
+
+    public static int getColor()
+    {
+        return fieldColor;
     }
 
     public static boolean pingServer(AppCompatActivity activity) {

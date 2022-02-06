@@ -101,6 +101,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         _db = mDbHelper.getWritableDatabase();
 
         fetcherThread = new Thread(new RemoteFetcher());
+        flipFieldOrientation();
 
         ImageView iv = findViewById(R.id.imageView2);
         iv.setOnClickListener(new View.OnClickListener() {

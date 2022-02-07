@@ -11,6 +11,18 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+
+/* + or - block briefly turns alliance color when tapped
+Word background turns light gray, red, yellow, green, blue, or purple depending on how many times the + or - button has been tapped
+White=0
+Light Gray=-3
+Red=-2
+Yellow=-1
+Green=+1
+Blue=+2
+Purple=+3
+*/
 
 public class WordCloudActivity extends AppCompatActivity {
     static private AppCompatActivity _activity;
@@ -29,6 +41,11 @@ public class WordCloudActivity extends AppCompatActivity {
     private final int START_PROGRESS = 0;
     private final int FETCH_WORDS = 1;
     private final int FETCH_MATCHES = 2;
+
+    private Integer fastCount, driverCount, aggressiveCount, blockCount, evasiveCount, sturdyCount, powerfulCount;
+    //String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH,
+            //CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW,
+            //CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS};
 
 
     private int _currentPos;
@@ -59,7 +76,7 @@ public class WordCloudActivity extends AppCompatActivity {
         registerReceiver(mWordsReceiver, new IntentFilter(CyberScouterWords.WORDS_UPDATED_FILTER));
         registerReceiver(mMatchesL2Receiver, new IntentFilter(CyberScouterMatchScoutingL2.MATCH_SCOUTING_L2_UPDATED_FILTER));
 
-        mPager = findViewById(R.id.viewPager_wcPager);
+        //mPager = findViewById(R.id.viewPager_wcPager);
 
         _db = mDbHelper.getWritableDatabase();
 
@@ -89,6 +106,307 @@ public class WordCloudActivity extends AppCompatActivity {
         if (!fetcherThread.isAlive()) {
             fetcherThread.start();
         }
+
+      /* button = findViewById(R.id.FastMinusTeam1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastMinusTeam1Clicked();
+            }
+        });
+        button = findViewById(R.id.fastMinusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastMinusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.fastMinusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastMinusTeam3Clicked();
+            }
+        });
+        button = findViewById(R.id.fastPlusTeam);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fastPlusTeamClicked();
+            }
+        });
+        button = findViewById(R.id.fastPlusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fastPlusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.FastPlusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FastPlusTeam3Clicked();
+            }
+        }); */
+
+        /* button = findViewById(R.id.GoodDriverMinusTeam1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoodDriverMinusTeam1Clicked();
+            }
+        });
+        button = findViewById(R.id.goodDriverMinusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodDriverMinusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.goodDriverMinusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodDriverMinusTeam3Clicked();
+            }
+        });
+        button = findViewById(R.id.goodDriverPlusTeam);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodDriverPlusTeamClicked();
+            }
+        });
+        button = findViewById(R.id.goodDriverPlusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodDriverPlusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.GoodDriverPlusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoodDriverPlusTeam3Clicked();
+            }
+        }); */
+
+        /* button = findViewById(R.id.AggressiveMinusTeam1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AggressiveMinusTeam1Clicked();
+            }
+        });
+        button = findViewById(R.id.aggressiveMinusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aggressiveMinusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.aggressiveMinusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aggressiveMinusTeam3Clicked();
+            }
+        });
+        button = findViewById(R.id.aggressivePlusTeam);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aggressivePlusTeamClicked();
+            }
+        });
+        button = findViewById(R.id.aggressivePlusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                aggressivePlusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.AggressivePlusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AggressivePlusTeam3Clicked();
+            }
+        }); */
+
+        /* button = findViewById(R.id.BlockMinusTeam1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BlockMinusTeam1Clicked();
+            }
+        });
+        button = findViewById(R.id.blockMinusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockMinusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.blockMinusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockMinusTeam3Clicked();
+            }
+        });
+        button = findViewById(R.id.blockPlusTeam);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockPlusTeamClicked();
+            }
+        });
+        button = findViewById(R.id.blockPlusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                blockPlusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.BlockPlusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BlockPlusTeam3Clicked();
+            }
+        }); */
+
+        /* button = findViewById(R.id.EvasiveMinusTeam1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EvasiveMinusTeam1Clicked();
+            }
+        });
+        button = findViewById(R.id.evasiveMinusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                evasiveMinusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.evasiveMinusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                evasiveMinusTeam3Clicked();
+            }
+        });
+        button = findViewById(R.id.evasivePlusTeam);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                evasivePlusTeamClicked();
+            }
+        });
+        button = findViewById(R.id.evasivePlusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                evasivePlusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.EvasivePlusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EvasivePlusTeam3Clicked();
+            }
+        }); */
+
+        /* button = findViewById(R.id.SturdyMinusTeam1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SturdyMinusTeam1Clicked();
+            }
+        });
+        button = findViewById(R.id.sturdyMinusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sturdyMinusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.sturdyMinusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sturdyMinusTeam3Clicked();
+            }
+        });
+        button = findViewById(R.id.sturdyPlusTeam);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sturdyPlusTeamClicked();
+            }
+        });
+        button = findViewById(R.id.sturdyPlusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sturdyPlusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.SturdyPlusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SturdyPlusTeam3Clicked();
+            }
+        }); */
+
+        /* button = findViewById(R.id.PowerfulMinusTeam1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PowerfulMinusTeam1Clicked();
+            }
+        });
+        button = findViewById(R.id.powerfulMinusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                powerfulMinusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.powerfulMinusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                powerfulMinusTeam3Clicked();
+            }
+        });
+        button = findViewById(R.id.powerfulPlusTeam);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                powerfulPlusTeamClicked();
+            }
+        });
+        button = findViewById(R.id.powerfulPlusTeam2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                powerfulPlusTeam2Clicked();
+            }
+        });
+        button = findViewById(R.id.powerfulPlusTeam3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PowerfulPlusTeam3Clicked();
+            }
+        }); */
     }
 
     @Override

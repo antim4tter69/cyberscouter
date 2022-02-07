@@ -227,4 +227,15 @@
     <string name="text_Scouted">Scouted</string>
     <string name="resync">Sync</string>
     <string name="stage">Stage</string>
+
+    <string name="Team1">Team 1</string>
+    <string name="Team2">Team 2</string>
+    <string name="Team3">Team 3</string>
+    <string name="Fast">Fast</string>
+    <string name="GoodDriver">Good Driver</string>
+    <string name="Aggressive">Aggressive</string>
+    <string name="Block">Block Cargo</string>
+    <string name="Evasive">Evasive</string>
+    <string name="Sturdy">Sturdy</string>
+    <string name="Powerful">Powerful</string>
 </resources>

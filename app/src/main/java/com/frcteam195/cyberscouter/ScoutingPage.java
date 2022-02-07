@@ -101,6 +101,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         _db = mDbHelper.getWritableDatabase();
 
         fetcherThread = new Thread(new RemoteFetcher());
+        flipFieldOrientation();
 
         ImageView iv = findViewById(R.id.imageView2);
         iv.setOnClickListener(new View.OnClickListener() {
@@ -274,9 +275,9 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         cfg.setFieldOrientation(_db, field_orientation);
 
         if(FIELD_ORIENTATION_LEFT == field_orientation) {
-            iv.setImageResource(R.drawable.field2022);
+            iv.setRotation(0);
         } else {
-            iv.setImageResource(R.drawable.field2022_flipped);
+            iv.setRotation(180);
         }
     }
 

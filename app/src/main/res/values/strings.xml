@@ -199,6 +199,13 @@
     <string name="Colon">:</string>
     <string name="Drive">Drive</string>
     <string name="Other">Other</string>
+    <string name="CarryingCapacity">Carrying Capacity</string>
+    <string name="SortCargo">Sort Cargo</string>
+    <string name="PlayDefense">Play Defense</string>
+    <string name="EvadeDefense">Evade Defense</string>
+    <string name="ShootWhileDriving">Shoot While Driving</string>
+    <string name="TeleopStrategy">Teleop Strategy</string>
+    <string name="DefenseStrategy">Defense Strategy</string>
 
 
     <string name="oneOne">1</string>

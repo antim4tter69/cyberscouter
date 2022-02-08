@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button_playDefenseYes" />
 
     <Button
-        android:id="@+id/textButton_maxCapacity"
+        android:id="@+id/textButton_scoredLowTeleCounter"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:background="@android:color/transparent"
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textview_LowHubTele" />
 
     <Button
-        android:id="@+id/button_carryingCapacityMinus"
+        android:id="@+id/button_carryingCapacityZero"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginTop="8dp"
@@ -89,23 +89,23 @@
         app:layout_constraintTop_toBottomOf="@+id/textview_CarryingCapacity" />
 
     <Button
-        android:id="@+id/button_carryingCapacityPlus"
+        android:id="@+id/button_carryingCapacityTwo"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:text="@string/two"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="@+id/textview_CarryingCapacity"
-        app:layout_constraintTop_toTopOf="@+id/button_carryingCapacityMinus" />
+        app:layout_constraintTop_toTopOf="@+id/button_carryingCapacityZero" />
 
     <Button
-        android:id="@+id/button_carryingCapacityPlus2"
+        android:id="@+id/button_carryingCapacityOne"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:text="@string/one"
         android:textSize="30sp"
-        app:layout_constraintEnd_toStartOf="@+id/button_carryingCapacityPlus"
-        app:layout_constraintStart_toEndOf="@+id/button_carryingCapacityMinus"
-        app:layout_constraintTop_toTopOf="@+id/button_carryingCapacityMinus" />
+        app:layout_constraintEnd_toStartOf="@+id/button_carryingCapacityTwo"
+        app:layout_constraintStart_toEndOf="@+id/button_carryingCapacityZero"
+        app:layout_constraintTop_toTopOf="@+id/button_carryingCapacityZero" />
 
     <Button
         android:id="@+id/button_cargoScoredHighTeleMinus"

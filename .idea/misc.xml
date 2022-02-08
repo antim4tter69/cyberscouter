@@ -8,6 +8,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/cbouf/StudioProjects/cyberscouter/app/src/main/res/layout/fragment_endgame.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_name_picker_page.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_pre_auto_page.xml" value="0.33" />

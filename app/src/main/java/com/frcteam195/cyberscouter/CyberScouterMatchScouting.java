@@ -43,6 +43,7 @@ class CyberScouterMatchScouting {
     private int allianceStationID;
 
     private int autoStartPos;
+    private int autoPreload;
     private int autoDidNotShow;
     private int autoMoveBonus;
     private int autoBallLow;
@@ -143,6 +144,7 @@ class CyberScouterMatchScouting {
             JSONObject payload = new JSONObject();
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, ScoutingStatus.FINISHED_SUCCESSFULLY);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, autoStartPos);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, autoPreload);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, autoDidNotShow);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, autoMoveBonus);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, autoBallLow);
@@ -288,6 +290,7 @@ class CyberScouterMatchScouting {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AREASTOREVIEW,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW,
@@ -349,9 +352,18 @@ class CyberScouterMatchScouting {
                     csm.matchEnded = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED)) == 1);
                     csm.scoutingStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS));
                     csm.complete = (cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE)) == 1);
-                    csm.autoStartPos = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS));
+                    if(cursor.isNull(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD))) {
+                        csm.autoPreload = -1;
+                    } else {
+                        csm.autoStartPos = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS));
+                    }
+                    csm.autoPreload = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD));
                     csm.autoDidNotShow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
-                    csm.autoMoveBonus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
+                    if(cursor.isNull(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS))){
+                        csm.autoMoveBonus = -1;
+                    } else {
+                        csm.autoMoveBonus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
+                    }
                     csm.autoBallLow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW));
                     csm.autoBallHigh = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH));
                     csm.autoBallMiss = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS));
@@ -417,6 +429,7 @@ class CyberScouterMatchScouting {
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_TEAMMATCHNO));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID, jo.getInt(CyberScouterContract.MatchScouting.COLUMN_NAME_ALLIANCESTATIONID));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW));
@@ -668,6 +681,8 @@ class CyberScouterMatchScouting {
     }
 
     int getAutoStartPos() {return autoStartPos; }
+
+    int getAutoPreload() {return autoPreload; }
 
     int getAutoDidNotShow() {
         return autoDidNotShow;

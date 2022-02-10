@@ -15,3 +15,5 @@
 /gradle/wrapper/gradle-wrapper.properties
 /.idea/git.xml
 /.idea/gradle.xml
+/.idea/misc.xml
+/gradle/*

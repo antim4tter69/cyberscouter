@@ -233,6 +233,8 @@ public class PreAutoPage extends AppCompatActivity {
             } else {
                 compCheck[0] = false;
             }
+            preload = csm.getAutoPreload();
+            FakeRadioGroup.buttonDisplay(this, preload, preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         }
     }
 
@@ -276,7 +278,7 @@ public class PreAutoPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 0, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         compCheck[1] = true;
         preload = 1;
-        if(compCheck[0] && compCheck[1])
+        if(compCheck[0])
         {
             button = findViewById(R.id.PreAutoContinueButton);
             button.setEnabled(true);
@@ -288,7 +290,7 @@ public class PreAutoPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 1, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         preload = 0;
         compCheck[1] = true;
-        if(compCheck[0] && compCheck[1])
+        if(compCheck[0])
         {
             button = findViewById(R.id.PreAutoContinueButton);
             button.setEnabled(true);

@@ -8,17 +8,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class AutoPage extends AppCompatActivity {
     private Button button;
-    private int defaultButtonTextColor = Color.LTGRAY;
+    private final int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_moveBonusYes};
+    private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_attempted, R.id.button_moveBonusYes};
     private int upperGoalCount = 0;
     private int lowerGoalCount = 0;
     private int missedGoalCount = 0;
-    private int moveBonus = 0;
-    private int penalties = 0;
+    private int moveBonus = 9;
 
     private int field_orientation;
     private int currentCommStatusColor;
@@ -59,7 +59,7 @@ public class AutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                moveBonusYes();
+                moveBonus(2);
             }
         });
 
@@ -68,7 +68,16 @@ public class AutoPage extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                moveBonusNo();
+                moveBonus(0);
+            }
+        });
+
+        button = findViewById(R.id.button_attempted);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                moveBonus(1);
             }
         });
 
@@ -141,27 +150,30 @@ public class AutoPage extends AppCompatActivity {
         CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(_db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
         if (null != csm) {
-           // TextView tv = findViewById(R.id.textView_Match);
-          //  tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
-         //   tv = findViewById(R.id.textView_Team);
-           // tv.setText(getString(R.string.tagTeam, csm.getTeam()));
-
-//            FakeRadioGroup.buttonDisplay(this, csm.getAutoMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-            button = findViewById(R.id.upperCounter);
-            button.setText(String.valueOf(csm.getAutoBallHigh()));
-            button = findViewById(R.id.lowerCounter);
-            button.setText(String.valueOf(csm.getAutoBallLow()));
-            button = findViewById(R.id.missedCounter);
-            button.setText(String.valueOf(csm.getAutoBallMiss()));
+            TextView tv = findViewById(R.id.textView_autoMatch);
+            tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
+            tv = findViewById(R.id.textView_autoTeam);
+            tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
             moveBonus = csm.getAutoMoveBonus();
             upperGoalCount = csm.getAutoBallHigh();
             lowerGoalCount = csm.getAutoBallLow();
             missedGoalCount = csm.getAutoBallMiss();
+
+            FakeRadioGroup.buttonDisplay(this, moveBonus, moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            button = findViewById(R.id.upperCounter);
+            button.setText(String.valueOf(upperGoalCount));
+            button = findViewById(R.id.lowerCounter);
+            button.setText(String.valueOf(lowerGoalCount));
+            button = findViewById(R.id.missedCounter);
+            button.setText(String.valueOf(missedGoalCount));
         }
     }
 
     public void StartMatch() {
+//        if(9 == moveBonus) {
+//            return;
+//        }
         updateAutoData();
         Intent intent = new Intent(this, TelePage.class);
         intent.putExtra("commstatuscolor", currentCommStatusColor);
@@ -197,16 +209,11 @@ public class AutoPage extends AppCompatActivity {
     }
 
 
-    public void moveBonusYes() {
-//        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        FakeRadioGroup.buttonPressed(this, 1, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        moveBonus = 1;
-    }
-
-    public void moveBonusNo() {
-//        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        FakeRadioGroup.buttonPressed(this, 0, moveBonusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        moveBonus = 0;
+    public void moveBonus(Integer val) {
+        FakeRadioGroup.buttonPressed(this, val, moveBonusButtons,
+                CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
+                SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        moveBonus =  val;
     }
 
     public void upperGoalMinus() {

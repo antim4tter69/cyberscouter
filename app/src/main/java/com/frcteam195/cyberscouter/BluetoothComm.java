@@ -299,7 +299,6 @@ public class BluetoothComm {
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(color);
-        fieldColor = color;
         canvas.drawCircle(16, 16, 12, paint);
         iv.setImageBitmap(bitmap);
     }

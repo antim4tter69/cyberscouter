@@ -57,6 +57,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_AREASTOREVIEW = "AreasToReview";
         public static final String COLUMN_NAME_COMPLETE = "Complete";
         public static final String COLUMN_NAME_AUTOSTARTPOS = "AutoStartPos";
+        public static final String COLUMN_NAME_AUTOPRELOAD = "AutoPreload";
         public static final String COLUMN_NAME_AUTODIDNOTSHOW = "AutoDidNotShow";
         public static final String COLUMN_NAME_AUTOMOVEBONUS = "AutoMoveBonus";
         public static final String COLUMN_NAME_AUTOBALLLOW = "AutoBallLow";

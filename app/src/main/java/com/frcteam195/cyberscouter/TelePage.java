@@ -96,6 +96,22 @@ public class TelePage extends AppCompatActivity {
                 lowerSubtractClicked();
             }
         });
+
+        button = findViewById(R.id.MissedPlusButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MissedPlusClicked();
+            }
+        });
+
+        button = findViewById(R.id.MissedMinusButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MissedMinusClicked();
+            }
+        });
     }
 
     @Override
@@ -163,6 +179,11 @@ public class TelePage extends AppCompatActivity {
         highCount++;
         Button button = findViewById(R.id.btnTeleUpperCounter);
         button.setText(highCount.toString());
+        /*try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH, highCount, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
     private void upperSubtractClicked() {
@@ -187,4 +208,17 @@ public class TelePage extends AppCompatActivity {
         }
     }
 
+    private void MissedPlusClicked() {
+        missCount++;
+        Button button = findViewById(R.id.MissedPlusButton);
+        button.setText(missCount.toString());
+    }
+
+    private void MissedMinusClicked() {
+        if(0 < missCount) {
+            missCount--;
+            Button button = findViewById(R.id.MissedMinusButton);
+            button.setText(missCount.toString());
+        }
+    }
 }

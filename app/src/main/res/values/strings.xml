@@ -245,4 +245,15 @@
     <string name="Evasive">Evasive</string>
     <string name="Sturdy">Sturdy</string>
     <string name="Powerful">Powerful</string>
+
+    <string name="DefenseTwoText">Defense</string>
+    <string name="MultiRobotDefense">Multi-Robot Defense?</string>
+    <string name="PrimaryDefense">Primary Defense</string>
+    <string name="SecondaryDefense">Secondary Defense</string>
+    <string name="HowLong">How Long</string>
+    <string name="DefenseSummary">Defense Summary</string>
+    <string name="TeamOne">Team 1</string>
+    <string name="TeamTwo">Team 2</string>
+    <string name="Team3Three">Team 3</string>
+
 </resources>

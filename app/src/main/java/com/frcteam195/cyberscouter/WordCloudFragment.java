@@ -1,5 +1,5 @@
 package com.frcteam195.cyberscouter;
-/*
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class WordCloudFragment extends Fragment {
+    /*
 //    private String[] words = {"Fast", "Slow", "Efficient", "Efficient Ground Pickup", "NINO",
 //            "Good", "Bad", "Good Leveler", "Inefficient Ground Pickup", "Penalty Prone", "Strong",
 //            "Weak", "Unaffected by Defense", "Affected by Defense", "Fast Climb", "Bad Climb", "Accurate",
@@ -187,6 +188,5 @@ public class WordCloudFragment extends Fragment {
         ImageView iv = _view.findViewById(R.id.imageView_btIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
     }
-
-}
 */
+}

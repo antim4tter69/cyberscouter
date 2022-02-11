@@ -197,8 +197,8 @@
 
     <Button
         android:id="@+id/motorMinusButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:text="@string/MinusButton"
         android:textSize="30sp"
@@ -207,8 +207,8 @@
 
     <Button
         android:id="@+id/wheelsPlusButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
@@ -217,10 +217,10 @@
 
     <Button
         android:id="@+id/numberOfMotorsButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
-        android:background="#FFFFFF"
+        android:background="@android:color/transparent"
         android:text="@string/ZeroText"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/motorPlusButton"
@@ -250,8 +250,8 @@
 
     <Button
         android:id="@+id/wheelsMinusButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:text="@string/MinusButton"
         android:textSize="30sp"
@@ -260,8 +260,8 @@
 
     <Button
         android:id="@+id/motorPlusButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
         android:text="@string/PlusButton"
         android:textSize="30sp"
@@ -270,10 +270,10 @@
 
     <Button
         android:id="@+id/numberOfWheelsButton"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginTop="16dp"
-        android:background="#FFFFFF"
+        android:background="@android:color/transparent"
         android:text="@string/ZeroText"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/wheelsPlusButton"

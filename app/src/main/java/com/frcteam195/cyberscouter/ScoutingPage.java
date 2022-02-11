@@ -35,6 +35,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     private final int START_PROGRESS = 0;
     private final int FETCH_USERS = 1;
     private final int FETCH_MATCHES = 2;
+    private static boolean isRed = true;
 
     public int getFieldOrientation(){return field_orientation;}
 
@@ -101,6 +102,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         _db = mDbHelper.getWritableDatabase();
 
         fetcherThread = new Thread(new RemoteFetcher());
+        flipFieldOrientation();
 
         ImageView iv = findViewById(R.id.imageView2);
         iv.setOnClickListener(new View.OnClickListener() {
@@ -274,9 +276,9 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         cfg.setFieldOrientation(_db, field_orientation);
 
         if(FIELD_ORIENTATION_LEFT == field_orientation) {
-            iv.setImageResource(R.drawable.field2022);
+            iv.setRotation(0);
         } else {
-            iv.setImageResource(R.drawable.field2022_flipped);
+            iv.setRotation(180);
         }
     }
 
@@ -320,31 +322,37 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
                     tv.setText(csma[0].getTeam());
                     if (csma[0].getTeam().equals(currentMatchTeam)) {
                         tvtn.setTextColor(Color.RED);
+                        isRed = true;
                     }
                     tv = findViewById(R.id.textView21);
                     tv.setText(csma[1].getTeam());
                     if (csma[1].getTeam().equals(currentMatchTeam)) {
                         tvtn.setTextColor(Color.RED);
+                        isRed = true;
                     }
                     tv = findViewById(R.id.textView22);
                     tv.setText(csma[2].getTeam());
                     if (csma[2].getTeam().equals(currentMatchTeam)) {
                         tvtn.setTextColor(Color.RED);
+                        isRed = true;
                     }
                     tv = findViewById(R.id.textView35);
                     tv.setText(csma[3].getTeam());
                     if (csma[3].getTeam().equals(currentMatchTeam)) {
                         tvtn.setTextColor(Color.BLUE);
+                        isRed = false;
                     }
                     tv = findViewById(R.id.textView27);
                     tv.setText(csma[4].getTeam());
                     if (csma[4].getTeam().equals(currentMatchTeam)) {
                         tvtn.setTextColor(Color.BLUE);
+                        isRed = false;
                     }
                     tv = findViewById(R.id.textView26);
                     tv.setText(csma[5].getTeam());
                     if (csma[5].getTeam().equals(currentMatchTeam)) {
                         tvtn.setTextColor(Color.BLUE);
+                        isRed = false;
                     }
                 }
                 Button button = findViewById(R.id.Button_Start);
@@ -358,6 +366,11 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
             ProgressBar pb = findViewById(R.id.progressBar_scoutingDataAccess);
             pb.setVisibility(View.INVISIBLE);
         }
+    }
+
+    public static boolean getIsRed()
+    {
+        return isRed;
     }
 
 }

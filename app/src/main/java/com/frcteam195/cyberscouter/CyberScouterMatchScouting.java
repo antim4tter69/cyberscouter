@@ -415,6 +415,7 @@ class CyberScouterMatchScouting {
     }
 
     private static void setMatch(SQLiteDatabase db, JSONObject jo) throws Exception {
+        int val;
 
         ContentValues values = new ContentValues();
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID, jo.getInt(CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHSCOUTINGID));
@@ -432,9 +433,26 @@ class CyberScouterMatchScouting {
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOPRELOAD));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTODIDNOTSHOW));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS));
+
+        if(jo.isNull(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW)) {
+            val = -1;
+        } else {
+            val = jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW);
+        }
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLLOW, val);
+        if(jo.isNull(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH)) {
+            val = -1;
+        } else {
+            val = jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH);
+        }
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLHIGH, val);
+        if(jo.isNull(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS)) {
+            val = -1;
+        } else {
+            val = jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS);
+        }
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLMISS, val);
+
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS1, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS1));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS2, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS2));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS3, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOBALLPOS3));

@@ -142,6 +142,9 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.Teams.COLUMN_NAME_TEAM + " INTEGER PRIMARY KEY," +
                     CyberScouterContract.Teams.COLUMN_NAME_TEAM_NAME + " TEXT," +
                     CyberScouterContract.Teams.COLUMN_NAME_TEAM_LOCATION + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM_CITY + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM_STATE_PROV + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TEAM_COUNTRY + " TEXT," +
                     CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_WHEEL_TYPE_ID + " INTEGER," +
@@ -156,22 +159,29 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_INTAKE_TYPE + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_HIGH + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_LOW + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY + " TEXT," +
-                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_HUMAN + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_STRAT + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_SHOOT_WHILE_DRIVE + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR + " INTEGER," +
-                    CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_POSITION + " INTEGER," +
+                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_STRATEGY + " TEXT," +
+                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_TIME + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING + " INTEGER," +
                     CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS + " INTEGER)"

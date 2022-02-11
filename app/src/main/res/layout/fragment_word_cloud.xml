@@ -10,43 +10,12 @@
         android:id="@+id/textView_wcMatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="28dp"
         android:text="@string/tagMatch"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView_wcTeam"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="256dp"
-        android:text="@string/tagTeam"
-        android:textSize="40sp"
-        app:layout_constraintStart_toEndOf="@+id/textView_wcMatch"
-        app:layout_constraintTop_toTopOf="@+id/textView_wcMatch" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout_gridContainer"
-        android:layout_width="match_parent"
-        android:layout_height="537dp"
-        android:layout_marginTop="256dp"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <GridView
-            android:id="@+id/gridView_words"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="300dp"
-            android:gravity="center"
-            android:horizontalSpacing="30dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="50dp" />
-
-    </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView_btIndicator"
@@ -62,10 +31,11 @@
         android:id="@+id/button_wcSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="112dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="56dp"
         android:text="@string/SubmitButton"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

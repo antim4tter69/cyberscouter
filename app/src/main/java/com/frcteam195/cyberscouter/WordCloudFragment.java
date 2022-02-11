@@ -1,5 +1,5 @@
 package com.frcteam195.cyberscouter;
-
+/*
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -97,7 +97,7 @@ public class WordCloudFragment extends Fragment {
         if (null != csm) {
             TextView tv = _view.findViewById(R.id.textView_wcMatch);
             tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
-            tv = _view.findViewById(R.id.textView_wcTeam);
+            //tv = _view.findViewById(R.id.textView_wcTeam);
             switch (_pagePosition) {
                 case 0:
                     _team = csm.getTeamRed();
@@ -130,10 +130,10 @@ public class WordCloudFragment extends Fragment {
                     return(view);
                 }
             };
-            GridView gv = _view.findViewById(R.id.gridView_words);
-            gv.setNumColumns(4);
-            gv.setAdapter(adapter);
-            gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //GridView gv = _view.findViewById(R.id.gridView_words);
+           // gv.setNumColumns(4);
+           // gv.setAdapter(adapter);
+           // gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
@@ -189,3 +189,4 @@ public class WordCloudFragment extends Fragment {
     }
 
 }
+*/

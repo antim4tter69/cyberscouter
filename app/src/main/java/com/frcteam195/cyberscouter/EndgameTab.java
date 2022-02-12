@@ -136,9 +136,6 @@ public class EndgameTab extends Fragment implements IOnEditTextSaveListener {
             et.setSelectAllOnFocus(true);
 
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getCanClimb(), canTheyClimb, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getCanMoveOnBar(), moveOnBar, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getLockingMechanism(), lockingMechanism, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getCenterClimb(), centerClimb, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         }
     }
 
@@ -157,45 +154,27 @@ public class EndgameTab extends Fragment implements IOnEditTextSaveListener {
     }
 
     private void yesMoveOnBar() {
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,moveOnBar,
-                CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
-                SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-        updateFakeRadioButton(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR, 1);
+
     }
 
     private void noMoveOnBar() {
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,moveOnBar,
-                CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
-                SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-        updateFakeRadioButton(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR, 0);
+
     }
 
     private void yesLockingMechanism() {
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,lockingMechanism,
-                CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
-                SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-        updateFakeRadioButton(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, 1);
+
     }
 
     private void noLockingMechanism() {
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,lockingMechanism,
-                CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
-                SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-        updateFakeRadioButton(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, 0);
+
     }
 
     private void yesCenterClimb() {
-        FakeRadioGroup.buttonPressed(getActivity(),_view,1,centerClimb,
-                CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB,
-                SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-        updateFakeRadioButton(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB, 1);
+
     }
 
     private void noCenterClimb() {
-        FakeRadioGroup.buttonPressed(getActivity(),_view,0,centerClimb,
-                CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB,
-                SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-        updateFakeRadioButton(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB, 0);
+
     }
 
     public void saveTextValues() {

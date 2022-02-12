@@ -6,26 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".LevelTwoScoutingTwo">
 
+    <TextView
+        android:id="@+id/textView__MutliRobotDefense4"
+        android:layout_width="324dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="64dp"
+        android:text="@string/SecondaryDefense"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_Team3" />
+
+    <Spinner
+        android:id="@+id/spinner_SecondayDefense2"
+        android:layout_width="324dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="64dp"
+        android:contentDescription="@string/SelectOne"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView__MutliRobotDefense4"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <Spinner
+        android:id="@+id/spinner_SecondayDefense"
+        android:layout_width="324dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
+        android:contentDescription="@string/SelectOne"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView__MutliRobotDefense3"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/textView__MutliRobotDefense3"
+        android:layout_width="324dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/SecondaryDefense"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_PrimaryDefense" />
+
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/preloadYesBtn3"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="66dp"
+        android:text="@string/NoButton"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/preloadYesBtn2"
+        app:layout_constraintTop_toBottomOf="@+id/button_Team2" />
+
+    <Button
+        android:id="@+id/preloadYesBtn2"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="66dp"
+        android:text="@string/YesButton"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/textView__MutliRobotDefense"
+        app:layout_constraintTop_toBottomOf="@+id/button_Team1" />
+
+    <Button
+        android:id="@+id/button_Team1"
         android:layout_width="224dp"
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
-        android:text="Button"
+        android:text="@string/Team1"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Defense" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/button_Team2"
         android:layout_width="224dp"
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
-        android:text="Button"
+        android:text="@string/Team2"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Defense" />
 
     <Button
         android:id="@+id/button_Previous2"
@@ -52,7 +126,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_Defense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -64,14 +138,51 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_Team3"
         android:layout_width="224dp"
         android:layout_height="64dp"
         android:layout_marginTop="16dp"
-        android:text="Button"
+        android:text="@string/Team3"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Defense" />
+
+    <TextView
+        android:id="@+id/textView__MutliRobotDefense"
+        android:layout_width="324dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="232dp"
+        android:text="@string/MultiRobotDefense"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView__MutliRobotDefense2"
+        android:layout_width="324dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/PrimaryDefense"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView__MutliRobotDefense" />
+
+    <Spinner
+        android:id="@+id/spinner_PrimaryDefense"
+        android:layout_width="324dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
+        android:contentDescription="@string/SelectOne"
+        android:minHeight="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView__MutliRobotDefense2" />
 
 </android.support.constraint.ConstraintLayout>

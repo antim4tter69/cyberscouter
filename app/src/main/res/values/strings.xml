@@ -255,5 +255,6 @@
     <string name="TeamOne">Team 1</string>
     <string name="TeamTwo">Team 2</string>
     <string name="Team3Three">Team 3</string>
+    <string name="SelectOne">Select One</string>
 
 </resources>

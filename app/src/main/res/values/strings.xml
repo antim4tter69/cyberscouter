@@ -218,10 +218,11 @@
     <string name="LongCrap">Please Select a Starting Position to Continue</string>
 
     <string name="canTheyClimb">Can They Climb?</string>
-    <string name="moveOnBar">Move On Bar?</string>
-    <string name="lockingMechansim">Locking Mechanism</string>
-    <string name="centerClimb">Center Climb?</string>
-    <string name="avgClimbHeight">Avg. Climb Height</string>
+    <string name="typicalHighestRung">Typical Highest Rung</string>
+    <string name="positionOnBar">Position On Bar</string>
+    <string name="climbTime">Time For Climb</string>
+    <string name="ifNoClimb">Strategy If You Don\'t Climb</string>
+
 
     <string name="teleStage2">Stage 2</string>
     <string name="teleStage3">Stage 3</string>

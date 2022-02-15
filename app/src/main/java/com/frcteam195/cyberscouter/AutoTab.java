@@ -24,13 +24,14 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
     private int typicalLowCargo = 0;
     private int typicalHighCargo = 0;
     private View _view;
-    private int defaultButtonBackgroundColor = Color.LTGRAY;
+    private int defaultButtonBackgroundColor = Color.RED;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private String[] StartPosSpinner = {"Starting Position", "1", "2", "3", "4", "5", "6"};
     private String[] HumanSpinner = {"Human Player", "Accurate", "Partially Accurate", "Not Accurate", "Does Not Use"};
     private int currentTeam;
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;
+
 
 
     @Nullable
@@ -228,7 +229,7 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
 
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getMoveBonus(), moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), pickupButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getNumPreload(), preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getPreload(), preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getAutoPickUp(), workingAutoButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
 
             Spinner sp = _view.findViewById(R.id.spinner_StartPosition);
@@ -275,36 +276,36 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
     }
 
     public void preloadNo() {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, preloadButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, preloadButtons, CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 0, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD, 0, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void preloadYes() {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, preloadButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, preloadButtons, CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 1, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD, 1, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void workingAutoYes() {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, workingAutoButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 1, workingAutoButtons, CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 1, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO, 1, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void workingAutoNo() {
-        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, workingAutoButtons, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+        FakeRadioGroup.buttonPressed(getActivity(), _view, 0, workingAutoButtons, CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, 1, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO, 1, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }

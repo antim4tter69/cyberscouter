@@ -254,7 +254,8 @@
     <string name="DefenseSummary">Defense Summary</string>
     <string name="TeamOne">Team 1</string>
     <string name="TeamTwo">Team 2</string>
-    <string name="Team3Three">Team 3</string>
+    <string name="TeamThree">Team 3</string>
     <string name="SelectOne">Select One</string>
+    <string name="title_activity_level_two_scouting_two_team_two">LevelTwoScoutingTwoTeamTwo</string>
 
 </resources>

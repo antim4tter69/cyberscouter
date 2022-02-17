@@ -8,366 +8,129 @@
     tools:context=".ui.main.PlaceholderFragment">
 
     <TextView
-        android:id="@+id/textView15"
-        android:layout_width="323dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="680dp"
-        android:layout_marginTop="168dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/BrokeDownText"
+        android:id="@+id/canTheyClimb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/canTheyClimb"
         android:textAlignment="center"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="326dp"
-        android:layout_height="91dp"
-        android:layout_marginStart="680dp"
-        android:layout_marginTop="552dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/ShootFromLaunchpad"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView18"
-        android:layout_width="323dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="680dp"
-        android:layout_marginTop="256dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/LostCommText"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="331dp"
-        android:layout_height="87dp"
-        android:layout_marginStart="680dp"
-        android:layout_marginTop="452dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/OppAllianceCargoText"
-        android:textAlignment="center"
-        android:textSize="28sp"
+        android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button14"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="472dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button22"
-        app:layout_constraintTop_toBottomOf="@+id/button13" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="323dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="680dp"
-        android:layout_marginTop="356dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/SubsystemBrokeText"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="323dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="564dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/ShootWhileText"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="328dp"
-        android:layout_height="86dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="464dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/DefenseAgainstText"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="323dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="368dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/PlayedDefenseText"
-        android:textAlignment="center"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button16"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="168dp"
-        android:layout_marginEnd="68dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button21"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button12"
-        app:layout_constraintTop_toBottomOf="@+id/button16" />
-
-    <Button
-        android:id="@+id/button15"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button14"
-        app:layout_constraintTop_toBottomOf="@+id/button18" />
-
-    <Button
-        android:id="@+id/button19"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button24"
-        app:layout_constraintTop_toBottomOf="@+id/button21" />
-
-    <Button
-        android:id="@+id/button20"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="168dp"
+        android:id="@+id/noCanTheyClimb"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginEnd="28dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/button16"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button24"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="472dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button5"
-        app:layout_constraintTop_toBottomOf="@+id/button12" />
-
-    <Button
-        android:id="@+id/button12"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="472dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button3"
-        app:layout_constraintTop_toBottomOf="@+id/button20" />
-
-    <Button
-        android:id="@+id/button13"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="472dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button9"
-        app:layout_constraintTop_toBottomOf="@+id/button24" />
-
-    <Button
-        android:id="@+id/button18"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="676dp"
-        android:layout_marginTop="24dp"
         android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toBottomOf="@+id/button19" />
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/canTheyClimb"
+        app:layout_constraintTop_toTopOf="@+id/yesCanTheyClimb" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="384dp"
-        android:layout_marginTop="168dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button23"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="384dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
-
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:id="@+id/yesCanTheyClimb"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button6"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="384dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button8" />
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/canTheyClimb"
+        app:layout_constraintTop_toBottomOf="@+id/canTheyClimb" />
 
-    <Button
-        android:id="@+id/button22"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button23"
-        app:layout_constraintTop_toBottomOf="@+id/button9" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button8"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
-
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="384dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="384dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/YesButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button4"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="168dp"
-        android:text="@string/NoButton"
-        android:textSize="48sp"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/moveOnBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/typicalHighestRung"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="@+id/canTheyClimb"
+        app:layout_constraintTop_toBottomOf="@+id/yesCanTheyClimb" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="323dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="164dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/GroundPickupText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:text="@string/positionOnBar"
         android:textAlignment="center"
-        android:textSize="34sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="40sp"
+        app:layout_constraintStart_toEndOf="@+id/canTheyClimb"
+        app:layout_constraintTop_toTopOf="@+id/canTheyClimb" />
+
+    <Button
+        android:id="@+id/yesLockingMechanism"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/YesButton"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/noLockingMechanism"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="28dp"
+        android:text="@string/NoButton"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/yesLockingMechanism" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="323dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="268dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/TerminalPickupText"
+        android:id="@+id/centerClimb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/climbTime"
         android:textAlignment="center"
-        android:textSize="34dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/yesLockingMechanism" />
 
     <TextView
-        android:id="@+id/textView14"
-        android:layout_width="446dp"
-        android:layout_height="130dp"
-        android:layout_marginStart="404dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/tab_text_4"
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="92dp"
+        android:text="@string/ifNoClimb"
         android:textAlignment="center"
-        android:textSize="96sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="35sp"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/editText_climbHeight"
+        android:layout_width="415dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <EditText
+        android:id="@+id/editText_climbHeight2"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/centerClimb"
+        app:layout_constraintTop_toBottomOf="@+id/centerClimb" />
+
+    <Spinner
+        android:id="@+id/spinner3"
+        android:layout_width="200dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="@+id/moveOnBar"
+        app:layout_constraintTop_toBottomOf="@+id/moveOnBar" />
 
 </android.support.constraint.ConstraintLayout>

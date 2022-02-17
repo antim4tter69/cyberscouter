@@ -12,14 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity
-            android:name=".LevelTwoScoutingTwo"
-            android:exported="false" />
-        <activity android:name=".WordCloudActivity" />
+        <activity android:name=".WordCloudActivity"></activity>
         <activity
             android:name=".PitScoutingActivity"
             android:label="@string/title_activity_pit_scouting"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".WordCloudFragment"
             android:label=".WordCloudActivity"
@@ -65,7 +62,7 @@
         <activity
             android:name=".PreAutoPage"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Reset" />
+        <activity android:name=".Reset"></activity>
     </application>
 
 </manifest>

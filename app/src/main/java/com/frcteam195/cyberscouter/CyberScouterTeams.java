@@ -33,9 +33,6 @@ class CyberScouterTeams {
     private int team;
     private String TeamName;
     private String TeamLocation;
-    private String TeamCity;
-    private String TeamStateProv;
-    private String TeamCountry;
     private int NumWheels;
     private int NumDriveMotors;
     private int WheelTypeID;
@@ -50,29 +47,22 @@ class CyberScouterTeams {
     private int RobotHeight;
     private int RobotWeight;
     private int Pneumatics;
-    private int IntakeType;
-    private int Preload;
-    private int HasAuto;
-    private int AutoScoredHigh;
-    private int AutoScoredLow;
+    private int NumPreload;
+    private int AutoBallsScored;
     private int MoveBonus;
     private int AutoPickUp;
     private int AutoStartPosID;
     private String AutoSummary;
-    private int AutoHuman;
-    private int TeleBallsScoredHigh;
-    private int TeleBallsScoredLow;
+    private int TeleBallsScored;
     private int MaxBallCapacity;
+    private int ColorWheel;
     private int TeleDefense;
     private int TeleDefenseEvade;
     private String TeleStrategy;
-    private String TeleDefenseStrat;
-    private int TeleSortCargo;
-    private int TeleShootWhileDrive;
     private int CanClimb;
-    private int ClimbPosition;
-    private int ClimbStrategy;
-    private int ClimbTime;
+    private int CenterClimb;
+    private int CanMoveOnBar;
+    private int LockingMechanism;
     private int ClimbHeightID;
     private int DoneScouting;
     private int UploadStatus;
@@ -129,29 +119,22 @@ class CyberScouterTeams {
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT, RobotHeight);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT, RobotWeight);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS, Pneumatics);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_INTAKE_TYPE, IntakeType);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD, Preload);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO, HasAuto);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_HIGH, AutoScoredHigh);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_LOW, AutoScoredLow);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, NumPreload);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED, AutoBallsScored);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS, MoveBonus);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP, AutoPickUp);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID, AutoStartPosID);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY, AutoSummary);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_HUMAN, AutoHuman);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH, TeleBallsScoredHigh);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW, TeleBallsScoredLow);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED, TeleBallsScored);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, MaxBallCapacity);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, ColorWheel);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE, TeleDefense);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE, TeleDefenseEvade);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY, TeleStrategy);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_STRAT, TeleDefenseStrat);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO, TeleSortCargo);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_SHOOT_WHILE_DRIVE, TeleShootWhileDrive);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB, CanClimb);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_POSITION, ClimbPosition);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_STRATEGY, ClimbStrategy);
-            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_TIME, ClimbTime);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB, CenterClimb);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR, CanMoveOnBar);
+            payload.put(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, LockingMechanism);
             payload.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID, ClimbHeightID);
 
             jo.put("payload", payload);
@@ -271,9 +254,6 @@ class CyberScouterTeams {
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_TEAM, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TEAM));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_TEAM_NAME, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TEAM_NAME));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_TEAM_LOCATION, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TEAM_LOCATION));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TEAM_CITY, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TEAM_CITY));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TEAM_STATE_PROV, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TEAM_STATE_PROV));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TEAM_COUNTRY, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TEAM_COUNTRY));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_NUM_WHEELS));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_DRIVE_MOTORS));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_WHEEL_TYPE_ID, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_WHEEL_TYPE_ID));
@@ -288,29 +268,22 @@ class CyberScouterTeams {
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_INTAKE_TYPE, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_INTAKE_TYPE));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_HIGH, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_HIGH));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_LOW, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_LOW));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_AUTO_HUMAN, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_AUTO_HUMAN));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_STRAT, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_STRAT));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_TELE_SHOOT_WHILE_DRIVE, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_TELE_SHOOT_WHILE_DRIVE));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_POSITION, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_POSITION));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_STRATEGY, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_STRATEGY));
-                values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_TIME, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_TIME));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR));
+                values.put(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID, jo.getString(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING, 0);
                 values.put(CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS, com.frcteam195.cyberscouter.UploadStatus.NOT_UPLOADED);
@@ -395,29 +368,22 @@ class CyberScouterTeams {
                     CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT,
                     CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT,
                     CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS,
-                    CyberScouterContract.Teams.COLUMN_NAME_INTAKE_TYPE,
-                    CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD,
-                    CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO,
-                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_HIGH,
-                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_LOW,
+                    CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD,
+                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED,
                     CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS,
                     CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP,
                     CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID,
                     CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY,
-                    CyberScouterContract.Teams.COLUMN_NAME_AUTO_HUMAN,
-                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH,
-                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW,
+                    CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED,
                     CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY,
+                    CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL,
                     CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE,
                     CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE,
                     CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY,
-                    CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_STRAT,
-                    CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO,
-                    CyberScouterContract.Teams.COLUMN_NAME_TELE_SHOOT_WHILE_DRIVE,
                     CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB,
-                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_POSITION,
-                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_STRATEGY,
-                    CyberScouterContract.Teams.COLUMN_NAME_CLIMB_TIME,
+                    CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB,
+                    CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR,
+                    CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM,
                     CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID,
                     CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING,
                     CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS
@@ -451,29 +417,22 @@ class CyberScouterTeams {
                     cst.RobotHeight = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_HEIGHT));
                     cst.RobotWeight = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_ROBOT_WEIGHT));
                     cst.Pneumatics = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_PNEUMATICS));
-                    cst.IntakeType = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_INTAKE_TYPE));
-                    cst.Preload = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_PRE_LOAD));
-                    cst.HasAuto = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_HAS_AUTO));
-                    cst.AutoScoredHigh = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_HIGH));
-                    cst.AutoScoredLow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SCORED_LOW));
+                    cst.NumPreload = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_NUM_PRE_LOAD));
+                    cst.AutoBallsScored = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_BALLS_SCORED));
                     cst.MoveBonus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_MOVE_BONUS));
                     cst.AutoPickUp = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_PICKUP));
                     cst.AutoStartPosID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_START_POS_ID));
                     cst.AutoSummary = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_SUMMARY));
-                    cst.AutoHuman = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_AUTO_HUMAN));
-                    cst.TeleBallsScoredHigh = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH));
-                    cst.TeleBallsScoredLow = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW));
+                    cst.TeleBallsScored = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED));
                     cst.MaxBallCapacity = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY));
+                    cst.ColorWheel = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL));
                     cst.TeleDefense = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE));
                     cst.TeleDefenseEvade = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_EVADE));
                     cst.TeleStrategy = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_STRATEGY));
-                    cst.TeleDefenseStrat = cursor.getString(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_DEFENSE_STRAT));
-                    cst.TeleSortCargo = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO));
-                    cst.TeleShootWhileDrive = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_TELE_SHOOT_WHILE_DRIVE));
                     cst.CanClimb = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CAN_CLIMB));
-                    cst.ClimbPosition = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_POSITION));
-                    cst.ClimbStrategy = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_STRATEGY));
-                    cst.ClimbTime = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_TIME));
+                    cst.CenterClimb = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CENTER_CLIMB));
+                    cst.CanMoveOnBar = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CAN_MOVE_ON_BAR));
+                    cst.LockingMechanism = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_LOCKING_MECHANISM));
                     cst.ClimbHeightID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_CLIMB_HEIGHT_ID));
                     cst.DoneScouting = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_DONE_SCOUTING));
                     cst.UploadStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS));
@@ -499,18 +458,6 @@ class CyberScouterTeams {
 
     String getTeamLocation() {
         return TeamLocation;
-    }
-
-    String getTeamCity() {
-        return TeamCity;
-    }
-
-    String getTeamStateProv() {
-        return TeamStateProv;
-    }
-
-    String getTeamCountry() {
-        return TeamCountry;
     }
 
     int getNumWheels() {
@@ -569,24 +516,12 @@ class CyberScouterTeams {
         return Pneumatics;
     }
 
-    int getIntakeType() {
-        return IntakeType;
+    int getNumPreload() {
+        return NumPreload;
     }
 
-    int getPreload() {
-        return Preload;
-    }
-
-    int getHasAuto() {
-        return HasAuto;
-    }
-
-    int getAutoScoredHigh() {
-        return AutoScoredHigh;
-    }
-
-    int getAutoScoredLow() {
-        return AutoScoredLow;
+    int getAutoBallsScored() {
+        return AutoBallsScored;
     }
 
     int getMoveBonus() {
@@ -605,20 +540,16 @@ class CyberScouterTeams {
         return AutoSummary;
     }
 
-    int getAutoHuman() {
-        return AutoHuman;
-    }
-
-    int getTeleBallsScoredHigh() {
-        return TeleBallsScoredHigh;
-    }
-
-    int getTeleBallsScoredLow() {
-        return TeleBallsScoredLow;
+    int getTeleBallsScored() {
+        return TeleBallsScored;
     }
 
     int getMaxBallCapacity() {
         return MaxBallCapacity;
+    }
+
+    int getColorWheel() {
+        return ColorWheel;
     }
 
     int getTeleDefense() {
@@ -633,32 +564,20 @@ class CyberScouterTeams {
         return TeleStrategy;
     }
 
-    String getTeleDefenseStrat() {
-        return TeleDefenseStrat;
-    }
-
-    int getTeleSortCargo() {
-        return TeleSortCargo;
-    }
-
-    int getTeleShootWhileDrive() {
-        return TeleShootWhileDrive;
-    }
-
     int getCanClimb() {
         return CanClimb;
     }
 
-    int getClimbPosition() {
-        return ClimbPosition;
+    int getCenterClimb() {
+        return CenterClimb;
     }
 
-    int getClimbStrategy() {
-        return ClimbStrategy;
+    int getCanMoveOnBar() {
+        return CanMoveOnBar;
     }
 
-    int getClimbTime() {
-        return ClimbTime;
+    int getLockingMechanism() {
+        return LockingMechanism;
     }
 
     int getClimbHeightID() {

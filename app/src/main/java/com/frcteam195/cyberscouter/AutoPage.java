@@ -15,8 +15,8 @@ public class AutoPage extends AppCompatActivity {
     private final int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_attempted, R.id.button_moveBonusYes};
-    private final int[] redPositionButtons = {R.id.button, R.id.button3, R.id.button6};
-    private final int[] bluePositionButtons = {R.id.button_Team3, R.id.button_Team2, R.id.button_Team1,R.id.button7,R.id.button8, R.id.button9,R.id.button10};
+    private final int[] redPositionButtons = {R.id.Button1, R.id.button3, R.id.button6};
+    private final int[] bluePositionButtons = {R.id.button2, R.id.button4, R.id.button5,R.id.button7,R.id.button8, R.id.button9,R.id.button10};
     private int upperGoalCount = 0;
     private int lowerGoalCount = 0;
     private int missedGoalCount = 0;

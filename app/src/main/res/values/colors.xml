@@ -6,11 +6,4 @@
 
     <color name="amber">#FFBF00</color>
     <color name="ltgray">#D3D3D3</color>
-
-    <color name="black">#000000</color>
-    <color name="red">#FF0000</color>
-    <color name="yellow">#FFFF00</color>
-    <color name="green">#00FF00</color>
-    <color name="blue">#0000FF</color>
-    <color name="purple">#800080</color>
 </resources>

@@ -49,6 +49,7 @@ public class CyberScouterMatchScoutingL2 {
     private boolean matchEnded;
     private boolean complete;
     private int uploadStatus;
+    private int multiRobotDefense;
 
     public String toJSON() {
         String json = "";
@@ -224,7 +225,8 @@ public class CyberScouterMatchScoutingL2 {
                     CyberScouterContract.MatchScoutingL2.COLUMN_NAME_MATCHENDED,
                     CyberScouterContract.MatchScoutingL2.COLUMN_NAME_SCOUTINGSTATUS,
                     CyberScouterContract.MatchScoutingL2.COLUMN_NAME_COMPLETE,
-                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_UPLOADSTATUS};
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_UPLOADSTATUS,
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_MULTIROBOTDEFENSE};
 
 
             cursor = db.query(

@@ -113,6 +113,7 @@ public class CyberScouterContract {
         public static final String COLUMN_NAME_MATCHENDED = "MatchEnded";
         public static final String COLUMN_NAME_COMPLETE = "Complete";
         public static final String COLUMN_NAME_UPLOADSTATUS = "UploadStatus";
+        public static final String COLUMN_NAME_MULTIROBOTDEFENSE = "MultiRobotDefense";
     }
 
     public static class Questions implements BaseColumns {

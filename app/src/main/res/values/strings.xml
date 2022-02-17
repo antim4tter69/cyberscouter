@@ -218,10 +218,11 @@
     <string name="LongCrap">Please Select a Starting Position to Continue</string>
 
     <string name="canTheyClimb">Can They Climb?</string>
-    <string name="moveOnBar">Move On Bar?</string>
-    <string name="lockingMechansim">Locking Mechanism</string>
-    <string name="centerClimb">Center Climb?</string>
-    <string name="avgClimbHeight">Avg. Climb Height</string>
+    <string name="typicalHighestRung">Typical Highest Rung</string>
+    <string name="positionOnBar">Position On Bar</string>
+    <string name="climbTime">Time For Climb</string>
+    <string name="ifNoClimb">Strategy If You Don\'t Climb</string>
+
 
     <string name="teleStage2">Stage 2</string>
     <string name="teleStage3">Stage 3</string>
@@ -245,4 +246,17 @@
     <string name="Evasive">Evasive</string>
     <string name="Sturdy">Sturdy</string>
     <string name="Powerful">Powerful</string>
+
+    <string name="DefenseTwoText">Defense</string>
+    <string name="MultiRobotDefense">Multi-Robot Defense?</string>
+    <string name="PrimaryDefense">Primary Defense</string>
+    <string name="SecondaryDefense">Secondary Defense</string>
+    <string name="HowLong">How Long</string>
+    <string name="DefenseSummary">Defense Summary</string>
+    <string name="TeamOne">Team 1</string>
+    <string name="TeamTwo">Team 2</string>
+    <string name="TeamThree">Team 3</string>
+    <string name="SelectOne">Select One</string>
+    <string name="title_activity_level_two_scouting_two_team_two">LevelTwoScoutingTwoTeamTwo</string>
+
 </resources>

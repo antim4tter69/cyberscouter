@@ -13,9 +13,7 @@ import android.widget.EditText;
 
 public class EndgameTab extends Fragment implements IOnEditTextSaveListener {
     private final int[] canTheyClimb = {R.id.noCanTheyClimb, R.id.yesCanTheyClimb};
-    private final int[] moveOnBar = {R.id.noMoveOnBar, R.id.yesMoveOnBar};
     private final int[] lockingMechanism = {R.id.noLockingMechanism, R.id.yesLockingMechanism};
-    private final int[] centerClimb = {R.id.noCenterClimb, R.id.yesCenterClimb};
     private int defaultButtonBackgroundColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private View _view;
@@ -46,22 +44,6 @@ public class EndgameTab extends Fragment implements IOnEditTextSaveListener {
             }
         });
 
-        button = view.findViewById(R.id.yesMoveOnBar);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                yesMoveOnBar();
-            }
-        });
-
-        button = view.findViewById(R.id.noMoveOnBar);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                noMoveOnBar();
-            }
-        });
-
         button = view.findViewById(R.id.yesLockingMechanism);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,22 +57,6 @@ public class EndgameTab extends Fragment implements IOnEditTextSaveListener {
             @Override
             public void onClick(View view) {
                 noLockingMechanism();
-            }
-        });
-
-        button = view.findViewById(R.id.yesCenterClimb);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                yesCenterClimb();
-            }
-        });
-
-        button = view.findViewById(R.id.noCenterClimb);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                noCenterClimb();
             }
         });
 

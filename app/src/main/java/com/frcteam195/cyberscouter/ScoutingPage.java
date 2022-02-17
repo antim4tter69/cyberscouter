@@ -23,9 +23,9 @@ import android.widget.TextView;
 import org.json.JSONObject;
 
 public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.NamePickerDialogListener {
-    final static private int FIELD_ORIENTATION_RIGHT = 0;
-    final static private int FIELD_ORIENTATION_LEFT = 1;
-    private static int field_orientation = FIELD_ORIENTATION_LEFT;
+    final private int FIELD_ORIENTATION_RIGHT = 0;
+    final private int FIELD_ORIENTATION_LEFT = 1;
+    private int field_orientation = FIELD_ORIENTATION_LEFT;
 
     private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db = null;
@@ -37,7 +37,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     private final int FETCH_MATCHES = 2;
     private static boolean isRed = true;
 
-    public static int getFieldOrientation(){return field_orientation;}
+    public int getFieldOrientation(){return field_orientation;}
 
     BroadcastReceiver mOnlineStatusReceiver = new BroadcastReceiver() {
         @Override

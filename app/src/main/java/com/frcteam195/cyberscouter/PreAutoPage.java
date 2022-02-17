@@ -91,10 +91,11 @@ public class PreAutoPage extends AppCompatActivity {
         }
         if (null != cfg && !cfg.isFieldRedLeft()) {
             iv.setRotation(iv.getRotation() + 180);
+            System.out.println(iv.getRotation());
             int rot = (int)(iv.getRotation() % 360);
-            //if(rot == 180) {
+            if(rot > 100) {
                 moveStartButtons();
-            //}
+            }
         }
 
         button = findViewById(R.id.startbutton1);

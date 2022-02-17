@@ -179,6 +179,11 @@ public class TelePage extends AppCompatActivity {
         highCount++;
         Button button = findViewById(R.id.btnTeleUpperCounter);
         button.setText(highCount.toString());
+        /*try {
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH, highCount, currentTeam);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
     }
 
     private void upperSubtractClicked() {

@@ -2,6 +2,7 @@ package com.frcteam195.cyberscouter;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,10 +13,22 @@ import android.widget.TextView;
 
 public class SummaryQuestionsPage extends AppCompatActivity {
     private Button button;
-    private RadioButton rb;
-    private RadioGroup rg;
-    private final int[] radioButtonArray = {R.id.radioButton1, R.id.radioButton2, R.id.radioButton3, R.id.radioButton4, R.id.radioButton5};
-    private int lastCheckedButton;
+    /*private RadioButton rb;
+    private RadioGroup rg;*/
+    private final int[] groundPickupArray = {R.id.GroundPickupY, R.id.GroundPickupN};
+    private final int[] terminalPickupArray = {R.id.TerminalPickupY, R.id.TerminalPickupN};
+    private final int[] playedDefenseArray = {R.id.PlayedDefenseY, R.id.PlayedDefenseN};
+    private final int[] defenseAgainstArray = {R.id.DefenseAgainstThemY, R.id.DefenseAgainstThemN};
+    private final int[] shootWhileArray = {R.id.ShootWhileY, R.id.ShootWhileN};
+    private final int[] brokeDownArray = {R.id.BrokeDownY, R.id.BrokeDownN};
+    private final int[] lostCommArray = {R.id.LostCommY, R.id.LostCommN};
+    private final int[] subsystemBrokeArray = {R.id.SubsystemY, R.id.SubsystemN};
+    private final int[] scoreOppArray = {R.id.ScoreOppY, R.id.ScoreOppN};
+    private final int[] shootFromArray = {R.id.ShootFromY, R.id.ShootFromN};
+    private View _view;
+    private int defaultButtonBackgroundColor = Color.LTGRAY;
+    private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
+    //private int lastCheckedButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,84 +36,147 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         setContentView(R.layout.activity_summary_questions_page);
 
 
-        button = findViewById(R.id.button_Previous);
+        button = findViewById(R.id.GroundPickupY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                returnToEndGamePage();
+                //returnToEndGamePage();
 
             }
         });
 
-        button = findViewById(R.id.button_next);
+        button = findViewById(R.id.GroundPickupN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSubmitPage();
+                //openSubmitPage();
 
             }
         });
 
-        button = findViewById(R.id.button_nextAnswer);
+        button = findViewById(R.id.TerminalPickupY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextAnswer();
+                //nextAnswer();
 
             }
         });
 
-        button = findViewById(R.id.button_previousAnswer);
+        button = findViewById(R.id.TerminalPickupN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                previousAnswer();
+                //previousAnswer();
+
+            }
+        });
+        button = findViewById(R.id.PlayedDefenseY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.PlayedDefenseN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.ShootWhileY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.ShootWhileN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.BrokeDownY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.BrokeDownN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.LostCommY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.LostCommN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.SubsystemY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.SubsystemN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.ScoreOppY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.ScoreOppN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.ShootFromY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.BrokeDownN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
             }
         });
 
-        rb = findViewById(R.id.radioButton1);
-        rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rbClicked(v);
-            }
-        });
-        rb = findViewById(R.id.radioButton2);
-        rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rbClicked(v);
-            }
-        });
-        rb = findViewById(R.id.radioButton3);
-        rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rbClicked(v);
-            }
-        });
-        rb = findViewById(R.id.radioButton4);
-        rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rbClicked(v);
-            }
-        });
-        rb = findViewById(R.id.radioButton5);
-        rb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rbClicked(v);
-            }
-        });
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+/*
         rb = findViewById(R.id.radioButton1);
         rb.setVisibility(View.GONE);
         rb.setEnabled(false);
@@ -116,7 +192,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         rb = findViewById(R.id.radioButton5);
         rb.setVisibility(View.GONE);
         rb.setEnabled(false);
-
+*/
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
@@ -138,19 +214,19 @@ public class SummaryQuestionsPage extends AppCompatActivity {
     }
 
     public void returnToEndGamePage() {
-        updateAnswer();
+       // updateAnswer();
         this.finish();
     }
 
     public void openSubmitPage() {
-        updateAnswer();
+        //updateAnswer();
         Intent intent = new Intent(this, SubmitPage.class);
         startActivity(intent);
     }
 
     public void nextAnswer() {
         // Update the Match Scouting record
-        updateAnswer();
+        //updateAnswer();
 
         // Get the next question, if any
         setNextQuestion(1);
@@ -158,7 +234,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
     }
 
     public void previousAnswer() {
-        updateAnswer();
+        //updateAnswer();
 
         setNextQuestion(-1);
         this.onResume();
@@ -168,8 +244,8 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-    }
-
+    }}
+/*
     private void updateAnswer() {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -219,4 +295,4 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         this.onResume();
     }
 
-}
+}*/

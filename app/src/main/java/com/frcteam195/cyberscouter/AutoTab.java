@@ -26,8 +26,8 @@ public class AutoTab extends Fragment implements IOnEditTextSaveListener {
     private View _view;
     private int defaultButtonBackgroundColor = Color.RED;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private String[] StartPosSpinner = {"Starting Position", "1", "2", "3", "4", "5", "6"};
-    private String[] HumanSpinner = {"Human Player", "Accurate", "Partially Accurate", "Not Accurate", "Does Not Use"};
+    private String[] StartPosSpinner = {"1", "2", "3", "4", "5", "6"};
+    private String[] HumanSpinner = {"Accurate", "Partially Accurate", "Not Accurate", "Does Not Use"};
     private int currentTeam;
     private CyberScouterDbHelper mDbHelper;
     SQLiteDatabase _db;

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-// Teleop Tab
+
 public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
     private Button button;
     private View _view;
@@ -213,13 +213,13 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             et.setSelectAllOnFocus(true);
 
             button = _view.findViewById(R.id.textButton_cargoScoredHighTeleCounter);
-            button.setText(String.valueOf(cst.getTeleBallsScored()));
-            scoredHighTele = cst.getTeleBallsScored();
+            button.setText(String.valueOf(cst.getTeleBallsScoredHigh()));
+            scoredHighTele = cst.getTeleBallsScoredHigh();
             button = _view.findViewById(R.id.textButton_scoredLowTeleCounter);
             button.setText(String.valueOf(cst.getMaxBallCapacity()));
             scoredLowTele = cst.getMaxBallCapacity();
 
-            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getColorWheel(), sortCargoYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
+            FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getTeleSortCargo(), sortCargoYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getTeleDefense(), defenseYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getTeleDefenseEvade(), evadeYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
             FakeRadioGroup.buttonDisplay(getActivity(), _view, cst.getMaxBallCapacity(), shootWhileDriveYN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonBackgroundColor);
@@ -232,7 +232,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
         scoredHighTele++;
         button.setText(String.valueOf(scoredHighTele));
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED, scoredHighTele, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH, scoredHighTele, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -244,7 +244,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             scoredHighTele--;
         button.setText(String.valueOf(scoredHighTele));
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED, scoredHighTele, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_HIGH, scoredHighTele, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -255,7 +255,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
         scoredLowTele++;
         button.setText(String.valueOf(scoredLowTele));
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, scoredLowTele, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW, scoredLowTele, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -267,7 +267,7 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
             scoredLowTele--;
         button.setText(String.valueOf(scoredLowTele));
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_MAX_BALL_CAPACITY, scoredLowTele, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_BALLS_SCORED_LOW, scoredLowTele, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -275,10 +275,10 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
 
     private void sortCargoNo() {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 0, sortCargoYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO, SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, 0, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO, 0, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -286,10 +286,10 @@ public class TeleopTab extends Fragment implements IOnEditTextSaveListener {
 
     private void sortCargoYes() {
         FakeRadioGroup.buttonPressed(getActivity(), _view, 1, sortCargoYN,
-                CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, SELECTED_BUTTON_TEXT_COLOR,
+                CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO, SELECTED_BUTTON_TEXT_COLOR,
                 defaultButtonBackgroundColor);
         try {
-            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_COLOR_WHEEL, 1, currentTeam);
+            CyberScouterTeams.updateTeamMetric(_db, CyberScouterContract.Teams.COLUMN_NAME_TELE_SORT_CARGO, 1, currentTeam);
         } catch (Exception e) {
             e.printStackTrace();
         }

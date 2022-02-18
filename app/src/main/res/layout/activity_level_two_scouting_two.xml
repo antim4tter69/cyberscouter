@@ -20,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@+id/button_Team3" />
 
     <Spinner
-        android:id="@+id/spinner_SecondayDefense2"
+        android:id="@+id/spinner_HowLong"
         android:layout_width="324dp"
         android:layout_height="48dp"
         android:layout_marginEnd="64dp"
@@ -187,14 +187,14 @@
 
     <EditText
         android:id="@+id/editTextTextMultiLine"
-        android:layout_width="wrap_content"
+        android:layout_width="324dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="178dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="64dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner_SecondayDefense2" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner_HowLong" />
 
 </android.support.constraint.ConstraintLayout>

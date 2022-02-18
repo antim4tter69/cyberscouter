@@ -20,6 +20,7 @@ import java.security.cert.PolicyNode;
 import java.util.Locale;
 import java.util.Vector;
 
+// Teams table
 class CyberScouterTeams {
     public final static String TEAMS_UPDATED_FILTER = "frcteam195_cyberscouterteams_teams_updated_intent_filter";
 

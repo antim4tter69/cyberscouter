@@ -107,6 +107,15 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T1MULTIROBOTDEFENSE + " INTEGER," +
                     CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T2MULTIROBOTDEFENSE + " INTEGER," +
                     CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T3MULTIROBOTDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T1PRIMARYDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T2PRIMARYDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T2PRIMARYDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T1SECONDARYDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T2SECONDARYDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T3SECONDARYDEFENSE + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T1HOWLONG + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T2HOWLONG + " INTEGER," +
+                    CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T3HOWLONG + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_MATCHENDED + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_COMPLETE + " INTEGER," +

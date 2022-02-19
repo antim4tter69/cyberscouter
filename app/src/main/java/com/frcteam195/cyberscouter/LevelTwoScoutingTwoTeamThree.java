@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class LevelTwoScoutingTwoTeamTwo extends AppCompatActivity {
+public class LevelTwoScoutingTwoTeamThree extends AppCompatActivity {
     private Spinner primaryDefense = (Spinner) findViewById(R.id.spinner_PrimaryDefense);
     private Spinner secondaryDefense = (Spinner) findViewById(R.id.spinner_SecondayDefense);
     private Spinner howLong = (Spinner) findViewById(R.id.spinner_HowLong);
@@ -25,7 +25,7 @@ public class LevelTwoScoutingTwoTeamTwo extends AppCompatActivity {
     private ArrayAdapter<String> sd = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, DefenseOptions);
     private ArrayAdapter<String> hl = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, HowLongOptions);
 
-    String[] _lColumns = {CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T2MULTIROBOTDEFENSE,
+    String[] _lColumns = {CyberScouterContract.MatchScoutingL2.COLUMN_NAME_T3MULTIROBOTDEFENSE,
     };
 
     private int multiRobotDefense;

@@ -416,12 +416,11 @@
             android:id="@+id/FlipFieldButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="676dp"
             android:layout_marginBottom="180dp"
             android:text="Flip Field"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="@+id/button_moveBonusYes" />
 
 
     </android.support.constraint.ConstraintLayout>

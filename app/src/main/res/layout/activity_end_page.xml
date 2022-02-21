@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".EndPage">
 
+    <ImageView
+        android:id="@+id/imageView_btEndIndicator"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/logo_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/background_light" />
+
     <Button
         android:id="@+id/button_CASuccess"
         android:layout_width="408dp"
@@ -320,7 +331,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView_endgameTeam"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -328,7 +339,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView_endgameMatch"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

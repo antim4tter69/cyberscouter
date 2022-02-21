@@ -304,7 +304,7 @@ public class EndPage extends AppCompatActivity {
     }
 
     private void updateStatusIndicator(int color) {
-        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        ImageView iv = findViewById(R.id.imageView_btEndIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
     }
 

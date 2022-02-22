@@ -48,6 +48,11 @@ public class AutoPage extends AppCompatActivity {
                 StartMatch();
             }
         });
+
+        ImageView iv = findViewById(R.id.imageView5);
+        if (!(ScoutingPage.getIsRed()) && ScoutingPage.getFieldOrientation() == 0 || (ScoutingPage.getIsRed() && ScoutingPage.getFieldOrientation() == 1)) {
+            iv.setRotation(iv.getRotation() + 180);
+        }
         button = findViewById(R.id.FlipFieldButton);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -146,7 +151,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        ImageView iv = findViewById(R.id.imageView_teleBtIndicator);
+         iv = findViewById(R.id.imageView_teleBtIndicator);
         Intent intent = getIntent();
         currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
         updateStatusIndicator(currentCommStatusColor);

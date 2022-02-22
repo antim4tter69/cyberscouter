@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.PlaceholderFragment">
 
+    <Spinner
+        android:id="@+id/spinnerPositionOnBar"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
     <TextView
         android:id="@+id/canTheyClimb"
         android:layout_width="wrap_content"
@@ -49,7 +57,7 @@
         android:textAlignment="center"
         android:textSize="45sp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/yesLockingMechanism" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerPositionOnBar" />
 
     <TextView
         android:id="@+id/textView4"
@@ -61,27 +69,6 @@
         android:textSize="45sp"
         app:layout_constraintStart_toStartOf="@+id/canTheyClimb"
         app:layout_constraintTop_toBottomOf="@+id/yesCanTheyClimb" />
-
-    <Button
-        android:id="@+id/yesLockingMechanism"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:text="@string/YesButton"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-    <Button
-        android:id="@+id/noLockingMechanism"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginEnd="28dp"
-        android:text="@string/NoButton"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/yesLockingMechanism" />
 
     <TextView
         android:id="@+id/centerClimb"
@@ -125,11 +112,29 @@
         app:layout_constraintTop_toBottomOf="@+id/centerClimb" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/spinnerTypicalHighestRung"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintStart_toStartOf="@+id/moveOnBar"
         app:layout_constraintTop_toBottomOf="@+id/moveOnBar" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/seconds"
+        android:textSize="35sp"
+        app:layout_constraintStart_toEndOf="@+id/editText_climbHeight2"
+        app:layout_constraintTop_toTopOf="@+id/editText_climbHeight2" />
+
+    <View
+        android:id="@+id/divider6"
+        android:layout_width="5dp"
+        android:layout_height="798dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toStartOf="@+id/editText_climbHeight"
+        app:layout_constraintStart_toEndOf="@+id/moveOnBar"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

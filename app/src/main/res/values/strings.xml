@@ -229,6 +229,7 @@
     <string name="positionOnBar">Position On Bar</string>
     <string name="climbTime">Time For Climb</string>
     <string name="ifNoClimb">Strategy If You Don\'t Climb</string>
+    <string name="seconds">sec</string>
 
 
     <string name="teleStage2">Stage 2</string>

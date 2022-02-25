@@ -416,8 +416,8 @@
             android:id="@+id/PickedUpCounter"
             android:layout_width="84dp"
             android:layout_height="76dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="184dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="132dp"
             android:background="#0000"
             android:text="0"
             android:textSize="20sp"
@@ -454,8 +454,10 @@
             android:textSize="35sp"
             app:layout_constraintBottom_toTopOf="@+id/PickedUpCounter"
             app:layout_constraintEnd_toEndOf="@+id/button_BallsPickedUpPlus"
-            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintHorizontal_bias="0.375"
             app:layout_constraintStart_toStartOf="@+id/button_BallsMovedMinus"
+            app:layout_constraintTop_toBottomOf="@+id/button_moveBonusYes"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="Balls Picked Up" />
 
 

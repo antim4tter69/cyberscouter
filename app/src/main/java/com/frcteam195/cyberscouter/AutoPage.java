@@ -125,6 +125,22 @@ public class AutoPage extends AppCompatActivity {
                 lowerGoalMinus();
             }
         });
+        button = findViewById(R.id.button_BallsMovedMinus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                BallsMovedMinus();
+            }
+        });
+        button = findViewById(R.id.button_BallsPickedUpPlus);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+             BallsMovedPlus();
+            }
+        });
 
         button = findViewById(R.id.button_LowerGoalPlus);
         button.setOnClickListener(new View.OnClickListener() {
@@ -304,5 +320,6 @@ public class AutoPage extends AppCompatActivity {
         PickedUpCount++;
         button.setText(String.valueOf(PickedUpCount));
     }
+
 }
 

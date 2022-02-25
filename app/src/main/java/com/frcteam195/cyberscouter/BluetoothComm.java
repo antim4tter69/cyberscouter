@@ -220,7 +220,12 @@ public class BluetoothComm {
         String returnJson = _errorJson;
         try {
             if (FakeBluetoothServer.bUseFakeBluetoothServer) {
-                returnJson = "{'result': 'success'}";
+                if (!bLastBTCommFailed) {
+                    String btname = Settings.Secure.getString(activity.getContentResolver(), "bluetooth_name");
+                    FakeBluetoothServer fbts = new FakeBluetoothServer(btname);
+                    fbts.getResponse(activity, jo);
+                    returnJson = null;
+                }
             } else {
                 returnJson = sendCommand(activity, jo.toString());
             }

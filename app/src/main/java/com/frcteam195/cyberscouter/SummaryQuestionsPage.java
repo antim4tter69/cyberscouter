@@ -63,12 +63,28 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         Intent intent = getIntent();
         currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
         updateStatusIndicator(currentCommStatusColor);
+
+        button = findViewById(R.id.button_sumqPrevious);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnToEndGamePage();
+            }
+        });
+
+        button = findViewById(R.id.button_sumqNext);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSubmitPage();
+
+            }
+        });
+
         button = findViewById(R.id.GroundPickupY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //returnToEndGamePage();
-
             }
         });
 
@@ -76,8 +92,6 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //openSubmitPage();
-
             }
         });
 
@@ -230,9 +244,9 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             CyberScouterMatchScouting csm = CyberScouterMatchScouting.getCurrentMatch(db, TeamMap.getNumberForTeam(cfg.getAlliance_station()));
 
             if (null != csm) {
-                TextView tv = findViewById(R.id.textView7);
+                TextView tv = findViewById(R.id.textView_endMatch);
                 tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
-                tv = findViewById(R.id.textView9);
+                tv = findViewById(R.id.textView_endTeamNumber);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
             }
             ButtonArray[0] = csm.getAutoPreload();
@@ -271,6 +285,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
     public void openSubmitPage() {
         //updateAnswer();
         Intent intent = new Intent(this, SubmitPage.class);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
     }
 

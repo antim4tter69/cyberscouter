@@ -54,7 +54,9 @@ public class FakeBluetoothServer {
                     CyberScouterWords.getWordsWebService(activity);
                     break;
                 case "put-match-scouting":
+                    CyberScouterMatchScouting.setMatchesWebService(activity, obj);
                 case "put-teams":
+                    CyberScouterTeams.setTeamsWebService(activity, obj);
                     break;
             }
         } catch(Exception e) {

@@ -203,7 +203,7 @@ public class EndPage extends AppCompatActivity {
     public void summaryQuestionsPage(){
         updateEndPageData();
         Intent intent = new Intent(this, SummaryQuestionsPage.class);
-//        intent.putExtra("commstatuscolor", currentCommStatusColor);
+        intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
 
     }

@@ -269,34 +269,20 @@ public class PreAutoPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, val - 1, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         _startPos = val;
         compCheck[0] = true;
-        if(compCheck[0] && compCheck[1]) {
-            button = findViewById(R.id.PreAutoContinueButton);
-            button.setEnabled(true);
-        }
     }
 
     private void preloadYes()
     {
         FakeRadioGroup.buttonPressed(this, 0, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         compCheck[1] = true;
-        preload = 1;
-        if(compCheck[0])
-        {
-            button = findViewById(R.id.PreAutoContinueButton);
-            button.setEnabled(true);
-        }
+        preload = 0;
     }
 
     private void preloadNo()
     {
         FakeRadioGroup.buttonPressed(this, 1, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        preload = 0;
+        preload = 1;
         compCheck[1] = true;
-        if(compCheck[0])
-        {
-            button = findViewById(R.id.PreAutoContinueButton);
-            button.setEnabled(true);
-        }
     }
 
     private void updateStatusIndicator(int color) {

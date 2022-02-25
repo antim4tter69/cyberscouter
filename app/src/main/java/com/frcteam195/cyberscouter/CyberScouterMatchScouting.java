@@ -146,6 +146,7 @@ class CyberScouterMatchScouting {
             JSONObject jo = new JSONObject();
             jo.put("cmd", "put-match-scouting");
             jo.put("key", matchScoutingID);
+            jo.put("table_name", CyberScouterContract.MatchScouting.TABLE_NAME);
             JSONObject payload = new JSONObject();
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTINGSTATUS, ScoutingStatus.FINISHED_SUCCESSFULLY);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, autoStartPos);
@@ -171,7 +172,7 @@ class CyberScouterMatchScouting {
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, climbStatus);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, rungClimbed);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION, climbPosition);
-            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_INSTEADOFCLIMB, insteadOfClimb);
+//            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_INSTEADOFCLIMB, insteadOfClimb);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD, summLaunchPad);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO, summSortCargo);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING, summShootDriving);
@@ -190,6 +191,8 @@ class CyberScouterMatchScouting {
                 response = response.replace("x03", "");
                 JSONObject jresp = new JSONObject(response);
                 ret = jresp.getString("result");
+            } else {
+                ret = null;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -655,7 +658,15 @@ class CyberScouterMatchScouting {
         RequestQueue rq = Volley.newRequestQueue(activity);
         String url = String.format("%s/update", FakeBluetoothServer.webServiceBaseUrl);
         String requestBody = jo.toString();
+        Integer matchId = -99;
 
+        try {
+            matchId = jo.getInt("key");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Integer finalMatchId = matchId;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -664,7 +675,7 @@ class CyberScouterMatchScouting {
                         try {
                             Intent i = new Intent(MATCH_SCOUTING_UPDATED_FILTER);
                             webResponse = response;
-                            i.putExtra("cyberscoutermatches", "update");
+                            i.putExtra("cyberscoutermatch", finalMatchId);
                             activity.sendBroadcast(i);
                         } catch (Exception e) {
                             e.printStackTrace();

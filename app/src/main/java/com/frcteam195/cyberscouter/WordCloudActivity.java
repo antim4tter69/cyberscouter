@@ -1320,16 +1320,17 @@ public class WordCloudActivity extends AppCompatActivity {
         }
     }
 
-    /* private void updateWordCloudData() {
+     private void updateWordCloudData() {
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+
         try {
             Integer[] _lValues = {};
-            CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
+//            CyberScouterMatchScouting.updateMatchMetric(_db, _lColumns, _lValues, cfg);
         } catch(Exception e) {
             e.printStackTrace();
             MessageBox.showMessageBox(this, "Update Error",
                     "WordCloudPage.updateWordCloudData", "SQLite update failed!\n "+e.getMessage());
         }
-    } */
+    }
 
 }

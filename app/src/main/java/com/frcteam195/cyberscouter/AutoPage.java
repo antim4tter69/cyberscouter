@@ -20,6 +20,7 @@ public class AutoPage extends AppCompatActivity {
     private int upperGoalCount = 0;
     private int lowerGoalCount = 0;
     private int missedGoalCount = 0;
+    private int PickedUpCount = 0;
     private int moveBonus = 9;
     private int blueField = R.drawable.betterbluefield2022;
     private int redField = R.drawable.betterredfield2022;
@@ -53,7 +54,7 @@ public class AutoPage extends AppCompatActivity {
         if (!(ScoutingPage.getIsRed()) && ScoutingPage.getFieldOrientation() == 0 || (ScoutingPage.getIsRed() && ScoutingPage.getFieldOrientation() == 1)) {
             iv.setRotation(iv.getRotation() + 180);
         }
-        button = findViewById(R.id.FlipFieldButton);
+      //  button = findViewById(R.id.FlipFieldButton);
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -292,6 +293,16 @@ public class AutoPage extends AppCompatActivity {
             MessageBox.showMessageBox(this, "Update Error",
                     "AutoPage.updateAutoData", "SQLite update failed!\n "+e.getMessage());
         }
+    } public void BallsMovedMinus() {
+        button = findViewById(R.id.PickedUpCounter);
+        if (PickedUpCount > 0)
+            PickedUpCount--;
+        button.setText(String.valueOf(PickedUpCount));
+    }
+    public void BallsMovedPlus() {
+        button = findViewById(R.id.PickedUpCounter);
+        PickedUpCount++;
+        button.setText(String.valueOf(PickedUpCount));
     }
 }
 

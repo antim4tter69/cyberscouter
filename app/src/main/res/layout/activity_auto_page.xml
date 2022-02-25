@@ -11,8 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".AutoPage"
-        tools:layout_editor_absoluteX="436dp"
-        tools:layout_editor_absoluteY="352dp">
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="16dp">
 
         <Button
             android:id="@+id/button_startMatch"
@@ -413,14 +413,50 @@
             app:layout_constraintTop_toBottomOf="@+id/button3" />
 
         <Button
-            android:id="@+id/FlipFieldButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="180dp"
-            android:text="Flip Field"
-            android:textSize="24sp"
+            android:id="@+id/PickedUpCounter"
+            android:layout_width="84dp"
+            android:layout_height="76dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="184dp"
+            android:background="#0000"
+            android:text="0"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/button_moveBonusYes" />
+            app:layout_constraintEnd_toStartOf="@+id/button_BallsPickedUpPlus" />
+
+        <Button
+            android:id="@+id/button_BallsPickedUpPlus"
+            android:layout_width="87dp"
+            android:layout_height="78dp"
+            android:layout_marginEnd="16dp"
+            android:text="+"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/PickedUpCounter"
+            app:layout_constraintEnd_toStartOf="@+id/button_missedGoalMinus"
+            app:layout_constraintTop_toTopOf="@+id/PickedUpCounter" />
+
+        <Button
+            android:id="@+id/button_BallsMovedMinus"
+            android:layout_width="85dp"
+            android:layout_height="78dp"
+            android:layout_marginEnd="16dp"
+            android:text="-"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/PickedUpCounter"
+            app:layout_constraintEnd_toStartOf="@+id/PickedUpCounter" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="252dp"
+            android:layout_height="72dp"
+            android:layout_marginBottom="4dp"
+            android:text="TextView"
+            android:textSize="35sp"
+            app:layout_constraintBottom_toTopOf="@+id/PickedUpCounter"
+            app:layout_constraintEnd_toEndOf="@+id/button_BallsPickedUpPlus"
+            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintStart_toStartOf="@+id/button_BallsMovedMinus"
+            tools:text="Balls Picked Up" />
 
 
     </android.support.constraint.ConstraintLayout>

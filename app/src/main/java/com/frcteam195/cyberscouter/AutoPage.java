@@ -54,14 +54,14 @@ public class AutoPage extends AppCompatActivity {
         if (!(ScoutingPage.getIsRed()) && ScoutingPage.getFieldOrientation() == 0 || (ScoutingPage.getIsRed() && ScoutingPage.getFieldOrientation() == 1)) {
             iv.setRotation(iv.getRotation() + 180);
         }
-      //  button = findViewById(R.id.FlipFieldButton);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                FlipField();
-            }
-        });
+//        button = findViewById(R.id.FlipFieldButton);
+//        button.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                FlipField();
+//            }
+//        });
 
         button = findViewById(R.id.buttonPrevious);
         button.setOnClickListener(new View.OnClickListener() {
@@ -168,7 +168,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-         iv = findViewById(R.id.imageView_teleBtIndicator);
+        iv = findViewById(R.id.imageView_btAutoIndicator);
         Intent intent = getIntent();
         currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
         updateStatusIndicator(currentCommStatusColor);
@@ -291,7 +291,7 @@ public class AutoPage extends AppCompatActivity {
     }
 
     private void updateStatusIndicator(int color) {
-        ImageView iv = findViewById(R.id.imageView_btIndicator);
+        ImageView iv = findViewById(R.id.imageView_btAutoIndicator);
         BluetoothComm.updateStatusIndicator(iv, color);
     }
     public void parkedClimb() {

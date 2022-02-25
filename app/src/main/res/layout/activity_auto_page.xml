@@ -78,7 +78,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imageView_btIndicator"
+            android:id="@+id/imageView_btAutoIndicator"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="32dp"

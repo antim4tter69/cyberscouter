@@ -30,7 +30,8 @@ public class SummaryQuestionsPage extends AppCompatActivity {
     private int defaultButtonBackgroundColor = Color.LTGRAY;
     private int defaultButtonTextColor = Color.BLACK;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private int[] ButtonArray = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+    private int[] buttonArray = new int[9];
 
     private int groundPickupVar, terminalPickupVar, playedDefenseVar, defenseAgainstVar, shootWhileVar, brokeDownVar, lostCommVar, subsystemBrokeVar, scoreOppVar, shootFromVar;
     //private int lastCheckedButton;
@@ -59,10 +60,12 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_questions_page);
 
-
         Intent intent = getIntent();
         currentCommStatusColor = intent.getIntExtra("commstatuscolor", Color.LTGRAY);
         updateStatusIndicator(currentCommStatusColor);
+
+        button = findViewById(R.id.button_Next);
+        button.setEnabled(false);
 
         button = findViewById(R.id.button_sumqPrevious);
         button.setOnClickListener(new View.OnClickListener() {
@@ -84,147 +87,120 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         button = findViewById(R.id.GroundPickupY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-            }
+            public void onClick(View v) {GroundPickupYes();}
         });
 
         button = findViewById(R.id.GroundPickupN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-            }
+            public void onClick(View v) {GroundPickupNo();}
         });
 
         button = findViewById(R.id.TerminalPickupY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //nextAnswer();
-
-            }
+            public void onClick(View v) {TerminalPickupYes();}
         });
 
         button = findViewById(R.id.TerminalPickupN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //previousAnswer();
-
-            }
+            public void onClick(View v) {TerminalPickupNo();}
         });
         button = findViewById(R.id.PlayedDefenseY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {PlayedDefenseYes();}
         });
         button = findViewById(R.id.PlayedDefenseN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {PlayedDefenseNo();}
         });
         button = findViewById(R.id.DefenseAgainstThemY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {DefenseAgainstYes();}
         });
         button = findViewById(R.id.DefenseAgainstThemN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {DefenseAgainstNo();}
         });
         button = findViewById(R.id.ShootWhileY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {ShootWhileYes();}
         });
         button = findViewById(R.id.ShootWhileN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {ShootWhileNo();}
         });
         button = findViewById(R.id.BrokeDownY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {BrokeDownYes();}
         });
         button = findViewById(R.id.BrokeDownN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {BrokeDownNo();}
         });
         button = findViewById(R.id.LostCommY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {LostCommYes();}
         });
         button = findViewById(R.id.LostCommN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {LostCommNo();}
         });
         button = findViewById(R.id.SubsystemY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {SubsystemBrokeYes();}
         });
         button = findViewById(R.id.SubsystemN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {SubsystemBrokeNo();}
         });
         button = findViewById(R.id.ScoreOppY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {ScoreOppYes();}
         });
         button = findViewById(R.id.ScoreOppN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {ScoreOppNo();}
         });
         button = findViewById(R.id.ShootFromY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {ShootFromYes();}
+        });
+        button = findViewById(R.id.ShootFromN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {ShootFromNo();}
+        });
+        button = findViewById(R.id.BrokeDownY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {BrokeDownYes();}
         });
         button = findViewById(R.id.BrokeDownN);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
-            }
+            public void onClick(View view) {BrokeDownNo();}
         });
 
+        button = findViewById(R.id.button_Next);
+        button.setEnabled(false);
+        //if (groundPickupVar == 0, 1 != 1 && terminalPickupVar, playedDefenseVar, defenseAgainstVar, shootWhileVar, brokeDownVar, lostCommVar, subsystemBrokeVar, scoreOppVar, shootFromVar)
 
 
     }
@@ -264,7 +240,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                 tv = findViewById(R.id.textView_endTeamNumber);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
             }
-            ButtonArray[0] = csm.getAutoPreload();
+            /*ButtonArray[0] = csm.getAutoPreload();
             ButtonArray[1] = csm.getAutoPreload();
             ButtonArray[2] = csm.getAutoPreload();
             ButtonArray[3] = csm.getAutoPreload();
@@ -275,7 +251,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             ButtonArray[8] = csm.getAutoPreload();
             ButtonArray[9] = csm.getAutoPreload();
 
-            FakeRadioGroup.buttonDisplay(this, ButtonArray[0], groundPickupArray, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            FakeRadioGroup.buttonDisplay(this, ButtonArray[0], groundPickupArray, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);*/
 
         }
 
@@ -293,12 +269,12 @@ public class SummaryQuestionsPage extends AppCompatActivity {
     }*/
 
     public void returnToEndGamePage() {
-        // updateAnswer();
+        updateSummaryQuestionPageData();
         this.finish();
     }
 
     public void openSubmitPage() {
-        //updateAnswer();
+        updateSummaryQuestionPageData();
         Intent intent = new Intent(this, SubmitPage.class);
         intent.putExtra("commstatuscolor", currentCommStatusColor);
         startActivity(intent);
@@ -328,75 +304,118 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         private void GroundPickupNo()
     {
         FakeRadioGroup.buttonPressed(this, 0, groundPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[0] = 0;
+        groundPickupVar = 0;
+        //ButtonArray[0] = 0;
     }
 
     private void GroundPickupYes()
     {
         FakeRadioGroup.buttonPressed(this, 1, groundPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[0] = 1;
-
+        //ButtonArray[0] = 1;
+        groundPickupVar = 1;
     }
     private void TerminalPickupNo()
     {
         FakeRadioGroup.buttonPressed(this, 0, terminalPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[1] = 0;
+        //ButtonArray[1] = 0;
+        terminalPickupVar = 0;
     }
 
     private void TerminalPickupYes()
     {
         FakeRadioGroup.buttonPressed(this, 1, terminalPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[1] = 1;
-
+        //ButtonArray[1] = 1;
+        terminalPickupVar = 1;
     }
     private void PlayedDefenseNo()
     {
         FakeRadioGroup.buttonPressed(this, 0, playedDefenseArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[2] = 0;
+        //ButtonArray[2] = 0;
+        playedDefenseVar = 0;
     }
     private void PlayedDefenseYes()
     {
         FakeRadioGroup.buttonPressed(this, 1, playedDefenseArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[2] = 1;
+        //ButtonArray[2] = 1;
+        playedDefenseVar = 1;
     }
 
     private void DefenseAgainstNo()
     {
         FakeRadioGroup.buttonPressed(this, 0, defenseAgainstArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[3] = 0;
-
+        //ButtonArray[3] = 0;
+        defenseAgainstVar = 0;
     }
     private void DefenseAgainstYes()
     {
         FakeRadioGroup.buttonPressed(this, 1, defenseAgainstArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[3] = 1;
-
+        //ButtonArray[3] = 1;
+        defenseAgainstVar = 1;
     }
 
     private void ShootWhileNo()
     {
         FakeRadioGroup.buttonPressed(this, 0, shootWhileArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[4] = 0;
-
+        //ButtonArray[4] = 0;
+        shootWhileVar = 0;
     }
     private void ShootWhileYes()
     {
         FakeRadioGroup.buttonPressed(this, 1, shootWhileArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[4] = 1;
-
+        //ButtonArray[4] = 1;
+        shootWhileVar = 1;
     }
 
     private void BrokeDownNo()
     {
         FakeRadioGroup.buttonPressed(this, 0, brokeDownArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[5] = 0;
-
+        //ButtonArray[5] = 0;
+        brokeDownVar = 0;
     }
-    private void BrokeDownYes()
-    {
+    private void BrokeDownYes() {
         FakeRadioGroup.buttonPressed(this, 1, brokeDownArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
-        ButtonArray[5] = 1;
-
+        //ButtonArray[5] = 1;
+        brokeDownVar = 1;
+    }
+    private void LostCommNo() {
+        FakeRadioGroup.buttonPressed(this, 0, lostCommArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        lostCommVar = 0;
+    }
+    private void LostCommYes() {
+        FakeRadioGroup.buttonPressed(this, 1, lostCommArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        lostCommVar = 1;
+    }
+    private void SubsystemBrokeNo() {
+        FakeRadioGroup.buttonPressed(this, 0, subsystemBrokeArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        subsystemBrokeVar = 0;
+    }
+    private void SubsystemBrokeYes() {
+        FakeRadioGroup.buttonPressed(this, 1, subsystemBrokeArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        subsystemBrokeVar = 1;
+    }
+    private void ScoreOppNo() {
+        FakeRadioGroup.buttonPressed(this, 0, scoreOppArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        scoreOppVar = 0;
+    }
+    private void ScoreOppYes() {
+        FakeRadioGroup.buttonPressed(this, 1, scoreOppArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        scoreOppVar = 1;
+    }
+    private void ShootFromNo() {
+        FakeRadioGroup.buttonPressed(this, 0, shootFromArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        shootFromVar = 0;
+    }
+    private void ShootFromYes() {
+        FakeRadioGroup.buttonPressed(this, 1, shootFromArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        //ButtonArray[5] = 1;
+        shootFromVar = 1;
     }
 
 

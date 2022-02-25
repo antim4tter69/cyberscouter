@@ -126,6 +126,20 @@ public class SummaryQuestionsPage extends AppCompatActivity {
 
             }
         });
+        button = findViewById(R.id.DefenseAgainstThemY);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        button = findViewById(R.id.DefenseAgainstThemN);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         button = findViewById(R.id.ShootWhileY);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +224,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
 
             }
         });
+
 
 
     }
@@ -310,6 +325,80 @@ public class SummaryQuestionsPage extends AppCompatActivity {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
     }
+        private void GroundPickupNo()
+    {
+        FakeRadioGroup.buttonPressed(this, 0, groundPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[0] = 0;
+    }
+
+    private void GroundPickupYes()
+    {
+        FakeRadioGroup.buttonPressed(this, 1, groundPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[0] = 1;
+
+    }
+    private void TerminalPickupNo()
+    {
+        FakeRadioGroup.buttonPressed(this, 0, terminalPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[1] = 0;
+    }
+
+    private void TerminalPickupYes()
+    {
+        FakeRadioGroup.buttonPressed(this, 1, terminalPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[1] = 1;
+
+    }
+    private void PlayedDefenseNo()
+    {
+        FakeRadioGroup.buttonPressed(this, 0, playedDefenseArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[2] = 0;
+    }
+    private void PlayedDefenseYes()
+    {
+        FakeRadioGroup.buttonPressed(this, 1, playedDefenseArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[2] = 1;
+    }
+
+    private void DefenseAgainstNo()
+    {
+        FakeRadioGroup.buttonPressed(this, 0, defenseAgainstArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[3] = 0;
+
+    }
+    private void DefenseAgainstYes()
+    {
+        FakeRadioGroup.buttonPressed(this, 1, defenseAgainstArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[3] = 1;
+
+    }
+
+    private void ShootWhileNo()
+    {
+        FakeRadioGroup.buttonPressed(this, 0, shootWhileArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[4] = 0;
+
+    }
+    private void ShootWhileYes()
+    {
+        FakeRadioGroup.buttonPressed(this, 1, shootWhileArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTDRIVING, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[4] = 1;
+
+    }
+
+    private void BrokeDownNo()
+    {
+        FakeRadioGroup.buttonPressed(this, 0, brokeDownArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[5] = 0;
+
+    }
+    private void BrokeDownYes()
+    {
+        FakeRadioGroup.buttonPressed(this, 1, brokeDownArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMBROKEDOWN, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+        ButtonArray[5] = 1;
+
+    }
+
 
     /*
         private void updateAnswer() {

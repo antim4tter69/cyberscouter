@@ -21,9 +21,8 @@ public class PreAutoPage extends AppCompatActivity {
     private final int[] preloadButtons = {R.id.preloadYesBtn, R.id.preloadNoBtn};
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
-    private Button didnotshowyesbutton;
     private int currentCommStatusColor;
-    private int preload = 0;
+    private int preload = -1;
 
     //used to check if all data fields are completed
     private boolean[] compCheck = {false, false};
@@ -236,7 +235,14 @@ public class PreAutoPage extends AppCompatActivity {
                 compCheck[0] = false;
             }
             preload = csm.getAutoPreload();
-            FakeRadioGroup.buttonDisplay(this, preload, preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            if(preload != -1) {
+                FakeRadioGroup.buttonDisplay(this, preload, preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+                button = findViewById(R.id.PreAutoContinueButton);
+                button.setEnabled(true);
+            } else {
+                button = findViewById(R.id.PreAutoContinueButton);
+                button.setEnabled(false);
+            }
         }
     }
 

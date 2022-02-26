@@ -21,7 +21,7 @@ public class AutoPage extends AppCompatActivity {
     private int lowerGoalCount = 0;
     private int missedGoalCount = 0;
     private int PickedUpCount = 0;
-    private int moveBonus = 9;
+    private int moveBonus = -1;
     private int blueField = R.drawable.betterbluefield2022;
     private int redField = R.drawable.betterredfield2022;
 
@@ -194,7 +194,14 @@ public class AutoPage extends AppCompatActivity {
             lowerGoalCount = csm.getAutoBallLow();
             missedGoalCount = csm.getAutoBallMiss();
 
-            FakeRadioGroup.buttonDisplay(this, moveBonus, moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            if(moveBonus != -1) {
+                FakeRadioGroup.buttonDisplay(this, moveBonus, moveBonusButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+                button = findViewById(R.id.button_startMatch);
+                button.setEnabled(true);
+            } else {
+                button = findViewById(R.id.button_startMatch);
+                button.setEnabled(false);
+            }
             button = findViewById(R.id.upperCounter);
             button.setText(String.valueOf(upperGoalCount));
             button = findViewById(R.id.lowerCounter);
@@ -205,9 +212,9 @@ public class AutoPage extends AppCompatActivity {
     }
 
     public void StartMatch() {
-//        if(9 == moveBonus) {
-//            return;
-//        }
+        if(-1 == moveBonus) {
+            return;
+        }
         updateAutoData();
         Intent intent = new Intent(this, TelePage.class);
         intent.putExtra("commstatuscolor", currentCommStatusColor);
@@ -248,6 +255,8 @@ public class AutoPage extends AppCompatActivity {
                 CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOMOVEBONUS,
                 SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         moveBonus =  val;
+        button = findViewById(R.id.button_startMatch);
+        button.setEnabled(true);
     }
 
     public void upperGoalMinus() {

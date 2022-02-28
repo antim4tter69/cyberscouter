@@ -15,8 +15,10 @@ public class AutoPage extends AppCompatActivity {
     private final int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
     private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_attempted, R.id.button_moveBonusYes};
-    private final int[] redPositionButtons = {R.id.Button1, R.id.button3, R.id.button6};
-    private final int[] bluePositionButtons = {R.id.Button2, R.id.button4, R.id.button5,R.id.button7,R.id.button8, R.id.button9,R.id.button10};
+    private int[] redPositionButtons;
+    private int[] bluePositionButtons;
+    //private final int[] redPositionButtons = {R.id.Ball1, R.id.Ball3, R.id.Ball6};
+ //   private final int[] bluePositionButtons = {R.id.Ball2, R.id.Ball4, R.id.Ball5,R.id.button7,R.id.Ball7};
     private int upperGoalCount = 0;
     private int lowerGoalCount = 0;
     private int missedGoalCount = 0;
@@ -24,6 +26,7 @@ public class AutoPage extends AppCompatActivity {
     private int moveBonus = -1;
     private int blueField = R.drawable.betterbluefield2022;
     private int redField = R.drawable.betterredfield2022;
+    private int[] BallsPickedUp= {0,0,0,0,0,0,0};
 
     private int field_orientation;
     private int currentCommStatusColor;
@@ -167,6 +170,58 @@ public class AutoPage extends AppCompatActivity {
                 missedGoalPlus();
             }
         });
+
+        button = findViewById(R.id.Ball1);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BallPickedUp(0, R.id.Ball1);
+            }
+        });
+        button = findViewById(R.id.Ball2);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BallPickedUp(1, R.id.Ball2);
+            }
+        });
+        button = findViewById(R.id.Ball3);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BallPickedUp(2, R.id.Ball3);
+            }
+        });
+        button = findViewById(R.id.Ball4);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BallPickedUp(3, R.id.Ball4);
+            }
+        });
+        button = findViewById(R.id.Ball5);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BallPickedUp(4, R.id.Ball5);
+            }
+        });
+        button = findViewById(R.id.Ball6);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BallPickedUp(5, R.id.Ball6);
+            }
+        });
+        button = findViewById(R.id.Ball7);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BallPickedUp(6, R.id.Ball7);
+            }
+        });
+
+
 
         iv = findViewById(R.id.imageView_btAutoIndicator);
         Intent intent = getIntent();
@@ -328,6 +383,20 @@ public class AutoPage extends AppCompatActivity {
         button = findViewById(R.id.PickedUpCounter);
         PickedUpCount++;
         button.setText(String.valueOf(PickedUpCount));
+    }
+    public void BallPickedUp(int BallPickedUp, int BTN){
+        button = findViewById(BTN);
+        if (BallsPickedUp[BallPickedUp]== 0) {
+            button.setBackgroundColor(SELECTED_BUTTON_TEXT_COLOR);
+            BallsPickedUp[BallPickedUp]=1;
+        }
+        else {
+ //           if ()
+           button.setBackgroundColor(defaultButtonTextColor);
+           BallsPickedUp[BallPickedUp]=0;
+
+        }
+
     }
 
 }

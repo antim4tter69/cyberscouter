@@ -116,7 +116,7 @@ class CyberScouterMatchScouting {
             int last_hash = CyberScouterTimeCode.getLast_update(db);
             System.out.println(String.format(">>>>>>>>>>>>>>>>>>>>>>>LastUpdate=%d", last_hash));
             BluetoothComm btcomm = new BluetoothComm();
-            String response = btcomm.getMatches(activity, eventId, last_hash);
+            String response = btcomm.getMatchesL1(activity, eventId, last_hash);
             if (null != response) {
                 JSONObject jo = new JSONObject(response);
                 String result = jo.getString("result");

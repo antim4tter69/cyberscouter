@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 /* + or - block briefly turns alliance color when tapped
 Word background turns light gray, red, yellow, green, blue, or purple depending on how many times the + or - button has been tapped
 
@@ -36,6 +38,8 @@ public class WordCloudActivity extends AppCompatActivity {
 
     final private CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
     private SQLiteDatabase _db = null;
+    private int currentMatch=1;
+    private boolean redSelected=true;
 
     private ViewPager mPager;
 
@@ -87,11 +91,21 @@ public class WordCloudActivity extends AppCompatActivity {
         _activity = this;
 
         registerReceiver(mWordsReceiver, new IntentFilter(CyberScouterWords.WORDS_UPDATED_FILTER));
-        registerReceiver(mMatchesL2Receiver, new IntentFilter(CyberScouterMatchScoutingL2.MATCH_SCOUTING_L2_UPDATED_FILTER));
+//        registerReceiver(mMatchesL2Receiver, new IntentFilter(CyberScouterMatchScoutingL2.MATCH_SCOUTING_L2_UPDATED_FILTER));
 
         //mPager = findViewById(R.id.viewPager_wcPager);
 
         _db = mDbHelper.getWritableDatabase();
+
+        Intent intent = getIntent();
+        String sparams = intent.getStringExtra("params");
+        try {
+            JSONObject jo = new JSONObject(sparams);
+            currentMatch = jo.getInt("match_number");
+            redSelected = jo.getBoolean("is_red");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         fetcherThread = new Thread(new RemoteFetcher());
 
@@ -107,7 +121,7 @@ public class WordCloudActivity extends AppCompatActivity {
                         fetchWords();
                         break;
                     case FETCH_MATCHES:
-                        fetchMatches();
+//                        fetchMatches();
                         break;
                 }
             }
@@ -425,6 +439,24 @@ public class WordCloudActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        try {
+            CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+            CyberScouterMatches csm = CyberScouterMatches.getLocalMatch(_db, cfg.getEvent_id(), currentMatch);
+            TextView tv = findViewById(R.id.team1Text);
+            if(redSelected) {tv.setText(String.format(getString(R.string.tagTeam), csm.getRedTeam1())); }
+            else {tv.setText(String.format(getString(R.string.tagTeam), csm.getBlueTeam1())); }
+            tv = findViewById(R.id.team2Text);
+            if(redSelected) {tv.setText(String.format(getString(R.string.tagTeam), csm.getRedTeam2())); }
+            else {tv.setText(String.format(getString(R.string.tagTeam), csm.getBlueTeam2())); }
+            tv = findViewById(R.id.team3Text);
+            if(redSelected) {tv.setText(String.format(getString(R.string.tagTeam), csm.getRedTeam3())); }
+            else {tv.setText(String.format(getString(R.string.tagTeam), csm.getBlueTeam3())); }
+        } catch(Exception e) {
+            MessageBox.showMessageBox(this, "Fetch Match Information Failed", "onResume",
+                    String.format("Attempt to fetch local match info failed!\n%s", e.getMessage()));
+            e.printStackTrace();
+        }
     }
 
     private class RemoteFetcher implements Runnable {

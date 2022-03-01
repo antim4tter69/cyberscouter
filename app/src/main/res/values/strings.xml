@@ -50,7 +50,10 @@
     <string name="NAPlayedDefense">No Attempt - Played Defense</string>
     <string name="NAScoredCargo">No Attempt - Scored Cargo</string>
     <string name="CAFailed">Climb Attempted - Failed</string>
-    <string name="CASuccess">Climd Attempted - Success</string>
+    <string name="CASuccess">Climb Attempted - Success</string>
+    <string name="Highest">Highest</string>
+    <string name="Lowest">Lowest</string>
+
     <string name="GroundStartingPositionRightButton">Ground right</string>
     <string name="LevelOneStartingPositionLeftButton">Lvl 1 left</string>
     <string name="LevelTwoStartingPositionLeftButton">Lvl 2 left</string>
@@ -174,10 +177,10 @@
     <string name="LevelText">Level</string>
     <string name="InsteadOfClimb">What Did They Do Instead Of Climb</string>
     <string name="NoAttempt">No Attempt</string>
-    <string name="LowClimb">Low</string>
-    <string name="MiddleClimb">Middle</string>
-    <string name="HighClimb">High</string>
-    <string name="TraversalClimb">Traversal</string>
+    <string name="LowClimb">Bar 1</string>
+    <string name="MiddleClimb">Bar 2</string>
+    <string name="HighClimb">Bar 3</string>
+    <string name="TraversalClimb">Bar 4</string>
     <string name="ClimbPosition">Can They Climb?</string>
     <string name="AutoSummary">Auto Summary</string>
     <string name="HighestRungClimbed">Highest Rung Climbed</string>

@@ -65,6 +65,9 @@ public class FakeBluetoothServer {
                 case "get-words":
                     CyberScouterWords.getWordsWebService(activity);
                     break;
+                case "get-word-cloud":
+                    CyberScouterWordCloud.getWordCloudWebService(activity);
+                    break;
                 case "put-match-scouting":
                     CyberScouterMatchScouting.setMatchesWebService(activity, obj);
                 case "put-teams":

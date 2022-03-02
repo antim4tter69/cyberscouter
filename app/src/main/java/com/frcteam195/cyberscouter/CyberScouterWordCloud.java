@@ -22,6 +22,12 @@ import java.util.Vector;
 public class CyberScouterWordCloud {
     final static String WORD_CLOUD_UPDATED_FILTER = "frcteam195_cyberscouterwordcloud_word_cloud_updated_intent_filter";
 
+    private static String webResponse;
+
+    static String getWebResponse() {
+        return (webResponse);
+    }
+
     private int EventID;
     private int MatchID;
     private int MatchScoutingID;
@@ -29,7 +35,7 @@ public class CyberScouterWordCloud {
     private String Team;
     private int WordID;
 
-    void putWordCloud(SQLiteDatabase db) {
+    void putWordCloud(SQLiteDatabase db, int conflict_action) {
         try {
             ContentValues values = new ContentValues();
 
@@ -43,16 +49,76 @@ public class CyberScouterWordCloud {
             values.put(CyberScouterContract.WordCloud.COLUMN_NAME_UPLOAD_STATUS, UploadStatus.NOT_UPLOADED);
 
             long newRowId = db.insertWithOnConflict(CyberScouterContract.WordCloud.TABLE_NAME,
-                    null, values, SQLiteDatabase.CONFLICT_REPLACE);
+                    null, values, conflict_action);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    static CyberScouterWordCloud getLocalWordCloud(SQLiteDatabase db, int _matchScoutingID, String _team, int _wordID) {
+    static public void setWordCloudMetric(SQLiteDatabase db, int _eventID, String _team, int _matchID, int _wordID, int _wordVal) {
+        CyberScouterWordCloud cswc = new CyberScouterWordCloud();
+        cswc.setEventID(_eventID);
+        cswc.setMatchID(_matchID);
+        cswc.setTeam(_team);
+        cswc.setMatchScoutingID(0);
+        cswc.setWordID(_wordID);
+        cswc.setWordCount(_wordVal);
+
+        cswc.putWordCloud(db, SQLiteDatabase.CONFLICT_REPLACE);
+        }
+
+    static public void deleteOldMatches(SQLiteDatabase db, int _matchID) {
+        String[] wherevals = {String.valueOf(_matchID)};
+        db.delete(CyberScouterContract.WordCloud.TABLE_NAME,
+                CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_ID + " <> ?", wherevals);
+    }
+
+    static public void mergeWordCloudMatchInfo(SQLiteDatabase db, CyberScouterMatches csm, String jstr, int numberOfWords, boolean redSelected) {
+        CyberScouterWordCloud cswc = new CyberScouterWordCloud();
+        cswc.setEventID(csm.getEventID());
+        cswc.setMatchID(csm.getMatchID());
+        cswc.setMatchScoutingID(0);
+        cswc.setWordCount(0);
+
+        if(redSelected) {
+            cswc.setTeam(csm.getRedTeam1());
+            insertTeamRecords(db, cswc, numberOfWords);
+            cswc.setTeam(csm.getRedTeam2());
+            insertTeamRecords(db, cswc, numberOfWords);
+            cswc.setTeam(csm.getRedTeam3());
+            insertTeamRecords(db, cswc, numberOfWords);
+        } else {
+            cswc.setTeam(csm.getBlueTeam1());
+            insertTeamRecords(db, cswc, numberOfWords);
+            cswc.setTeam(csm.getBlueTeam2());
+            insertTeamRecords(db, cswc, numberOfWords);
+            cswc.setTeam(csm.getBlueTeam3());
+            insertTeamRecords(db, cswc, numberOfWords);
+        }
+
+        try {
+            if(jstr != null) {
+                JSONObject job = new JSONObject(jstr);
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    static private void insertTeamRecords(SQLiteDatabase db, CyberScouterWordCloud cswc, int numberOfWords) {
+        for(int i=0; i<numberOfWords; ++i){
+            cswc.setWordID(i+1);
+            cswc.setWordCount(0);
+            cswc.putWordCloud(db, SQLiteDatabase.CONFLICT_IGNORE);
+        }
+    }
+
+    static CyberScouterWordCloud[] getLocalWordCloud(SQLiteDatabase db, String _team, int _matchID) {
+        Vector<CyberScouterWordCloud> cswcv = new Vector<>();
+        CyberScouterWordCloud cswc = null;
         Cursor cursor = null;
 
-        CyberScouterWordCloud cswc = null;
 
         String[] projection = {
                 CyberScouterContract.WordCloud.COLUMN_NAME_EVENT_ID,
@@ -63,13 +129,11 @@ public class CyberScouterWordCloud {
                 CyberScouterContract.WordCloud.COLUMN_NAME_WORD_COUNT
         };
 
-        String selection = CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID + " = ? AND " +
-                CyberScouterContract.WordCloud.COLUMN_NAME_TEAM + " = ? AND " +
-                CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID + " = ?";
+        String selection = CyberScouterContract.WordCloud.COLUMN_NAME_TEAM + " = ? AND " +
+                CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_ID + " = ?";
         String[] selectionArgs = {
-                String.format(Locale.getDefault(), "%d", _matchScoutingID),
                 String.format(Locale.getDefault(), "%s", _team),
-                String.format(Locale.getDefault(), "%d", _wordID)
+                String.format(Locale.getDefault(), "%d", _matchID)
         };
 
 
@@ -84,28 +148,35 @@ public class CyberScouterWordCloud {
         );
 
         if (0 < cursor.getCount()) {
-            cursor.moveToNext();
-            cswc = new CyberScouterWordCloud();
+            while(cursor.moveToNext()) {
+                cswc = new CyberScouterWordCloud();
 
-            cswc.EventID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_EVENT_ID));
-            cswc.MatchID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_ID));
-            cswc.MatchScoutingID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID));
-            cswc.Team = cursor.getString(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_TEAM));
-            cswc.WordID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID));
-            cswc.WordCount = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_WORD_COUNT));
+                cswc.EventID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_EVENT_ID));
+                cswc.MatchID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_ID));
+                cswc.MatchScoutingID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID));
+                cswc.Team = cursor.getString(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_TEAM));
+                cswc.WordID = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID));
+                cswc.WordCount = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.WordCloud.COLUMN_NAME_WORD_COUNT));
+
+                cswcv.add(cswc);
+            }
             cursor.close();
         }
 
-        return cswc;
+        if (0 < cswcv.size()) {
+            CyberScouterWordCloud[] cswca = new CyberScouterWordCloud[cswcv.size()];
+            return cswcv.toArray(cswca);
+        } else
+            return null;
     }
 
-    static int deleteLocalWordCloud(SQLiteDatabase db, int _matchScoutingID, String _team, int _wordID) {
+    static int deleteLocalWordCloud(SQLiteDatabase db, int _matchID, String _team, int _wordID) {
 
         String selection = CyberScouterContract.WordCloud.COLUMN_NAME_MATCH_SCOUTING_ID + " = ? AND " +
                 CyberScouterContract.WordCloud.COLUMN_NAME_TEAM + " = ? AND " +
                 CyberScouterContract.WordCloud.COLUMN_NAME_WORD_ID + " = ?";
         String[] selectionArgs = {
-                String.format(Locale.getDefault(), "%d", _matchScoutingID),
+                String.format(Locale.getDefault(), "%d", _matchID),
                 String.format(Locale.getDefault(), "%s", _team),
                 String.format(Locale.getDefault(), "%d", _wordID)
         };
@@ -151,7 +222,7 @@ public class CyberScouterWordCloud {
                     public void onResponse(String response) {
                         try {
                             Intent i = new Intent(WORD_CLOUD_UPDATED_FILTER);
-                            i.putExtra("cyberscouterwords", response);
+                            i.putExtra("cyberscouterwordcloud", response);
                             activity.sendBroadcast(i);
                         } catch (Exception e) {
                             e.printStackTrace();

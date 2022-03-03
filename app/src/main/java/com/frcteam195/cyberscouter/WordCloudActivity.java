@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /* + or - block briefly turns alliance color when tapped
@@ -49,21 +50,12 @@ public class WordCloudActivity extends AppCompatActivity {
 
     private Integer[] Team1Cntrs = {0, 0, 0, 0, 0, 0, 0};
     final private Integer[] Team1CntrViews = {R.id.fastTextTeam1, R.id.goodDriverTextTeam1, R.id.aggressiveText, R.id.blockTextTeam1, R.id.evasiveTextTeam1, R.id.sturdyTextTeam1, R.id.powerfulTextTeam1};
-   /* String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS}; */
 
     private Integer[] Team2Cntrs = {0, 0, 0, 0, 0, 0, 0};
     final private Integer[] Team2CntrViews = {R.id.fastText2, R.id.goodDriverText2, R.id.aggressiveText2, R.id.blockText2, R.id.evasiveText2, R.id.sturdyText2, R.id.powerfulText2};
-   /* String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS}; */
 
     private Integer[] Team3Cntrs = {0, 0, 0, 0, 0, 0, 0};
     final private Integer[] Team3CntrViews = {R.id.fastText3, R.id.goodDriverText3, R.id.aggressiveText3, R.id.blockText3, R.id.evasiveText3, R.id.sturdyText3, R.id.powerfulText3};
-   /* String[] _lColumns = {CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLHIGH,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLLOW,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_TELEBALLMISS}; */
 
     static private Handler mFetchHandler;
     private Thread fetcherThread;
@@ -76,7 +68,11 @@ public class WordCloudActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String ret = intent.getStringExtra("cyberscouterwordcloud");
-            updateWordCloudLocal(ret);
+            if(ret.equalsIgnoreCase("updated")) {
+                updateComplete();
+            } else {
+                updateWordCloudLocal(ret);
+            }
         }
     };
 
@@ -504,11 +500,16 @@ public class WordCloudActivity extends AppCompatActivity {
         pb.setVisibility(View.VISIBLE);
     }
 
-    private void fetchWordCloud() {
-        String csw_str = CyberScouterWords.getWordsRemote(this);
-        updateWordCloudLocal(csw_str);
+    private void hideProgress() {
         ProgressBar pb = findViewById(R.id.progressBar_wordCloud);
         pb.setVisibility(View.INVISIBLE);
+    }
+
+    private void fetchWordCloud() {
+        String csw_str = CyberScouterWordCloud.getWordCloudRemote(this);
+        if(null != csw_str) {
+            updateWordCloudLocal(csw_str);
+        }
     }
 
     @Override
@@ -561,6 +562,8 @@ public class WordCloudActivity extends AppCompatActivity {
                     tv = findViewById(Team3CntrViews[cswcs[i].getWordID()-1]);
                     setTextColor(tv, cswcs[i].getWordCount());
                 }
+
+                hideProgress();
 
             } catch (Exception e) {
                 MessageBox.showMessageBox(WordCloudActivity.getActivity(), "Fetch Match Information Failed", "updateMatchesLocal",
@@ -964,6 +967,14 @@ public class WordCloudActivity extends AppCompatActivity {
 
     private void submit() {
         updateWordCloudData();
-//        this.finish();
+        CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
+        String[] teams = {team1, team2, team3};
+        CyberScouterWordCloud[] cswca = CyberScouterWordCloud.getLocalWordCloud(_db, teams, currentMatch);
+        CyberScouterWordCloud.setWordCloudRemote(this, cfg, cswca);
+    }
+
+    private void updateComplete(){
+        hideProgress();
+        this.finish();
     }
 }

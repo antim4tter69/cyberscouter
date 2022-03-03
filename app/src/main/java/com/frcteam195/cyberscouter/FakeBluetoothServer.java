@@ -73,6 +73,9 @@ public class FakeBluetoothServer {
                 case "put-teams":
                     CyberScouterTeams.setTeamsWebService(activity, obj);
                     break;
+                case "put-word-cloud":
+                    CyberScouterWordCloud.setWordCloudWebService(activity, obj);
+                    break;
             }
         } catch(Exception e) {
             e.printStackTrace();

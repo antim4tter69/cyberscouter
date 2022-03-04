@@ -17,11 +17,13 @@ public class AutoPage extends AppCompatActivity {
     private Button button;
     private final int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
+    private final int defaultButtonRED = Color.RED;
+    private final int defaultButtonBLUE = Color.BLUE;
     private final int[] moveBonusButtons = {R.id.button_didNotMove, R.id.button_attempted, R.id.button_moveBonusYes};
     private int[] redPositionButtons;
     private int[] bluePositionButtons;
-    //private final int[] redPositionButtons = {R.id.Ball1, R.id.Ball3, R.id.Ball6};
- //   private final int[] bluePositionButtons = {R.id.Ball2, R.id.Ball4, R.id.Ball5,R.id.button7,R.id.Ball7};
+    private final int[] otherColorButtons = {R.id.Ball1, R.id.Ball3, R.id.Ball6};
+    private final int[] mainColorButtons = {R.id.Ball2, R.id.Ball4, R.id.Ball5,R.id.button7,R.id.Ball7};
     private int upperGoalCount = 0;
     private int lowerGoalCount = 0;
     private int missedGoalCount = 0;
@@ -46,6 +48,17 @@ public class AutoPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_page);
+        ImageView iv=findViewById(R.id.imageView5);
+        if(ScoutingPage.getFieldOrientation()==0){
+            moveButtons();
+        }
+        if (ScoutingPage.getIsRed()) {
+            redPositionButtons = mainColorButtons;
+            bluePositionButtons = otherColorButtons;
+        }else {
+            redPositionButtons = otherColorButtons;
+            bluePositionButtons = mainColorButtons;
+        }
 
         button = findViewById(R.id.button_startMatch);
         button.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +69,7 @@ public class AutoPage extends AppCompatActivity {
             }
         });
 
-        ImageView iv = findViewById(R.id.imageView5);
+        iv = findViewById(R.id.imageView5);
         if (!(ScoutingPage.getIsRed()) && ScoutingPage.getFieldOrientation() == 0 || (ScoutingPage.getIsRed() && ScoutingPage.getFieldOrientation() == 1)) {
             iv.setRotation(iv.getRotation() + 180);
         }
@@ -129,22 +142,6 @@ public class AutoPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 lowerGoalMinus();
-            }
-        });
-        button = findViewById(R.id.button_BallsMovedMinus);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                BallsMovedMinus();
-            }
-        });
-        button = findViewById(R.id.button_BallsPickedUpPlus);
-        button.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-             BallsMovedPlus();
             }
         });
 
@@ -284,6 +281,27 @@ public class AutoPage extends AppCompatActivity {
         updateAutoData();
         this.finish();
     }
+    public void moveButtons(){
+        button = findViewById(R.id.Ball1);
+        button.setX(-550);
+        button.setY(50);
+        button = findViewById(R.id.Ball2);
+        button.setX(-340);
+        button.setY(-50);
+        button = findViewById(R.id.Ball3);
+        button.setX(-125);
+        button.setY(-50);
+        button = findViewById(R.id.Ball4);
+        button.setX(-200);
+        button.setY(-250);
+        button = findViewById(R.id.Ball5);
+        button.setX(-350);
+        button.setY(-75);
+        button = findViewById(R.id.Ball7);
+        button.setX(300);
+        button.setY(-350);
+
+    }
 
 
 
@@ -376,17 +394,8 @@ public class AutoPage extends AppCompatActivity {
             MessageBox.showMessageBox(this, "Update Error",
                     "AutoPage.updateAutoData", "SQLite update failed!\n "+e.getMessage());
         }
-    } public void BallsMovedMinus() {
-        button = findViewById(R.id.PickedUpCounter);
-        if (PickedUpCount > 0)
-            PickedUpCount--;
-        button.setText(String.valueOf(PickedUpCount));
     }
-    public void BallsMovedPlus() {
-        button = findViewById(R.id.PickedUpCounter);
-        PickedUpCount++;
-        button.setText(String.valueOf(PickedUpCount));
-    }
+
     public void BallPickedUp(int BallPickedUp, int BTN){
         button = findViewById(BTN);
         if (BallsPickedUp[BallPickedUp]== 0) {
@@ -394,13 +403,30 @@ public class AutoPage extends AppCompatActivity {
             BallsPickedUp[BallPickedUp]=1;
         }
         else {
- //           if ()
-           button.setBackgroundColor(defaultButtonTextColor);
-           BallsPickedUp[BallPickedUp]=0;
+            if (isInRed(BTN)){
+                button.setBackgroundColor(Color.RED);
+                BallsPickedUp[BallPickedUp]=0;
+            }
+            else {
+                button.setBackgroundColor(Color.BLUE);
+                BallsPickedUp[BallPickedUp]=0;
+            }
+
 
         }
 
+
     }
+    private boolean isInRed(int BTN){
+        for(int i:redPositionButtons) {
+            if (BTN==i) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 
     }

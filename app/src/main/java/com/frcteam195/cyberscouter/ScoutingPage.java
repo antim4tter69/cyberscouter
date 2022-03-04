@@ -244,9 +244,14 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
 
     public void setUsername(String val, int idx) {
         try {
+            int userId = 0;
+            CyberScouterUsers csu = CyberScouterUsers.getLocalUser(_db, val);
+            if(csu != null) {
+                userId = csu.getUserID();
+            }
             ContentValues values = new ContentValues();
             values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERNAME, val);
-            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, idx);
+            values.put(CyberScouterContract.ConfigEntry.COLUMN_NAME_USERID, userId);
             int count = _db.update(
                     CyberScouterContract.ConfigEntry.TABLE_NAME,
                     values,

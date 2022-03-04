@@ -239,9 +239,11 @@ public class PreAutoPage extends AppCompatActivity {
                 FakeRadioGroup.buttonDisplay(this, preload, preloadButtons, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
                 button = findViewById(R.id.PreAutoContinueButton);
                 button.setEnabled(true);
+                compCheck[1] = true;
             } else {
                 button = findViewById(R.id.PreAutoContinueButton);
                 button.setEnabled(false);
+                compCheck[1] = false;
             }
         }
     }
@@ -275,6 +277,7 @@ public class PreAutoPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, val - 1, startPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         _startPos = val;
         compCheck[0] = true;
+        checkEnableContinue();
     }
 
     private void preloadYes()
@@ -282,6 +285,7 @@ public class PreAutoPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 0, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         compCheck[1] = true;
         preload = 0;
+        checkEnableContinue();
     }
 
     private void preloadNo()
@@ -289,6 +293,7 @@ public class PreAutoPage extends AppCompatActivity {
         FakeRadioGroup.buttonPressed(this, 1, preloadButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_AUTOSTARTPOS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
         preload = 1;
         compCheck[1] = true;
+        checkEnableContinue();
     }
 
     private void updateStatusIndicator(int color) {
@@ -308,6 +313,19 @@ public class PreAutoPage extends AppCompatActivity {
     private void previous(){
         updatePreAutoData();
         this.finish();
+    }
+
+    private void checkEnableContinue(){
+        boolean b = true;
+        for(int i=0; i<compCheck.length; ++i) {
+            b = b && compCheck[i];
+        }
+        button = findViewById(R.id.PreAutoContinueButton);
+        if(b) {
+            button.setEnabled(true);
+        } else {
+            button.setEnabled(false);
+        }
     }
 
 }

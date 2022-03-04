@@ -888,7 +888,7 @@ class CyberScouterMatchScouting {
     }
 
     int getClimbStatus() {
-        return rungClimbed;
+        return climbStatus;
     }
 
     int getClimbHeight() {

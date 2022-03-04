@@ -102,7 +102,6 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
         _db = mDbHelper.getWritableDatabase();
 
         fetcherThread = new Thread(new RemoteFetcher());
-        flipFieldOrientation();
 
         ImageView iv = findViewById(R.id.imageView2);
         iv.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +116,7 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     @Override
     protected void onResume() {
         super.onResume();
+        checkFieldOrientation();
 
         mFetchHandler = new Handler() {
             @Override
@@ -259,21 +259,21 @@ public class ScoutingPage extends AppCompatActivity implements NamePickerDialog.
     }
 
     private void flipFieldOrientation() {
-        ImageButton im1, im2;
-        im1 = findViewById(R.id.imageButton);
-        im2 = findViewById(R.id.imageButton2);
-
-        Drawable d1 = im1.getDrawable();
-        Drawable d2 = im2.getDrawable();
-
-        im1.setImageDrawable(d2);
-        im2.setImageDrawable(d1);
-
         ImageView iv = findViewById(R.id.imageView2);
 
         field_orientation = field_orientation == FIELD_ORIENTATION_LEFT ? FIELD_ORIENTATION_RIGHT : FIELD_ORIENTATION_LEFT;
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
         cfg.setFieldOrientation(_db, field_orientation);
+
+        if(FIELD_ORIENTATION_LEFT == field_orientation) {
+            iv.setRotation(0);
+        } else {
+            iv.setRotation(180);
+        }
+    }
+
+    private void checkFieldOrientation(){
+        ImageView iv = findViewById(R.id.imageView2);
 
         if(FIELD_ORIENTATION_LEFT == field_orientation) {
             iv.setRotation(0);

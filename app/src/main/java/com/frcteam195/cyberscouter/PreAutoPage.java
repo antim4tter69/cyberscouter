@@ -49,27 +49,27 @@ public class PreAutoPage extends AppCompatActivity {
     {
         //move button 6
         button = findViewById(R.id.startbutton6);
-        button.setX(-960); button.setY(-320);
+        button.setX(-750); button.setY(-240);
 
         //move button 5
         button = findViewById(R.id.startbutton5);
-        button.setX(-780); button.setY(-280); button.setRotation(-55);
+        button.setX(-600); button.setY(-220); button.setRotation(-55);
 
         //move button 4
         button = findViewById(R.id.startbutton4);
-        button.setX(-620);button.setY(-200); button.setRotation(-35);
+        button.setX(-480);button.setY(-150); button.setRotation(-35);
 
         //move button 3
         button = findViewById(R.id.startbutton3);
-        button.setX(-510); button.setY(25);
+        button.setX(-400); button.setY(28);
 
         //move button 2
         button = findViewById(R.id.startbutton2);
-        button.setX(-550); button.setY(220);
+        button.setX(-400); button.setY(200);
 
         //move button 1
         button = findViewById(R.id.startbutton1);
-        button.setX(-670); button.setY(400);
+        button.setX(-480); button.setY(350);
     }
 
 

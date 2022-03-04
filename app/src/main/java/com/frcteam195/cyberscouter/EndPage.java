@@ -170,10 +170,20 @@ public class EndPage extends AppCompatActivity {
 
 
             climbPosition = csm.getClimbPosition();
+            if(climbPosition != -1) {
+                FakeRadioGroup.buttonPressed(this, climbPosition, climbPositionButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBPOSITION, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            }
             rungClimbed = csm.getClimbHeight();
+            if(rungClimbed != -1) {
+                FakeRadioGroup.buttonPressed(this, 0,rungClimbedButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBHEIGHT, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            }
             climbStatus = csm.getClimbStatus();
+            if(climbStatus != -1) {
+                FakeRadioGroup.buttonPressed(this, climbStatus, climbStatusButtons, CyberScouterContract.MatchScouting.COLUMN_NAME_CLIMBSTATUS, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
+            }
 
-            button = findViewById(R.id.button_Next);
+            EnableNext();
+            EnableClimb();
         }
     }
 

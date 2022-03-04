@@ -270,11 +270,11 @@ public class SummaryQuestionsPage extends AppCompatActivity {
 
             if (null != csm) {
                 TextView tv = findViewById(R.id.textView_endMatch);
-                tv.setText(getString(R.string.tagMatch, csm.getTeamMatchNo()));
+                tv.setText(getString(R.string.tagMatch, csm.getMatchNo()));
                 tv = findViewById(R.id.textView_endTeamNumber);
                 tv.setText(getString(R.string.tagTeam, csm.getTeam()));
 
-                /*int val = csm.getSummGroundPickup();
+                int val = csm.getSummGroundPickup();
                 if(val != -1) {
                     FakeRadioGroup.buttonPressed(this, val, groundPickupArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
                     qAnswered[0] = 1;
@@ -333,7 +333,7 @@ public class SummaryQuestionsPage extends AppCompatActivity {
                     FakeRadioGroup.buttonPressed(this, val, shootFromArray, CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD, SELECTED_BUTTON_TEXT_COLOR, defaultButtonTextColor);
                     qAnswered[9] = 1;
                     shouldEnableNext();
-                }*/
+                }
             }
         }
 

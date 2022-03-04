@@ -283,10 +283,14 @@ public class AutoPage extends AppCompatActivity {
 
             for(int i=0; i<BallsPickedUp.length; ++i) {
                 if(BallsPickedUp[i] == 1) {
+                    // This is a hack to force the UI to update with the right color
                     BallsPickedUp[i] = 0;
+                    //  will get set right back to 1
                     BallPickedUp(i, allBallButtons[i]);
                 } else {
+                    // This is a hack to force the UI to update with the right color
                     BallsPickedUp[i] = 1;
+                    // will get set right back to 0
                     BallPickedUp(i, allBallButtons[i]);
                 }
             }

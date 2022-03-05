@@ -325,7 +325,7 @@ public class EndPage extends AppCompatActivity {
             button.setEnabled(false);
             button = findViewById(R.id.button_positionRight);
             button.setEnabled(false);
-            climbStatus = -1;
+            rungClimbed = -1;
             climbPosition = -1;
         }
     }

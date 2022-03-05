@@ -279,7 +279,10 @@ public class EndPage extends AppCompatActivity {
     }
 
     private void EnableNext() {
-        if (climbStatus == 4) {
+        if( climbStatus == -1) {
+            button = findViewById(R.id.button_Next);
+            button.setEnabled(false);
+        } else if (climbStatus == 4) {
             button = findViewById(R.id.button_Next);
             button.setEnabled(false);
             if (climbPosition != -1 && rungClimbed != -1) {

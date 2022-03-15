@@ -85,6 +85,8 @@ class CyberScouterMatchScouting {
     private int summHopperLoad;
     private int summPlayedDefense;
     private int summDefPlayedAgainst;
+    private int summShootFrom;
+    private int summRating;
 
     private boolean matchEnded;
     private int scoutingStatus;
@@ -183,6 +185,8 @@ class CyberScouterMatchScouting {
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, summTerminalPickup);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, summPlayedDefense);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, summDefPlayedAgainst);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMRATING, summRating);
+            payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTFROM, summShootFrom);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_COMPUTERID, computerID);
             payload.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SCOUTERID, cfg.getUser_id());
             jo.put("payload", payload);
@@ -333,6 +337,8 @@ class CyberScouterMatchScouting {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMRATING,
+                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTFROM,
                     CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS};
 
 
@@ -396,6 +402,8 @@ class CyberScouterMatchScouting {
                     csm.summTerminalPickup = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP));
                     csm.summPlayedDefense = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE));
                     csm.summDefPlayedAgainst = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST));
+                    csm.summRating = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMRATING));
+                    csm.summShootFrom = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTFROM));
                     csm.uploadStatus = cursor.getInt(cursor.getColumnIndex(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS));
 
                     csmv.add(csm);
@@ -462,8 +470,8 @@ class CyberScouterMatchScouting {
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE, -1));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMGROUNDPICKUP, -1));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP, -1));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE, -1));
-        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST, -1));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMRATING, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMRATING, -1));
+        values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTFROM, jo.optInt(CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTFROM, -1));
         values.put(CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS, UploadStatus.NOT_UPLOADED);
 
         long newRowId = db.insert(CyberScouterContract.MatchScouting.TABLE_NAME, null, values);
@@ -894,6 +902,11 @@ class CyberScouterMatchScouting {
     int getSummDefPlayedAgainst() {
         return summDefPlayedAgainst;
     }
+
+    int getSummShootFrom() {return summShootFrom;}
+
+    int getSummRating() {return summRating;}
+
 
     int getUploadStatus() {
         return uploadStatus;

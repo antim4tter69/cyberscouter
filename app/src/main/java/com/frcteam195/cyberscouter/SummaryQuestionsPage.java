@@ -6,11 +6,15 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView;
+import android.view.View;
+import android.widget.Toast;
+
 
 public class SummaryQuestionsPage extends AppCompatActivity {
     private Button button;
@@ -24,9 +28,17 @@ public class SummaryQuestionsPage extends AppCompatActivity {
     private final int[] subsystemBrokeArray = {R.id.SubsystemN, R.id.SubsystemY};
     private final int[] scoreOppArray = {R.id.ScoreOppN, R.id.ScoreOppY};
     private final int[] shootFromArray = {R.id.ShootFromN, R.id.ShootFromY};
+    /*private final String[] RatingOptions = {""}
+    private Spinner rating = (Spinner) findViewById(R.id.spinner_Rating);
+    private Spinner shootFrom = (Spinner) findViewById(R.id.spinner_ShootFrom);*/
+
     private int defaultButtonBackgroundColor = Color.LTGRAY;
     private int defaultButtonTextColor = Color.LTGRAY;
     private final int SELECTED_BUTTON_TEXT_COLOR = Color.GREEN;
+
+    /*private ArrayAdapter<String> pp = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, rating);
+    private ArrayAdapter<String> pd = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, shootFrom);*/
+
 
     private int[] qAnswered = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 
@@ -46,7 +58,10 @@ public class SummaryQuestionsPage extends AppCompatActivity {
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLOSTCOMM,
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSUBSYSTEMBROKE,
             CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSORTCARGO,
-            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD
+            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMLAUNCHPAD,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMRATING,
+            CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTFROM
+
 
 
     };

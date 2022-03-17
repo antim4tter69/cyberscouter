@@ -131,7 +131,7 @@
     <string name="AttemptedText">Attempted</string>
     <string name="WorkingAuto">Working Auto</string>
     <string name="AvgCargoScored">Average Cargo Scored</string>
-    <string name="StartPositionPit">Starting Position</string>
+    <string name="StartPositionPit">Preferred Starting Position</string>
     <string name="HumanPlayer">Human Player</string>
 
     <string name="tagTeam">Team %s</string>
@@ -201,9 +201,10 @@
     <string name="Motor">Motor Type</string>
     <string name="DriveMotors"># of Drive Motors</string>
     <string name="TopSpeed">Top Speed</string>
+    <string name="FeetPerSecond">ft/sec</string>
     <string name="Wheel">Wheel Type</string>
     <string name="NumberWheels"># of Wheels</string>
-    <string name="GearRatio">Gear Ratio</string>
+    <string name="GearRatio">Highest Gear Ratio</string>
     <string name="GearSpeeds">Gear Speeds</string>
     <string name="one">1</string>
     <string name="two">2</string>
@@ -238,7 +239,6 @@
     <string name="ifNoClimb">Strategy If You Don\'t Climb</string>
     <string name="seconds">sec</string>
 
-
     <string name="teleStage2">Stage 2</string>
     <string name="teleStage3">Stage 3</string>
     <string name="success">success</string>
@@ -257,7 +257,7 @@
     <string name="Fast">Fast</string>
     <string name="GoodDriver">Good Driver</string>
     <string name="Aggressive">Aggressive</string>
-    <string name="Block">Block Cargo</string>
+    <string name="Block">Accurate</string>
     <string name="Evasive">Evasive</string>
     <string name="Sturdy">Sturdy</string>
     <string name="Powerful">Powerful</string>

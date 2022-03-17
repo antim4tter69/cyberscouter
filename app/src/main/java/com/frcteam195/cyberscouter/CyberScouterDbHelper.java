@@ -82,8 +82,6 @@ public class CyberScouterDbHelper extends SQLiteOpenHelper {
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMTERMINALPICKUP + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMPLAYEDDEFENSE + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMDEFPLAYEDAGAINST + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMSHOOTFROM + " INTEGER," +
-                    CyberScouterContract.MatchScouting.COLUMN_NAME_SUMMRATING + " INTEGER," +
                     CyberScouterContract.MatchScouting.COLUMN_NAME_UPLOADSTATUS + " INTEGER)"
             ;
 

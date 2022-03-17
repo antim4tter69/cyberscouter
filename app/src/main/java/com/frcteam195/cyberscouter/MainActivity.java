@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -96,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mMatchesUpdater, new IntentFilter(CyberScouterMatchScouting.MATCH_SCOUTING_UPDATED_FILTER));
 
 
-
         button = findViewById(R.id.button_scouting);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,22 +119,26 @@ public class MainActivity extends AppCompatActivity {
         tv.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                return(resetDatabase());
+                return (resetDatabase());
             }
         });
 
-        final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
-        BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
+        String btname = Settings.Secure.getString(this.getContentResolver(), "bluetooth_name");
+        FakeBluetoothServer fbs = new FakeBluetoothServer(btname);
 
-        fetcherThread = new Thread(new ConfigFetcher());
+        if (!fbs.bUseFakeBluetoothServer) {
+            final BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+            BluetoothAdapter _bluetoothAdapter = bluetoothManager.getAdapter();
 
-        // Ensures Bluetooth is available on the device and it is enabled. If not,
-        // displays a dialog requesting user permission to enable Bluetooth.
-        if (_bluetoothAdapter == null || !_bluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            int REQUEST_ENABLE_BT = 1;
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            // Ensures Bluetooth is available on the device and it is enabled. If not,
+            // displays a dialog requesting user permission to enable Bluetooth.
+            if (_bluetoothAdapter == null || !_bluetoothAdapter.isEnabled()) {
+                Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                int REQUEST_ENABLE_BT = 1;
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            }
         }
+        fetcherThread = new Thread(new ConfigFetcher());
     }
 
     @Override
@@ -144,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         mConfigHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                switch(msg.what) {
+                switch (msg.what) {
                     case START_PROGRESS:
                         showProgress();
                         break;
@@ -155,10 +159,10 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        if(null == fetcherThread) {
+        if (null == fetcherThread) {
             fetcherThread = new Thread(new ConfigFetcher());
         }
-        if(!fetcherThread.isAlive()) {
+        if (!fetcherThread.isAlive()) {
             fetcherThread.start();
         }
     }
@@ -171,8 +175,11 @@ public class MainActivity extends AppCompatActivity {
             msg.what = START_PROGRESS;
             mConfigHandler.sendMessage(msg);
             int loops = 0;
-            while( BluetoothComm.bLastBTCommFailed() && loops < 5) {
-                try{ Thread.sleep(1000); } catch(Exception e) {}
+            while (BluetoothComm.bLastBTCommFailed() && loops < 5) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                }
                 loops++;
             }
             Message msg2 = new Message();
@@ -220,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
     private void processConfig(String config_json) {
         try {
             if (null != config_json) {
-                if(!config_json.equalsIgnoreCase("skip")) {
+                if (!config_json.equalsIgnoreCase("skip")) {
                     JSONObject jo = new JSONObject(config_json);
                     CyberScouterConfig.setConfigLocal(_db, jo);
                     CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
@@ -234,10 +241,10 @@ public class MainActivity extends AppCompatActivity {
         populateView();
     }
 
-    void populateView(){
+    void populateView() {
         button = findViewById(R.id.button_scouting);
         CyberScouterConfig cfg = CyberScouterConfig.getConfig(_db);
-        if(null != cfg) {
+        if (null != cfg) {
             TextView textView = findViewById(R.id.textView_eventString);
             textView.setText(cfg.getEvent() + "\n" + cfg.getEvent_location());
             textView = findViewById(R.id.textView_roleString);
@@ -297,12 +304,12 @@ public class MainActivity extends AppCompatActivity {
 
     void matchScoutingWebUpdated(Integer iret) {
         try {
-            if( iret != -99) {
+            if (iret != -99) {
                 CyberScouterMatchScouting.updateMatchUploadStatus(_db, iret, UploadStatus.UPLOADED);
                 System.out.println(String.format("CyberScouterMatchScouting id %d updated in AWS!!", iret));
                 popToast(String.format(Locale.getDefault(), "Match Scouting id %d was uploaded successfully.", iret));
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -342,10 +349,10 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog msb = messageBox.create();
         msb.show();
 
-        return(true);
+        return (true);
     }
 
-    public void doDatabaseReset(){
+    public void doDatabaseReset() {
         CyberScouterDbHelper mDbHelper = new CyberScouterDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 

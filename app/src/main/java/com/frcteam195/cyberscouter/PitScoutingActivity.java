@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.frcteam195.cyberscouter.ui.main.SectionsPagerAdapter;
 
@@ -51,17 +53,24 @@ public class PitScoutingActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String ret = intent.getStringExtra("cyberscouterteams");
-            updateTeams(ret);
+            if(ret.equalsIgnoreCase("fetch")) {
+                updateTeams(ret);
+            } else if (ret.equalsIgnoreCase("update")) {
+                Integer team = intent.getIntExtra("team", -99);
+                if(team != -99) {
+                    handleTeamRemoteUpdateReturn(team);
+                }
+            }
         }
     };
 
-    BroadcastReceiver mTeamsUpdater = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String ret = intent.getStringExtra("cyberscouterteams");
+//    BroadcastReceiver mTeamsUpdater = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String ret = intent.getStringExtra("cyberscouterteams");
 //            updateTeams(ret);
-        }
-    };
+//        }
+//    };
 
     //    BroadcastReceiver mUsersReceiver = new BroadcastReceiver() {
 //        @Override
@@ -78,7 +87,7 @@ public class PitScoutingActivity extends AppCompatActivity {
 
         registerReceiver(mOnlineStatusReceiver, new IntentFilter(BluetoothComm.ONLINE_STATUS_UPDATED_FILTER));
         registerReceiver(mTeamsReceiver, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
-        registerReceiver(mTeamsUpdater, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
+//        registerReceiver(mTeamsUpdater, new IntentFilter(CyberScouterTeams.TEAMS_UPDATED_FILTER));
 //        registerReceiver(mUsersReceiver, new IntentFilter(CyberScouterUsers.USERS_UPDATED_FILTER));
 
         SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
@@ -177,4 +186,31 @@ public class PitScoutingActivity extends AppCompatActivity {
         }
     }
 
+    private void handleTeamRemoteUpdateReturn(Integer team) {
+        try {
+            SQLiteDatabase _db = mDbHelper.getWritableDatabase();
+            String l_column = CyberScouterContract.Teams.COLUMN_NAME_UPLOAD_STATUS;
+            Integer l_value = UploadStatus.UPLOADED;
+            CyberScouterTeams.updateTeamMetric(_db, l_column, l_value, team);
+        } catch(Exception e) {
+            MessageBox.showMessageBox(this, "Update Team Upload Status Failed",
+                    "handleTeamRemoteUpdateReturn",
+                    String.format("Attempt to update team upload status locally failed!\n%s",
+                            e.getMessage()));
+            e.printStackTrace();
+        }
+
+        popToast(String.format("Remote Team %d record was updated!", team));
+    }
+
+    private void popToast(final String msg) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

@@ -31,6 +31,7 @@ public class AutoPage extends AppCompatActivity {
     private int moveBonus = -1;
     private int blueField = R.drawable.betterbluefield2022;
     private int redField = R.drawable.betterredfield2022;
+    private boolean fieldThing = ScoutingPage.getIsRed();
     private int[] BallsPickedUp = {0, 0, 0, 0, 0, 0, 0};
     private final int[] allBallButtons = {R.id.Ball1, R.id.Ball2, R.id.Ball3, R.id.Ball4,
         R.id.Ball5, R.id.Ball6, R.id.Ball7};
@@ -59,13 +60,14 @@ public class AutoPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auto_page);
         ImageView iv = findViewById(R.id.imageView5);
-        if (ScoutingPage.getFieldOrientation() == 0) {
-            moveButtons();
-        }
+
+
         if (ScoutingPage.getIsRed()) {
             redPositionButtons = mainColorButtons;
             bluePositionButtons = otherColorButtons;
+            iv.setImageResource(redField);
         } else {
+            iv.setImageResource(blueField);
             redPositionButtons = otherColorButtons;
             bluePositionButtons = mainColorButtons;
         }
@@ -82,6 +84,7 @@ public class AutoPage extends AppCompatActivity {
         iv = findViewById(R.id.imageView5);
         if (!(ScoutingPage.getIsRed()) && ScoutingPage.getFieldOrientation() == 0 || (ScoutingPage.getIsRed() && ScoutingPage.getFieldOrientation() == 1)) {
             iv.setRotation(iv.getRotation() + 180);
+            moveButtons();
         }
 //        button = findViewById(R.id.FlipFieldButton);
 //        button.setOnClickListener(new View.OnClickListener() {
@@ -329,10 +332,12 @@ public class AutoPage extends AppCompatActivity {
         button = findViewById(R.id.Ball5);
         button.setX(-350);
         button.setY(-75);
+        button = findViewById(R.id.Ball6);
+        button.setX(-600);
+        button.setY(30);
         button = findViewById(R.id.Ball7);
         button.setX(300);
         button.setY(-350);
-
     }
 
 
@@ -378,6 +383,7 @@ public class AutoPage extends AppCompatActivity {
         //   if(iv.image)
         iv.setImageResource(R.drawable.betterredfield2022);
     }
+
 
     public void upperGoalPlus() {
         button = findViewById(R.id.upperCounter);
